@@ -11,7 +11,7 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 
 1. Libft
 2. Get Next Line
-3. Printf
+3. ft_printf
 
 ## The Norm
 
