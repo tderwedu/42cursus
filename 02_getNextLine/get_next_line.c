@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:12:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/08 23:43:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:21:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	ft_copy_line(t_vec *buff, char *str)
+static void	ft_copy_line(t_vec *buff, char *str)
 {
 	size_t	carry;
 
@@ -27,7 +27,7 @@ void	ft_copy_line(t_vec *buff, char *str)
 	*(buff->end) = '\0';
 }
 
-int		ft_read_file(int fd, char **line, t_vec *buff)
+static int	ft_read_file(int fd, char **line, t_vec *buff)
 {
 	ssize_t	nbytes;
 	char	*eol;

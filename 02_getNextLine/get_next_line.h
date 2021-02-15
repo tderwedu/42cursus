@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/02 18:38:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/15 15:21:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,6 @@ typedef struct	s_vec
 	size_t	len;
 }				t_vec;
 
-void			ft_copy_line(t_vec *buff, char *str);
-int				ft_read_file(int fd, char **line, t_vec *buff);
 int				get_next_line(int fd, char **line);
 
 int				ft_free_vec(t_vec *vec);
