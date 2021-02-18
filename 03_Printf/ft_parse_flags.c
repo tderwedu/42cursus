@@ -1,35 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_parse_flags.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 09:03:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/18 18:11:39 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/18 11:50:14 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/02/18 15:40:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h>
 
-void	ft_test_va_args(int nb, ...)
+/*
+** Assumptions:
+** - only ascii chars
+** - format specifier OK
+*/
+
+t_ui	ft_parse_flags(char **str)
 {
-	int		n;
-	int		i;
-	va_list	ap;
+	register t_ui	i;
+	register t_ui	ret;
 
-
-	va_start(ap, nb);
 	i = -1;
-	n = nb / 2;
-	while (++i < n)
-		printf("i: %i - val: %hi \n", i, va_arg(ap, short));
-	va_end(ap);
-}
-
-
-int	main(void)
-{
-	ft_test_va_args(8, (int)1, (int)2, (int)3, (int)4, (int)5, (int)6,  (int)7, (int)8);
+	ret = 0;
+	while (*str[++i] && *str[i] | ALL_FLAGS)
+		ret |= 1U << (*str[i] - ' ');
+	*str = *str + i;
+	if (!*str)
+		return (-1);
+	return (ret);
 }
