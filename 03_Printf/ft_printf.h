@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/18 17:56:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/19 12:16:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,22 @@
 # define FL_ZERO	0x10000U
 # define ALL_FLAGS	0x12809U
 
+# define BOLD	"\033[1m"
+# define BLU	"\033[96m"
+# define YLW	"\033[33m"
+# define PUR	"\033[35m"
+# define GRN	"\033[32m"
+# define RED	"\033[31m"
+# define NC		"\033[0m"
+
+# define TYPES_ACC	"diuxXaAeEfFgGcs\0"
+
 /*
 ** ft_printf's specific functions
 */
 
 void	ft_printf(const char *str, ...);
-void	ft_format_error();
+void	ft_format_parser(char **format, va_list *ap);
+void	ft_error_format(char *start, char *end);
 
 #endif
