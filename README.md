@@ -9,9 +9,9 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 
 ## Projects
 
-1. Libft
-2. Get Next Line
-3. ft_printf
+1. [Libft](https://github.com/tderwedu/42cursus/tree/main/01_Libft)
+2. [Get Next Line](https://github.com/tderwedu/42cursus/tree/main/02_getNextLine)
+3. [ft_printf](https://github.com/tderwedu/42cursus/tree/main/03_Printf)
 
 ## The Norm
 
@@ -25,4 +25,4 @@ If you are interested in learning more about the norm, feel free to take a look 
 
 ## License
 
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+If not specified otherwise, everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
