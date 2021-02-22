@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/19 12:24:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/22 15:49:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@ static t_ui	ft_flags_parser(char **format)
 		flags |= tmp;
 		tmp = (*++ptr - ' ');
 	}
+	if (flags | FL_PLUS)
+		flags &= ~FL_BLANK;
+	if (flags | FL_LEFT)
+		flags &= ~FL_ZERO;
 	*format = ptr;
 	return (flags);
 }
@@ -52,12 +56,11 @@ static t_ui	ft_prec_parser(char **format, va_list *ap)
 	register t_ui	prec;
 	register char	*ptr;
 
-	prec = 6;
+	prec = 0;
 	ptr = *format;
 	if (*ptr == '.')
 	{
 		ptr++;
-		prec = 0;
 		if (FT_ISDIGIT(*ptr))
 			while (FT_ISDIGIT(*ptr))
 				prec = prec * 10 + *ptr++ - '0';
@@ -86,25 +89,23 @@ static int	ft_length_parser(char **format)
 	return (length);
 }
 
-void		ft_format_parser(char **format, va_list *ap)
+int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 {
-	char	*start;
-	t_ui	flags;
-	t_ui	width;
-	t_ui	prec;
-	int		length;
+	const char	*start;
+	t_format	fmt;
 
 	start = *format;
-	flags = ft_flags_parser(format);
-	width = ft_width_parser(format, ap);
-	prec = ft_prec_parser(format, ap);
-	length = ft_length_parser(format);
+	fmt.flags = ft_flags_parser(format);
+	fmt.width = ft_width_parser(format, ap);
+	fmt.prec = ft_prec_parser(format, ap);
+	fmt.length = ft_length_parser(format);
 	if (!**format || !(ft_strrchr(TYPES_ACC, **format)))
 	{
 		ft_error_format(--start, *format);
 		return ;
 	}
-	printf(" flags: %#x\n width: %u \n  prec: %u \nlength: %d\n  type: %c\n",\
-		flags, width, prec, length, **format);
+	ft_format_handler(format, ap, &fmt);
 }
 
+	// printf(" flags: %#x\n width: %u \n  prec: %u \nlength: %d\n  type: %c\n",\
+	// 	fmt->flags, fmt->width, fmt->prec, fmt->length, **format);

@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_growvec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 09:03:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 14:43:40 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/02/22 16:14:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../mini_libft.h"
 
-int	ft_printf(const char *str, ...)
+t_vec	*ft_growvec(t_vec *vec, size_t delta)
 {
-	int		ret;
-	va_list	ap;
+	char	*ptr;
+	size_t	size;
 
-	if (!str)
-		return (0);
-	va_start(ap, str);
-	ret = ft_vdprintf(0, &str, &ap);
-	va_end(ap);
-	return (ret);
+	size = (vec->max - vec->begin + delta) * 2;
+	if (!(ptr = malloc(size + 1)))
+	{
+		free(vec);
+		return (NULL);
+	}
+	vec->len = vec->end - vec->begin;
+	ft_memcpy(ptr, vec->begin, vec->len + 1);
+	free(vec->begin);
+	vec->begin = ptr;
+	vec->end = ptr + vec->len;
+	vec->max = vec->begin + size - delta;
+	return (vec);
 }

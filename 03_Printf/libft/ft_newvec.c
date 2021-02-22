@@ -1,26 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_newvec.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/18 09:03:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 14:43:40 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:41 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/02/22 16:14:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../mini_libft.h"
 
-int	ft_printf(const char *str, ...)
+t_vec	*ft_newvec(size_t size, size_t delta)
 {
-	int		ret;
-	va_list	ap;
+	t_vec	*new;
 
-	if (!str)
-		return (0);
-	va_start(ap, str);
-	ret = ft_vdprintf(0, &str, &ap);
-	va_end(ap);
-	return (ret);
+	if (!(new = malloc(sizeof(t_vec))))
+		return (NULL);
+	if (!(new->begin = malloc(size + 1)))
+	{
+		free(new);
+		return (NULL);
+	}
+	*(new->begin) = '\0';
+	new->max = new->begin + size - delta;
+	new->end = new->begin;
+	new->len = 0;
+	return (new);
 }
