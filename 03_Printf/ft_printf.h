@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 16:14:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 15:54:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@
 **	1U << ('type' - 'a')
 */
 
-# define TYPES_ACC	"diuxXaAeEfFgGcs\0"
-
+# define TYPES_ACC		"diuoxXaAeEfFgGcs\0"
 # define TYPE_INT		0x000108U
 # define TYPE_UINT		0x904000U
 # define TYPE_PTR		0x008000U
+# define TYPE_UNSIGNED	0x90C000U
 # define TYPE_DOUBLE	0x000071U
 # define TYPE_CHAR		0x000004U
 # define TYPE_STR		0x040000U
@@ -63,6 +63,7 @@ typedef struct	s_format
 	t_ui	flags;
 	t_ui	width;
 	t_ui	prec;
+	char	type;
 	int		length;
 	void	*ptr;
 }				t_format;
@@ -72,12 +73,14 @@ typedef struct	s_format
 */
 
 int		ft_printf(const char *str, ...);
-int		ft_vdprintf(int fd, const char **str, va_list *ap);
-int		ft_format_parser(const char **format, va_list *ap, t_vec *buff);
-void	ft_error_format(char *start, char *end);
-void	ft_format_handler(const char **format, va_list *ap, t_format *fmt);
+int		ft_vdprintf(t_ui fd, const char *str, va_list *ap);
+int		ft_format_parser(const char *format, va_list *ap, t_vec *buff);
+void	ft_error_format(const char *start, const char *end);
+void	ft_format_handler(t_format *fmt, va_list *ap, t_vec *buff);
 
 int		ft_fmt_u(uintmax_t val, char *buff);
 int		ft_fmt_o(uintmax_t val, char *buff);
 int		ft_fmt_x(uintmax_t val, char *buff, int lo);
 #endif
+
+// printf("OK | file: %s, line: %d\n", __FILE__, __LINE__);

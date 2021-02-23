@@ -6,13 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:35:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 16:14:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 14:54:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_libft.h"
+#include <stdio.h> //TODO: remove
 
-int		ft_free_vec(t_vec *vec)
+int		ft_freevec(t_vec *vec)
 {
 	free(vec->begin);
 	free(vec);

@@ -6,69 +6,75 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 11:05:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 14:36:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 16:21:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_fmt_u(uintmax_t val, char *buff, t_ui prec)
+int	ft_fmt_u(uintmax_t val, char *buff)
 {
-	size_t	            len;
-	register size_t		i;
+	t_ui	            len;
+	register t_ui		i;
 	register uintmax_t	nb;
 
 	i = 1;
 	nb = val;
 	while ((nb /= 10))
 		i++;
-	if (i < prec)
-		i += prec;
+	buff[i] = '\0';
 	len = i;
 	while (i--)
 	{
 		buff[i] = val % 10 + '0';
 		val /= 10;
 	}
+	return (len);
+}
+
+int	ft_fmt_o(uintmax_t val, char *buff)
+{
+	t_ui				len;
+	register t_ui		i;
+	register uintmax_t	mask;
+
+	i = 1;
+	mask = val;
+	while ((mask /= 8))
+		i++;
 	buff[i] = '\0';
-}
-
-void	ft_fmt_o(uintmax_t val, char *buff, t_ui prec)
-{
-	register int		i;
-	register uintmax_t	mask;
-
-	i = prec / sizeof(uintmax_t);
-	while (i)
-		*buff++ = '0';
+	len = i;
 	mask = 7;
-	while (mask)
-		{
-			*buff++  = '0' + val & mask;
-			mask <<= 3;
-		}
-	*buff = '\0';
+	while (i--)
+	{
+		buff[i]  = '0' +  (val & mask);
+		val >>= 3;
+	}
+	return (len);
 }
 
-void	ft_fmt_x(uintmax_t val, char *buff, t_ui prec, int lo)
+int	ft_fmt_x(uintmax_t val, char *buff, int lo)
 {
-	char				*a;
-	register int		n;
+	char				a;
+	char				v;
+	t_ui				len;
+	register t_ui		i;
 	register uintmax_t	mask;
 
-	n = prec / sizeof(uintmax_t);
-	while (n)
-		*buff++ = '0';
-	a = 'A' | (32 * lo);
+	i = 1;
+	mask = val;
+	while ((mask /= 16))
+		i++;
+	i = 16;
+	buff[i] = '\0';
+	len = i;
 	mask = 15;
-	while (mask)
-		{
-			n = val & mask;
-			if (n > 9)
-				*buff++ = a + n % 10;
-			else
-				*buff++ = '0' + n;
-			mask <<= 4;
-		}
-	*buff = '\0';
+	a = (char)('A' | lo);
+	while (i--)
+	{
+		v = val & mask;
+		buff[i] = (char)(((v < 10) ? '0' : a - 10) + v);
+		val >>= 4;
+	}
+	return (len);
 }

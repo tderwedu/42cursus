@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:03:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 14:43:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 14:41:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_printf(const char *str, ...)
 	if (!str)
 		return (0);
 	va_start(ap, str);
-	ret = ft_vdprintf(0, &str, &ap);
+	ret = ft_vdprintf(1, str, &ap);
 	va_end(ap);
 	return (ret);
 }

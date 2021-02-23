@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:03:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 16:14:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 19:28:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@
 
 int	main(void)
 {
-	ft_printf("Hello \"%% %% \n");
+	char c = 'f';
+	
+	ft_printf("val: '%0-  #25.18hhi' %% A \n", c);
 }
