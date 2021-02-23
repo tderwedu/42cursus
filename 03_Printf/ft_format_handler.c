@@ -6,12 +6,20 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 19:27:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 21:33:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h> //TODO: remove
+
+int		ft_check_buff_size(t_vec *buff, size_t len)
+{
+	while (len > (buff->max - buff->end))
+		if(!ft_growvec(buff, 0))
+			return (-1);
+	return (1);
+}
 
 void	ft_pad(t_format *fmt, t_ui nb, int after)
 {
@@ -60,7 +68,7 @@ void	ft_prefix_signed(t_format *fmt, intmax_t val)
 	t_vec	*buff;
 
 	buff = fmt->ptr;
-	if (val > 0 && (fmt->flags & (FL_PLUS | FL_BLANK)))
+	if (val >= 0 && (fmt->flags & (FL_PLUS | FL_BLANK)))
 	{
 		(buff->len)++;
 		(buff->end)--;
@@ -69,7 +77,7 @@ void	ft_prefix_signed(t_format *fmt, intmax_t val)
 		else if (fmt->flags & FL_BLANK)
 			*buff->end = ' ';
 	}
-	else
+	else if (val < 0)
 	{
 		(buff->len)++;
 		(buff->end)--;
@@ -134,6 +142,90 @@ void	ft_fmt_unsigned(t_format *fmt, va_list *ap, t_vec *buff)
 	buff->end += fmt_buff->len;
 }
 
+static inline void	ft_pad_str(t_vec *buff, size_t nb)
+{
+	register size_t	i;
+	register char	*ptr;
+
+	i = -1;
+	ptr = buff->end;
+	while (++i < nb)
+		ptr[i] = ' ';
+	buff->end += nb;
+	buff->len += nb;
+}
+
+int		ft_fmt_str(t_format *fmt, va_list *ap, t_vec *buff)
+{
+	size_t	len;
+	char	*str;
+
+	fmt->ptr = buff;
+	str = va_arg(*ap, char*);
+	len = ft_strlen(str);
+	len = (fmt->prec < len ? fmt->prec :len);
+	fmt->flags &= ~FL_ZERO;
+	if (ft_check_buff_size(buff, (len < fmt->width ? fmt->width : len)) < 0)
+		return (-1);
+	if (len < fmt->width && !(fmt->flags & FL_LEFT))
+	{
+		ft_pad_str(buff, fmt->width - len);
+		ft_memcpy(buff->end, str, len);
+		buff->end += len;
+	}
+	else
+	{
+		ft_memcpy(buff->end, str, len);
+		buff->end += len;
+		if (len < fmt->width && (fmt->flags & FL_LEFT))
+			ft_pad_str(buff, fmt->width - len);
+	}
+	return (1);
+}
+
+int		ft_fmt_chr(t_format *fmt, va_list *ap, t_vec *buff)
+{
+	char	chr;
+
+	fmt->ptr = buff;
+	chr = va_arg(*ap, int);
+	fmt->flags &= ~FL_ZERO;
+	if (ft_check_buff_size(buff, (fmt->width ? fmt->width : 1)) < 0)
+		return (-1);
+	if (fmt->width && !(fmt->flags & FL_LEFT))
+	{
+		ft_pad_str(buff, fmt->width - 1);
+		*(buff->end)++ = chr;
+	}
+	else
+	{
+		*(buff->end)++ = chr;
+		if (fmt->width && (fmt->flags & FL_LEFT))
+			ft_pad_str(buff, fmt->width - 1);
+	}
+	return (1);
+}
+
+int		ft_fmt_len(t_format *fmt, va_list *ap, t_vec *buff)
+{
+	ssize_t	len;
+	void		*ptr;
+
+	len = buff->end - buff->begin;
+	ptr = va_arg(*ap, void*);
+	if (fmt->length == -2)
+		*(char*)ptr = (char)len;
+	else if (fmt->length == -1)
+		*(short*)ptr = (short)len;
+	else if (fmt->length == 0)
+		*(int*)ptr = (int)len;
+	else if (fmt->length == 1)
+		*(long*)ptr = (long)len;
+	else if (fmt->length == 2)
+		*(long long *)ptr = (long long)len;
+	return (1);
+}
+
 void	ft_format_handler(t_format *fmt, va_list *ap, t_vec *buff)
 {
 	t_ui	type;
@@ -142,11 +234,11 @@ void	ft_format_handler(t_format *fmt, va_list *ap, t_vec *buff)
 
 	type =  1U << ((fmt->type | 32) - 'a');
 	if (type & TYPE_CHAR)
-		;
+		ft_fmt_chr(fmt, ap, buff);
 	else if (type & TYPE_STR)
-		;
+		ft_fmt_str(fmt, ap, buff);
 	else if (type & TYPE_N)
-		;
+		ft_fmt_len(fmt, ap, buff);
 	size = ((fmt->width + fmt->prec) / 8 + 1) * 16 + BUFFER_SIZE / 4;
 	fmt->ptr = ft_newvec(size, 0);
 	ptr = fmt->ptr;
@@ -159,4 +251,5 @@ void	ft_format_handler(t_format *fmt, va_list *ap, t_vec *buff)
 		;
 	else if (type & TYPE_DOUBLE)
 		;
+	ft_freevec(fmt->ptr);
 }

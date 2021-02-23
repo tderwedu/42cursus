@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:35:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 16:14:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 19:39:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ typedef struct	s_vec
 }				t_vec;
 
 char	*ft_strrchr(const char *s, int c);
+size_t  ft_strlen(const char *s);
 void	*ft_memcpy(void *dest, const void *src, size_t n);
 
 int		ft_freevec(t_vec *vec);

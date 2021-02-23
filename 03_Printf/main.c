@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:03:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 19:28:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 21:34:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,34 @@
 
 int	main(void)
 {
-	char c = 'f';
+	char		c = 'f';
+	char		nc;
+	short		ns;
+	int			ni;
+	long		nl;
+	long long	nll;
+
 	
-	ft_printf("val: '%0-  #25.18hhi' %% A \n", c);
+	ft_printf("chr: '%0-  #25.18i' %% A \n", 32);
+	ft_printf("\n");
+	ft_printf("str: '%0-  #25.10s'Bye!\n", "Hello World!\0");
+	ft_printf("str: '%0  #25.10s'\n", "Hello World!\0");
+	ft_printf("str: '%0  #25.15s'\n", "Hello World!\0");
+	ft_printf("str: '%0 - #25.15s'Bye!\n", "Hello World!\0");
+	ft_printf("\n");
+	ft_printf("chr: '%0-  #25.10c'Bye!\n", 't');
+	ft_printf("chr: '%0  #25.10c'\n", 't');
+	ft_printf("chr: '%0  #25.15c'\n", '\n');
+	ft_printf("chr: '%0 - #25.15c'Bye!\n", 'T');
+	ft_printf("\n");
+	ft_printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA sinple test without any trap!  %hhn\n", &nc);
+	ft_printf("		len: %hhi\n", nc);
+	ft_printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA sinple test without any trap!  %hn\n", &ns);
+	ft_printf("		len: %hi\n", ns);
+	ft_printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA sinple test without any trap!  %n\n", &ni);
+	ft_printf("		len: %i\n", ni);
+	ft_printf("A sinple test without any trap!  %ln\n", &nl);
+	ft_printf("		len: %li\n", nl);
+	ft_printf("A sinple test without any trap!  %lln\n", &nll);
+	ft_printf("		len: %lli\n", nll);
 }

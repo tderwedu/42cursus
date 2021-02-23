@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:31:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 14:54:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/23 19:52:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h> //TODO: remove
 
-static inline int ft_cpy2buff(size_t i, size_t l, const char *s, t_vec *buff)
+int ft_cpy2buff(size_t i, size_t l, const char *s, t_vec *buff)
 {
 	size_t len;
 
