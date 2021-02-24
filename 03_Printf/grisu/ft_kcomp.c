@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:36:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/17 11:41:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "grisu.h"
+#include "../grisu.h"
 
 int ft_kcomp(int e, int alpha, int gamma)
 {

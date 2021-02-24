@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 21:33:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/24 14:15:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,21 +209,91 @@ int		ft_fmt_chr(t_format *fmt, va_list *ap, t_vec *buff)
 int		ft_fmt_len(t_format *fmt, va_list *ap, t_vec *buff)
 {
 	ssize_t	len;
-	void		*ptr;
+	int		length;
+	void	*ptr;
 
 	len = buff->end - buff->begin;
+	length = fmt->length;
 	ptr = va_arg(*ap, void*);
-	if (fmt->length == -2)
+	if (length == -2)
 		*(char*)ptr = (char)len;
-	else if (fmt->length == -1)
+	else if (length == -1)
 		*(short*)ptr = (short)len;
-	else if (fmt->length == 0)
+	else if (length == 0)
 		*(int*)ptr = (int)len;
 	else if (fmt->length == 1)
 		*(long*)ptr = (long)len;
-	else if (fmt->length == 2)
+	else if (length == 2)
 		*(long long *)ptr = (long long)len;
 	return (1);
+}
+
+void	ft_prefix_double(t_format *fmt, uintmax_t val)
+{
+	char	*start;
+	t_vec	*buff;
+
+	buff = fmt->ptr;
+	start = buff->end;
+	if (val && (fmt->flags & FL_HASH))
+	{
+		if ((fmt->type | 32) == 'x')
+		{
+				start -= 2;
+				start[0] = '0';
+				start[1] = fmt->type;
+		}
+		if (fmt->type == 'o')
+		{
+				start -= 1;
+				start[0] = '0';
+		}
+		buff->len += buff->end - start;
+		buff->end = start;
+	}
+}
+
+void	ft_fmt_double_hex(t_format *fmt, double	d_val, t_vec *buff)
+{
+	int		len;
+	t_fp 	fp_val;
+	t_vec	*fmt_buff;
+
+	fmt_buff = fmt->ptr;
+	fp_val = ft_double2fp(d_val);
+	len = ft_fmt_x(fp_val.man, fmt_buff->end, (fmt->type & 32));
+	*--(fmt_buff->end) = fmt_buff->end[1];
+	if (len < fmt->prec)
+	{
+		fmt->flags |= FL_ZERO;
+		ft_pad(fmt, fmt->prec - fmt_buff->len, 0);
+		fmt->flags &= ~FL_ZERO;
+	}
+
+
+
+
+	
+}
+
+void	ft_double_handler(t_format *fmt, va_list *ap, t_vec *buff)
+{
+	char	type;
+	double	d_val;
+	
+	d_val = va_arg(*ap, double);
+	if (fmt->prec < 0)
+		fmt->prec = 6;
+	type = (fmt->type | 32);
+	if (type & 'a')
+	{
+		fmt->flags |= FL_HASH;
+	}
+	else
+	{
+		fmt->flags &= ~FL_HASH;
+	}
+
 }
 
 void	ft_format_handler(t_format *fmt, va_list *ap, t_vec *buff)

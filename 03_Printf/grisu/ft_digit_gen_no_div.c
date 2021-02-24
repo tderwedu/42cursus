@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:10:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/17 15:10:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/24 10:52:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "grisu.h"
+#include "../grisu.h"
 
-void	ft_digit_gen_no_div(t_fp fp, char* buff)
+void	ft_digit_gen_no_div(t_fp fp, char* buff, int prec)
 {
 	int			i;
 	t_fp		one;
@@ -36,7 +36,7 @@ void	ft_digit_gen_no_div(t_fp fp, char* buff)
 	  one.exp++; one.man >>= 1;
 	  frac &= one.man - 1;
 	}
-	while (i < 19)
+	while (i < prec)
 	{
 	  frac *= 10;
 	  buff[i++] = '0' + (frac >> -one.exp);

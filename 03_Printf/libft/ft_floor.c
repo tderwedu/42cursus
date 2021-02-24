@@ -1,18 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ceil.c                                          :+:      :+:    :+:   */
+/*   ft_floor.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/17 11:39:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "grisu.h"
+#include "../grisu.h"
+#include <stdio.h> // TODO: remove
 
-double ft_ceil(double x)
+double ft_floor(double x)
 {
 	t_fp		fp;
 	double		y;
@@ -27,7 +28,7 @@ double ft_ceil(double x)
 	msk = 1LU << (-fp.exp);
 	tmp = fp.man & (msk - 1LU);
 	fp.man = fp.man - tmp;
-	if ((!fp.sign) * tmp)
+	if (fp.sign * tmp)
 	{
 		fp.man += msk;
 		if (fp.man & 0x20000000000000)
@@ -38,4 +39,3 @@ double ft_ceil(double x)
 	}
 	return (ft_fp2d(fp));
 }
-
