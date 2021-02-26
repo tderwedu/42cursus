@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:52:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:25:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -499,7 +499,7 @@ static const int	g_powers_ten_e[] = {\
 	1059, 1063, 1066,\
 	1069, 1073, 1076};
 
-t_fp ft_cachedpower(int k)
+t_fp	ft_cachedpower(int k)
 {
 	int		index;
 	t_fp	res;
@@ -508,5 +508,5 @@ t_fp ft_cachedpower(int k)
 	res.man = g_powers_ten[index];
 	res.exp = g_powers_ten_e[index];
 	res.sign = 0;
-	return res;
+	return (res);
 }

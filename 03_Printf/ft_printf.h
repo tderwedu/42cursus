@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:07:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:16:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,76 +68,94 @@ typedef struct	s_format
 	int		length;
 }				t_format;
 
-/* #################
+/*
+** #################
 ** #   ft_Printf   #
 ** #################
 */
 
-int			ft_printf(const char *str, ...);
-int			ft_vdprintf(t_ui fd, const char *str, va_list *ap);
-int			ft_tmp2buff(t_vec *buff, t_vec *tmp);
-int			ft_format_parser(const char *format, va_list *ap, t_vec *buff);
+int				ft_printf(const char *str, ...);
+int				ft_vdprintf(t_ui fd, const char *str, va_list *ap);
+int				ft_tmp2buff(t_vec *buff, t_vec *tmp);
+int				ft_format_parser(const char *format, va_list *ap, t_vec *buff);
 
-/* ft_format_handler.c */
+/*
+** ft_format_handler.c
+*/
 
-int			ft_fmt_n(va_list *ap,  t_vec *buff, t_format *fmt);
-int			ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt);
+int				ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt);
+int				ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt);
 
-/* ft_format_error.c */
+/*
+** ft_format_error.c
+*/
 
-void		ft_error_format(const char *start, const char *end);
+void			ft_error_format(const char *start, const char *end);
 
-/* #################
+/*
+** #################
 ** #   Str & Chr   #
 ** #################
 */
 
-/* ft_format_str.c */
+/*
+** ft_format_str.c
+*/
 
-int			ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt);
+int				ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt);
 
-/* ###############
+/*
+** ###############
 ** #   Integer   #
 ** ###############
 */
 
-/* ft_format_int.c */
+/*
+** ft_format_int.c
+*/
 
-void		ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp);
-void		ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val);
-void		ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val);
+void			ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp);
+void			ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val);
+void			ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val);
 
-/* format_fmt.c */
+/*
+** format_fmt.c
+*/
 
-int			ft_fmt_u(uintmax_t val, char *buff);
-int			ft_fmt_o(uintmax_t val, char *buff);
-int			ft_fmt_x(uintmax_t val, char *buff, int lo);
+int				ft_fmt_u(uintmax_t val, char *buff);
+int				ft_fmt_o(uintmax_t val, char *buff);
+int				ft_fmt_x(uintmax_t val, char *buff, int lo);
 
-/* ##############
+/*
+** ##############
 ** #   Double   #
 ** ##############
 */
 
-/* ft_format_double_1.c */
+/*
+** ft_format_double_1.c
+*/
 
-int			ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp);
+int				ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp);
 
-/* ft_format_double_1.c */
+/*
+** ft_format_double_1.c
+*/
 
-void		ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp);
-void		ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp);
-void		ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
-void		ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
-void		ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
+void			ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp);
+void			ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp);
+void			ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
+void			ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
+void			ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
 
-/* ft_format_double_2.c */
+/*
+** ft_format_double_2.c
+*/
 
-void		ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec);
-void		ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp);
-void		ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp);
-void		ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
-void		ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp);
+void			ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec);
+void			ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp);
+void			ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp);
+void			ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
+void			ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp);
 
 #endif
-
-// printf("OK | file: %s, line: %d\n", __FILE__, __LINE__);

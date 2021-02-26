@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:02:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:34:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec)
 	if (nb > 0)
 	{
 		if (prec || fmt->flags & FL_LEFT)
-			chr =  ' ' + prec * 16;
+			chr = ' ' + prec * 16;
 		else
 		{
 			chr = (fmt->flags & FL_ZERO) ? '0' : ' ';
@@ -28,7 +28,7 @@ void	ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec)
 		}
 		while (nb--)
 			*ptr++ = chr;
-		tmp->ptr -=  0 + prec * nb;
+		tmp->ptr -= 0 + prec * nb;
 		tmp->len += nb;
 	}
 }
@@ -62,7 +62,7 @@ void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
 
 	ptr = tmp->ptr + tmp->len;
 	upper = (fmt->type & 32);
-	fp->exp *= (-2 * fp->sign + 1) ;
+	fp->exp *= (-2 * fp->sign + 1);
 	if ((fmt->type | 32) == 'a')
 	{
 		*ptr++ = ('P' | upper);
@@ -78,7 +78,7 @@ void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
 	}
 }
 
-void	ft_fmt_radix_f(t_format *fmt, t_vec  *tmp, t_fp *fp, int exp)
+void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	register int	i;
 	register char	*ptr;
@@ -102,7 +102,7 @@ void	ft_fmt_radix_f(t_format *fmt, t_vec  *tmp, t_fp *fp, int exp)
 		ptr[i++] = '0';
 		ptr[i] = '.';
 		while (++i < 0)
-			ptr[i] = '0';;
+			ptr[i] = '0';
 	}
 }
 
@@ -125,4 +125,3 @@ void	ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp)
 	while (suffix--)
 		ptr[++i] = ptr[--len];
 }
-

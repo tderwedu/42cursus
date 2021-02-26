@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ft_format_grisu.c                                  :+:      :+:    :+:   */
+/*   ft_format_grisu.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 09:41:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 10:31:55 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/02/26 18:35:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static void	ft_str_roundup(t_vec *tmp)
 
 int			ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 {
-	int 	mk;
+	int		mk;
 	t_fp	d_fp;
 	t_fp	c_mk;
 
 	fp = ft_normalize_fp(fp, 1);
-	mk =  ft_kcomp(fp.exp + FP_Q, ALPHA, GAMMA);
+	mk = ft_kcomp(fp.exp + FP_Q, ALPHA, GAMMA);
 	c_mk = ft_cachedpower(mk);
 	d_fp = ft_multiply_fp(fp, c_mk);
 	tmp->len = 1 + fmt->prec;

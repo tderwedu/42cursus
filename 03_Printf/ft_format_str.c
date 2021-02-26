@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:09:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:41:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ static inline void	ft_fmt_str(t_format *fmt, t_vec *tmp)
 		ptr = tmp->ptr - (fmt->width - tmp->len);
 		if (fmt->flags & FL_LEFT)
 		{
-			end += tmp->len ;
-			ptr += tmp->len ;
+			end += tmp->len;
+			ptr += tmp->len;
 		}
 		else
 			tmp->ptr = ptr;
@@ -34,7 +34,7 @@ static inline void	ft_fmt_str(t_format *fmt, t_vec *tmp)
 	}
 }
 
-int			ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt)
+int					ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt)
 {
 	char	chr;
 	char	*str;
@@ -51,7 +51,7 @@ int			ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt)
 		chr = va_arg(*ap, int);
 		len = 1;
 	}
-	if (!(tmp = ft_newvec(( 2 * (len < fmt->width ? fmt->width : len)), 0)))
+	if (!(tmp = ft_newvec((2 * (len < fmt->width ? fmt->width : len)), 0)))
 		return (-1);
 	if (fmt->type == 's')
 		ft_memcpy(tmp->ptr, str, len);

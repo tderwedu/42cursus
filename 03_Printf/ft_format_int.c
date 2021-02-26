@@ -6,24 +6,24 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 17:25:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:38:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 
-void	ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
+void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 {
-	t_ui	type;
+	t_ui		type;
 	intmax_t	s_val;
 	uintmax_t	u_val;
 
 	if (fmt->prec < 0 && fmt->flags & FL_ZERO)
-			fmt->prec = fmt->width;
-	type =  1U << ((fmt->type | 32) - 'a');
+		fmt->prec = fmt->width;
+	type = 1U << ((fmt->type | 32) - 'a');
 	if (type & TYPE_SIGNED)
 	{
-		if ( fmt->length < 1)
+		if (fmt->length < 1)
 			s_val = va_arg(*ap, int);
 		else
 			s_val = va_arg(*ap, intmax_t);
@@ -31,7 +31,7 @@ void	ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	}
 	else
 	{
-		if  (type & TYPE_PTR)
+		if (type & TYPE_PTR)
 		{
 			fmt->type = ('X' | (fmt->type | 32));
 			fmt->flags |= FL_HASH;
@@ -41,7 +41,7 @@ void	ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	}
 }
 
-static inline int ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
+static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 {
 	int len;
 	int type;
@@ -56,7 +56,7 @@ static inline int ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 	return (len);
 }
 
-static inline int ft_fmt_width(t_format *fmt, t_vec *tmp)
+static inline int	ft_fmt_width(t_format *fmt, t_vec *tmp)
 {
 	register char	*end;
 	register char	*ptr;
@@ -75,10 +75,10 @@ static inline int ft_fmt_width(t_format *fmt, t_vec *tmp)
 		while (ptr < end)
 			*ptr++ = ' ';
 		tmp->len = fmt->width;
-	}	
+	}
 }
 
-void	ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val)
+void				ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val)
 {
 	register char	*end;
 	register char	*ptr;
@@ -99,7 +99,7 @@ void	ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val)
 	ft_fmt_width(fmt, tmp);
 }
 
-void	ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
+void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 {
 	register char	*end;
 	register char	*ptr;
@@ -113,11 +113,11 @@ void	ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 	{
 		if ((fmt->type | 32) & 'x')
 		{
-				*--ptr = '0';
-				*--ptr = fmt->type;
+			*--ptr = '0';
+			*--ptr = fmt->type;
 		}
 		else if ((fmt->type | 32) & 'o')
-				*--ptr = '0';
+			*--ptr = '0';
 	}
 	tmp->len += end - ptr;
 	tmp->ptr = ptr;

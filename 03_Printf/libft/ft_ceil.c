@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 11:22:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:20:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../mini_libft.h"
 
-double ft_ceil(double x)
+double	ft_ceil(double x)
 {
 	t_fp		fp;
 	double		y;
@@ -38,4 +38,3 @@ double ft_ceil(double x)
 	}
 	return (ft_fp2double(fp));
 }
-

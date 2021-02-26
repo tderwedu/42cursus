@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 11:05:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 16:21:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:40:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_fmt_u(uintmax_t val, char *buff)
 {
-	t_ui	            len;
+	t_ui				len;
 	register t_ui		i;
 	register uintmax_t	nb;
 
@@ -47,7 +47,7 @@ int	ft_fmt_o(uintmax_t val, char *buff)
 	mask = 7;
 	while (i--)
 	{
-		buff[i]  = '0' +  (val & mask);
+		buff[i] = '0' + (val & mask);
 		val >>= 3;
 	}
 	return (len);

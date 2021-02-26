@@ -6,14 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:01:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:41:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //TODO: remove
 
-int		ft_fmt_n(va_list *ap,  t_vec *buff, t_format *fmt)
+int		ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt)
 {
 	ssize_t	len;
 	int		length;
@@ -41,15 +40,15 @@ int		ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 	t_vec	*tmp;
 	size_t	size;
 
-	type =  1U << ((fmt->type | 32) - 'a');
+	type = 1U << ((fmt->type | 32) - 'a');
 	if (type & TYPE_N)
 		return (ft_fmt_n(ap, buff, fmt));
 	else if (type & TYPE_STRCHR)
-		return(ft_str_handler(ap, buff, fmt));
+		return (ft_str_handler(ap, buff, fmt));
 	size = ((fmt->width > fmt->prec) ? fmt->width : fmt->prec);
 	size = ((size > 24) ? size : 24) * 2;
-	if (!(tmp = ft_newvec(size, 0)));
-		return(-1);
+	if (!(tmp = ft_newvec(size, 0)))
+		return (-1);
 	if (type & TYPE_INT)
 		ft_int_handler(ap, fmt, tmp);
 	else

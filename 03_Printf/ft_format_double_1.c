@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:00:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:32:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	int		exp;
 	t_fp	fp;
 	char	type;
-	
+
 	fp = ft_double2fp(va_arg(*ap, double));
 	type = (fmt->type | 32);
 	if (type & 'a')
@@ -35,7 +35,6 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 			ft_fmt_double_g(fmt, tmp, &fp, exp);
 	}
 }
-
 
 void	ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp)
 {

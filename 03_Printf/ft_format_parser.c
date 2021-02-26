@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:07:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:39:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //TODO: remove
 
 static t_ui	ft_flags_parser(const char **format)
 {
@@ -42,8 +41,8 @@ static t_ui	ft_width_parser(const char **format, va_list *ap)
 
 	width = 0;
 	ptr = *format;
-	if (FT_ISDIGIT(*ptr))
-		while (*ptr && FT_ISDIGIT(*ptr))
+	if (((t_ui)(*ptr - '0') < 10U))
+		while (*ptr && ((t_ui)(*ptr - '0') < 10U))
 			width = width * 10 + *ptr++ - '0';
 	else if (*ptr == '*')
 	{
@@ -64,11 +63,11 @@ static t_ui	ft_prec_parser(const char **format, va_list *ap)
 	if (*ptr == '.')
 	{
 		ptr++;
-		if (FT_ISDIGIT(*ptr))
-			while (FT_ISDIGIT(*ptr))
+		if (((t_ui)(*ptr - '0') < 10U))
+			while (((t_ui)(*ptr - '0') < 10U))
 				prec = prec * 10 + *ptr++ - '0';
 		else if (*ptr == '-')
-			while (FT_ISDIGIT(*++ptr))
+			while (((t_ui)(*++ptr - '0') < 10U))
 				prec = -1;
 		else if (*ptr++ == '*')
 			prec = va_arg(*ap, int);
@@ -107,12 +106,9 @@ int			ft_format_parser(const char *format, va_list *ap, t_vec *buff)
 	if (!*format || !(ft_strrchr(TYPES_ACC, *format)))
 	{
 		ft_error_format(--start, format);
-		return -1;
+		return (-1);
 	}
 	fmt.type = *format;
 	ft_format_handler(ap, buff, &fmt);
 	return (format - start);
 }
-
-	// printf(" flags: %#x\n width: %u \n  prec: %u \nlength: %d\n  type: %c\n",\
-	// 	fmt->flags, fmt->width, fmt->prec, fmt->length, **format);
