@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:10:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 10:52:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:49:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	ft_digit_gen_no_div(t_fp fp, char* buff, int prec)
 	  frac = frac + tmp;
 	  d += frac >> (-one.exp - 1);
 	  buff[i++] = '0' + d;
-	  one.exp++; one.man >>= 1;
+	  one.exp++;
+	  one.man >>= 1;
 	  frac &= one.man - 1;
 	}
 	while (i < prec)

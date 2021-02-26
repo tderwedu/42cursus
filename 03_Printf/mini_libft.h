@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:35:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 19:39:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:06:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
+# include "grisu.h"
 
 # define FT_ISDIGIT(c)	((t_ui)(c - '0') < 10U)
 # define BUFFER_SIZE	512
@@ -28,14 +29,34 @@ typedef unsigned long long	t_ull;
 typedef struct	s_vec
 {
 	char	*begin;
-	char	*end;
+	char	*ptr;
 	char	*max;
 	size_t	len;
 }				t_vec;
 
+/*
+**	MATH
+*/
+
+double		ft_ceil(double x);
+double		ft_floor(double x);
+
+/*
+**	Memory
+*/
+
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/*
+**	String
+*/
+
 char	*ft_strrchr(const char *s, int c);
 size_t  ft_strlen(const char *s);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+
+/*
+**	Vector
+*/
 
 int		ft_freevec(t_vec *vec);
 t_vec	*ft_newvec(size_t size, size_t delta);

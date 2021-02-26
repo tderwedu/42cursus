@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 12:00:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 18:07:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,23 +100,17 @@ int			ft_format_parser(const char *format, va_list *ap, t_vec *buff)
 	t_format	fmt;
 
 	start = format;
-	// printf("		FT_FORMAT_PARSER\n");
 	fmt.flags = ft_flags_parser(&format);
-	// printf(" Flags:'%#x'\n", fmt.flags);
 	fmt.width = ft_width_parser(&format, ap);
-	// printf(" width:'%u'\n", fmt.width);
 	fmt.prec = ft_prec_parser(&format, ap);
-	// printf("  Prec:'%u'\n", fmt.prec);
 	fmt.length = ft_length_parser(&format);
-	// printf("Lenght:'%i'\n\n", fmt.length);
 	if (!*format || !(ft_strrchr(TYPES_ACC, *format)))
 	{
 		ft_error_format(--start, format);
 		return -1;
 	}
 	fmt.type = *format;
-	ft_format_handler(&fmt, ap, buff);
-	// printf("ret:'%li'\n", format - start);
+	ft_format_handler(ap, buff, &fmt);
 	return (format - start);
 }
 

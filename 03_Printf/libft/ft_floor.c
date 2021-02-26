@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 11:22:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../grisu.h"
-#include <stdio.h> // TODO: remove
+#include "../mini_libft.h"
 
 double ft_floor(double x)
 {
@@ -37,5 +36,5 @@ double ft_floor(double x)
 			fp.exp++;
 		}
 	}
-	return (ft_fp2d(fp));
+	return (ft_fp2double(fp));
 }

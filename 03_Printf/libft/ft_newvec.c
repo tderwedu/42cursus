@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:36:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/22 16:14:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:06:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_vec	*ft_newvec(size_t size, size_t delta)
 	}
 	*(new->begin) = '\0';
 	new->max = new->begin + size - delta;
-	new->end = new->begin;
+	new->ptr = new->begin;
 	new->len = 0;
 	return (new);
 }

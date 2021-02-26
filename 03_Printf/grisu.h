@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:47:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 10:52:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 11:23:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,13 +41,6 @@ typedef struct	s_fp
 	uint64_t	man;
 }				t_fp;
 
-typedef struct	s_str_fp
-{
-	int			sign;
-	int			exp;
-	char		*man;
-}				t_str_fp;
-
 /*
 **	t_fp struct
 */
@@ -63,7 +56,6 @@ t_fp		ft_normalize_fp(t_fp fp, int hb);
 **	Grisu
 */
 
-void		ft_grisu1(double v, t_str_fp *buff, char type, int prec);
 t_fp		ft_cachedpower(int k);
 int			ft_kcomp(int e, int alpha, int gamma);
 void		ft_digit_gen_no_div(t_fp fp, char* buff, int prec);

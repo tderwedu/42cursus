@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:55:16 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 11:25:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_fp		ft_double2fp(double d)
 	uint64_t	mant;
 	uint64_t	dtoi64;
 
-	dtoi64 = ft_d2i_64(d);
+	dtoi64 = ft_double2int_64(d);
 	exp_b = (dtoi64 & EXPO_MASK) >> MANT_SIZE;
 	sign = (dtoi64 & SIGN_MASK) >> (EXPO_SIZE + MANT_SIZE);
 	mant = (dtoi64 & MANT_MASK);

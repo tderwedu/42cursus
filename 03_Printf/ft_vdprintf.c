@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:31:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/23 19:52:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/26 17:06:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int ft_cpy2buff(size_t i, size_t l, const char *s, t_vec *buff)
 	size_t len;
 
 	len = i - l;
-	while (len > (buff->max - buff->end))
+	while (len > (buff->max - buff->ptr))
 		if(!ft_growvec(buff, 0))
 			return (-1);
-	ft_memcpy(buff->end, s + l, len);
-	buff->end += len;
+	ft_memcpy(buff->ptr, s + l, len);
+	buff->ptr += len;
 	return (len);
 }
 
@@ -61,7 +61,7 @@ int	ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 	// printf("fd: %u| >>%s<< | len: %lu \n", fd, buff->begin, delta);
 	if ((delta = ft_cpy2buff(i, last, str, buff)) < 0)
 		return (ft_freevec(buff));
-	delta = buff->end - buff->begin;
+	delta = buff->ptr - buff->begin;
 	// printf("fd: %u| >>%s<< | len: %lu \n", fd, buff->begin, delta);
 	write(fd, buff->begin, delta);
 	ft_freevec(buff);
