@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:35:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:20:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 12:42:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ typedef struct				s_vec
 	char	*begin;
 	char	*ptr;
 	char	*max;
-	size_t	len;
+	ssize_t	len;
 }							t_vec;
 
 /*

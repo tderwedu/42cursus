@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 11:05:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:40:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:11:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	ft_fmt_x(uintmax_t val, char *buff, int lo)
 	mask = val;
 	while ((mask /= 16))
 		i++;
-	i = 16;
 	buff[i] = '\0';
 	len = i;
 	mask = 15;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:38:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 16:45:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	uintmax_t	u_val;
 
 	if (fmt->prec < 0 && fmt->flags & FL_ZERO)
-		fmt->prec = fmt->width;
+		fmt->prec = fmt->width - 1;
 	type = 1U << ((fmt->type | 32) - 'a');
 	if (type & TYPE_SIGNED)
 	{
@@ -41,39 +41,29 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	}
 }
 
-static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
-{
-	int len;
-	int type;
-
-	type = (fmt->type | 32);
-	if (type == 'u')
-		len = ft_fmt_u(u_val, tmp->ptr);
-	else if (type == 'o')
-		len = ft_fmt_o(u_val, tmp->ptr);
-	else if (type == 'x')
-		len = ft_fmt_x(u_val, tmp->ptr, (fmt->type & 32));
-	return (len);
-}
-
 static inline int	ft_fmt_width(t_format *fmt, t_vec *tmp)
 {
+	register char	chr;
 	register char	*end;
 	register char	*ptr;
 
 	if (fmt->width > tmp->len)
 	{
-		end = tmp->ptr;
-		ptr = tmp->ptr - (fmt->width - tmp->len);
 		if (fmt->flags & FL_LEFT)
 		{
-			end += tmp->len;
-			ptr += tmp->len;
+			end = tmp->ptr + tmp->len + (fmt->width - tmp->len);
+			ptr = tmp->ptr + tmp->len;
+			chr = ' ';
 		}
 		else
+		{
+			end = tmp->ptr;
+			ptr = tmp->ptr - (fmt->width - tmp->len);
+			chr = ((fmt->flags & FL_ZERO) ? '0' : ' ');
 			tmp->ptr = ptr;
+		}
 		while (ptr < end)
-			*ptr++ = ' ';
+			*ptr++ = chr;
 		tmp->len = fmt->width;
 	}
 }
@@ -94,9 +84,24 @@ void				ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val)
 		*--ptr = ' ';
 	else if (i_val < 0)
 		*--ptr = '-';
-	tmp->len += end - ptr;
+	tmp->len += tmp->ptr - ptr;
 	tmp->ptr = ptr;
 	ft_fmt_width(fmt, tmp);
+}
+
+static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
+{
+	int len;
+	int type;
+
+	type = (fmt->type | 32);
+	if (type == 'u')
+		len = ft_fmt_u(u_val, tmp->ptr);
+	else if (type == 'o')
+		len = ft_fmt_o(u_val, tmp->ptr);
+	else if (type == 'x')
+		len = ft_fmt_x(u_val, tmp->ptr, (fmt->type & 32));
+	return (len);
 }
 
 void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
@@ -111,15 +116,15 @@ void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 		*--ptr = '0';
 	if (u_val && (fmt->flags & FL_HASH))
 	{
-		if ((fmt->type | 32) & 'x')
+		if ((fmt->type | 32) == 'x')
 		{
-			*--ptr = '0';
 			*--ptr = fmt->type;
+			*--ptr = '0';
 		}
-		else if ((fmt->type | 32) & 'o')
+		else if ((fmt->type | 32) == 'o' && *ptr != '0')
 			*--ptr = '0';
 	}
-	tmp->len += end - ptr;
+	tmp->len += tmp->ptr - ptr;
 	tmp->ptr = ptr;
 	ft_fmt_width(fmt, tmp);
 }

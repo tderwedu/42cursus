@@ -6,11 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:39:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 17:46:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include <stdio.h> //TODO: remove
 
 static t_ui	ft_flags_parser(const char **format)
 {
@@ -63,16 +64,18 @@ static t_ui	ft_prec_parser(const char **format, va_list *ap)
 	if (*ptr == '.')
 	{
 		ptr++;
+		prec = 0;
 		if (((t_ui)(*ptr - '0') < 10U))
 			while (((t_ui)(*ptr - '0') < 10U))
 				prec = prec * 10 + *ptr++ - '0';
 		else if (*ptr == '-')
 			while (((t_ui)(*++ptr - '0') < 10U))
 				prec = -1;
-		else if (*ptr++ == '*')
+		else if (*ptr == '*')
+		{
 			prec = va_arg(*ap, int);
-		else
-			prec = 0;
+			ptr++;
+		}
 		*format = ptr;
 	}
 	return (prec);
@@ -93,22 +96,31 @@ static int	ft_length_parser(const char **format)
 	return (length);
 }
 
-int			ft_format_parser(const char *format, va_list *ap, t_vec *buff)
+int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 {
 	const char	*start;
 	t_format	fmt;
 
-	start = format;
-	fmt.flags = ft_flags_parser(&format);
-	fmt.width = ft_width_parser(&format, ap);
-	fmt.prec = ft_prec_parser(&format, ap);
-	fmt.length = ft_length_parser(&format);
-	if (!*format || !(ft_strrchr(TYPES_ACC, *format)))
+	printf( "### FORMAT PARSER ###\n");
+	start = *format;
+	fmt.flags = ft_flags_parser(format);
+	fmt.width = ft_width_parser(format, ap);
+	fmt.prec = ft_prec_parser(format, ap);
+	fmt.length = ft_length_parser(format);
+	if (!**format || !(ft_strrchr(TYPES_ACC, **format)))
 	{
-		ft_error_format(--start, format);
+		ft_error_format(--start, *format);
 		return (-1);
 	}
-	fmt.type = *format;
-	ft_format_handler(ap, buff, &fmt);
-	return (format - start);
+	fmt.type = **format;
+	if (fmt.prec >= 0)
+		fmt.flags &= ~FL_ZERO;
+	printf( " ======= FORMAT =======\n");
+	printf( "#  Flags: %-#12x #\n", fmt.flags);
+	printf( "#  Width: %-12u #\n", fmt.width);
+	printf( "#   Prec: %-12d #\n", fmt.prec);
+	printf( "# Length: %-12d #\n", fmt.length);
+	printf( "#   Type: %-12c #\n", fmt.type);
+	printf( " ======================\n");
+	return (ft_format_handler(ap, buff, &fmt));
 }

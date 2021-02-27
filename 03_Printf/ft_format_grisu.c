@@ -6,12 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:35:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 17:48:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include "grisu.h"
+#include <stdio.h> //TODO: remove
 
 static void	ft_str_roundup(t_vec *tmp)
 {
@@ -22,10 +23,10 @@ static void	ft_str_roundup(t_vec *tmp)
 	ptr = tmp->ptr;
 	if (ptr[i] - '0' > 4)
 	{
+		ptr[i] = '\0';
 		while (ptr[--i] == '9')
-			ptr[i] == '0';
+			ptr[i] = '0';
 		ptr[i]++;
-		tmp->len--;
 	}
 }
 
@@ -35,14 +36,21 @@ int			ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 	t_fp	d_fp;
 	t_fp	c_mk;
 
+	printf( "### GRISU ###\n");
 	fp = ft_normalize_fp(fp, 1);
 	mk = ft_kcomp(fp.exp + FP_Q, ALPHA, GAMMA);
 	c_mk = ft_cachedpower(mk);
 	d_fp = ft_multiply_fp(fp, c_mk);
-	tmp->len = 1 + fmt->prec;
+	tmp->len = 2 + fmt->prec;
+	printf( "  len: %ld\n", tmp->len);
+	printf( "   mk: %d\n", -mk);
 	if ((fmt->type | 32) == 'f')
-		tmp->len += -mk - 1;
+		tmp->len += -mk;
 	ft_digit_gen_no_div(d_fp, tmp->ptr, tmp->len + 1);
+	printf( " prec: %d\n", fmt->prec);
+	printf( "  len: %ld\n", tmp->len);
+	printf( "  tmp: |%s|\n", tmp->ptr);
 	ft_str_roundup(tmp);
+	printf( "   mk: %d\n", -mk);
 	return (-mk);
 }

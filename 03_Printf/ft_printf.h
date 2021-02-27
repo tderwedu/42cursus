@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:16:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/27 12:57:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef struct	s_format
 {
 	t_ui	flags;
 	t_ui	width;
-	t_ui	prec;
+	int		prec;
 	char	type;
 	int		length;
 }				t_format;
@@ -77,7 +77,7 @@ typedef struct	s_format
 int				ft_printf(const char *str, ...);
 int				ft_vdprintf(t_ui fd, const char *str, va_list *ap);
 int				ft_tmp2buff(t_vec *buff, t_vec *tmp);
-int				ft_format_parser(const char *format, va_list *ap, t_vec *buff);
+int				ft_format_parser(const char **format, va_list *ap, t_vec *buff);
 
 /*
 ** ft_format_handler.c
