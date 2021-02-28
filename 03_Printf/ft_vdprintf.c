@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:31:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 17:46:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:57:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static inline int	ft_checkinit(const char **str, va_list *ap, t_vec *buff)
 {
 	if (**str == '%')
 	{
-		printf( "===> Check Init\n");
+		// printf( "===> Check Init\n");
 		if (*str[1] == '%')
 		{
 			*buff->ptr = '%';
@@ -49,8 +49,8 @@ int					ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 	size_t		len;
 	const char	*last;
 
-	printf( "	 ### PRINTF ###\n");
-	printf( "str: >>>%s<<<\n", str);
+	// printf( "\n\n	 ### PRINTF ###\n");
+	// printf( "str: >>>%s<<<\n", str);
 	last = str;
 	if (!(buff = ft_newvec(BUFFER_SIZE, 0)))
 		return (-1);
@@ -60,7 +60,7 @@ int					ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 		if (*str == '%')
 		{
 			len = str - last + ((str[1] == '%') || (str[-1] == '\\'));
-			printf( "==> len: %ld\n", len);
+			// printf( "==> len: %ld\n", len);
 			if (ft_cpy2buff(buff, last, len) < 0)
 				return (-ft_freevec(buff));
 			if ((str[-1] != '\\' && *++str != '%') || *(++str - 3) == '\\')

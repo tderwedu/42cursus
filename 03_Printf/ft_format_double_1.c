@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 17:46:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:57:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	t_fp	fp;
 	char	type;
 
-	printf( "### DOUBLE HANDLER ###\n");
+	// printf( "### DOUBLE HANDLER ###\n");
 	fp = ft_double2fp(va_arg(*ap, double));
 	type = (fmt->type | 32);
 	if (type == 'a')
@@ -29,9 +29,10 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 		if (fmt->prec < 0)
 			fmt->prec = 6;
 		exp = ft_format_grisu(fmt, tmp, fp);
-		printf( " tmp: |%s|\n", tmp->ptr);
-		printf( " len: |%ld|\n", tmp->len);
-		printf( " exp: %d\n", exp);
+		// printf( " tmp: |%s|\n", tmp->ptr);
+		// printf( " len: %ld\n", tmp->len);
+		// printf( " prec: %d\n", fmt->prec);
+		// printf( " exp: %d\n", exp);
 		if (type == 'e')
 			ft_fmt_double_e(fmt, tmp, &fp, exp);
 		else if (type == 'f')
@@ -93,12 +94,11 @@ void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	int				prefix;
 	register int	i;
 
-	printf( "### FMT FFF ###\n");
-	printf( "    tmp: |%s|\n", tmp->ptr);
+	// printf( "### FMT FFF ###\n");
+	// printf( "    tmp: |%s|\n", tmp->ptr);
 	ft_fmt_radix_f(fmt, tmp, fp, exp);
-	printf( "  radix: |%s|\n", tmp->ptr);
-	ft_suffix_double(fmt, tmp, fp);
-	printf( " suffix: |%s|\n", tmp->ptr);
+	// printf( "  radix: |%s|\n", tmp->ptr);
+	// printf( " len: %ld\n", tmp->len);
 	if ((fmt->flags & FL_LEFT) || !(fmt->flags & FL_ZERO))
 	{
 		ft_prefix_double(fmt, tmp, fp);
@@ -110,7 +110,8 @@ void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 		ft_pad_double(fmt, tmp, fmt->width - (tmp->len + prefix), 0);
 		ft_prefix_double(fmt, tmp, fp);
 	}
-	printf( " prefix: |%s|\n", tmp->ptr);
+	// printf( " prefix: |%s|\n", tmp->ptr);
+	// printf( " len: %ld\n", tmp->len);
 }
 
 void	ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 17:46:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 11:57:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 	const char	*start;
 	t_format	fmt;
 
-	printf( "### FORMAT PARSER ###\n");
+	// printf( "### FORMAT PARSER ###\n");
 	start = *format;
 	fmt.flags = ft_flags_parser(format);
 	fmt.width = ft_width_parser(format, ap);
@@ -115,12 +115,12 @@ int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 	fmt.type = **format;
 	if (fmt.prec >= 0)
 		fmt.flags &= ~FL_ZERO;
-	printf( " ======= FORMAT =======\n");
-	printf( "#  Flags: %-#12x #\n", fmt.flags);
-	printf( "#  Width: %-12u #\n", fmt.width);
-	printf( "#   Prec: %-12d #\n", fmt.prec);
-	printf( "# Length: %-12d #\n", fmt.length);
-	printf( "#   Type: %-12c #\n", fmt.type);
-	printf( " ======================\n");
+	// printf( " ======= FORMAT =======\n");
+	// printf( "#  Flags: %-#12x #\n", fmt.flags);
+	// printf( "#  Width: %-12u #\n", fmt.width);
+	// printf( "#   Prec: %-12d #\n", fmt.prec);
+	// printf( "# Length: %-12d #\n", fmt.length);
+	// printf( "#   Type: %-12c #\n", fmt.type);
+	// printf( " ======================\n");
 	return (ft_format_handler(ap, buff, &fmt));
 }

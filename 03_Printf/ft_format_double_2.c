@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 17:46:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 12:10:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,20 +18,30 @@ void	ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec)
 	register char	chr;
 	register char	*ptr;
 
+	// printf( "	### PAD DOUBLE ###\n");
+	// printf( "	  tmp: |%s|\n", tmp->ptr);
+	// printf( "	  len: %ld\n", tmp->len);
+	// printf( "	   nb: %d\n", nb);
 	if (nb > 0)
 	{
+		ptr = tmp->ptr - nb;
+		tmp->len += nb;
 		if (prec || fmt->flags & FL_LEFT)
+		{
 			chr = ' ' + prec * 16;
+			ptr += tmp->len;
+
+		}
 		else
 		{
 			chr = (fmt->flags & FL_ZERO) ? '0' : ' ';
-			ptr = tmp->ptr - nb;
+			tmp->ptr -= nb;
 		}
 		while (nb--)
 			*ptr++ = chr;
-		tmp->ptr -= 0 + prec * nb;
-		tmp->len += nb;
 	}
+	// printf( "	  tmp: |%s|\n", tmp->ptr);
+	// printf( "	  len: %ld\n", tmp->len);
 }
 
 void	ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
@@ -52,7 +62,7 @@ void	ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
 		*--ptr = ' ';
 	else if (fmt->flags & FL_PLUS)
 		*--ptr = '+';
-	tmp->len += ptr - tmp->ptr;
+	tmp->len += tmp->ptr - ptr;
 	tmp->ptr = ptr;
 }
 
@@ -84,9 +94,9 @@ void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	register int	i;
 	register char	*ptr;
 
-	printf( "### RADIX FFF ###\n");
-	printf( "  len: %ld\n", tmp->len);
-	printf( "  tmp: |%s|\n", tmp->ptr);
+	// printf( "### RADIX FFF ###\n");
+	// printf( "  len: %ld\n", tmp->len);
+	// printf( "  tmp: |%s|\n", tmp->ptr);
 	ptr = (tmp->ptr)--;
 	if (fmt->prec)
 		tmp->len++;
@@ -106,10 +116,9 @@ void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 		ptr[++i] = '.';
 		while (++i < 0)
 			ptr[i] = '0';
-		printf( "  ptr: |%s|\n", ptr + exp);
 	}
-	printf( "  len: %ld\n", tmp->len);
-	printf( "  tmp: |%s|\n", tmp->ptr);
+	// printf( "  len: %ld\n", tmp->len);
+	// printf( "  tmp: |%s|\n", tmp->ptr);
 }
 
 void	ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp)
