@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:47:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/28 10:10:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 14:00:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@
 # define MANT_MASK	0X000FFFFFFFFFFFFF
 # define HIDDEN_BIT	0X0010000000000000
 # define D1_LOG2_10	0.30102999566398114
-# define EXPO_BIAS	0x433
+# define EXPO_BIAS	0X433
 # define EXPO_SIZE	11
 # define MANT_SIZE	52
-# define INF_NAN	0X7FF
+# define INF_NAN	0X3CC
 # define FP_Q		64
 # define ALPHA		-63
 # define GAMMA		-60

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 12:57:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 14:20:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int				ft_format_parser(const char **format, va_list *ap, t_vec *buff);
 ** ft_format_handler.c
 */
 
-int				ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt);
 int				ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt);
+void			ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp);
+int				ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt);
 
 /*
 ** ft_format_error.c
@@ -142,7 +143,7 @@ int				ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp);
 ** ft_format_double_1.c
 */
 
-void			ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp);
+void			ft_specialvalues(t_format *fmt, t_vec *tmp, t_fp *fp);
 void			ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp);
 void			ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
 void			ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);

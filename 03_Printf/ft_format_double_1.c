@@ -6,40 +6,28 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/28 11:57:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/02/28 14:48:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
 #include <stdio.h> //TODO: remove
 
-void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
+void	ft_specialvalues(t_format *fmt, t_vec *tmp, t_fp *fp)
 {
-	int		exp;
-	t_fp	fp;
-	char	type;
+	int	prefix;
+	char *ptr;
+	char *str;
 
-	// printf( "### DOUBLE HANDLER ###\n");
-	fp = ft_double2fp(va_arg(*ap, double));
-	type = (fmt->type | 32);
-	if (type == 'a')
-		ft_fmt_double_a(fmt, tmp, &fp);
-	else
-	{
-		if (fmt->prec < 0)
-			fmt->prec = 6;
-		exp = ft_format_grisu(fmt, tmp, fp);
-		// printf( " tmp: |%s|\n", tmp->ptr);
-		// printf( " len: %ld\n", tmp->len);
-		// printf( " prec: %d\n", fmt->prec);
-		// printf( " exp: %d\n", exp);
-		if (type == 'e')
-			ft_fmt_double_e(fmt, tmp, &fp, exp);
-		else if (type == 'f')
-			ft_fmt_double_f(fmt, tmp, &fp, exp);
-		else
-			ft_fmt_double_g(fmt, tmp, &fp, exp);
-	}
+	ptr = tmp->ptr;
+	str = ((fp->man & ~HIDDEN_BIT) ? "NAN": "INF");
+	prefix = ((fmt->type & 32) ? 32 : 0);
+	tmp->len = 3;
+	while (*str)
+		*ptr++ = ((*str++) | prefix);
+	fmt->flags &= ~FL_ZERO;
+	ft_prefix_double(fmt, tmp, fp);
+	ft_pad_double(fmt, tmp, fmt->width - tmp->len, 0);
 }
 
 void	ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp)
