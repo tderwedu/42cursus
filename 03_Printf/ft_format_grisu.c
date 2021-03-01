@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/28 14:43:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/01 18:33:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static void	ft_str_roundup(t_vec *tmp)
 	register int	i;
 	register char	*ptr;
 
-	// printf( "	### STR ROUND UP ###\n");
-	// printf( "	  tmp: |%s|\n", tmp->ptr);
-	// printf( "	  len: %ld\n", tmp->len);
+	//printf( "	### STR ROUND UP ###\n");
+	//printf( "	  tmp: |%s|\n", tmp->ptr);
+	//printf( "	  len: %ld\n", tmp->len);
 	i = tmp->len;
 	ptr = tmp->ptr;
 	if (ptr[i] - '0' > 4)
@@ -31,7 +31,7 @@ static void	ft_str_roundup(t_vec *tmp)
 			ptr[i] = '0';
 		ptr[i]++;
 	}
-	// printf( "	  tmp: |%s|\n", tmp->ptr);
+	//printf( "	  tmp: |%s|\n", tmp->ptr);
 }
 
 static int	ft_checkspecialvalue(t_format *fmt, t_vec *tmp, t_fp fp)
@@ -45,7 +45,7 @@ int			ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 	t_fp	d_fp;
 	t_fp	c_mk;
 
-	// printf( "### GRISU ###\n");
+	//printf( "### GRISU ###\n");
 	if (fp.exp == -1074 && fp.man == 0)
 	{
 		mk = -2;
@@ -61,11 +61,11 @@ int			ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 	tmp->len = 1 + fmt->prec;
 	if (((fmt->type | 32) == 'f') && mk < 0)
 		tmp->len += -mk;
-	// printf( " prec: %d\n", fmt->prec);
-	// printf( "  len: %ld\n", tmp->len);
-	// printf( "   mk: %d\n", mk);
+	//printf( " prec: %d\n", fmt->prec);
+	//printf( "  len: %ld\n", tmp->len);
+	//printf( "   mk: %d\n", mk);
 	ft_digit_gen_no_div(d_fp, tmp->ptr, tmp->len + 1);
-	// printf( "  tmp: |%s|\n", tmp->ptr);
+	//printf( "  tmp: |%s|\n", tmp->ptr);
 	ft_str_roundup(tmp);
 	return (-mk);
 }

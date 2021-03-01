@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 09:45:55 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:22:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/01 14:56:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_fp	ft_normalize_fp(t_fp fp, int hb)
 	while (!(ret.man & (HIDDEN_BIT << (hb - 1))))
 	{
 		ret.man <<= 1;
-		ret.man--;
+		ret.exp--;
 	}
 	ret.man <<= (FP_Q - MANT_SIZE - hb);
 	ret.exp -= (FP_Q - MANT_SIZE - hb);
