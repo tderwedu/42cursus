@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 18:38:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:07:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,31 +71,28 @@ void	ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
 	tmp->ptr = ptr;
 }
 
-void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp)
+void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	int				upper;
 	register char	*ptr;
 
-	// printf( "	### SUFFIX DOUBLE ###\n");
 	ptr = tmp->ptr + tmp->len;
 	upper = (fmt->type & 32);
 	if ((fmt->type | 32) == 'a')
 	{
-		// printf( "	exp: %d\n", fp->exp);
 		*ptr++ = ('P' | upper);
 		fp->exp = (fp->exp == -1074 ? 0 : fp->exp + 52);
 		*ptr++ = '+' + (fp->exp < 0) * 2;
 		fp->exp = ((fp->exp < 0) ? -fp->exp : fp->exp);
-		// printf( "	exp: %d\n", fp->exp);
 		tmp->len += 2 + ft_fmt_u(fp->exp, ptr);
 	}
-	else if (fp->sign)
+	else
 	{
-		fp->exp *= (-2 * fp->sign + 1);
 		*ptr++ = ('E' | upper);
-		*ptr++ = '+' + (fp->exp > 0) * 2;
+		*ptr++ = '+' + (exp < 0) * 2;
+		exp = ((exp < 0) ? -exp : exp);
 		*ptr = '0';
-		tmp->len += 4 + (ft_fmt_u(fp->exp, ptr + (fp->exp < 9)) > 2);
+		tmp->len += 4 + (ft_fmt_u(exp, ptr + (exp < 9)) > 2);
 	}
 }
 

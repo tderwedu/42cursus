@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 18:38:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/01 19:05:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,22 +51,14 @@ void	ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp)
 	int		prefix;
 
 	tmp->len = ft_fmt_x(fp->man, tmp->ptr, (fmt->type & 32));
-	// printf( " tmp: |%s|\n", tmp->ptr);
-	// printf( " len: %ld\n", tmp->len);
 	ft_rmtrailingzeros(fmt, tmp, -2);
-	// printf( " tmp: |%s|\n", tmp->ptr);
-	// printf( " len: %ld\n", tmp->len);
 	ft_pad_double(fmt, tmp, 1 + fmt->prec - tmp->len, 1);
-	// printf( " tmp: |%s|\n", tmp->ptr);
-	// printf( " len: %ld\n", tmp->len);
 	ft_adapt2prec(fmt, tmp, fp);
-	// printf( " tmp: |%s|\n", tmp->ptr);
-	// printf( " len: %ld\n", tmp->len);
 	*--(tmp->ptr) = tmp->ptr[0];
 	tmp->ptr[1] = '.';
 	if ((fmt->prec && tmp->len > 1) || fmt->flags & FL_HASH)
 		tmp->len += 1;
-	ft_suffix_double(fmt, tmp, fp);
+	ft_suffix_double(fmt, tmp, fp, 0);
 	if ((fmt->flags & FL_LEFT) || !(fmt->flags & FL_ZERO))
 	{
 		ft_prefix_double(fmt, tmp, fp);
@@ -84,12 +76,12 @@ void	ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	int		prefix;
 
-	tmp->len += fmt->prec;
-	*--(tmp->ptr) = tmp->ptr[1];
+	tmp->len = 1 + fmt->prec;
+	*--(tmp->ptr) = tmp->ptr[0];
 	tmp->ptr[1] = '.';
 	if (fmt->prec || fmt->flags & FL_HASH)
 		tmp->len += 1;
-	ft_suffix_double(fmt, tmp, fp);
+	ft_suffix_double(fmt, tmp, fp, exp);
 	if ((fmt->flags & FL_LEFT) || !(fmt->flags & FL_ZERO))
 	{
 		ft_prefix_double(fmt, tmp, fp);
