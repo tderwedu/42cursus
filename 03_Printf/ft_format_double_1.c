@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 19:05:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/02 15:10:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //TODO: remove
 
 void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 {
@@ -19,10 +18,7 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	t_fp	fp;
 	char	type;
 
-	//printf( "### DOUBLE HANDLER ###\n");
 	fp = ft_double2fp(va_arg(*ap, double));
-	// printf( " fp.exp: %d\n", fp.exp);
-	//printf( " fp.man: %lx\n", fp.man);
 	type = (fmt->type | 32);
 	if (fp.exp == INF_NAN)
 		ft_specialvalues(fmt, tmp, &fp);
@@ -33,10 +29,6 @@ void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 		if (fmt->prec < 0)
 			fmt->prec = 6;
 		exp = ft_format_grisu(fmt, tmp, fp);
-		//printf( " tmp: |%s|\n", tmp->ptr);
-		//printf( " len: %ld\n", tmp->len);
-		//printf( " prec: %d\n", fmt->prec);
-		//printf( " exp: %d\n", exp);
 		if (type == 'e')
 			ft_fmt_double_e(fmt, tmp, &fp, exp);
 		else if (type == 'f')
@@ -66,7 +58,7 @@ void	ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp)
 	}
 	else
 	{
-		prefix = fp->sign + !fp->sign * (fmt->flags & (FL_BLANK | FL_PLUS));
+		prefix = fp->sign + !fp->sign * ((fmt->flags & FL_PREFIX) > 0);
 		ft_pad_double(fmt, tmp, fmt->width - (tmp->len + prefix + 2), 0);
 		ft_prefix_double(fmt, tmp, fp);
 	}
@@ -89,7 +81,7 @@ void	ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	}
 	else
 	{
-		prefix = fp->sign + !fp->sign * (fmt->flags & (FL_BLANK | FL_PLUS));
+		prefix = fp->sign + !fp->sign * ((fmt->flags & FL_PREFIX) > 0);
 		ft_pad_double(fmt, tmp, fmt->width - (tmp->len + prefix), 0);
 		ft_prefix_double(fmt, tmp, fp);
 	}
@@ -100,11 +92,7 @@ void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	int				prefix;
 	register int	i;
 
-	//printf( "### FMT FFF ###\n");
-	//printf( "    tmp: |%s|\n", tmp->ptr);
 	ft_fmt_radix_f(fmt, tmp, fp, exp);
-	//printf( "  radix: |%s|\n", tmp->ptr);
-	//printf( " len: %ld\n", tmp->len);
 	if ((fmt->flags & FL_LEFT) || !(fmt->flags & FL_ZERO))
 	{
 		ft_prefix_double(fmt, tmp, fp);
@@ -112,32 +100,33 @@ void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	}
 	else
 	{
-		prefix = fp->sign + !fp->sign * (fmt->flags & (FL_BLANK | FL_PLUS));
+		prefix = fp->sign + !fp->sign * ((fmt->flags & FL_PREFIX) > 0);
 		ft_pad_double(fmt, tmp, fmt->width - (tmp->len + prefix), 0);
 		ft_prefix_double(fmt, tmp, fp);
 	}
-	//printf( " prefix: |%s|\n", tmp->ptr);
-	//printf( " len: %ld\n", tmp->len);
 }
 
 void	ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
-	register int	i;
-	register char	*ptr;
-
-	if (!fmt->prec)
-		fmt->prec = 1;
+	if (!(fmt->flags & FL_HASH))
+		ft_rmtrailingzeros(fmt, tmp, exp);
+	fmt->prec = ((!fmt->prec) ? 1 : fmt->prec);
 	if (exp < -4 || exp >= fmt->prec)
 	{
-		fmt->type = 'e' | (32 & fmt->type);
+		fmt->prec = (fmt->prec > (tmp->len - 1) ? (tmp->len - 1) : fmt->prec);
 		ft_fmt_double_e(fmt, tmp, fp, exp);
 	}
 	else
 	{
-		fmt->type = 'f' | (32 & fmt->type);
-		fmt->flags &= ~FL_ZERO;
+		if (tmp->len <= (1 + exp))
+		{
+			fmt->prec = 0;
+			tmp->len = 1 + exp;
+		}
+		else if (exp > 0)
+			fmt->prec = tmp->len < fmt->prec ? tmp->len - 1 - exp : fmt->prec;
+		else
+			fmt->prec = tmp->len - exp - 1;
 		ft_fmt_double_f(fmt, tmp, fp, exp);
 	}
-	if (!(fmt->flags & FL_HASH))
-		ft_rmtrailingzeros(fmt, tmp, exp);
 }

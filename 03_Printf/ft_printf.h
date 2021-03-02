@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 19:06:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/02 12:09:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define FL_PLUS	0x00800U
 # define FL_LEFT	0x02000U
 # define FL_ZERO	0x10000U
+# define FL_PREFIX	0x00801U
 # define ALL_FLAGS	0x12809U
 
 /*
