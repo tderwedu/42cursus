@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 12:09:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/02 18:56:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 **	1U << ('type' - 'a')
 */
 
-# define TYPES_ACC		"ncsdiuoxXaAeEfFgG"
+# define TYPES_ACC		"ncsdiuoxXpaAeEfFgG"
 
 # define TYPE_INT		0x90C108U
 # define TYPE_SIGNED	0x000108U

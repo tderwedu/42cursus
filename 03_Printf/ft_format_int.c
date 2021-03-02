@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 16:45:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/02 19:18:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,7 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	else
 	{
 		if (type & TYPE_PTR)
-		{
-			fmt->type = ('X' | (fmt->type | 32));
 			fmt->flags |= FL_HASH;
-		}
 		u_val = va_arg(*ap, uintmax_t);
 		ft_fmt_unsigned(fmt, tmp, u_val);
 	}
@@ -99,7 +96,7 @@ static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 		len = ft_fmt_u(u_val, tmp->ptr);
 	else if (type == 'o')
 		len = ft_fmt_o(u_val, tmp->ptr);
-	else if (type == 'x')
+	else if (type == 'x' || type == 'p')
 		len = ft_fmt_x(u_val, tmp->ptr, (fmt->type & 32));
 	return (len);
 }
@@ -116,14 +113,18 @@ void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 		*--ptr = '0';
 	if (u_val && (fmt->flags & FL_HASH))
 	{
-		if ((fmt->type | 32) == 'x')
+		printf("OK\n");
+		if ((fmt->type | 32) == 'x' || fmt->type == 'p')
 		{
-			*--ptr = fmt->type;
+			printf("  OK\n");
+			*--ptr = 'X' | (fmt->type & 32);
 			*--ptr = '0';
 		}
 		else if ((fmt->type | 32) == 'o' && *ptr != '0')
 			*--ptr = '0';
 	}
+	if (fmt->type == 'p' && (fmt->flags & FL_PREFIX))
+		*--ptr = (fmt->flags & FL_PLUS ? '+' : ' ');
 	tmp->len += tmp->ptr - ptr;
 	tmp->ptr = ptr;
 	ft_fmt_width(fmt, tmp);
