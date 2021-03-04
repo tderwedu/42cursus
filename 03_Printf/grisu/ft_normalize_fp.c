@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 09:45:55 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 14:56:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:11:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../grisu.h"
+#include "../include/grisu.h"
 
 t_fp	ft_normalize_fp(t_fp fp, int hb)
 {

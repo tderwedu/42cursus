@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:35:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 21:15:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 {
@@ -18,9 +18,9 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	intmax_t	s_val;
 	uintmax_t	u_val;
 
-	if (fmt->prec < 0 && fmt->flags & FL_ZERO)
-		fmt->prec = fmt->width - 1;
 	type = 1U << ((fmt->type | 32) - 'a');
+	if (fmt->prec < 0 && fmt->flags & FL_ZERO)
+		fmt->prec = fmt->width - 1 - !(type & TYPE_SIGNED);
 	if (type & TYPE_SIGNED)
 	{
 		if (fmt->length < 1)
@@ -31,8 +31,6 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	}
 	else
 	{
-		if (type & TYPE_PTR)
-			fmt->flags |= FL_HASH;
 		u_val = va_arg(*ap, uintmax_t);
 		ft_fmt_unsigned(fmt, tmp, u_val);
 	}
@@ -73,6 +71,8 @@ void				ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val)
 	ptr = tmp->ptr;
 	tmp->len = ft_fmt_u((i_val < 0 ? ~i_val + 1 : i_val), ptr);
 	end = ptr - ((fmt->prec > tmp->len) ? (fmt->prec - tmp->len) : 0);
+	if (!i_val && !fmt->prec)
+		tmp->len--;
 	while (ptr > end)
 		*--ptr = '0';
 	if (i_val >= 0 && fmt->flags & FL_PLUS)
@@ -96,8 +96,10 @@ static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 		len = ft_fmt_u(u_val, tmp->ptr);
 	else if (type == 'o')
 		len = ft_fmt_o(u_val, tmp->ptr);
-	else if (type == 'x' || type == 'p')
+	else
 		len = ft_fmt_x(u_val, tmp->ptr, (fmt->type & 32));
+	if (!u_val && !fmt->prec)
+		len--;
 	return (len);
 }
 
@@ -111,7 +113,7 @@ void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 	end = ptr - ((fmt->prec > tmp->len) ? (fmt->prec - tmp->len) : 0);
 	while (ptr > end)
 		*--ptr = '0';
-	if (u_val && (fmt->flags & FL_HASH))
+	if ((u_val && (fmt->flags & FL_HASH)) || fmt->type == 'p')
 	{
 		if ((fmt->type | 32) == 'x' || fmt->type == 'p')
 		{

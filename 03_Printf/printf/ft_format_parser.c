@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:48:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 21:15:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 static t_ui	ft_flags_parser(const char **format)
 {
@@ -41,7 +41,7 @@ static int	ft_width_parser(const char **format, va_list *ap)
 
 	width = 0;
 	ptr = *format;
-	if (((t_ui)(*ptr - '0') < 10U))
+	if ((t_ui)(*ptr - '0') < 10U)
 		while (*ptr && ((t_ui)(*ptr - '0') < 10U))
 			width = width * 10 + *ptr++ - '0';
 	else if (*ptr == '*')
@@ -64,11 +64,11 @@ static int	ft_prec_parser(const char **format, va_list *ap)
 	{
 		ptr++;
 		prec = 0;
-		if ((*ptr - '0') < 10)
-			while ((*ptr - '0') < 10)
+		if ((t_ui)(*ptr - '0') < 10)
+			while ((t_ui)(*ptr - '0') < 10)
 				prec = prec * 10 + *ptr++ - '0';
 		else if (*ptr == '-')
-			while ((*++ptr - '0') < 10)
+			while ((t_ui)(*++ptr - '0') < 10)
 				prec = -1;
 		else if (*ptr == '*')
 		{
@@ -95,16 +95,6 @@ static int	ft_length_parser(const char **format)
 	return (length);
 }
 
-/*
-** printf( " ======= FORMAT =======\n");
-** printf( "#  Flags: %-#12x #\n", fmt.flags);
-** printf( "#  Width: %-12u #\n", fmt.width);
-** printf( "#   Prec: %-12d #\n", fmt.prec);
-** printf( "# Length: %-12d #\n", fmt.length);
-** printf( "#   Type: %-12c #\n", fmt.type);
-** printf( " ======================\n");
-*/
-
 int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 {
 	const char	*start;
@@ -113,6 +103,12 @@ int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 	start = *format;
 	fmt.flags = ft_flags_parser(format);
 	fmt.width = ft_width_parser(format, ap);
+	if (fmt.width < 0)
+	{
+		fmt.flags |= FL_LEFT;
+		fmt.flags &= ~FL_ZERO;
+		fmt.width = -fmt.width;
+	}
 	fmt.prec = ft_prec_parser(format, ap);
 	fmt.length = ft_length_parser(format);
 	if (!**format || !(ft_strrchr(TYPES_ACC, **format)))

@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 11:05:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/01 18:32:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:34:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_fmt_u(uintmax_t val, char *buff)
 {
@@ -53,7 +53,7 @@ int	ft_fmt_o(uintmax_t val, char *buff)
 	return (len);
 }
 
-int	ft_fmt_x(uint64_t val, char *buff, int lo)
+int	ft_fmt_x(uintmax_t val, char *buff, int lo)
 {
 	char				a;
 	char				v;

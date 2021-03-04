@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:52:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:25:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:11:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "../grisu.h"
+#include "../include/grisu.h"
 
 static const uint64_t g_powers_ten[] = { \
 	0xbf29dcaba82fdeae, 0xeef453d6923bd65a, 0x9558b4661b6565f8,\

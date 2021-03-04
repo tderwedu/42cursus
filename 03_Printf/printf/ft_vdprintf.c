@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:31:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:44:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 15:54:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 int					ft_cpy2buff(t_vec *buff, const char *s, int len)
 {
@@ -23,25 +23,27 @@ int					ft_cpy2buff(t_vec *buff, const char *s, int len)
 	return (1);
 }
 
-static inline int	ft_checkinit(const char **str, va_list *ap, t_vec *buff)
-{
-	if (**str == '%')
-	{
-		if (*(*str + 1) == '%' || *(*str + 1) == '\0')
-		{
-			*buff->ptr = **str;
-			buff->len++;
-			(*str)++;
-			return (1);
-		}
-		else
-		{
-			if (ft_format_parser(str, ap, buff) < 0)
-				return (-ft_freevec(buff));
-		}
-	}
-	return (0);
-}
+/*
+**static inline int	ft_checkinit(const char **str, va_list *ap, t_vec *buff)
+**{
+**	if (**str == '%')
+**	{
+**		if (*(*str + 1) == '%' || *(*str + 1) == '\0')
+**		{
+**			*buff->ptr = **str;
+**			buff->len++;
+**			(*str)++;
+**			return (1);
+**		}
+**		else
+**		{
+**			if (ft_format_parser(str, ap, buff) < 0)
+**				return (-ft_freevec(buff));
+**		}
+**	}
+**	return (0);
+**}
+*/
 
 int					ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 {
@@ -56,12 +58,11 @@ int					ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 	{
 		if (*str++ == '%')
 		{
-			len = (str - 1) - last + (*str == '%');
+			len = (str - 1) - last;
 			if (ft_cpy2buff(buff, last, len) < 0)
 				return (-ft_freevec(buff));
-			if (*str != '%' && *str != '\0' && *str != '\n')
-				if (ft_format_parser(&str, ap, buff) < 0)
-					return (-ft_freevec(buff));
+			if (ft_format_parser(&str, ap, buff) < 0)
+				return (-ft_freevec(buff));
 			last = ++str;
 		}
 	}

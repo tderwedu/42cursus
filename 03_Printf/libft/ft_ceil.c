@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 10:56:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 14:03:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_libft.h"
+#include "../include/mini_libft.h"
 
 double	ft_ceil(double x)
 {

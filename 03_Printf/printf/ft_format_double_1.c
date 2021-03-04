@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:32:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 21:16:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	ft_double_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 {
@@ -109,7 +109,7 @@ void	ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	if (!(fmt->flags & FL_HASH))
 		ft_rmtrailingzeros(tmp);
-	fmt->prec = ((!fmt->prec) ? 1 : fmt->prec);
+	fmt->prec = (!fmt->prec ? 1 : fmt->prec);
 	if (exp < -4 || exp >= fmt->prec)
 	{
 		fmt->prec = (fmt->prec > (tmp->len - 1) ? (tmp->len - 1) : fmt->prec);

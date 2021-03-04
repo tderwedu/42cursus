@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 17:06:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:12:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_libft.h"
+#include "../include/mini_libft.h"
 
 t_vec	*ft_growvec(t_vec *vec, size_t delta)
 {

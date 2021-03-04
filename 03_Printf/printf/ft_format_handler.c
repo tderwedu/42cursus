@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:42:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 16:17:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 int					ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 {
@@ -18,6 +18,8 @@ int					ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 	t_vec	*tmp;
 	size_t	size;
 
+	if (fmt->type == '%')
+		return (ft_fmt_pc(buff, fmt));
 	type = 1U << ((fmt->type | 32) - 'a');
 	if (type & TYPE_N)
 		return (ft_fmt_n(ap, buff, fmt));
@@ -55,4 +57,17 @@ int					ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt)
 	else if (length == 2)
 		*(long long *)ptr = (long long)len;
 	return (1);
+}
+
+int					ft_fmt_pc(t_vec *buff, t_format *fmt)
+{
+	t_vec	*tmp;
+
+	if (!(tmp = ft_newvec((2 * (fmt->width ? fmt->width : 1)), 0)))
+		return (-1);
+	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
+	*tmp->ptr = '%';
+	tmp->len = 1;
+	ft_pad_double(fmt, tmp, fmt->width - 1, 0);
+	return (ft_tmp2buff(buff, tmp));
 }

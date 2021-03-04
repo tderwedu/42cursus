@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:36:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 13:05:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 13:12:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../mini_libft.h"
+#include "../include/mini_libft.h"
 
 t_vec	*ft_newvec(size_t size, size_t delta)
 {

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:44:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 16:16:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@
 **	1U << ('type' - 'a')
 */
 
-# define TYPES_ACC		"ncsdiuoxXpaAeEfFgG"
+# define TYPES_ACC		"ncsdiuoxXpaAeEfFgG%"
 
 # define TYPE_INT		0x90C108U
 # define TYPE_SIGNED	0x000108U
@@ -86,6 +86,7 @@ int				ft_format_parser(const char **format, va_list *ap, t_vec *buff);
 
 int				ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt);
 int				ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt);
+int				ft_fmt_pc(t_vec *buff, t_format *fmt);
 
 /*
 ** ft_format_error.c

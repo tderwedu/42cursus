@@ -6,27 +6,38 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:34:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 21:15:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
-#include "grisu.h"
+#include "../include/ft_printf.h"
 
-static inline void	ft_str_roundup(t_vec *tmp)
+static inline int	ft_rounding(t_format *fmt, t_vec *tmp, int exp)
 {
 	register int	i;
 	register char	*ptr;
 
-	i = tmp->len;
-	ptr = tmp->ptr;
-	if (ptr[i] - '0' > 4)
+	if (*tmp->ptr == '0')
 	{
-		ptr[i] = '\0';
+		tmp->ptr++;
+		exp--;
+		tmp->len -= (fmt->type == 'f');
+	}
+	ptr = tmp->ptr;
+	i = tmp->len;
+	if (ptr[i] > '5' || (ptr[i] == '5' && ((ptr[i - 1] % 2) || fmt->prec)))
+	{
 		while (ptr[--i] == '9')
 			ptr[i] = '0';
 		ptr[i]++;
 	}
+	if (i < 0)
+	{
+		tmp->ptr--;
+		exp++;
+		tmp->len += (fmt->type == 'f');
+	}
+	return (exp);
 }
 
 static inline int	ft_ifzero(t_format *fmt, t_vec *tmp)
@@ -61,7 +72,7 @@ int					ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 		tmp->len += -mk;
 	if ((fmt->type | 32) == 'g' && fmt->prec > 0)
 		tmp->len--;
-	ft_digit_gen_no_div(d_fp, tmp->ptr, tmp->len + 1);
-	ft_str_roundup(tmp);
-	return (-mk);
+	ft_digit_gen_no_div(d_fp, tmp->ptr, tmp->len + 2);
+	mk = ft_rounding(fmt, tmp, -mk);
+	return (mk);
 }

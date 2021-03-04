@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 11:31:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 20:52:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec)
 {
@@ -79,7 +79,7 @@ void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 		*ptr++ = '+' + (exp < 0) * 2;
 		exp = ((exp < 0) ? -exp : exp);
 		*ptr = '0';
-		tmp->len += 4 + (ft_fmt_u(exp, ptr + (exp < 9)) > 2);
+		tmp->len += 4 + (ft_fmt_u(exp, ptr + (exp < 10)) > 2);
 	}
 }
 

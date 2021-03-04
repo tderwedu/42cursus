@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:03:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/27 12:57:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 14:28:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 int	ft_printf(const char *str, ...)
 {

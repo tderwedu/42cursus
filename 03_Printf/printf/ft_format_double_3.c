@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 17:27:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:12:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 14:28:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_printf.h"
+#include "../include/ft_printf.h"
 
 void	ft_specialvalues(t_format *fmt, t_vec *tmp, t_fp *fp)
 {
