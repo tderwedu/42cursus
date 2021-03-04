@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:20:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 10:56:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 double	ft_floor(double x)
 {
 	t_fp		fp;
-	double		y;
 	uint64_t	msk;
 	uint64_t	tmp;
 
@@ -27,7 +26,7 @@ double	ft_floor(double x)
 	msk = 1LU << (-fp.exp);
 	tmp = fp.man & (msk - 1LU);
 	fp.man = fp.man - tmp;
-	if (fp.sign * tmp)
+	if (fp.sign && tmp)
 	{
 		fp.man += msk;
 		if (fp.man & 0x20000000000000)

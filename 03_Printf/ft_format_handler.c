@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:11:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:42:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int					ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 
 int					ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt)
 {
-	ssize_t	len;
+	int		len;
 	int		length;
 	void	*ptr;
 

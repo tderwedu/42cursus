@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/15 17:55:16 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/28 14:44:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:45:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../grisu.h"
-#include <stdio.h> //TODO: remove
 
 t_fp		ft_double2fp(double d)
 {

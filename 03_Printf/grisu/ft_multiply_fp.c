@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:16:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/24 09:35:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:03:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ t_fp	ft_multiply_fp(t_fp x, t_fp y)
 	submul[1] = parts[1] * parts[2];
 	submul[2] = parts[0] * parts[3];
 	submul[3] = parts[1] * parts[3];
-	tmp = submul[3] >> 32 + (submul[2] & m32) + (submul[1] & m32);
+	tmp = (submul[3] >> 32) + (submul[2] & m32) + (submul[1] & m32);
 	tmp += 1U << 31;
 	ret.exp = x.exp + y.exp + 64;
 	ret.man = submul[0] + (submul[1] >> 32) + (submul[2] >> 32) + (tmp >> 32);

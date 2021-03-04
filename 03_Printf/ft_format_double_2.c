@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:10:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:31:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ void	ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	}
 }
 
-void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
+void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, int exp)
 {
 	register int	i;
 	register char	*ptr;
@@ -110,7 +110,7 @@ void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	}
 }
 
-void	ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp)
+void	ft_rmtrailingzeros(t_vec *tmp)
 {
 	register int	i;
 	register char	*ptr;

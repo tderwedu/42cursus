@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:07:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:48:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include <stdio.h> //TODO: remove
 
 static t_ui	ft_flags_parser(const char **format)
 {
@@ -35,9 +34,9 @@ static t_ui	ft_flags_parser(const char **format)
 	return (flags);
 }
 
-static t_ui	ft_width_parser(const char **format, va_list *ap)
+static int	ft_width_parser(const char **format, va_list *ap)
 {
-	register t_ui		width;
+	register int		width;
 	register const char	*ptr;
 
 	width = 0;
@@ -54,9 +53,9 @@ static t_ui	ft_width_parser(const char **format, va_list *ap)
 	return (width);
 }
 
-static t_ui	ft_prec_parser(const char **format, va_list *ap)
+static int	ft_prec_parser(const char **format, va_list *ap)
 {
-	register t_ui		prec;
+	register int		prec;
 	register const char	*ptr;
 
 	prec = -1;
@@ -65,11 +64,11 @@ static t_ui	ft_prec_parser(const char **format, va_list *ap)
 	{
 		ptr++;
 		prec = 0;
-		if (((t_ui)(*ptr - '0') < 10U))
-			while (((t_ui)(*ptr - '0') < 10U))
+		if ((*ptr - '0') < 10)
+			while ((*ptr - '0') < 10)
 				prec = prec * 10 + *ptr++ - '0';
 		else if (*ptr == '-')
-			while (((t_ui)(*++ptr - '0') < 10U))
+			while ((*++ptr - '0') < 10)
 				prec = -1;
 		else if (*ptr == '*')
 		{
@@ -96,6 +95,16 @@ static int	ft_length_parser(const char **format)
 	return (length);
 }
 
+/*
+** printf( " ======= FORMAT =======\n");
+** printf( "#  Flags: %-#12x #\n", fmt.flags);
+** printf( "#  Width: %-12u #\n", fmt.width);
+** printf( "#   Prec: %-12d #\n", fmt.prec);
+** printf( "# Length: %-12d #\n", fmt.length);
+** printf( "#   Type: %-12c #\n", fmt.type);
+** printf( " ======================\n");
+*/
+
 int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 {
 	const char	*start;
@@ -112,14 +121,7 @@ int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 		return (-1);
 	}
 	fmt.type = **format;
-	if (fmt.prec >= 0 && !ft_strrchr("aAeEfFgG", fmt.type ))
+	if (fmt.prec >= 0 && !ft_strrchr("aAeEfFgG", fmt.type))
 		fmt.flags &= ~FL_ZERO;
-	// // printf( " ======= FORMAT =======\n");
-	// // printf( "#  Flags: %-#12x #\n", fmt.flags);
-	// // printf( "#  Width: %-12u #\n", fmt.width);
-	// // printf( "#   Prec: %-12d #\n", fmt.prec);
-	// // printf( "# Length: %-12d #\n", fmt.length);
-	// // printf( "#   Type: %-12c #\n", fmt.type);
-	// // printf( " ======================\n");
 	return (ft_format_handler(ap, buff, &fmt));
 }

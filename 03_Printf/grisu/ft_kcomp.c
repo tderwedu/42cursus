@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 11:36:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/26 18:24:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:00:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../grisu.h"
 
-int		ft_kcomp(int e, int alpha, int gamma)
+int		ft_kcomp(int e, int alpha)
 {
 	return (ft_ceil((alpha - e + 63) * D1_LOG2_10));
 }

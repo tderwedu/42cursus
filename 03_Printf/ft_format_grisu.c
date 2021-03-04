@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:12:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:34:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static inline void	ft_str_roundup(t_vec *tmp)
 	}
 }
 
-static inline int	ft_ifzero(t_format *fmt, t_vec *tmp, t_fp fp)
+static inline int	ft_ifzero(t_format *fmt, t_vec *tmp)
 {
 	int				mk;
 	register char	*ptr;
@@ -51,9 +51,9 @@ int					ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 	t_fp	c_mk;
 
 	if (fp.exp == -1074 && fp.man == 0)
-		return (ft_ifzero(fmt, tmp, fp));
+		return (ft_ifzero(fmt, tmp));
 	fp = ft_normalize_fp(fp, 1);
-	mk = ft_kcomp(fp.exp + FP_Q, ALPHA, GAMMA);
+	mk = ft_kcomp(fp.exp + FP_Q, ALPHA);
 	c_mk = ft_cachedpower(mk);
 	d_fp = ft_multiply_fp(fp, c_mk);
 	tmp->len = 1 + fmt->prec;

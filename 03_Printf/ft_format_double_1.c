@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 10:53:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 15:10:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:32:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	ft_fmt_double_a(t_format *fmt, t_vec *tmp, t_fp *fp)
 	int		prefix;
 
 	tmp->len = ft_fmt_x(fp->man, tmp->ptr, (fmt->type & 32));
-	ft_rmtrailingzeros(fmt, tmp, -2);
+	ft_rmtrailingzeros(tmp);
 	ft_pad_double(fmt, tmp, 1 + fmt->prec - tmp->len, 1);
 	ft_adapt2prec(fmt, tmp, fp);
-	*--(tmp->ptr) = tmp->ptr[0];
-	tmp->ptr[1] = '.';
+	*(tmp->ptr - 1) = *tmp->ptr;
+	*(--tmp->ptr + 1) = '.';
 	if ((fmt->prec && tmp->len > 1) || fmt->flags & FL_HASH)
 		tmp->len += 1;
 	ft_suffix_double(fmt, tmp, fp, 0);
@@ -69,8 +69,8 @@ void	ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 	int		prefix;
 
 	tmp->len = 1 + fmt->prec;
-	*--(tmp->ptr) = tmp->ptr[0];
-	tmp->ptr[1] = '.';
+	*(tmp->ptr - 1) = *tmp->ptr;
+	*(--tmp->ptr + 1) = '.';
 	if (fmt->prec || fmt->flags & FL_HASH)
 		tmp->len += 1;
 	ft_suffix_double(fmt, tmp, fp, exp);
@@ -90,9 +90,8 @@ void	ft_fmt_double_e(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	int				prefix;
-	register int	i;
 
-	ft_fmt_radix_f(fmt, tmp, fp, exp);
+	ft_fmt_radix_f(fmt, tmp, exp);
 	if ((fmt->flags & FL_LEFT) || !(fmt->flags & FL_ZERO))
 	{
 		ft_prefix_double(fmt, tmp, fp);
@@ -109,7 +108,7 @@ void	ft_fmt_double_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 void	ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp)
 {
 	if (!(fmt->flags & FL_HASH))
-		ft_rmtrailingzeros(fmt, tmp, exp);
+		ft_rmtrailingzeros(tmp);
 	fmt->prec = ((!fmt->prec) ? 1 : fmt->prec);
 	if (exp < -4 || exp >= fmt->prec)
 	{

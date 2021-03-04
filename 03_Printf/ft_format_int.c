@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 19:18:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:35:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 	}
 }
 
-static inline int	ft_fmt_width(t_format *fmt, t_vec *tmp)
+static inline void	ft_fmt_width(t_format *fmt, t_vec *tmp)
 {
 	register char	chr;
 	register char	*end;
@@ -113,10 +113,8 @@ void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 		*--ptr = '0';
 	if (u_val && (fmt->flags & FL_HASH))
 	{
-		printf("OK\n");
 		if ((fmt->type | 32) == 'x' || fmt->type == 'p')
 		{
-			printf("  OK\n");
 			*--ptr = 'X' | (fmt->type & 32);
 			*--ptr = '0';
 		}

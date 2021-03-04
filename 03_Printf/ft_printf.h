@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/02 18:56:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/04 11:44:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,10 @@
 typedef struct	s_format
 {
 	t_ui	flags;
-	t_ui	width;
+	int		width;
 	int		prec;
-	char	type;
 	int		length;
+	char	type;
 }				t_format;
 
 /*
@@ -156,8 +156,8 @@ void			ft_fmt_double_g(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
 void			ft_pad_double(t_format *fmt, t_vec *tmp, int nb, int prec);
 void			ft_prefix_double(t_format *fmt, t_vec *tmp, t_fp *fp);
 void			ft_suffix_double(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
-void			ft_fmt_radix_f(t_format *fmt, t_vec *tmp, t_fp *fp, int exp);
-void			ft_rmtrailingzeros(t_format *fmt, t_vec *tmp, int exp);
+void			ft_fmt_radix_f(t_format *fmt, t_vec *tmp, int exp);
+void			ft_rmtrailingzeros(t_vec *tmp);
 
 /*
 ** ft_format_double_3.c
