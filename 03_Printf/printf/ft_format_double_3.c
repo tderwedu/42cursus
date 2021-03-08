@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/01 17:27:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 14:28:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:25:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ void	ft_specialvalues(t_format *fmt, t_vec *tmp, t_fp *fp)
 	while (*str)
 		*ptr++ = ((*str++) | prefix);
 	fmt->flags &= ~FL_ZERO;
-	ft_prefix_double(fmt, tmp, fp);
+	if (!(fp->man & ~HIDDEN_BIT))
+		ft_prefix_double(fmt, tmp, fp);
 	ft_pad_double(fmt, tmp, fmt->width - tmp->len, 0);
 }
 

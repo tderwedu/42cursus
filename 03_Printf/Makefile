@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:14:08 by tderwedu          #+#    #+#              #
-#    Updated: 2021/03/04 16:32:38 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/03/08 10:52:43 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ $(NAME):	${OBJ}
 all:		${NAME}
 
 bonus:		${NAME}
+			touch bonus
 
 clean:		
 			rm -f ${OBJ}

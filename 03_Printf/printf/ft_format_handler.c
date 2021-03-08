@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 16:17:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/08 10:30:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int					ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 	else if (type & TYPE_STRCHR)
 		return (ft_str_handler(ap, buff, fmt));
 	size = ((fmt->width > fmt->prec) ? fmt->width : fmt->prec);
-	size = ((size > 24) ? size * 2 : 48);
+	size = ((size > 320) ? size * 2 : 640);
 	if (!(tmp = ft_newvec(size, 0)))
 		return (-1);
 	tmp->ptr = tmp->begin + size / 2;
