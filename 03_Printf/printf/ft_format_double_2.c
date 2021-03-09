@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/25 14:18:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 20:52:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:25:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ void	ft_fmt_radix_f(t_format *fmt, t_vec *tmp, int exp)
 	{
 		i = exp - 1;
 		tmp->ptr += exp;
-		tmp->len = ((fmt->prec) ? fmt->prec + 2 : 1);
+		tmp->len = ((fmt->prec || fmt->flags & FL_HASH) ? fmt->prec + 2 : 1);
 		ptr[i] = '0';
 		ptr[++i] = '.';
 		while (++i < 0)
@@ -117,9 +117,7 @@ void	ft_rmtrailingzeros(t_vec *tmp)
 
 	i = tmp->len;
 	ptr = tmp->ptr;
-	while (ptr[--i] == '0')
+	while (i > 0 && ptr[--i] == '0')
 		;
-	if (i < 0)
-		i = 0;
 	tmp->len = i + 1;
 }

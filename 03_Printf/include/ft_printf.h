@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 16:16:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:54:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@
 /*
 ** Types' bits corresponds to:
 **	1U << ('type' - 'a')
+** all: "ncsdiuoxXpaAeEfFgG%"
 */
 
-# define TYPES_ACC		"ncsdiuoxXpaAeEfFgG%"
+# define TYPES_ACC		"cspdiuxXnfge%"
 
 # define TYPE_INT		0x90C108U
 # define TYPE_SIGNED	0x000108U
@@ -50,15 +51,15 @@
 
 /*
 ** Colors
+** 
+** # define BOLD	"\033[1m"
+** # define BLU	"\033[96m"
+** # define YLW	"\033[33m"
+** # define PUR	"\033[35m"
+** # define GRN	"\033[32m"
+** # define RED	"\033[31m"
+** # define NC		"\033[0m"
 */
-
-# define BOLD	"\033[1m"
-# define BLU	"\033[96m"
-# define YLW	"\033[33m"
-# define PUR	"\033[35m"
-# define GRN	"\033[32m"
-# define RED	"\033[31m"
-# define NC		"\033[0m"
 
 typedef struct	s_format
 {
@@ -113,10 +114,15 @@ int				ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt);
 */
 
 /*
-** ft_format_int.c
+** ft_format_int_1.c
 */
 
 void			ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp);
+
+/*
+** ft_format_int_2.c
+*/
+
 void			ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val);
 void			ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val);
 

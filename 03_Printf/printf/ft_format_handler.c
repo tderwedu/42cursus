@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 10:30:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:25:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,5 @@ int					ft_fmt_pc(t_vec *buff, t_format *fmt)
 	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
 	*tmp->ptr = '%';
 	tmp->len = 1;
-	ft_pad_double(fmt, tmp, fmt->width - 1, 0);
 	return (ft_tmp2buff(buff, tmp));
 }

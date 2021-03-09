@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:27:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 14:28:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/08 20:53:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,11 @@
 
 void	ft_error_format(const char *start, const char *end)
 {
-	int len;
+	size_t len;
 
-	len = (uintptr_t)(end - start);
-	write(2, RED, 6);
+	len = (uintptr_t)(end - start) + 1UL;
 	write(2, "Error :", 7);
-	write(2, NC, 5);
 	write(2, " The format specifier \"", 23);
-	write(2, BLU, 6);
 	write(2, start, len);
-	write(2, NC, 5);
 	write(2, "\" is not valid!\n", 16);
 }

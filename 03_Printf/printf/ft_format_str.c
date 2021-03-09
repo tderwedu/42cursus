@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 14:28:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/08 17:47:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,30 @@ static inline void	ft_fmt_str(t_format *fmt, t_vec *tmp)
 			*ptr++ = ' ';
 	}
 }
+static inline void	ft_checkstr(t_format *fmt,t_vec	*tmp, char *str)
+{
+	if (str)
+	{
+		ft_memcpy(tmp->ptr, str, tmp->len);
+		if (fmt->prec < 0)
+			fmt->prec = tmp->len;
+	}
+	else
+	{
+		if (fmt->prec > 0 && fmt->prec < 6)
+		{
+			*tmp->ptr = '\0';
+			tmp->len = 0;
+		}
+		else
+		{
+			ft_memcpy(tmp->ptr, "(null)", 6);
+			tmp->len = 6;
+			if (fmt->prec < 0)
+				fmt->prec = 6;
+		}
+	}
+}
 
 int					ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt)
 {
@@ -47,20 +71,18 @@ int					ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt)
 	if (fmt->type == 's')
 	{
 		str = va_arg(*ap, char*);
-		len = (str ? ft_strlen(str) : 6);
+		len = (str ? ft_strlen(str) : 8);
 	}
 	else
 		chr = va_arg(*ap, int);
-	if (fmt->prec < 0)
-		fmt->prec = len;
-	if (!(tmp = ft_newvec((2 * (len < fmt->width ? fmt->width : len)), 0)))
+	if (!(tmp = ft_newvec((2 * (len < fmt->width ? fmt->width : len) + 8), 0)))
 		return (-1);
 	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
+	tmp->len = len;
 	if (fmt->type == 's')
-		ft_memcpy(tmp->ptr, (str ? str : "(null)"), len);
+		ft_checkstr(fmt, tmp, str);
 	else
 		*tmp->ptr = chr;
-	tmp->len = len;
 	ft_fmt_str(fmt, tmp);
 	return (ft_tmp2buff(buff, tmp));
 }

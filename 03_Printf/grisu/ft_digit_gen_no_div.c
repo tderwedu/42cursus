@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:10:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 10:06:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 09:46:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,28 +40,29 @@
 void	ft_digit_gen_no_div(t_fp fp, char *buff, int prec)
 {
 	int			i;
-	t_fp		one;
-	uint64_t	frac;
+	t_fp		n;
+	uint64_t	f;
 	int			tmp;
 
 	i = 0;
-	one.man = (uint64_t)1 << -fp.exp;
-	one.exp = fp.exp;
-	buff[i++] = '0' + (fp.man >> -one.exp);
-	frac = fp.man & (one.man - 1);
-	while (-one.exp > FP_Q - 5)
+	n.man = (uint64_t)1 << -fp.exp;
+	n.exp = fp.exp;
+	buff[i++] = '0' + (fp.man >> -n.exp);
+	f = fp.man & (n.man - 1);
+	while (-n.exp > FP_Q - 5)
 	{
-		tmp = (frac >> (-one.exp - 3)) & 6;
-		frac = frac + ((frac << 2) & (one.man - 1));
-		buff[i++] = '0' + tmp + (frac >> (-one.exp - 1));
-		one.exp++;
-		one.man >>= 1;
-		frac &= one.man - 1;
+		tmp = (f >> (-n.exp - 3)) & 6;
+		f = f + ((f << 2) & (n.man - 1));
+		buff[i++] = '0' + tmp + (f >> (-n.exp - 1));
+		n.exp++;
+		n.man >>= 1;
+		f &= n.man - 1;
 	}
 	while (i < prec)
 	{
-		frac *= 10;
-		buff[i++] = '0' + (frac >> -one.exp);
-		frac &= one.man - 1;
+		f *= 10;
+		buff[i++] = '0' + (f >> -n.exp);
+		f &= n.man - 1;
 	}
+	buff[i] = '\0';
 }

@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/01/12 15:57:49 by tderwedu          #+#    #+#              #
-#    Updated: 2021/01/20 14:27:57 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/03/08 12:09:07 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -89,5 +89,5 @@ fclean:		clean
 
 re:			fclean all
 
-.phony:		all clean flcean re
+.phony:		all clean fclean re
 

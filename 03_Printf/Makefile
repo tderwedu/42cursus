@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/04 13:14:08 by tderwedu          #+#    #+#              #
-#    Updated: 2021/03/08 10:52:43 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/03/09 10:59:27 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC		=	./printf/ft_format_double_2.c\
 			./printf/ft_printf.c\
 			./printf/ft_format_fmt.c\
 			./printf/ft_format_double_3.c\
-			./printf/ft_format_int.c\
+			./printf/ft_format_int_1.c\
+			./printf/ft_format_int_2.c\
 			./printf/ft_format_double_1.c\
 			./printf/ft_format_error.c\
 			./grisu/ft_fp2double.c\
@@ -67,7 +68,7 @@ clean:
 			rm -f ${OBJ}
 
 fclean:		clean
-			rm -f ${NAME}
+			rm -f ${NAME} bonus
 
 re:			fclean all
 

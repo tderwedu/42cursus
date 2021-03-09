@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:35:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 11:20:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 10:54:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # define BUFFER_SIZE	512
 
 typedef unsigned char		t_uc;
+typedef unsigned short		t_us;
 typedef unsigned int		t_ui;
 typedef unsigned long		t_ul;
 typedef unsigned long long	t_ull;
