@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_wstr2vec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/05 10:24:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/10 18:59:01 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/03/10 19:08:34 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/10 22:06:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_libft.h"
 
-size_t	ft_strlen(const char *str)
+void	ft_wstr2vec(t_vec *dest, const wchar_t *src, size_t len)
 {
-	register size_t	len;
+	register char	*max;
+	register char	*ptr;
 
-	len = 0;
-	if (str)
-	{
-		while (str[len])
-			len++;
-	}
-	return (len);
+	ptr = dest->ptr;
+	max = ptr + len;
+	while (ptr < max)
+		ptr += ft_unicode2utf8(ptr, (wint_t)*src++);
+	dest->len = ptr - dest->ptr;
+	if (ptr > max)
+		dest->len -= ft_wcharsize(*--src);
 }

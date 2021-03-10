@@ -6,19 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/09 10:54:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/10 20:44:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include <stdlib.h>
-# include <stdint.h>
-# include <unistd.h>
-# include <stdarg.h>
 # include "mini_libft.h"
 # include "grisu.h"
+# include <stdarg.h>
 
 /*
 ** Flag's bits corresponds to:
@@ -46,7 +43,8 @@
 # define TYPE_PTR		0x008000U
 # define TYPE_UNSIGNED	0x90C000U
 # define TYPE_DOUBLE	0x000071U
-# define TYPE_STRCHR	0x040004U
+# define TYPE_CHR		0x000004U
+# define TYPE_STR		0x040000U
 # define TYPE_N			0x002000U
 
 /*
@@ -105,7 +103,13 @@ void			ft_error_format(const char *start, const char *end);
 ** ft_format_str.c
 */
 
-int				ft_str_handler(va_list *ap, t_vec *buff, t_format *fmt);
+int				ft_format_str(va_list *ap, t_vec *buff, t_format *fmt);
+
+/*
+** ft_format_chr.c
+*/
+
+int				ft_format_chr(va_list *ap, t_vec *buff, t_format *fmt);
 
 /*
 ** ###############
@@ -127,7 +131,7 @@ void			ft_fmt_signed(t_format *fmt, t_vec *tmp, intmax_t i_val);
 void			ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val);
 
 /*
-** format_fmt.c
+** format_int2str.c
 */
 
 int				ft_fmt_u(uintmax_t val, char *buff);

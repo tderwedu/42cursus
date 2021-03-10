@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 14:35:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/09 10:54:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/10 21:06:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <stdlib.h>
 # include <stdint.h>
 # include <unistd.h>
+# include <wchar.h>
 # include "grisu.h"
 
 # define BUFFER_SIZE	512
@@ -53,6 +54,15 @@ void						*ft_memcpy(void *dest, const void *src, size_t n);
 
 char						*ft_strrchr(const char *s, int c);
 size_t						ft_strlen(const char *s);
+
+/*
+**	Multibytes
+*/
+
+int							ft_wcharsize(wint_t code);
+int							ft_unicode2utf8(char *str, wint_t code);
+ssize_t						ft_wstrlen(const wchar_t *s);
+void						ft_wstr2vec(t_vec *dest, const wchar_t *src, size_t len);
 
 /*
 **	Vector

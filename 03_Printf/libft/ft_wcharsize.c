@@ -1,26 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen.c                                        :+:      :+:    :+:   */
+/*   ft_wcharsize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/05 10:24:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/10 18:59:01 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/03/10 18:45:47 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/10 22:08:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/mini_libft.h"
 
-size_t	ft_strlen(const char *str)
+int	ft_wcharsize(wint_t code)
 {
-	register size_t	len;
-
-	len = 0;
-	if (str)
-	{
-		while (str[len])
-			len++;
-	}
-	return (len);
+	if (code == 0)
+		return (0);
+	else if (code < 0x80)
+		return (1);
+	else if (code < 0x800)
+		return (2);
+	else if (code < 0x10000)
+		return (3);
+	else if (code < 0x110000)
+		return (4);
+	return (-1);
 }
