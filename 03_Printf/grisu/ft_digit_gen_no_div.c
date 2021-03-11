@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 11:10:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/09 09:46:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:26:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,32 +37,40 @@
 
 #include "../include/grisu.h"
 
-void	ft_digit_gen_no_div(t_fp fp, char *buff, int prec)
+static inline t_fp	ft_initone(t_fp fp)
+{
+	t_fp	one;
+
+	one.exp = fp.exp;
+	one.man = (1LLU << (-one.exp));
+	return (one);
+}
+
+void				ft_digit_gen_no_div(t_fp fp, char *buff, int prec)
 {
 	int			i;
-	t_fp		n;
+	t_fp		one;
 	uint64_t	f;
 	int			tmp;
 
 	i = 0;
-	n.man = (uint64_t)1 << -fp.exp;
-	n.exp = fp.exp;
-	buff[i++] = '0' + (fp.man >> -n.exp);
-	f = fp.man & (n.man - 1);
-	while (-n.exp > FP_Q - 5)
+	one = ft_initone(fp);
+	buff[i++] = '0' + (fp.man >> -one.exp);
+	f = fp.man & (one.man - 1);
+	while (-one.exp > FP_Q - 5)
 	{
-		tmp = (f >> (-n.exp - 3)) & 6;
-		f = f + ((f << 2) & (n.man - 1));
-		buff[i++] = '0' + tmp + (f >> (-n.exp - 1));
-		n.exp++;
-		n.man >>= 1;
-		f &= n.man - 1;
+		tmp = (f >> (-one.exp - 3)) & 6;
+		f = f + ((f << 2) & (one.man - 1));
+		buff[i++] = '0' + tmp + (f >> (-one.exp - 1));
+		one.exp++;
+		one.man >>= 1;
+		f &= one.man - 1;
 	}
 	while (i < prec)
 	{
 		f *= 10;
-		buff[i++] = '0' + (f >> -n.exp);
-		f &= n.man - 1;
+		buff[i++] = '0' + (f >> -one.exp);
+		f &= one.man - 1;
 	}
 	buff[i] = '\0';
 }

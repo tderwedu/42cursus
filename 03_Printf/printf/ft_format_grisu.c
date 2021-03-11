@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/09 12:25:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:18:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static inline int	ft_round2even(char *ptr)
 		return (prev % 2);
 }
 
-static int		ft_rounding(t_format *fmt, t_vec *tmp, int exp)
+static int			ft_rounding(t_format *fmt, t_vec *tmp, int exp)
 {
 	register int	i;
 	register char	*ptr;

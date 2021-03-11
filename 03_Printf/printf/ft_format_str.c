@@ -6,20 +6,17 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:06:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/10 22:08:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:20:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/ft_printf.h"
-#include <stdio.h> //TODO:remove
 
 static inline void	ft_fmt_str(t_format *fmt, t_vec *tmp)
 {
 	register char	*end;
 	register char	*ptr;
 
-	// printf("ft_fmt_str: tmp : %s \n", tmp->ptr);
-	// printf("ft_fmt_str: len : %d \n", tmp->len);
 	if (fmt->width > tmp->len)
 	{
 		end = tmp->ptr;
@@ -35,13 +32,11 @@ static inline void	ft_fmt_str(t_format *fmt, t_vec *tmp)
 		while (ptr < end)
 			*ptr++ = ' ';
 	}
-	// printf("ft_fmt_str: tmp : %s \n", tmp->ptr);
-	// printf("ft_fmt_str: len : %d \n", tmp->len);
 }
 
-static inline void	ft_str2tmp(t_format *fmt,t_vec	*tmp, void *str)
+static inline void	ft_str2tmp(t_format *fmt, t_vec *tmp, void *str)
 {
-	if (fmt->prec > 0 && fmt->prec < tmp->len)
+	if (fmt->prec >= 0 && fmt->prec < tmp->len)
 		tmp->len = fmt->prec;
 	if (str)
 	{
@@ -80,11 +75,11 @@ int					ft_format_str(va_list *ap, t_vec *buff, t_format *fmt)
 		len = ft_strlen((char*)str);
 	if (len < 0)
 		return (-1);
-	if (!(tmp = ft_newvec(2 * (len + fmt->width + 1), 0)))
+	if (!(tmp = ft_newvec(2 * (len + fmt->width + 8), 0)))
 		return (-1);
 	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
 	tmp->len = len;
-	ft_str2tmp(fmt,tmp, str);
+	ft_str2tmp(fmt, tmp, str);
 	ft_fmt_str(fmt, tmp);
 	return (ft_tmp2buff(buff, tmp));
 }

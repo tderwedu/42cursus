@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 11:30:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/09 12:24:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:19:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ static inline intmax_t	ft_getsigned(va_list *ap, t_format *fmt)
 		s_val = (intmax_t)((char)va_arg(*ap, int));
 	else if (fmt->length == -1)
 		s_val = (intmax_t)((short)va_arg(*ap, int));
-	else if (fmt->length  == 0)
-		s_val =  (intmax_t)((int)va_arg(*ap, int));
+	else if (fmt->length == 0)
+		s_val = (intmax_t)((int)va_arg(*ap, int));
 	else
 		s_val = va_arg(*ap, intmax_t);
 	return (s_val);
 }
-
 
 static inline uintmax_t	ft_getunsigned(va_list *ap, t_format *fmt)
 {
@@ -36,14 +35,14 @@ static inline uintmax_t	ft_getunsigned(va_list *ap, t_format *fmt)
 		u_val = (uintmax_t)((t_uc)va_arg(*ap, int));
 	else if (fmt->length == -1)
 		u_val = (uintmax_t)((t_us)va_arg(*ap, int));
-	else if (fmt->length  == 0)
-		u_val =  (uintmax_t)((t_ui)va_arg(*ap, int));
+	else if (fmt->length == 0)
+		u_val = (uintmax_t)((t_ui)va_arg(*ap, int));
 	else
 		u_val = va_arg(*ap, intmax_t);
 	return (u_val);
 }
 
-void				ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
+void					ft_int_handler(va_list *ap, t_format *fmt, t_vec *tmp)
 {
 	t_ui		type;
 	intmax_t	s_val;
