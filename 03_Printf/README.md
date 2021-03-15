@@ -5,7 +5,13 @@ The C printf function recoded from scratch.
 
 ## How to use it
 
-W.I.P.
+Clone this repository and execute the following commands:
+```bash
+make bonus
+```
+```bash
+gcc -Wall -Wextra -Werror main.c -L . -lftprintf && ./a.out
+```
 
 ## What I have learned
 
@@ -13,7 +19,7 @@ W.I.P.
 
 ## Acknowledgements
 
-W.I.P.
+[Florian Loitsch's Grisu Algorithm](https://florian.loitsch.com/publications)
 
 ## Bibliography
 
@@ -27,5 +33,5 @@ W.I.P.
 
 ## License
 
-W.I.P.
+Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
 

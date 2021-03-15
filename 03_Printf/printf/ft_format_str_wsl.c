@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:06:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/12 17:15:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/11 10:20:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,16 @@ static inline void	ft_str2tmp(t_format *fmt, t_vec *tmp, void *str)
 	}
 	else
 	{
-		ft_memcpy(tmp->ptr, "(null)", 6);
-		tmp->len = 6;
-		if (fmt->prec >= 0 && fmt->prec < tmp->len)
-			tmp->len = fmt->prec;
+		if ((unsigned)fmt->prec < 6)
+		{
+			*tmp->ptr = '\0';
+			tmp->len = 0;
+		}
+		else
+		{
+			ft_memcpy(tmp->ptr, "(null)", 6);
+			tmp->len = 6;
+		}
 	}
 	if (fmt->prec < 0)
 		fmt->prec = tmp->len;

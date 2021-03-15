@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 09:07:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/11 10:16:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/12 17:13:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 ** all: "ncsdiuoxXpaAeEfFgG%"
 */
 
-# define TYPES_ACC		"cspdiuxXnfge%"
+# define TYPES_ACC		"cspdiouxXnfge%"
 
 # define TYPE_INT		0x90C108U
 # define TYPE_SIGNED	0x000108U

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/11 11:44:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/10 18:51:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,33 +61,6 @@ int					ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt)
 	return (1);
 }
 
-static inline void	ft_fmt_width(t_format *fmt, t_vec *tmp)
-{
-	register char	chr;
-	register char	*end;
-	register char	*ptr;
-
-	if (fmt->width > tmp->len)
-	{
-		if (fmt->flags & FL_LEFT)
-		{
-			end = tmp->ptr + tmp->len + (fmt->width - tmp->len);
-			ptr = tmp->ptr + tmp->len;
-			chr = ' ';
-		}
-		else
-		{
-			end = tmp->ptr;
-			ptr = tmp->ptr - (fmt->width - tmp->len);
-			chr = ((fmt->flags & FL_ZERO) ? '0' : ' ');
-			tmp->ptr = ptr;
-		}
-		while (ptr < end)
-			*ptr++ = chr;
-		tmp->len = fmt->width;
-	}
-}
-
 int					ft_fmt_pc(t_vec *buff, t_format *fmt)
 {
 	t_vec	*tmp;
@@ -97,6 +70,5 @@ int					ft_fmt_pc(t_vec *buff, t_format *fmt)
 	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
 	*tmp->ptr = '%';
 	tmp->len = 1;
-	ft_fmt_width(fmt, tmp);
 	return (ft_tmp2buff(buff, tmp));
 }

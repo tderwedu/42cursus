@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/09 10:53:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/12 17:16:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/09 12:25:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,12 @@ static inline int	ft_fmt_uox(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 	int type;
 
 	type = (fmt->type | 32);
-	if (type == 'u')
+	if (type == 'p' && !u_val)
+	{
+		ft_memcpy(tmp->ptr, "(nil)", 5);
+		return (5);
+	}
+	else if (type == 'u')
 		len = ft_fmt_u(u_val, tmp->ptr);
 	else if (type == 'o')
 		len = ft_fmt_o(u_val, tmp->ptr);
@@ -89,7 +94,7 @@ void				ft_fmt_unsigned(t_format *fmt, t_vec *tmp, uintmax_t u_val)
 	end = ptr - ((fmt->prec > tmp->len) ? (fmt->prec - tmp->len) : 0);
 	while (ptr > end)
 		*--ptr = '0';
-	if ((u_val && (fmt->flags & FL_HASH)) || fmt->type == 'p')
+	if (u_val && ((fmt->flags & FL_HASH) || fmt->type == 'p'))
 	{
 		if ((fmt->type | 32) == 'x' || fmt->type == 'p')
 		{

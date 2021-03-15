@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_format_grisu.c                                  :+:      :+:    :+:   */
+/*   ft_format_grisu_WSL.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:35:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/15 10:51:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/12 17:03:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static inline int	ft_round2even(char *ptr)
 
 	val = 0;
 	prev = ptr[-1];
-	while (*++ptr && !val)
+	while (*++ptr)
 		val = 10 * val + *ptr - '0';
-	if (val > 0)
+	if (val >= 0)
 		return (1);
 	else
 		return (prev % 2);
@@ -89,7 +89,7 @@ int					ft_format_grisu(t_format *fmt, t_vec *tmp, t_fp fp)
 		tmp->len--;
 	if (tmp->len < 0)
 		return (ft_ifzero(fmt, tmp, -mk));
-	ft_digit_gen_no_div(d_fp, tmp->ptr, (tmp->len > 21 ? tmp->len : 21) + 1);
+	ft_digit_gen_no_div(d_fp, tmp->ptr, (tmp->len > 16 ? tmp->len : 16) + 1);
 	mk = ft_rounding(fmt, tmp, -mk);
 	return (mk);
 }
