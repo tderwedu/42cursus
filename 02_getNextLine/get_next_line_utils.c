@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:12:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/03 12:47:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:50:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int		ft_free_vec(t_vec *vec)
 {
-	free(vec->begin);
+	free(vec->start);
 	free(vec);
 	return (-1);
 }
@@ -29,14 +29,14 @@ t_vec	*ft_newvec(void)
 	size = (VEC_SIZE > buff_size ? VEC_SIZE : buff_size);
 	if (!(new = malloc(sizeof(t_vec))))
 		return (NULL);
-	if (!(new->begin = malloc(size + 1)))
+	if (!(new->start = malloc(size + 1)))
 	{
 		free(new);
 		return (NULL);
 	}
-	*(new->begin) = '\0';
-	new->max = new->begin + size - BUFFER_SIZE;
-	new->end = new->begin;
+	*(new->start) = '\0';
+	new->max = new->start + size - BUFFER_SIZE;
+	new->ptr = new->start;
 	new->len = 0;
 	return (new);
 }
@@ -46,18 +46,18 @@ t_vec	*ft_growvec(t_vec *vec)
 	char	*ptr;
 	size_t	size;
 
-	size = (vec->max - vec->begin + BUFFER_SIZE) * 2;
+	size = (vec->max - vec->start + BUFFER_SIZE) * 2;
 	if (!(ptr = malloc(size + 1)))
 	{
 		free(vec);
 		return (NULL);
 	}
-	vec->len = vec->end - vec->begin;
-	ft_memcpy(ptr, vec->begin, vec->len + 1);
-	free(vec->begin);
-	vec->begin = ptr;
-	vec->end = ptr + vec->len;
-	vec->max = vec->begin + size - BUFFER_SIZE;
+	vec->len = vec->ptr - vec->start;
+	ft_memcpy(ptr, vec->start, vec->len + 1);
+	free(vec->start);
+	vec->start = ptr;
+	vec->ptr = ptr + vec->len;
+	vec->max = vec->start + size - BUFFER_SIZE;
 	return (vec);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 10:14:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/11 11:44:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:57:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int					ft_format_handler(va_list *ap, t_vec *buff, t_format *fmt)
 	size = ((size > 320) ? size * 2 : 640);
 	if (!(tmp = ft_newvec(size, 0)))
 		return (-1);
-	tmp->ptr = tmp->begin + size / 2;
+	tmp->ptr = tmp->start + size / 2;
 	if (type & TYPE_INT)
 		ft_int_handler(ap, fmt, tmp);
 	else
@@ -45,7 +45,7 @@ int					ft_fmt_n(va_list *ap, t_vec *buff, t_format *fmt)
 	int		length;
 	void	*ptr;
 
-	len = buff->ptr - buff->begin;
+	len = buff->ptr - buff->start;
 	length = fmt->length;
 	ptr = va_arg(*ap, void*);
 	if (length == -2)
@@ -94,7 +94,7 @@ int					ft_fmt_pc(t_vec *buff, t_format *fmt)
 
 	if (!(tmp = ft_newvec((2 * (fmt->width ? fmt->width : 1)), 0)))
 		return (-1);
-	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
+	tmp->ptr = tmp->start + (tmp->max - tmp->start) / 2;
 	*tmp->ptr = '%';
 	tmp->len = 1;
 	ft_fmt_width(fmt, tmp);

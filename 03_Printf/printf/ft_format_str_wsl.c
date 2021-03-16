@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_format_str.c                                    :+:      :+:    :+:   */
+/*   ft_format_str_wsl.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/10 16:06:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/11 10:20:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:57:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int					ft_format_str(va_list *ap, t_vec *buff, t_format *fmt)
 		return (-1);
 	if (!(tmp = ft_newvec(2 * (len + fmt->width + 8), 0)))
 		return (-1);
-	tmp->ptr = tmp->begin + (tmp->max - tmp->begin) / 2;
+	tmp->ptr = tmp->start + (tmp->max - tmp->start) / 2;
 	tmp->len = len;
 	ft_str2tmp(fmt, tmp, str);
 	ft_fmt_str(fmt, tmp);

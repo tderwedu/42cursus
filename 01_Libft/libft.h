@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:07:15 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/10 13:38:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 12:30:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,12 @@
 # define LIBFT_H
 
 # include "ctype.h"
+# include "t_fp.h"
 
 # include <stdint.h>
 # include <stdlib.h>
 # include <unistd.h>
+# include <wchar.h>
 
 /*
 **	TYPEDEF
@@ -33,6 +35,14 @@ typedef struct	s_list
 	void			*content;
 	struct s_list	*next;
 }				t_list;
+
+typedef struct	s_vec
+{
+	char	*start;
+	char	*ptr;
+	char	*max;
+	size_t	len;
+}				t_vec;
 
 /*
 **	MEMORY
@@ -89,11 +99,18 @@ void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 
 /*
+**	MATH
+*/
+
+double			ft_ceil(double x);
+double			t_floor(double x);
+
+/*
 **	LINKED_LIST
 */
 
-void			ft_lstadd_back(t_list **lst, t_list *new);
-void			ft_lstadd_front(t_list **lst, t_list *new);
+void			ft_lstadd_back(t_list **lst, t_list *newlst);
+void			ft_lstadd_front(t_list **lst, t_list *newlst);
 void			ft_lstclear(t_list **lst, void (*del)(void *));
 void			ft_lstdelone(t_list *lst, void (*del)(void *));
 void			ft_lstiter(t_list *lst, void (*f)(void *));
@@ -101,5 +118,14 @@ t_list			*ft_lstlast(t_list *lst);
 t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
 t_list			*ft_lstnew(void *content);
 int				ft_lstsize(t_list *lst);
+
+/*
+**	BUFFER (vector)
+*/
+
+int				ft_freevec(t_vec *vec);
+t_vec			*ft_growvec(t_vec *vec, size_t delta);
+t_vec			*ft_newvec(size_t size, size_t delta);
+void			ft_wstr2vec(t_vec *dest, wchar_t *src, size_t len);
 
 #endif

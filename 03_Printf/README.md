@@ -5,7 +5,7 @@ The C ```printf()``` function recoded from scratch.
 
 ## How to use it
 
-Clone this repository and execute the following commands
+Clone this repository and execute the following command
 ```bash
 make bonus
 ```
@@ -13,11 +13,11 @@ to generate the librairy file ```libftprintf.a```.
 
 ## What's supported
 
-- Flags : ```#```, ```0```, ```-```, ```+```, ``` ```
+- Flags : ```#```, ```0```, ```-```, ```+```, '``` ```'
 - Width : direct decimal integer or as an argument with ```*```
 - Precision : direct decimal integer or as an argument with ```*```
 - Size : ```hh```, ```h```, ```l```, ```ll```
-- Type : ```c```, ```s```, ```u```, ```o```, ```x```, ```X```, ```p```, ```n```, ```d```, ```i```, ```a```, ```A```, ```e```, ```E```, ```f```, ```F```,```g```, ```G```.
+- Types : ```c```, ```s```, ```u```, ```o```, ```x```, ```X```, ```p```, ```n```, ```d```, ```i```, ```a```, ```A```, ```e```, ```E```, ```f```, ```F```,```g```, ```G```.
 
 
 ## What I have learned
@@ -44,5 +44,5 @@ I learned mostly about floating-point numbers called ```double```.  How they are
 
 ## License
 
-All files, except those in the *Grisu* folder, are  released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+All files, except those in the *grisu* folder, are  released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
 

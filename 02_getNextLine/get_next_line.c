@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:12:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/15 15:21:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 11:20:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ static void	ft_copy_line(t_vec *buff, char *str)
 {
 	size_t	carry;
 
-	ft_memcpy(str, buff->begin, buff->len);
+	ft_memcpy(str, buff->start, buff->len);
 	*(str + buff->len) = '\0';
-	carry = (size_t)(buff->end - buff->begin) - buff->len;
+	carry = (size_t)(buff->ptr - buff->start) - buff->len;
 	carry = (carry ? carry - 1 : 0);
 	if (carry > 0)
-		ft_memcpy(buff->begin, buff->begin + buff->len + 1, carry);
-	buff->end = buff->begin + carry;
+		ft_memcpy(buff->start, buff->start + buff->len + 1, carry);
+	buff->ptr = buff->start + carry;
 	buff->len = carry;
-	*(buff->end) = '\0';
+	*(buff->ptr) = '\0';
 }
 
 static int	ft_read_file(int fd, char **line, t_vec *buff)
@@ -32,20 +32,20 @@ static int	ft_read_file(int fd, char **line, t_vec *buff)
 	ssize_t	nbytes;
 	char	*eol;
 
-	eol = ft_strchr(buff->begin, '\n');
+	eol = ft_strchr(buff->start, '\n');
 	nbytes = BUFFER_SIZE;
 	while (!eol && nbytes == BUFFER_SIZE)
 	{
-		if ((nbytes = read(fd, buff->end, BUFFER_SIZE)) < 0)
+		if ((nbytes = read(fd, buff->ptr, BUFFER_SIZE)) < 0)
 			return (ft_free_vec(buff));
-		*(buff->end + nbytes) = '\0';
-		eol = ft_strchr(buff->end, '\n');
-		buff->end += nbytes;
-		if (!eol && buff->end > buff->max)
+		*(buff->ptr + nbytes) = '\0';
+		eol = ft_strchr(buff->ptr, '\n');
+		buff->ptr += nbytes;
+		if (!eol && buff->ptr > buff->max)
 			if (!(buff = ft_growvec(buff)))
 				return (-1);
 	}
-	buff->len = (eol ? eol : buff->end) - buff->begin;
+	buff->len = (eol ? eol : buff->ptr) - buff->start;
 	if (!(*line = malloc(buff->len + 1)))
 		return (ft_free_vec(buff));
 	ft_copy_line(buff, *line);
@@ -55,7 +55,7 @@ static int	ft_read_file(int fd, char **line, t_vec *buff)
 	return (0);
 }
 
-int		get_next_line(int fd, char **line)
+int			get_next_line(int fd, char **line)
 {
 	static t_vec	*buff[OPEN_MAX];
 	int				ret;

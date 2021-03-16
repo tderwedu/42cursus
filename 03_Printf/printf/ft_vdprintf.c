@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/22 14:31:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 11:21:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:57:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,6 @@ int					ft_vdprintf(t_ui fd, const char *str, va_list *ap)
 	if (ft_cpy2buff(buff, last, str - last) < 0)
 		return (-ft_freevec(buff));
 	len = buff->len;
-	write(fd, buff->begin, len);
+	write(fd, buff->start, len);
 	return (len * ft_freevec(buff));
 }

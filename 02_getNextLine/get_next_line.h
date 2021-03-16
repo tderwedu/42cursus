@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/20 09:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/15 15:21:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/03/16 10:50:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ typedef unsigned long	t_ul;
 
 typedef struct	s_vec
 {
-	char	*begin;
-	char	*end;
+	char	*start;
+	char	*ptr;
 	char	*max;
 	size_t	len;
 }				t_vec;

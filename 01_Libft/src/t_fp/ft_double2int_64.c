@@ -1,20 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_freevec.c                                       :+:      :+:    :+:   */
+/*   ft_double2int_64.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 10:35:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/16 10:56:02 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/26 18:25:09 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/04 13:11:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/mini_libft.h"
+#include "../include/grisu.h"
 
-int		ft_freevec(t_vec *vec)
+uint64_t	ft_double2int_64(double d)
 {
-	free(vec->start);
-	free(vec);
-	return (1);
+	t_d2i_64 tmp;
+
+	tmp.d = d;
+	return (tmp.i);
 }
