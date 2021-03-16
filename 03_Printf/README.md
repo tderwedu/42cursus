@@ -1,25 +1,36 @@
 # ```ft_printf```
 *a 19 Coding School project*
 
-The C printf function recoded from scratch.
+The C ```printf()``` function recoded from scratch.
 
 ## How to use it
 
-Clone this repository and execute the following commands:
+Clone this repository and execute the following commands
 ```bash
 make bonus
 ```
-```bash
-gcc -Wall -Wextra -Werror main.c -L . -lftprintf && ./a.out
-```
+to generate the librairy file ```libftprintf.a```.
+
+## What's supported
+
+- Flags : ```#```, ```0```, ```-```, ```+```, ``` ```
+- Width : direct decimal integer or as an argument with ```*```
+- Precision : direct decimal integer or as an argument with ```*```
+- Size : ```hh```, ```h```, ```l```, ```ll```
+- Type : ```c```, ```s```, ```u```, ```o```, ```x```, ```X```, ```p```, ```n```, ```d```, ```i```, ```a```, ```A```, ```e```, ```E```, ```f```, ```F```,```g```, ```G```.
+
 
 ## What I have learned
 
-W.I.P.
+I learned mostly about floating-point numbers called ```double```.  How they are laid in memory and how to convert them back to decimal. What are the special values defined by the ```IEEE 754``` standard and what are the rounding rules.
 
 ## Acknowledgements
 
-[Florian Loitsch's Grisu Algorithm](https://florian.loitsch.com/publications)
+- Florian Loitsch's [Grisu Algorithm](https://florian.loitsch.com/publications)
+- Jean-Michel Gambard's [printfTester](https://github.com/Tripouille/printfTester.git)
+- Gavin Fielder's [PFT](https://github.com/gavinfielder/pft)
+- Maia Chardin's [42TESTERS-PRINTF](https://github.com/Mazoise/42TESTERS-PRINTF.git)
+- Charles Cabergs's [ft_printf_test](https://github.com/cacharle/ft_printf_test)
 
 ## Bibliography
 
@@ -29,9 +40,9 @@ W.I.P.
 
 > Florian Loitsch: "Printing floating-point numbers quickly and accurately with integers." In proceedings of 2010 ACM SIGPLAN Conference on Programming Language Design and Implementation, Toronto, ON, Canada, June 2010, pp. 233-243
 
-> Marc Andrysco, Ranjit Jhala, and Sorin Lerner: "Printing floating-point numbers: a faster, always correct method." ACM SIGPLAN Notices, Vol. 51, No. 1, January 2016, pp. 555-567 
+> Ulf Adams: "Ryū: fast float-to-string conversion." ACM SIGPLAN Notices, Vol. 53, No. 4, April 2018, pp. 270-282
 
 ## License
 
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+All files, except those in the *Grisu* folder, are  released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
 

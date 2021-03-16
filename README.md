@@ -12,14 +12,15 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 1. [Libft](https://github.com/tderwedu/42cursus/tree/main/01_Libft)
 2. [Get Next Line](https://github.com/tderwedu/42cursus/tree/main/02_getNextLine)
 3. [ft_printf](https://github.com/tderwedu/42cursus/tree/main/03_Printf)
+4. [Netwhat](https://github.com/tderwedu/42cursus/tree/main/04_netwhat)
 
 ## The Norm
 
 The norm is a programming standard defining a set of rules to follow when writing C code.  
 Most notably:
  - ```For```, ```do ... while``` and ```case``` are forbidden,
- - Each function must have a maximum of 25 lines,
- - No more than 5 variables per bloc can be declared.
+ - Each function must have a maximum of _25_ lines,
+ - No more than _5_ variables per bloc can be declared.
  
 If you are interested in learning more about the norm, feel free to take a look at the PDF included at the root of this repository called ```en.norm.pdf```.
 
