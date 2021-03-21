@@ -39,6 +39,10 @@ Data hop from one Network Router to another getting closer and closer to the des
  ## Packets
 Chop up big transmission into many small pieces called packets.
 
+
+
+
+
 # Internet Protocol (IP)
  - IP address : every device connected to the network gets an IP address.
 
@@ -69,7 +73,23 @@ Cons
 - No information about the application to give the data to.
 
 ## IP adresses
+
+IP addresses have two functions
+- network identification
+- host identification
+
 IP Addres = **[ network  ]  [ host  ]**
+
+### Evolutions
+
+1. One byte for the network and 3 bytes for the host.
+2. IP addresses classes
+3. Classless IP addresses and subnets
+
+### IP addresses classes
+
+1. The class is identified by looking at the first few bits.
+2. Knowing the class, we can separate the part for the network from the part for the host.
 
   | Class| Starting bits  | IP adresses Range               | CIDR |  Supports                             |
   | ---- | -------------- | ------------------------------- | -----| --------------------------------------|
@@ -79,10 +99,14 @@ IP Addres = **[ network  ]  [ host  ]**
   |   D  | 1110           |  224.0.0.1  to  239.255.255.254 |      | Reserved for multicast                |
   |   E  | 1111           |  240.0.0.1  to  255.255.255.254 |      | Reserved for IANA (future use or R&D) |
   
+
+
  > Ranges for private IP addresses:
  > - Class A : 10.0.0.1		to 10.255.255.254
  > - Class B : 172.16.0.1	to 172.31.255.254
  > - Class C : 192.168.1.1	to 192.168.255.254
+
+
 
 # User Datagram Protocol (UDP)
 
@@ -125,16 +149,33 @@ Convert Domain Name  to IP addresses.
 
 # Open System Interconnection Model (OSI Model)
 
+Developped by the ISO (International Organization for Standardization). Unlike the TCP/IP model the OSI model has never really been implemented. It is mostly used as a reference model for educational purposes. It is a conceptual framework for compartilizing the different network processes.
 
-**7** - Application  
-**6** - Presentation  
-**5** - Session  
-**4** - Transport  
-**3** - Network  
-**2** - Data Link  
-**1** - Physical  
+>**7** - Application  
+>**6** - Presentation  
+>**5** - Session  
+>**4** - Transport
+>**3** - Network  
+>**2** - Data Link  
+>**1** - Physical  
 
-Conceptual framework for compartilizing all these different network processes.
+### **Application**
+FTP, web browsing, email, network management session (like ssh), ...
+### **Presentation**
+Data formating (data formats) and conversion (encryption, compression).
+### **Session**
+Application processes, reauest to remote services (Session Control Services - SCP)
+### **Transport**
+Responsible for data transport between two endpoints. Breaks data into segments (TCP) or datagram (UDP). Each flow of data has two port numbers. One is associated to the source and one the the destination.  
+TCP, UDP, ...  
+Port number *80* for web server, ...
+### **Network**
+Network (IP) addresses and routing. After adding the IP addresses the pieces of data are called data segments.
+### **Data Link**
+Getting data between two devices which are not necessarily the two endpoints. Creates a logical link between devices which are not directly connected.  
+Ethernet.
+### **Physical**
+Encodes data into physical signals.
 
 # The world Wide Web
 
