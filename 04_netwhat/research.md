@@ -4,9 +4,10 @@ W.I.P. needs to concatenate several sources AND reorganise/rewrite !!
 **Executive Summary (W.I.P.)**
 
 - LAN  : Local Area Network
-- WAN  : Wide Area Network
 - MAC  : Media Access Control
 - CSMA : Carrier Sense Multiple Access
+
+- WAN  : Wide Area Network
 - ISP  : Internet Service Provider
 - CIDR : Classless Inter-Domain Routing
 - NAT  : Network Address Translation
@@ -21,111 +22,21 @@ W.I.P. needs to concatenate several sources AND reorganise/rewrite !!
 - SNMP : Simple Network Management Protocol
 - ICMP : Internet Control Message Protocol
 - OUI  : Organizationally Unique Identifier
-
-# ```Ethernet```
-
-## M.A.C. addresses
-- 1 M.A.C. addresse per network interface
-- 48 bits long : AA:BB:CC:00:11:22
-	- First 24 bits : Organizationally Unique Identifier (OUI). Assigned by the IEEE to the manufacturer.
-	- Last 24 bits : Vendor Assigned
-- Broadcast : ff:ff:ff:ff:ff:ff  
-	Delivers the frame to every devices connected. Routers do not forward broadcast frames.
-- Multicast.
-
-## Ethernet Format
-![Ethernet_Format](./Ethernet_Format.svg)
-
-### `Preamble`
-A fixed pattern of ones and zeros which lasts for 7 bytes. It shows the start of a frame. The eigth byte is the Start Frame Delimiter (SFD).
-### `Destination`
-The destination M.A.C. addresse.
-### `Source`
-The source M.A.C. addresse
-### `Type`
-Tells which protocol is in the data section of the frame. Most likely IPv4 or IPv6.
-### `Frame Check Sequence (FCS)`
-Used to tell is any part of the frame has become corrupted during transit.
-
-## Old style transmission
-All computer are connected to a single common ethernet cable (BUS-like). Transmitted data is accessible to every computer plugged to the network. Each computer has a unique M.A.C. (Media Access Control) address. Data is only processed when the MAC address correspond to the computer's one.
-- Bandwidth : rate at which a carrier can transmit data
-- Collision : two or more devices write simultanously data
-- Collision Domain : list of devices sharing the same ethernet BUS.
-
-Cons
-- Lot of unnecessary traffic.
-- Security hazard.
-
-### Carrier Sense Multiple Access (CSMA)
-Carrier Sense Multiple Access (CSMA) is a Media Access Control protocol used to minimize collisions :
-1. *Collision Avoidance*  
-	Determine when the network is idle and only transmit then.
-2. *Collision Detection*  
-	When 2 or more devices detect a collision, they wait for brief period before attempting to 	re-transmit. The waiting time has a random random component. When multiple collisions happen in a row, the waiting time increases exponentially. This is called **Exponential Backof**.
-
-## HUBS
-*A layer 2 device - Still a BUS like network*
-The devices are connected to the HUB instead of chaining all the nodes up. The frames are still send to every devices.
-- Half Duplex : cannot send and receive at the same time
-- Collision Domain = entire network.
-
-Cons
-- All devices in the same Collision Domain,
-- Half Duplex,
-- Data replicated to all ports,
-- Limited scalability.
-
-## Bridges
-*A layer 2 device - Still a BUS like network*
-Bridges have M.A.C. addresses tables which contain all the M.A.C. of the network an to which interface the devices are connected to. Allow to break the network into sub collision domains.
-
-If a frame arrives at an interface of the bridge:
-1. The dst M.A.C. is in the same sub-domain. The bridge does nothing.
-2. The dst M.A.C. is connected to another bridge's interface. The bridge forward the frame out (Filtering).
-
-Bridges have 5 functions :
-- Filtering
-- Learning
-- Flooding
-- Forwarding
-- Aging
-
-Pros
-- Less traffic flooding,
-- Smaller Collision Domains,
-- Better performances,
-- Better scalability.
-
-### How the M.A.C. table is filled
-1. Whenever a frame arrives at an internface the bridge looks for the src M.A.C. address. If the address id not already in the table, the M.A.C. is added with the corresponding interface.
-2. If the src M.A.C. is unknown, the bridge flood the frame out at all interfaces except the one the frame arrived on.
-3. If the M.A.C. is already in the table but is associated to another interface, the table is updated.
-4. All the entries of the table have an aging timer. The timer is reset at each new incomming frame. If the timer expires, the entry is removed form the table.
-
-## Switches
-*A layer 2 device - Star topology*  
-Switches are a mix between Hubs and Bridges. They have a lot of interfaces and behave like Bridges.
-
-Pros
-- Smallest Collision Domain
-- Full Duplex
-- Efficient
-
-### Handling Frames
-1. **Store and Forward** - Safest  
-	Keeps the frame in memory until the entire frame has arrived and only then forward the frame out. This allows checking for errors.
-2. **Cut Through** - Fastest  
-	Keeps the frame in memory until the switch is able to see the dst M.A.C. address. Then looks up in the table and start forwarding out the bits.
-3. **Fragment Free**  
-	The switch stores the first 64 bits of the frame as this is the part which is nost likely to have errors. If there isn't any error, all the bits are sent out as soon as they arrive.
+- ARP  : Address Resolution Protocol
+- ACL  : Access Control List
+- ACE  : Access Control Entry
+- FQDM : Fully Qualified Domain Name
+- TLD  : Top Level Domain
 
 
+# Internet Protocol (IP)
+ - IP address : every device connected to the network gets an IP address.
 
-# Routing
-## Circuit switching 
+## Routing
+
+### Circuit switching 
 Switching whole circuits to route traffic to the correct destination. This is inflexible and expensive due to the unused capacity. This is still used by banks, military, ... (security purpose ? ...)
-## Message Switching 
+### Message Switching 
 Data hop from one Network Router to another getting closer and closer to the destination. This solution allows using different routes and is therefore fault tolerant.
 
  - Hop Count : Number of hops a message takes along a route. This helps detect error when the hop count gets to high.
@@ -136,6 +47,127 @@ Data hop from one Network Router to another getting closer and closer to the des
  ## Packets
 Chop up big transmission into many small pieces called packets.
 
+## Packet Switching
+Chooping up data into small packets and passing these along flexible routes with spare capacity.
+
+Pros
+- Efficient
+- Fault Tolerant
+- Decentralized
+
+Cons
+- Packets can arrives at their destination out of order.
+
+## The Internet [quite dull ...]
+LAN -> WAN -> wider WAN -> Wider and Wider WAN -> Widest Wan -> WAN -> LAN
+Router runned by an Internet Service Provider (ISP).
+
+## Internet Protocol (IP) [again ...]
+
+**Packets = IP Header + Data**
+
+IP Header:
+- src Ip
+- dst IP
+
+Cons
+- No information about the application to give the data to.
+
+# User Datagram Protocol (UDP)
+
+**Packets = IP Header + Data**  
+**Packets = IP Header + UDP Header + Data**
+
+UDP Header
+- Port Number : each program having access to the internet has an unique port granted by the OS
+- Cheksum : used to verify the integrity of the data. = sum of bytes (16 bits number)
+
+Pros
+- Really simple and fast
+
+Cons
+- No information to know if sent packets are getting through.
+- No error recovery system
+
+# Transmission Control Protocol (TCP)
+
+**Packets = IP Header + Data**  
+**Packets = IP Header + TCP Header + Data**
+
+TCP Header
+- Port Number
+- Cheksum
+- Sequence Number
+- Congestion Control
+
+Pros
+- Robust
+
+Cons
+- Increase delays
+- Increase usage of the internet
+
+## Address Resolution Protocol (ARP)
+Address Resolution Protocol (ARP) is used to match a MAC address with an IP.
+1. **ARP Request**  
+	The device send a layer 2 broadcast frame to the entire LAN asking for the MAC corresponding to an IP.
+2. If there is a match. the response contains the MAC and the corresponding IP. It is an unicast message to the host listed in the original request.
+
+### ARP Cache
+A table that contains all IP addresses mapped to their MAC addresses. There is a timer for each entries to limit the table size and obsolescence.
+### 'RARP'
+Reverse ARP. Convert MACs to IPs.
+### 'GARP'
+Gratuituous ARP.  
+A device sends a GARP message whenever its IP changes or the device boots up. This is faster and prevent IP conflict.
+
+
+## Dynamic Host Control Protocol (DHCP)
+Dynamic Host Control Protocol (DHCP) is a network management protocol used to automate IP configuration of devices on the network. This includes IP address, subnet mask, default gateway, and DNS information. It employs a connectionless services model like UDP.
+
+Whenever a devices connects to the network :  
+1. **Discover**  
+	The device broadcast a special DHCP discover message which contains its MAC address.
+2. **Offer**  
+	The DHCP server looks for an available IP in the addresses pool an reserves it. The available IP is send through an offer message.
+3. **Request**  
+	If the client receives more than one offer, he selects one IP and formally ask for premission to use it by broadcasting a DCHP request message.
+4. **Acknowledgement**  
+	The server sends a DHCP acknowledgement.
+### Static Allocation
+The DHCP is configured to gives a specific IP to a client (MAC address).
+### DHCP Relay
+Routers may act as a DHCP relay. When an request is catched up by the router, the router forward the request to the DHCP server.
+
+
+## Domain Name System
+Convert Domain Name  to IP addresses.
+
+> *www.networkdirection.net*  
+> Fully Qualified Domain Name (FQDM)):
+> 1. Top level Domain : net
+> 2. Second Level Domain : networkdirection
+> 3. Host Name : www
+
+DNS servers contain one or more database called zones. The zones reprensent domains such as "networkdirection.net".  
+Each zones contains piece of information called records. They are different types od records the most common being the host record.  
+The forward Lookup zone contains the name to IP mapping of all the hosts within the domain. If a DNS server has a zone for a particuliar domain name then this server is authoritative for that domain. This means that the DNS server is a legitimate source of informaton for that domain.  
+When a DNS server is non-authoritative for a domain it may ask another DNS for help.
+
+### Recursive Query
+When a DNS server is non-authoritative and ask a query to an external DNS and forward the response.
+### Root In or Iterative Query
+They are 13 IP addresses for special DNS server around the world which are called *Root Servers*. They are authoritative for root namespace. They know how to find DNS servers for each Top Level Domains (TLD).
+So when our DNS server does not know the domain, it can an Iterative Query.
+- Asking a Root Server for the IP for the proper Top Level DNS authoritative server,
+- Asking the TLD DNS server for the IP of the Second Level DNS server,
+- ...
+
+## Access Control List (ACL)
+An Access Control List (ACL) is list or rules. Each rule is Access Control Entry (ACE) and is used to permit or deny traffic. The list is evaluated from top to bottom. Each rule contains information such as src/dst IP address, src/dst port numbers, protocol used, ...
+If the incomming traffic does not match any rule, there is an invisible rule at the end of the list called *the implicit deny* ('deny any any').
+
+ACLs can use wildcards which are bits mask. The part that needs to matchs is made up of zeros and the free part is made of ones! Ther is also no restriction on the wildcard values like subnet masks.
 
 
 
@@ -162,7 +194,7 @@ IP addresses have two functions
 
 This last IP is used when a device is starting up and has not IP address nor information about the local subnet. This IP allow to send traffic everywhere.
 
-### Assiging Addresses
+### Assigning Addresses
 1. Static addresses (routers and some server)
 2. Dynamic addresses with a Dynamic Host Configuration Protocol (DHCP).  
 3. Automatic Private Ip addressing (unsusual).
@@ -304,8 +336,8 @@ Converts data segment or datagram into packets by adding a header with the sourc
 ### **Data Link**
 Responsible of delivering traffic on a single network segment, LAN or subnet.  
 If Ethernet protocol is used:  
-1. If the 2 hosts are in the same subnet then delivery is achieved using M.A.C. addresses.
-2. If the 2 hosts are in different subnets routers are needed and the destination (dst) M.A.C. is the router. The router looks at the dst IP and set the M.A.C. addresse accordingly. The source (src) M.A.C. addresse becomes the one of the router.
+1. If the 2 hosts are in the same subnet then delivery is achieved using MAC. addresses.
+2. If the 2 hosts are in different subnets routers are needed and the destination (dst) MAC. is the router. The router looks at the dst IP and set the MAC. addresse accordingly. The source (src) MAC. addresse becomes the one of the router.
 ### **Physical**
 Encodes data into physical signals.
 
@@ -386,94 +418,6 @@ If there is an error, all the segments starting the faulty one are re-transfered
 - Connectionless
 - Supports Multicast
 - No error recovery
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Internet Protocol (IP)
- - IP address : every device connected to the network gets an IP address.
-
-## Packet Switching
-Chooping up data into small packets and passing these along flexible routes with spare capacity.
-
-Pros
-- Efficient
-- Fault Tolerant
-- Decentralized
-
-Cons
-- Packets can arrives at their destination out of order.
-
-## The Internet [quite dull ...]
-LAN -> WAN -> wider WAN -> Wider and Wider WAN -> Widest Wan -> WAN -> LAN
-Router runned by an Internet Service Provider (ISP).
-
-## Internet Protocol (IP) [again ...]
-
-**Packets = IP Header + Data**
-
-IP Header:
-- src Ip
-- dst IP
-
-Cons
-- No information about the application to give the data to.
-
-# User Datagram Protocol (UDP)
-
-**Packets = IP Header + Data**  
-**Packets = IP Header + UDP Header + Data**
-
-UDP Header
-- Port Number : each program having access to the internet has an unique port granted by the OS
-- Cheksum : used to verify the integrity of the data. = sum of bytes (16 bits number)
-
-Pros
-- Really simple and fast
-
-Cons
-- No information to know if sent packets are getting through.
-- No error recovery system
-
-# Transmission Control Protocol (TCP)
-
-**Packets = IP Header + Data**  
-**Packets = IP Header + TCP Header + Data**
-
-TCP Header
-- Port Number
-- Cheksum
-- Sequence Number
-- Congestion Control
-
-Pros
-- Robust
-
-Cons
-- Increase delays
-- Increase usage of the internet
-
-## Domain Name System
-Convert Domain Name  to IP addresses.
-1. Top level Domains (com, be, net, ...)
-2. Second Level Domains (google.com, youtube.com)
-3. Sub-domains of Parrent (images.google.com)
 
 
 
