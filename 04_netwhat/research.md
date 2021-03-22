@@ -14,24 +14,111 @@ W.I.P. needs to concatenate several sources AND reorganise/rewrite !!
 - dst  : destination
 - src  : source
 - ISN  : Initial Sequence Number
+- URL  : Uniform Ressource Locator
+- ARP  : Address Resolution Protocol
+- SMTP : Simple Mail Transfer Protocol
+- IMAP : Internet Message Access Protocol
+- SNMP : Simple Network Management Protocol
+- ICMP : Internet Control Message Protocol
+- OUI  : Organizationally Unique Identifier
 
-# Ethernet
+# ```Ethernet```
 
+## M.A.C. addresses
+- 1 M.A.C. addresse per network interface
+- 48 bits long : AA:BB:CC:00:11:22
+	- First 24 bits : Organizationally Unique Identifier (OUI). Assigned by the IEEE to the manufacturer.
+	- Last 24 bits : Vendor Assigned
+- Broadcast : ff:ff:ff:ff:ff:ff  
+	Delivers the frame to every devices connected. Routers do not forward broadcast frames.
+- Multicast.
+
+## Ethernet Format
+![Ethernet_Format](./Ethernet_Format.svg)
+
+### `Preamble`
+A fixed pattern of ones and zeros which lasts for 7 bytes. It shows the start of a frame. The eigth byte is the Start Frame Delimiter (SFD).
+### `Destination`
+The destination M.A.C. addresse.
+### `Source`
+The source M.A.C. addresse
+### `Type`
+Tells which protocol is in the data section of the frame. Most likely IPv4 or IPv6.
+### `Frame Check Sequence (FCS)`
+Used to tell is any part of the frame has become corrupted during transit.
+
+## Old style transmission
 All computer are connected to a single common ethernet cable (BUS-like). Transmitted data is accessible to every computer plugged to the network. Each computer has a unique M.A.C. (Media Access Control) address. Data is only processed when the MAC address correspond to the computer's one.
-
-## Carrier Sense Multiple Access (CSMA)
-Carrier Sense Multiple Access (CSMA) is a Media Access Control protocol in which a device verifies the absence of other traffic before transmitting on a shared transmission medium.
-
 - Bandwidth : rate at which a carrier can transmit data
 - Collision : two or more devices write simultanously data
-- Collision Domain : list of devices sharing the same ethernet cable
+- Collision Domain : list of devices sharing the same ethernet BUS.
 
-To avoid collision
-1. When devices while transmitting data detect a collision, they wait for brief period before attempting to re-transmit. The waiting time has a random random component.
-2. Exponential Backoff : When multiple collisions happen in a row, the waiting time increases exponentially.
-3. Using a switch or Bridge to break the LAN into smaller sub-domains.
+Cons
+- Lot of unnecessary traffic.
+- Security hazard.
 
+### Carrier Sense Multiple Access (CSMA)
+Carrier Sense Multiple Access (CSMA) is a Media Access Control protocol used to minimize collisions :
+1. *Collision Avoidance*  
+	Determine when the network is idle and only transmit then.
+2. *Collision Detection*  
+	When 2 or more devices detect a collision, they wait for brief period before attempting to 	re-transmit. The waiting time has a random random component. When multiple collisions happen in a row, the waiting time increases exponentially. This is called **Exponential Backof**.
 
+## HUBS
+*A layer 2 device - Still a BUS like network*
+The devices are connected to the HUB instead of chaining all the nodes up. The frames are still send to every devices.
+- Half Duplex : cannot send and receive at the same time
+- Collision Domain = entire network.
+
+Cons
+- All devices in the same Collision Domain,
+- Half Duplex,
+- Data replicated to all ports,
+- Limited scalability.
+
+## Bridges
+*A layer 2 device - Still a BUS like network*
+Bridges have M.A.C. addresses tables which contain all the M.A.C. of the network an to which interface the devices are connected to. Allow to break the network into sub collision domains.
+
+If a frame arrives at an interface of the bridge:
+1. The dst M.A.C. is in the same sub-domain. The bridge does nothing.
+2. The dst M.A.C. is connected to another bridge's interface. The bridge forward the frame out (Filtering).
+
+Bridges have 5 functions :
+- Filtering
+- Learning
+- Flooding
+- Forwarding
+- Aging
+
+Pros
+- Less traffic flooding,
+- Smaller Collision Domains,
+- Better performances,
+- Better scalability.
+
+### How the M.A.C. table is filled
+1. Whenever a frame arrives at an internface the bridge looks for the src M.A.C. address. If the address id not already in the table, the M.A.C. is added with the corresponding interface.
+2. If the src M.A.C. is unknown, the bridge flood the frame out at all interfaces except the one the frame arrived on.
+3. If the M.A.C. is already in the table but is associated to another interface, the table is updated.
+4. All the entries of the table have an aging timer. The timer is reset at each new incomming frame. If the timer expires, the entry is removed form the table.
+
+## Switches
+*A layer 2 device - Star topology*  
+Switches are a mix between Hubs and Bridges. They have a lot of interfaces and behave like Bridges.
+
+Pros
+- Smallest Collision Domain
+- Full Duplex
+- Efficient
+
+### Handling Frames
+1. **Store and Forward** - Safest  
+	Keeps the frame in memory until the entire frame has arrived and only then forward the frame out. This allows checking for errors.
+2. **Cut Through** - Fastest  
+	Keeps the frame in memory until the switch is able to see the dst M.A.C. address. Then looks up in the table and start forwarding out the bits.
+3. **Fragment Free**  
+	The switch stores the first 64 bits of the frame as this is the part which is nost likely to have errors. If there isn't any error, all the bits are sent out as soon as they arrive.
 
 
 
@@ -61,7 +148,12 @@ IP addresses have two functions
 - network identification
 - host identification
 
-**IP Addres = [ network ] + [ host ]**
+**IP Addres = [ network ] + [ host ]**  
+
+- **IPv4**  
+	This is the first version of IP. It was deployed for production in the ARPANET in 1983.  Is still the most used IP version today. 
+- **IPv6**  
+	It is the most recent version of the Internet Protocol. It was initiated it in early 1994.
 
 > Special purpose addresses :  
 > Network IP : first address of a subnet (all host bits set to 0).  
@@ -292,6 +384,7 @@ If there is an error, all the segments starting the faulty one are re-transfered
 ### UDP features
 - Lightweight and fast 
 - Connectionless
+- Supports Multicast
 - No error recovery
 
 
@@ -406,3 +499,9 @@ HyperText Transport Protocol is protocol used to carry a web page from a web ser
 ## HyperText Markup Language (HTML)
 Allows  to mark up a text file with hypertext element.  
 - HTML tags : **<#>...<\\#>**
+
+
+What is ping:
+
+Ping is a computer network administration software utility used to test the reachability of a host on an Internet Protocol (IP) network.
+Ping operates by sending Internet Control Message Protocol (ICMP - Layer 3) echo request packets to the target host and waiting for an ICMP echo reply.
