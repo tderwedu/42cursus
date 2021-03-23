@@ -26,10 +26,10 @@ A short introduction to networking
 - TLD  : Top Level Domain
 - FQDM : Fully Qualified Domain Name
 
-## `Ethernet Protocol`
+## [Ethernet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/EthernetProtocol.md)
 ### Frames
 ![Ethernet_Format](./Images/Ethernet_Format.svg)
-## `Network Models`
+## [Network Models](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/NetworkModels.md)
 ### OSI Layers
 >**7** - Application  
 >**6** - Presentation  
@@ -46,7 +46,7 @@ A short introduction to networking
 >**2** - Data Link  
 >**1** - Physical  
 
-### `IP addresses`
+## [IP addresses](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/IPs.md)
 
 **IP Address = [ network ] + [ host ]**  
 
@@ -89,7 +89,7 @@ A short introduction to networking
 > |    6     |    252    |        4     |
 > |    7     |    254    |        2     |
 
-## `Internet Protocol`
+## [Internet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/InternetProtocol.md)
 
 **Packets = IP Header + Data**  
 **IP Header : Source IP + Destination IP**
@@ -116,6 +116,10 @@ A short introduction to networking
 - Connectionless
 - Supports Multicast
 - No error recovery
+
+## Data Chunks
+
+![Domains](./Images/Headers.svg)
 
 # Acknowledgements
 - Edith Puclla's [netwhat](https://github.com/edithturn/42-silicon-valley-netwhat)  
