@@ -26,9 +26,14 @@ A short introduction to networking
 - TLD  : Top Level Domain
 - FQDM : Fully Qualified Domain Name
 
+***
+
 ## [Ethernet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/EthernetProtocol.md)
 ### Frames
 ![Ethernet_Format](./Images/Ethernet_Format.svg)
+
+***
+
 ## [Network Models](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/NetworkModels.md)
 ### OSI Layers
 >**7** - Application  
@@ -46,21 +51,23 @@ A short introduction to networking
 >**2** - Data Link  
 >**1** - Physical  
 
+***
+
 ## [IP addresses](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/IPs.md)
 
 **IP Address = [ network ] + [ host ]**  
 
 ### Special purpose addresses
-> Network IP : first address of a subnet (all host bits set to 0).  
-> Broadcast IP : last address of a subnet (all host bits set to 1).  
-> The Broadcast IP : 255.255.255.255
+> **Network IP** : first address of a subnet (all host bits set to 0).  
+> **Broadcast IP** : last address of a subnet (all host bits set to 1).  
+> **The Broadcast IP** : 255.255.255.255
 ### IP Addresses Classes
  > | Class| Starting bits  | IP adresses Range               | CIDR |  Supports                             |
  > | :--: | :------------: | :-----------------------------: | :--: | :-----------------------------------: |
  > |   A  | 0              |  0.0.0.1    to  127.255.255.254 |  /8  | Networks: 127 - Hosts: 16 777 214     |
  > |   B  | 10             |  128.0.0.1  to  191.255.255.254 |  /16 | Networks: 16 384 - Hosts: 65 534      |
  > |   C  | 110            |  192.0.0.1  to  223.255.255.254 |  /24 | Networks: 2 097 152 - Hosts: 254      |
- > |   D  | 1110           |  224.0.0.1  to  239.255.255.254 |      | Reserved for multicast                |
+ > |   D  | 1110           |  224.0.0.1  to  239.255.255.254 |  /32 | Reserved for multicast                |
  > |   E  | 1111           |  240.0.0.1  to  255.255.255.254 |      | Reserved for IANA (future use or R&D) |
 
 ### Private IP addresses
@@ -89,6 +96,8 @@ A short introduction to networking
 > |    6     |    252    |        4     |
 > |    7     |    254    |        2     |
 
+***
+
 ## [Internet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/InternetProtocol.md)
 
 **Packets = IP Header + Data**  
@@ -104,7 +113,7 @@ A short introduction to networking
 	Build and track a connection between applications on a pair of hosts before sending data.
 - Error Recovery
 - Flow Control  
-	The window size dynamically grows is no error or dynamically shrinks in case of errors. If the  Window Size is set to 0 it pause the sender giving the receiver time to catch up.
+	The window size dynamically grows is no error is detected or dynamically shrinks in case of errors. If the  Window Size is set to 0, it pauses the sender giving the receiver time to catch up.
 - Ordered Data Recovery
 
 ### TCP
@@ -120,6 +129,8 @@ A short introduction to networking
 ## Data Chunks
 
 ![Domains](./Images/Headers.svg)
+
+***
 
 # Acknowledgements
 - Edith Puclla's [netwhat](https://github.com/edithturn/42-silicon-valley-netwhat)  

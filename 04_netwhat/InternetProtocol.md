@@ -48,10 +48,9 @@ The 5-tuple is made of the remote and local socket. This is needed for web serve
 - Connection Oriented  
 	Build and track a connection between applications on a pair of hosts before sending data.
 - Error Recovery
-- Flow Control
-	The window size dynamically grows is no error or dynamically shrinks in case of errors. If the  Window Size is set to 0 it pauses the sender giving the receiver time to catch up.
+- Flow Control  
+	The window size dynamically grows is no error is detected or dynamically shrinks in case of errors. If the  Window Size is set to 0, it pauses the sender giving the receiver time to catch up.
 - Ordered Data Recovery
-- Allows Additional Features
 
 ## TCP's Three-Way Handshake
 This is the connection establishment phase. This phase initialize :

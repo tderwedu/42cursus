@@ -2,14 +2,16 @@
 
 IP addresses consist of two groups of bits in the address: the most significant bits are the network prefix, which identifies a whole network or subnet, and the least significant set forms the host identifier, which specifies a particular interface of a host on that network.
 
-IP addresses have two functions :
+**functions**
 - network identification
 - host identification
+
 **IP Address = [ network ] + [ host ]**  
 
-- **IPv4**  
+**Versions**
+- **IPv4** (32 bits)  
 	This is the first version of IP. It was deployed for production in the ARPANET in 1983.  Is still the most used IP version today. 
-- **IPv6**  
+- **IPv6** (128 bits)  
 	It is the most recent version of the Internet Protocol. It was initiated it in early 1994.
 
 > Special purpose addresses :  
@@ -22,7 +24,7 @@ This last IP is used when a device is starting up and has not IP address nor inf
 ### Assigning Addresses
 1. Static addresses (routers and some server)
 2. Dynamic addresses with a Dynamic Host Configuration Protocol (DHCP).  
-3. Automatic Private Ip addressing (unusual).
+3. Automatic Private IP addressing (unusual).
 
 ## Evolutions
 
