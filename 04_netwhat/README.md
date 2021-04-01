@@ -13,7 +13,7 @@ A short introduction to networking
 - CSMA : Carrier Sense Multiple Access
 - CIDR : Classless Inter-Domain Routing
 - NAT  : Network Address Translation
-- DHCP : Dynamic Host Control Protocol
+- DHCP : Dynamic Host Configuration Protocol
 - ISN  : Initial Sequence Number
 - URL  : Uniform Ressource Locator
 - SMTP : Simple Mail Transfer Protocol
@@ -116,7 +116,7 @@ A short introduction to networking
 	The window size dynamically grows is no error is detected or dynamically shrinks in case of errors. If the  Window Size is set to 0, it pauses the sender giving the receiver time to catch up.
 - Ordered Data Recovery
 
-### TCP
+### UDP
 
 **Datagram = UDP Header + Data**
 

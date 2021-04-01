@@ -112,7 +112,7 @@ A device sends a GARP message whenever its IP changes or the device boots up. Th
 
 
 ## Dynamic Host Control Protocol (DHCP)
-Dynamic Host Control Protocol (DHCP) is a network management protocol used to automate IP configuration of devices on the network. This includes IP address, subnet mask, default gateway, and DNS information. It employs a connectionless services model like UDP.
+Dynamic Host Configuration Protocol (DHCP) is a network management protocol used to automate IP configuration of devices on the network. This includes IP address, subnet mask, default gateway, and DNS information. It employs a connectionless services model like UDP.
 
 Whenever a device connects to the network :  
 1. **Discover**  
