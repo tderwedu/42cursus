@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/02 21:05:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/02 22:15:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@
 #define WHITE	0x00FFFFFF
 #define YELLOW	0x00FFFF00
 
+# define WALK_SPEED 1
+# define TURN_SPEED 25
+
+# define XK_MISCELLANY
+# include <X11/keysymdef.h>
+# include <X11/X.h>
+
+# define KEY_WALK_FORWARD		XK_Up
+# define KEY_WALK_BACKWARD		XK_Down
+# define KEY_TURN_LEFT			XK_Left
+# define KEY_TURN_RIGHT			XK_Right
+# define KEY_STRAFE_LEFT		XK_a
+# define KEY_STRAFE_RIGHT		XK_d
+# define KEY_ESCAPE				XK_Escape
+
+
 typedef struct	s_img {
 	void	*img;
 	char	*addr;
@@ -42,7 +58,6 @@ typedef struct	s_mlx
 	int		height;
 	void	*mlx;
 	void	*win;
-	t_img	img;
 }				t_mlx;
 
 typedef struct	s_player
@@ -54,6 +69,12 @@ typedef struct	s_player
 	double	plane_x;
 	double	plane_y;
 }				t_player;
+
+typedef struct	s_vars
+{
+	t_mlx		*mlx;
+	t_player	*player;
+}				t_vars;
 
 int worldMap[mapHeight][mapWidth] =
 {
@@ -97,83 +118,36 @@ int		ft_darker_color(int color)
 	return (t << 24 | (r / 2) << 16 | (g / 2) << 8 | (b / 2));
 }
 
-void	ft_mlx_pixel_put(t_mlx *mlx, int x, int y, int color)
+void	ft_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = mlx->img.addr + (y * mlx->img.ll + x * (mlx->img.bpp / 8));
+	dst = img->addr + (y * img->ll + x * (img->bpp / 8));
 	*(unsigned int*)dst = color;
 }
 
-void	ft_draw_vline(t_mlx *mlx, int x, int y_s, int y_e, int color)
+void	ft_draw_vline(t_img *img, int x, int y_s, int y_e, int color)
 {
 	char	*dst;
 
 	while (y_s <= y_e)
 	{
-		dst = mlx->img.addr + (y_s * mlx->img.ll + x * (mlx->img.bpp / 8));
+		dst = img->addr + (y_s * img->ll + x * (img->bpp / 8));
 		*(unsigned int*)dst = color;
 		y_s++;
 	}
 }
 
-int		ft_key_hook(int keycode, t_mlx *mlx)
+void	ft_raycasting(t_mlx *mlx, t_player *player)
 {
-	if (keycode == 65307)
-	{
-		mlx_destroy_window(mlx->mlx, mlx->win);
-		exit(0);
-	}
-	return(0);
-}
-
-
-
-int main(void)
-{
-	t_mlx	mlx;
-	
-	int 	width;
-	int 	height;
+	int		width;
 	double	fov;
+	t_img	img;
 
-	width = screenWidth;
-	height = screenHeight;
+	img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
+	img.addr = mlx_get_data_addr(img.img , &img.bpp, &img.ll, &img.endian);
 	fov = (FOV / 2.0) * M_PI / 180;
-
-	mlx.mlx = mlx_init();
-	mlx.win = mlx_new_window(mlx.mlx, width, height, "RayCasting");
-	mlx_hook(mlx.win, 2, 1L<<0, ft_key_hook, &mlx);
-	mlx.img.img = mlx_new_image(mlx.mlx, width, height);
-	mlx.img.addr = mlx_get_data_addr(mlx.img.img , &mlx.img.bpp, &mlx.img.ll, &mlx.img.endian);
-
-	double	pos_x;
-	double	pos_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
-
-	double	time;
-	double	old_time;
-
-	// pos_x = 22;
-	// pos_y = 12;
-	// dir_x = -1;
-	// dir_y = 0;
-
-	pos_x = 20.5;
-	pos_y = 20.5;
-	int alpha = 225;
-	dir_x = cos(alpha * M_PI / 180);
-	dir_y = sin(alpha * M_PI / 180);
-	plane_x = -dir_y * tan(fov);
-	plane_y = dir_x * tan(fov);
-
-
-	time = 0.0;
-	old_time = 0.0;
-	
+	width = mlx->width;
 	int		x;
 	//which box of the map we're in
 	int		map_x;
@@ -200,10 +174,10 @@ int main(void)
 	{
 		hit = 0;
 		ray_plane_pc = 2 * x / (double)width - 1;
-		ray_dir_x = dir_x + plane_x * ray_plane_pc;
-		ray_dir_y = dir_y + plane_y * ray_plane_pc;
-		map_x = (int)pos_x;
-		map_y = (int)pos_y;
+		ray_dir_x = player->dir_x + player->plane_x * ray_plane_pc;
+		ray_dir_y = player->dir_y + player->plane_y * ray_plane_pc;
+		map_x = (int)player->pos_x;
+		map_y = (int)player->pos_y;
 
 		delta_dist_x = fabs(1.0 / ray_dir_x);
 		delta_dist_y = fabs(1.0 / ray_dir_y);
@@ -211,24 +185,23 @@ int main(void)
 		if (ray_dir_x < 0)
 	 	{
 		step_x = -1;
-		side_dist_x = (pos_x - map_x) * delta_dist_x;
+		side_dist_x = (player->pos_x - map_x) * delta_dist_x;
 		}
 		else
 		{
 		step_x = 1;
-		side_dist_x = (map_x + 1.0 - pos_x) * delta_dist_x;
+		side_dist_x = (map_x + 1.0 - player->pos_x) * delta_dist_x;
 		}
 		if (ray_dir_y < 0)
 	 	{
 		step_y = -1;
-		side_dist_y = (pos_y - map_y) * delta_dist_y;
+		side_dist_y = (player->pos_y - map_y) * delta_dist_y;
 		}
 		else
 		{
 		step_y = 1;
-		side_dist_y = (map_y + 1.0 - pos_y) * delta_dist_y;
+		side_dist_y = (map_y + 1.0 - player->pos_y) * delta_dist_y;
 		}
-
 		//perform DDA
 		while (hit == 0)
 		{
@@ -250,28 +223,26 @@ int main(void)
 		}
 		//Calculate distance projected on camera direction (Euclidean distance will give fisheye effect!)
 		if (side == 0)
-			wall_dist = (map_x - pos_x + (1 - step_x) / 2) / ray_dir_x;
+			wall_dist = (map_x - player->pos_x + (1 - step_x) / 2) / ray_dir_x;
 		else
-			wall_dist = (map_y - pos_y + (1 - step_y) / 2) / ray_dir_y;
-
-
+			wall_dist = (map_y - player->pos_y + (1 - step_y) / 2) / ray_dir_y;
 		//Calculate height of line to draw on screen
      	int		line_height;
 		int		draw_start;
 		int		draw_end;
 		double	h;
 		
-		h = width / (2 * tan(fov));
+		h = mlx->width / (2 * tan(fov));
 		// printf("h = %f \n", h);
 		line_height = (int)(h/ wall_dist);
 
 		//calculate lowest and highest pixel to fill in current stripe
-		draw_start = -line_height / 2 + height / 2;
+		draw_start = -line_height / 2 + mlx->height / 2;
 		if (draw_start < 0)
 			draw_start = 0;
-		draw_end = line_height / 2 + height / 2;
-		if (draw_end >= height)
-			draw_end = height - 1;
+		draw_end = line_height / 2 + mlx->height / 2;
+		if (draw_end >= mlx->height)
+			draw_end = mlx->height - 1;
 		
 		//choose wall color
 		int color;
@@ -287,9 +258,88 @@ int main(void)
 		if (side == 1)
 			color = ft_darker_color(color);
 		//draw the pixels of the stripe as a vertical line
-		ft_draw_vline(&mlx, x, draw_start, draw_end, color);
+		ft_draw_vline(&img, x, draw_start, draw_end, color);
 	}
-	printf("Ray Casting OK \n");
-	mlx_put_image_to_window(mlx.mlx, mlx.win, mlx.img.img, 0, 0);
+	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, 0, 0);
+	mlx_destroy_image(mlx->mlx, img.img );
+}
+
+int		ft_key_hook(int keycode, t_vars *vars)
+{
+	t_mlx	*mlx;
+	t_player *player;
+
+	mlx = vars->mlx;
+	player = vars->player;
+
+	if (keycode == KEY_ESCAPE)
+	{
+		mlx_destroy_window(mlx->mlx, mlx->win);
+		exit(0);
+	}
+	if (keycode == KEY_WALK_FORWARD)
+	{
+		if(worldMap[(int)(player->pos_x + player->dir_x * WALK_SPEED)][(int)(player->pos_y)] == 0) player->pos_x += player->dir_x * WALK_SPEED;
+		if(worldMap[(int)(player->pos_x)][(int)(player->pos_y + player->dir_y * WALK_SPEED)] == 0) player->pos_y += player->dir_y * WALK_SPEED;
+	}
+	//move backwards if no wall behind you
+	if (keycode == KEY_WALK_BACKWARD)
+	{
+		if(worldMap[(int)(player->pos_x - player->dir_x * WALK_SPEED)][(int)(player->pos_y)] == 0) player->pos_x -= player->dir_x * WALK_SPEED;
+		if(worldMap[(int)(player->pos_x)][(int)(player->pos_y - player->dir_y * WALK_SPEED)] == 0) player->pos_y -= player->dir_y * WALK_SPEED;
+	}
+	//rotate to the right
+	if (keycode == KEY_TURN_RIGHT)
+	{
+	//both camera direction and camera plane must be rotated
+		double old_dir_x = player->dir_x;
+		player->dir_x = player->dir_x * cos(-TURN_SPEED) - player->dir_y * sin(-TURN_SPEED);
+		player->dir_y = old_dir_x * sin(-TURN_SPEED) + player->dir_y * cos(-TURN_SPEED);
+		double old_plane_x = player->plane_x;
+		player->plane_x = player->plane_x * cos(-TURN_SPEED) - player->plane_y * sin(-TURN_SPEED);
+		player->plane_y = old_plane_x * sin(-TURN_SPEED) + player->plane_y * cos(-TURN_SPEED);
+	}
+	//rotate to the left
+	if (keycode == KEY_TURN_LEFT)
+	{
+		//both camera direction and camera plane must be rotated
+		double old_dir_x = player->dir_x;
+		player->dir_x = player->dir_x * cos(TURN_SPEED) - player->dir_y * sin(TURN_SPEED);
+		player->dir_y = old_dir_x * sin(TURN_SPEED) + player->dir_y * cos(TURN_SPEED);
+		double old_plane_x = player->plane_x;
+		player->plane_x = player->plane_x * cos(TURN_SPEED) - player->plane_y * sin(TURN_SPEED);
+		player->plane_y = old_plane_x * sin(TURN_SPEED) + player->plane_y * cos(TURN_SPEED);
+	}
+	ft_raycasting(mlx, player);
+}
+
+int main(void)
+{
+	t_mlx	mlx;
+	t_player player;
+	
+	mlx.width = screenWidth;
+	mlx.height = screenHeight;
+	mlx.mlx = mlx_init();
+	mlx.win = mlx_new_window(mlx.mlx, mlx.width, mlx.height, "RayCasting");
+
+	double	time;
+	double	old_time;
+	int		alpha = 225;
+	double	fov;
+
+	fov = (FOV / 2.0) * M_PI / 180;
+	player.pos_x = 20.5;
+	player.pos_y = 20.5;
+	player.dir_x = cos(alpha * M_PI / 180);
+	player.dir_y = sin(alpha * M_PI / 180);
+	player.plane_x = -player.dir_y * tan(fov);
+	player.plane_y = player.dir_x * tan(fov);
+
+	ft_raycasting(&mlx, &player);
+	t_vars vars;
+	vars.mlx = &mlx;
+	vars.player = &player;
+	mlx_hook(mlx.win, 2, 1L<<0, ft_key_hook, &vars);
 	mlx_loop(mlx.mlx);
 }
