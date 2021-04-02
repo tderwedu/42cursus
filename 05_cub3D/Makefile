@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/03/29 12:02:43 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/04/02 21:05:16 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ LDFLAGS =	-L ${MLXDIR} ${LIBMLX} -lXext -lX11 -lm
 CC		=	gcc
 CFLAGS	=	-O3 #-Wall -Werror -Wextra
 
-SRC		=	main.c
+SRC		=	raycasting.c
 OBJ		=	${SRC:.c=.o}
 
 SRCDIR	=	src/
@@ -34,12 +34,13 @@ OBJDIR	=	bin/
 $(NAME):	${OBJ}
 			${CC} ${CFLAGS} ${OBJ} ${LDFLAGS} -o ${NAME}
 
-debug :
-	@echo "SRC $(SRC)"
-	@echo "OBJ $(OBJ)"
-	@echo "CFLAGS $(CFLAGS)"
-	@echo "MLX $(MLX)"
-	@echo "MLXDIR $(MLXDIR)"
-	@echo "LDFLAGS $(LDFLAGS)"
+clean:
+			rm -f ${OBJ}
 
+fclean:		clean
+			rm -f ${NAME}
+
+re:			fclean all
+
+.phony:		re fclean clean
 
