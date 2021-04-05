@@ -1,6 +1,6 @@
 # ```libft```
 *a 19 Coding School project*  
-*v2.00 - Last updated with ft_printf project*
+*v2.50 - Last updated with ft_printf project*
 
 The aim of this project is to code a C library regrouping essential functions used in C.  
 This library will be used in other projects and will therefore be regularly updated.
