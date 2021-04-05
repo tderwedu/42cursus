@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:07:15 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/05 21:58:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 22:46:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,12 @@
 # include <limits.h>
 # include <stdio.h>
 # include <wchar.h>
+# include <stdarg.h>
 
 # include "ctype.h"
 # include "t_fp.h"
 # include "grisu.h"
+# include "printf.h"
 
 # ifndef OPEN_MAX
 #  define OPEN_MAX	FOPEN_MAX
@@ -39,6 +41,7 @@
 */
 
 typedef unsigned char		t_uc;
+typedef unsigned short		t_us;
 typedef unsigned int		t_ui;
 typedef unsigned long		t_ul;
 typedef unsigned long long	t_ull;
@@ -54,7 +57,7 @@ typedef struct	s_vec
 	char	*start;
 	char	*ptr;
 	char	*max;
-	size_t	len;
+	ssize_t	len;
 }				t_vec;
 
 /*
@@ -111,6 +114,8 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 int				get_next_line(int fd, char **line);
+int				ft_printf(const char *str, ...);
+int				ft_vdprintf(t_ui fd, const char *str, va_list *ap);
 
 /*
 **	MATH
