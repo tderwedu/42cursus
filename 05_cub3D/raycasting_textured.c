@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/05 16:33:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 12:19:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ typedef struct	s_vars
 {
 	t_mlx		*mlx;
 	t_player	*player;
-	t_img		*img;
 	t_tex		tex[4];
 	t_tex		htex[2];
 }				t_vars;
@@ -143,104 +142,20 @@ void	ft_draw_vline(t_img *img, int x, int y_s, int y_e, int color)
 	}
 }
 
-void	ft_horizontalscanline(t_vars *vars)
-{
-	t_mlx		*mlx;
-	t_player	*player;
-	t_img		*img;
-	t_tex		tex_floor;
-	t_tex		tex_ceil;
-
-	mlx = vars->mlx;
-	player = vars->player;
-	img = vars->img;
-	tex_floor = vars->htex[0];
-	tex_ceil = vars->htex[1];
-
-	int		p;
-	int		x;
-	int		y;
-	int		h;
-	int		cell_x;
-	int		cell_y;
-	int		tex_x;
-	int		tex_y;
-	float	ray_dir_x0;
-	float	ray_dir_y0;
-	float	ray_dir_x1;
-	float	ray_dir_y1;
-	float	row_distance;
-	float	floor_step_x;
-	float	floor_step_y;
-	float	floor_x;
-	float	floor_y;
-	float	pos_z;
-	unsigned int	*dst;
-	unsigned int	*src;
-
-	y = -1;
-	// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-	ray_dir_x0 = player->dir_x - player->plane_x;
-	ray_dir_y0 = player->dir_y - player->plane_y;
-	ray_dir_x1 = player->dir_x + player->plane_x;
-	ray_dir_y1 = player->dir_y + player->plane_y;
-	h = screenHeight / 2;
-	while (++y < h)
-	{
-		// Vertical position of the camera.
-		pos_z = 0.5 * screenHeight;
-		// Current y position compared to the center of the screen (the horizon)
-		p = y - pos_z;
-		// Horizontal distance from the camera to the floor for the current row.
-		// 0.5 is the z position exactly in the middle between floor and ceiling.
-		row_distance = pos_z / p;
-		// calculate the real world step vector we have to add for each x (parallel to camera plane)
-		// adding step by step avoids multiplications with a weight in the inner loop
-		floor_step_x = row_distance * (ray_dir_x1 - ray_dir_x0) / screenWidth;
-		floor_step_y = row_distance * (ray_dir_y1 - ray_dir_y0) / screenHeight;
-		// real world coordinates of the leftmost column. This will be updated as we step to the right.
-		floor_x = player->pos_x + row_distance * ray_dir_x0;
-		floor_y = player->pos_y + row_distance * ray_dir_y0;
-		x = -1;
-		while (++x < screenWidth)
-		{
-			// the cell coord is simply got from the integer parts of floorX and floorY
-			cell_x = (int)(floor_x);
-			cell_y = (int)(floor_y);
-			// FLOOR
-			// get the texture coordinate from the fractional part
-			tex_x = (int)(tex_ceil.width * (floor_x - cell_x)) & (tex_ceil.width - 1);
-			tex_y = (int)(tex_ceil.height * (floor_y - cell_y)) & (tex_ceil.height - 1);
-			dst = (int*)(img->addr + y * img->ll + x * (img->bpp / 8));
-			src = (int*)tex_ceil.addr + tex_x * tex_ceil.height + tex_y;
-			*dst = ft_darker_color(*src);
-
-			// ceiling (symmetrical, at screenHeight - y - 1 instead of y)
-			// get the texture coordinate from the fractional part
-			tex_x = (int)(tex_floor.width * (floor_x - cell_x)) & (tex_floor.width - 1);
-			tex_y = (int)(tex_floor.height * (floor_y - cell_y)) & (tex_floor.height - 1);
-			dst = (int*)(img->addr + (screenHeight - 1 - y) * img->ll + x * (img->bpp / 8));
-			src = (int*)tex_floor.addr + tex_x * tex_floor.height + tex_y;
-			*dst = ft_darker_color(*src);
-			floor_x += floor_step_x;
-			floor_y += floor_step_y;
-		}
-	}
-}
-
 void	ft_raycasting(t_vars *vars)
 {
 	t_mlx		*mlx;
 	t_player	*player;
-	t_img		*img;
 
 	mlx = vars->mlx;
 	player = vars->player;
-	img = vars->img;
 
 	int		width;
 	double	fov;
-	
+	t_img	img;
+
+	img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
+	img.addr = mlx_get_data_addr(img.img , &img.bpp, &img.ll, &img.endian);
 	fov = (FOV / 2.0) * M_PI / 180;
 	width = mlx->width;
 	int		x;
@@ -337,6 +252,7 @@ void	ft_raycasting(t_vars *vars)
 		h = mlx->width / (2 * tan(fov));
 		// printf("h = %f \n", h);
 		line_height = (int)(h/ wall_dist);
+
 		//calculate lowest and highest pixel to fill in current stripe
 		draw_start = -line_height / 2 + mlx->height / 2;
 		// if (draw_start < 0)
@@ -371,7 +287,7 @@ void	ft_raycasting(t_vars *vars)
 			while (draw_start <= draw_end)
 			{	if (draw_start >= 0)
 				{
-					dst = (int*)(img->addr + draw_start * img->ll + x * (img->bpp / 8));
+					dst = (int*)(img.addr + draw_start * img.ll + x * (img.bpp / 8));
 					src = (int*)tex.addr + tex_x * tex.height + tex_y;
 					*dst = *src;
 				}
@@ -386,7 +302,7 @@ void	ft_raycasting(t_vars *vars)
 		}
 		else
 		{
-			dst = (int*)(img->addr + draw_start * img->ll + x * (img->bpp / 8));
+			dst = (int*)(img.addr + draw_start * img.ll + x * (img.bpp / 8));
 			src = (int*)tex.addr + tex_x * tex.height + tex_y;
 			*dst = *src;
 			while (tex_y < tex.height)
@@ -395,7 +311,7 @@ void	ft_raycasting(t_vars *vars)
 				tex_y++;
 				if ((eps << 1) >= tex.height)
 				{
-					dst = (int*)(img->addr + draw_start * img->ll + x * (img->bpp / 8));
+					dst = (int*)(img.addr + draw_start * img.ll + x * (img.bpp / 8));
 					src = (int*)tex.addr + tex_x * tex.height + tex_y;
 					*dst = *src;
 					draw_start++;
@@ -404,24 +320,8 @@ void	ft_raycasting(t_vars *vars)
 			}
 		}
 	}
-	
-}
-
-
-void	ft_generate_img(t_vars *vars)
-{
-	t_mlx		*mlx;
-	t_img		img;
-
-	mlx = vars->mlx;
-	img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
-	img.addr = mlx_get_data_addr(img.img , &img.bpp, &img.ll, &img.endian);
-	vars->img = &img;
-	ft_horizontalscanline(vars);
-	ft_raycasting(vars);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, 0, 0);
-	mlx_destroy_image(mlx->mlx, img.img);
-	vars->img = NULL;
+	mlx_destroy_image(mlx->mlx, img.img );
 }
 
 int		ft_key_hook(int keycode, t_vars *vars)
@@ -500,7 +400,7 @@ int		ft_key_hook(int keycode, t_vars *vars)
 		player->plane_x = player->plane_x * cos(TURN_SPEED) - player->plane_y * sin(TURN_SPEED);
 		player->plane_y = old_plane_x * sin(TURN_SPEED) + player->plane_y * cos(TURN_SPEED);
 	}
-	ft_generate_img(vars);
+	ft_raycasting(vars);
 }
 
 void	ft_swap_tex(t_tex *tex)
@@ -562,7 +462,7 @@ int main(void)
 	ft_swap_tex(tex);
 
 	tex = &vars.tex[1];
-	tex->img = mlx_xpm_file_to_image(mlx.mlx, "./textures/purplestone.xpm", &tex->width, &tex->height);
+	tex->img = mlx_xpm_file_to_image(mlx.mlx, "./textures/wood.xpm", &tex->width, &tex->height);
 	tex->addr = mlx_get_data_addr(tex->img , &bpp, &ll, &endian);
 	ft_swap_tex(tex);
 
@@ -580,17 +480,15 @@ int main(void)
 	** <| Wall textures |>
 	*/
 
-	tex = &vars.htex[0];
-	tex->img = mlx_xpm_file_to_image(mlx.mlx, "./textures/mossy.xpm", &tex->width, &tex->height);
+	tex = &vars.tex[3];
+	tex->img = mlx_xpm_file_to_image(mlx.mlx, "./textures/greystone.xpm", &tex->width, &tex->height);
 	tex->addr = mlx_get_data_addr(tex->img , &bpp, &ll, &endian);
-	tex = &vars.htex[1];
-	tex->img = mlx_xpm_file_to_image(mlx.mlx, "./textures/wood.xpm", &tex->width, &tex->height);
-	tex->addr = mlx_get_data_addr(tex->img , &bpp, &ll, &endian);
+
 
 	vars.mlx = &mlx;
 	vars.player = &player;
 
-	ft_generate_img(&vars);
+	ft_raycasting(&vars);
 	
 	mlx_hook(mlx.win, 2, 1L<<0, ft_key_hook, &vars);
 	mlx_loop(mlx.mlx);
