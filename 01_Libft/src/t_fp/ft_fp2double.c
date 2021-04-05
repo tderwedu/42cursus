@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 16:47:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 13:11:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:50:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/grisu.h"
+#include "libft.h"
 
 double	ft_fp2double(t_fp fp)
 {

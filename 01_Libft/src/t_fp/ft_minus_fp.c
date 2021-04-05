@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/16 09:09:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 10:07:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:50:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "../include/grisu.h"
+#include "libft.h"
 
 t_fp	ft_minus_fp(t_fp x, t_fp y)
 {

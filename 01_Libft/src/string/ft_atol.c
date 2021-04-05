@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/02/10 19:25:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 22:29:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,3 @@ long	ft_atol(const char *nptr)
 		val = val * 10 + (nptr[i++] - '0');
 	return ((sign ? ~val + 1 : val));
 }
-  

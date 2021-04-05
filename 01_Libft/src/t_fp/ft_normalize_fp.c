@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 09:45:55 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 10:07:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:50:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 ** OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#include "../include/grisu.h"
+#include "libft.h"
 
 t_fp	ft_normalize_fp(t_fp fp, int hb)
 {

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_multiply_fp.c                                   :+:      :+:    :+:   */
+/*   ft_digit_gen_no_div.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/16 09:16:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/05 21:50:54 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/17 11:10:38 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/05 21:50:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,40 @@
 
 #include "libft.h"
 
-t_fp	ft_multiply_fp(t_fp x, t_fp y)
+static inline t_fp	ft_initone(t_fp fp)
 {
-	t_fp		ret;
-	uint64_t	parts[4];
-	uint64_t	mbp[4];
-	uint64_t	tmp;
-	uint64_t	m32;
+	t_fp	one;
 
-	m32 = 0xFFFFFFFF;
-	parts[0] = x.man >> 32;
-	parts[1] = x.man & m32;
-	parts[2] = y.man >> 32;
-	parts[3] = y.man & m32;
-	mbp[0] = parts[0] * parts[2];
-	mbp[1] = parts[1] * parts[2];
-	mbp[2] = parts[0] * parts[3];
-	mbp[3] = parts[1] * parts[3];
-	tmp = (mbp[3] >> 32) + (mbp[2] & m32) + (mbp[1] & m32);
-	tmp += 1U << 31;
-	ret.exp = x.exp + y.exp + 64;
-	ret.man = mbp[0] + (mbp[1] >> 32) + (mbp[2] >> 32) + (tmp >> 32);
-	ret.sign = x.sign * y.sign;
-	return (ret);
+	one.exp = fp.exp;
+	one.man = (1LLU << (-one.exp));
+	return (one);
+}
+
+void				ft_digit_gen_no_div(t_fp fp, char *buff, int prec)
+{
+	int			i;
+	t_fp		one;
+	uint64_t	f;
+	int			tmp;
+
+	i = 0;
+	one = ft_initone(fp);
+	buff[i++] = '0' + (fp.man >> -one.exp);
+	f = fp.man & (one.man - 1);
+	while (-one.exp > FP_Q - 5)
+	{
+		tmp = (f >> (-one.exp - 3)) & 6;
+		f = f + ((f << 2) & (one.man - 1));
+		buff[i++] = '0' + tmp + (f >> (-one.exp - 1));
+		one.exp++;
+		one.man >>= 1;
+		f &= one.man - 1;
+	}
+	while (i < prec)
+	{
+		f *= 10;
+		buff[i++] = '0' + (f >> -one.exp);
+		f &= one.man - 1;
+	}
+	buff[i] = '\0';
 }

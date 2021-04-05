@@ -1,30 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   grisu.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/05 22:28:54 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/15 17:47:56 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/05 21:51:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef GRISU_H
+# define GRISU_H
 
-long	ft_atoll(const char *nptr)
-{
-	long			sign;
-	t_ull			val;
-	register size_t	i;
+# include "libft.h"
 
-	i = 0;
-	val = 0;
-	while (FT_ISSPACE(nptr[i]))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
-}
+t_fp			ft_cachedpower(int k);
+int				ft_kcomp(int e, int alpha);
+void			ft_digit_gen_no_div(t_fp fp, char *buff, int prec);
+
+#endif

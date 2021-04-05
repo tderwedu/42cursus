@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/26 18:25:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/04 13:11:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/05 21:51:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/grisu.h"
+#include "libft.h"
 
 uint64_t	ft_double2int_64(double d)
 {

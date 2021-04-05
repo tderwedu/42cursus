@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoll.c                                         :+:      :+:    :+:   */
+/*   ft_wcharsize.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/05 22:28:54 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/03/10 18:45:47 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/05 21:20:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atoll(const char *nptr)
+int	ft_wcharsize(wint_t code)
 {
-	long			sign;
-	t_ull			val;
-	register size_t	i;
-
-	i = 0;
-	val = 0;
-	while (FT_ISSPACE(nptr[i]))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	if (code == 0)
+		return (0);
+	else if (code < 0x80)
+		return (1);
+	else if (code < 0x800)
+		return (2);
+	else if (code < 0x10000)
+		return (3);
+	else if (code < 0x110000)
+		return (4);
+	return (-1);
 }
