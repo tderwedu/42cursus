@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/06 17:49:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atoll(const char *nptr)
+long long	ft_atoll(const char *nptr)
 {
 	long			sign;
 	t_ull			val;

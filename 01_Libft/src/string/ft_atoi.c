@@ -1,27 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_trimspaces.c                                    :+:      :+:    :+:   */
+/*   ft_atoi.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 12:11:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 17:51:56 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/04/06 14:59:26 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/06 15:14:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_trimspaces(char *str)
+int		ft_atoi(const char *nptr)
 {
-	register char *start;
-	register char *end;
+	int				sign;
+	t_ui			val;
+	register t_ui	i;
 
-	start = str;
-	while (*start && (t_ui)(*start == ' ' || *start - 9U < 4U))
-		start++;
-	end = start + ft_strlen(start);
-	while ((t_ui)(*end == ' ' || *end - 9U < 4U))
-		end--;
-	return (ft_substr(str, start - str, end - start));
+	i = 0;
+	val = 0;
+	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
+		i++;
+	sign = (nptr[i] == '-');
+	i += (nptr[i] == '+' || nptr[i] == '-');
+	while ((nptr[i] - '0') < 10)
+		val = val * 10 + (nptr[i++] - '0');
+	return ((sign ? ~val + 1 : val));
 }

@@ -59,6 +59,7 @@ SRC		= 	./src/ctype/ft_isprint.c\
 			./src/string/ft_split.c\
 			./src/string/ft_strchr.c\
 			./src/string/ft_strtrim.c\
+			src/string/ft_trimspaces.c\
 			./src/string/ft_strnstr.c\
 			./src/string/ft_strmapi.c\
 			./src/string/ft_strdup.c\

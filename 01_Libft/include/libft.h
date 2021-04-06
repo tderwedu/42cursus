@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:07:15 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 12:11:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/06 15:00:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,9 @@ int				ft_tolower(int c);
 **	STRINGS
 */
 
+int				ft_atoi(const char *nptr);
 long			ft_atol(const char *nptr);
+long long		ft_atoll(const char *nptr);
 int				ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t			ft_strlen(const char *s);
 size_t			ft_strlcat(char *dst, const char *src, size_t size);
