@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_lstnew.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/18 15:40:14 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 21:59:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+t_list	*ft_lstnew(void *content)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	t_list *new;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	if (!(new = malloc(sizeof(t_list))))
+		return (NULL);
+	new->content = content;
+	new->next = NULL;
+	return (new);
 }

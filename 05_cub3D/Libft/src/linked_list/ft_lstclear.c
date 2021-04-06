@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/18 15:38:21 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 21:59:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+void	ft_lstclear(t_list **lst, void (*del)(void *))
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	t_list *next;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	if (lst)
+		while (*lst)
+		{
+			next = (*lst)->next;
+			if (del)
+				del((*lst)->content);
+			free(*lst);
+			*lst = next;
+		}
 }

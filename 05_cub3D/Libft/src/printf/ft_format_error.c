@@ -1,30 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_format_error.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/18 16:27:09 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/08 20:53:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/ft_printf.h"
 
-long	ft_atol(const char *nptr)
+void	ft_error_format(const char *start, const char *end)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	size_t len;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	len = (uintptr_t)(end - start) + 1UL;
+	write(2, "Error :", 7);
+	write(2, " The format specifier \"", 23);
+	write(2, start, len);
+	write(2, "\" is not valid!\n", 16);
 }

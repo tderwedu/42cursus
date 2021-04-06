@@ -1,30 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/10 11:09:00 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 22:00:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	long			sign;
-	t_ul			val;
 	register size_t	i;
 
+	if (!dst || !src)
+		return ((size_t)NULL);
 	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
+	if (size && dst != src)
+	{
+		size--;
+		while (src[i] && i < size)
+		{
+			((t_uc *)dst)[i] = ((t_uc *)src)[i];
+			i++;
+		}
+		dst[i] = '\0';
+	}
+	while (src[i])
 		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	return (i);
 }

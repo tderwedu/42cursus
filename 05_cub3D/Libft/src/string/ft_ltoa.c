@@ -1,30 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_ltoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/12 12:26:18 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/02/10 20:23:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+char	*ft_ltoa(int n)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	char			*dst;
+	t_ul			nb;
+	register size_t	count;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	count = 1 + (n < 0);
+	nb = (n < 0 ? ~n + 1 : n);
+	while ((nb /= 10))
+		count++;
+	if (!(dst = (char *)malloc(sizeof(*dst) * (count + 1))))
+		return ((char *)NULL);
+	dst[count] = '\0';
+	nb = (n < 0 ? ~n + 1 : n);
+	while (count--)
+	{
+		dst[count] = nb % 10 + '0';
+		nb /= 10;
+	}
+	if (n < 0)
+		dst[0] = '-';
+	return (dst);
 }

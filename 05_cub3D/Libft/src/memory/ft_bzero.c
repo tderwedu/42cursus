@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/04 18:16:55 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 21:59:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+void	ft_bzero(void *s, size_t n)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	t_ul		*sq;
+	size_t		i;
+	uintptr_t	wsize;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	wsize = sizeof(t_ul);
+	if ((uintptr_t)s % wsize)
+	{
+		i = wsize - ((uintptr_t)s % wsize);
+		n -= i;
+		while (i--)
+			*(t_uc *)s++ = 0;
+	}
+	i = n / wsize;
+	if (i && (sq = (t_ul *)s))
+		while (i--)
+			*sq++ = 0;
+	if ((i = n % wsize))
+	{
+		s = (t_uc *)sq;
+		while (i--)
+			*(t_uc *)s++ = 0;
+	}
 }

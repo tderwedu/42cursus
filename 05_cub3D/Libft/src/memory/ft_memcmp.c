@@ -1,30 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/05 10:06:33 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 21:59:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+int	ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	long			sign;
-	t_ul			val;
+	size_t			imax;
+	uintptr_t		wsize;
 	register size_t	i;
 
 	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	wsize = sizeof(t_ul);
+	if (!(((uintptr_t)s1 | (uintptr_t)s2) % wsize) && (imax = n / wsize))
+		while (imax-- && *(t_ul *)(s1 + i) == *(t_ul *)(s2 + i))
+			i += wsize;
+	i--;
+	while (++i < n)
+		if (((t_uc *)s1)[i] != ((t_uc *)s2)[i])
+			return (((t_uc *)s1)[i] - ((t_uc *)s2)[i]);
+	return (0);
 }

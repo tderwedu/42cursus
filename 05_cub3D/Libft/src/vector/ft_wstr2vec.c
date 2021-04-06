@@ -1,30 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_wstr2vec.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/03/10 19:08:34 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/16 12:19:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+void	ft_wstr2vec(t_vec *dest, wchar_t *src, size_t len)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	register char	*max;
+	register char	*ptr;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	ptr = dest->ptr;
+	max = ptr + len;
+	while (ptr < max)
+		ptr += ft_unicode2utf8(ptr, (wint_t)(*src++));
+	dest->len = ptr - dest->ptr;
+	if (ptr > max)
+		dest->len -= ft_wcharsize(*--src);
 }

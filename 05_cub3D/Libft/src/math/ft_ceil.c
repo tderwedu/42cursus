@@ -1,30 +1,39 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_ceil.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/16 16:48:49 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/16 12:28:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+double	ft_ceil(double x)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	t_fp		fp;
+	uint64_t	msk;
+	uint64_t	tmp;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	fp = ft_double2fp(x);
+	if (fp.exp > 0 || x == 0)
+		return (x);
+	if (fp.exp < -MANT_SIZE)
+		return (fp.sign ? -0.0 : 1.0);
+	msk = 1LU << (-fp.exp);
+	tmp = fp.man & (msk - 1LU);
+	fp.man = fp.man - tmp;
+	if ((!fp.sign) && tmp)
+	{
+		fp.man += msk;
+		if (fp.man & 0x20000000000000)
+		{
+			fp.man = fp.man >> 1;
+			fp.exp++;
+		}
+	}
+	return (ft_fp2double(fp));
 }

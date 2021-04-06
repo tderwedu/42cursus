@@ -1,30 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/12 14:52:34 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/01/29 22:00:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	char			*dst;
+	register size_t	len;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	if (!s || !f)
+		return ((char *)NULL);
+	len = ft_strlen(s);
+	if (!(dst = (char *)malloc(sizeof(*dst) * (len + 1))))
+		return ((char *)NULL);
+	dst[len] = '\0';
+	while (len--)
+		dst[len] = f(len, s[len]);
+	return (dst);
 }

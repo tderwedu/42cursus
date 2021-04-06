@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_fp2double.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/16 16:47:45 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/05 21:50:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+double	ft_fp2double(t_fp fp)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	uint64_t tmp;
+	t_d2i_64 i2d;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	tmp = (int64_t)fp.sign << (EXPO_SIZE + MANT_SIZE);
+	tmp += ((int64_t)fp.exp + EXPO_BIAS) << MANT_SIZE;
+	tmp += fp.man - HIDDEN_BIT;
+	i2d.i = tmp;
+	return (i2d.d);
 }

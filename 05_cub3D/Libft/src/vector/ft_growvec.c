@@ -1,30 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_growvec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/16 12:19:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+t_vec	*ft_growvec(t_vec *vec, size_t delta)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	char	*ptr;
+	size_t	size;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	size = (vec->max + delta - vec->start) * 2;
+	if (!(ptr = malloc(size)))
+	{
+		free(ptr);
+		return (NULL);
+	}
+	vec->len = vec->ptr - vec->start;
+	ft_memcpy(ptr, vec->start, vec->len + 1);
+	free(vec->start);
+	vec->start = ptr;
+	vec->ptr = ptr + vec->len;
+	vec->max = vec->start + size - delta;
+	return (vec);
 }

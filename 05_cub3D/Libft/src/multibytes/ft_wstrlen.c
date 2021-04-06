@@ -1,30 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_wstrlen.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/03/10 18:58:08 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/05 21:20:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-long	ft_atol(const char *nptr)
+ssize_t	ft_wstrlen(const wchar_t *str)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	ssize_t				tmp;
+	register size_t		i;
+	register ssize_t	len;
 
 	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	len = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			tmp = ft_wcharsize((wint_t)str[i++]);
+			if (tmp < 0)
+				return (-1);
+			len += tmp;
+		}
+	}
+	return (len);
 }

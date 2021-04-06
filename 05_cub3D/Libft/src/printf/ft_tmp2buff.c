@@ -1,30 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atol.c                                          :+:      :+:    :+:   */
+/*   ft_tmp2buff.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 10:55:22 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/26 17:38:21 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/03/08 11:09:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "../include/ft_printf.h"
 
-long	ft_atol(const char *nptr)
+int		ft_tmp2buff(t_vec *buff, t_vec *tmp)
 {
-	long			sign;
-	t_ul			val;
-	register size_t	i;
+	int len;
 
-	i = 0;
-	val = 0;
-	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
-		i++;
-	sign = (nptr[i] == '-');
-	i += (nptr[i] == '+' || nptr[i] == '-');
-	while ((nptr[i] - '0') < 10)
-		val = val * 10 + (nptr[i++] - '0');
-	return ((sign ? ~val + 1 : val));
+	len = tmp->len;
+	while (len > (buff->max - buff->ptr))
+		if (!ft_growvec(buff, 0))
+		{
+			ft_freevec(tmp);
+			return (-1);
+		}
+	ft_memcpy(buff->ptr, tmp->ptr, len);
+	buff->ptr += len;
+	buff->len += len;
+	return (ft_freevec(tmp));
 }
