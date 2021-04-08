@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_format_parser.c                                 :+:      :+:    :+:   */
+/*   ft_format_parser_wsl.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/18 16:01:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/03/08 22:26:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/07 17:20:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ int			ft_format_parser(const char **format, va_list *ap, t_vec *buff)
 	fmt.type = **format;
 	if (fmt.type == 'p')
 		fmt.length = 1;
-	if (fmt.prec >= 0 && !ft_strrchr("aAeEfFgG", fmt.type))
+	if (fmt.prec >= 0 && !ft_strrchr("aAeEfFgG%", fmt.type))
 		fmt.flags &= ~FL_ZERO;
 	return (ft_format_handler(ap, buff, &fmt));
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:11:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/06 17:51:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/08 15:01:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ char	*ft_trimspaces(char *str)
 	register char *end;
 
 	start = str;
-	while (*start && (t_ui)(*start == ' ' || *start - 9U < 4U))
+	while (*start && (*start == ' ' || (t_ui)(*start - 9U) < 4U))
 		start++;
-	end = start + ft_strlen(start);
-	while ((t_ui)(*end == ' ' || *end - 9U < 4U))
+	end = start + ft_strlen(start) - 1;
+	while (*end == ' ' || (t_ui)(*end - 9U) < 4U)
 		end--;
-	return (ft_substr(str, start - str, end - start));
+	return (ft_substr(str, start - str, end - start + 1));
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/07 17:46:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/08 16:47:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@
 #define R_FLAG		0x01
 #define C_FLAG		0x02
 #define F_FLAG		0x04
-#define SP_FLAG		0x08
-#define NO_FLAG		0x10
-#define SO_FLAG		0x20
-#define WE_FLAG		0x40
-#define EA_FLAG		0x80
-#define ALL_FLAG	0xFF
+#define FLAG_SP		0x08
+#define FLAG_NO		0x10
+#define FLAG_SO		0x20
+#define FLAG_WE		0x40
+#define FLAG_EA		0x80
+#define FLAG_ALL	0xFF
 
 typedef struct s_cub
 {
@@ -38,6 +38,14 @@ typedef struct s_cub
 	char	*ptr;
 	int		fd;
 	int		flag;
+	int		**map;
+	t_list	*first;
+	t_list	*last;
+	int		x_map;
+	int		y_map;
+	int		x_pos;
+	int		y_pos;
+	char	dir;
 }				t_cub;
 
 void	ft_init_cub_struct(t_cub *data)
@@ -54,6 +62,15 @@ void	ft_init_cub_struct(t_cub *data)
 	data->line = NULL;
 	data->ptr = NULL;
 	data->fd = 0;
+	data->flag = 0;
+	data->map = NULL;
+	data->first = NULL;
+	data->last = NULL;
+	data->x_map = 0;
+	data->y_map = 0;
+	data->x_pos = 0;
+	data->y_pos = 0;
+	data->dir = 0;
 }
 
 void	ft_free_cub_struct(t_cub *data)
@@ -68,12 +85,18 @@ void	ft_free_cub_struct(t_cub *data)
 		free(data->tex_ea);
 	if (data->sprite)
 		free(data->sprite);
+	if (data->map)
+		free(data->map);
+	if (data->first)
+		free(data->first);
+	if (data->last)
+		free(data->last);
 }
 
 int		ft_error_parser(t_cub *data, char *str)
 {
 		ft_printf("Error:\n%s\n", str);
-		ft_printf(">>%s<<\n", data->line);
+		ft_printf("line: \"%s\"\n", data->line);
 		free(data->line);
 		ft_free_cub_struct(data);
 		return (1);
@@ -167,6 +190,7 @@ int		ft_get_resolution(t_cub	*data)
 	data->height = ft_get_int(&data->ptr);
 	if (data->width < 1 || data->width < 1)
 		return (ft_error_parser(data, ERR_WRONG_RES));
+	data->ptr = ft_skip_spaces(data->ptr);
 	if (!(*data->ptr == '\0'))
 		return (ft_error_parser(data, ERR_WRONG_LINE));
 	return (0);
@@ -206,102 +230,18 @@ int		ft_get_floor(t_cub *data)
 	return (0);
 }
 
-int		ft_get_wall_no(t_cub *data)
+int		ft_get_tex_path(t_cub *data, char **path, int flag)
 {
-	t_uc chr;
-
-	chr = data->ptr[2];
-	if (!(data->ptr[1] == 'O' && (chr == ' ' || (chr - 9U) < 4U)))
-		return (ft_error_parser(data, ERR_NOT_ELEM));
-	if (data->flag & NO_FLAG)
+	if (data->flag & flag)
 		return (ft_error_parser(data, ERR_DEF_TWICE));
-	data->flag |= NO_FLAG;
+	data->flag |= flag;
 	data->ptr += 2;
-	data->tex_no = ft_trimspaces(data->ptr);
-	printf("ft_get_wall_no(): OK\n");
+	*path = ft_trimspaces(data->ptr);
+	if (!(*path))
+		return (ft_error_parser(data, strerror(errno)));
+	if (ft_strncmp(ft_strrchr(*path, '.') + 1, "xpm", 3))
+		return (ft_error_parser(data, ERR_TEX_EXT));
 	return (0);
-}
-
-int		ft_get_wall_we(t_cub *data)
-{
-	t_uc chr;
-
-	chr = data->ptr[2];
-	if (!(data->ptr[1] == 'E' && (chr == ' ' || (chr - 9U) < 4U)))
-		return (ft_error_parser(data, ERR_NOT_ELEM));
-	if (data->flag & WE_FLAG)
-		return (ft_error_parser(data, ERR_DEF_TWICE));
-	data->flag |= WE_FLAG;
-	data->ptr += 2;
-	data->tex_we = ft_trimspaces(data->ptr);
-	return (0);
-}
-
-int		ft_get_wall_so(t_cub *data)
-{
-	t_uc chr;
-
-	chr = data->ptr[2];
-	if (!(data->ptr[1] == 'O' && (chr == ' ' || (chr - 9U) < 4U)))
-		return (ft_error_parser(data, ERR_NOT_ELEM));
-	if (data->flag & SO_FLAG)
-		return (ft_error_parser(data, ERR_DEF_TWICE));
-	data->flag |= SO_FLAG;
-	data->ptr += 2;
-	data->tex_so = ft_trimspaces(data->ptr);
-	return (0);
-}
-
-int		ft_get_wall_ea(t_cub *data)
-{
-	t_uc chr;
-
-	chr = data->ptr[2];
-	if (!(data->ptr[1] == 'A' && (chr == ' ' || (chr - 9U) < 4U)))
-		return (ft_error_parser(data, ERR_NOT_ELEM));
-	if (data->flag & EA_FLAG)
-		return (ft_error_parser(data, ERR_DEF_TWICE));
-	data->flag |= EA_FLAG;
-	data->ptr += 2;
-	data->tex_ea = ft_trimspaces(data->ptr);
-	return (0);
-}
-
-int		ft_get_sprite(t_cub *data)
-{
-	t_uc chr;
-
-	chr = *++data->ptr;
-	if (!(chr == ' ' || (chr - 9U) < 4U))
-		return (ft_error_parser(data, ERR_NOT_ELEM));
-	if (data->flag & SP_FLAG)
-		return (ft_error_parser(data, ERR_DEF_TWICE));
-	data->flag |= SP_FLAG;
-	data->sprite = ft_trimspaces(data->ptr);
-	return (0);
-}
-
-int		ft_parse_data(t_cub *data)
-{
-	if (*data->ptr == '\0')
-		return (0);
-	else if (*data->ptr == 'R')
-		return (ft_get_resolution(data));
-	else if (*data->ptr == 'C')
-		return (ft_get_ceil(data));
-	else if (*data->ptr == 'F')
-		return (ft_get_floor(data));
-	else if (*data->ptr == 'N')
-		return (ft_get_wall_no(data));
-	else if (*data->ptr == 'W')
-		return (ft_get_wall_we(data));
-	else if (*data->ptr == 'E')
-		return (ft_get_wall_ea(data));
-	else if (*data->ptr == 'S' && *(data->ptr + 1) == 'O')
-		return (ft_get_wall_so(data));
-	else if (*data->ptr == 'S')
-		return (ft_get_sprite(data));
-	return (1);
 }
 
 void	ft_print_data(t_cub	*data)
@@ -318,30 +258,120 @@ void	ft_print_data(t_cub	*data)
 	ft_printf("***\n");
 }
 
-int	ft_parse_cubfile(t_cub	*data)
+int		ft_parse_data(t_cub *data)
+{
+	char chr;
+	char next_chr;
+
+	chr = *data->ptr;
+	if (chr == '\0')
+		return (0);
+	next_chr = *(data->ptr + 1);
+	if (chr == 'N' && next_chr == 'O')
+		return (ft_get_tex_path(data, &data->tex_no, FLAG_NO));
+	else if (chr == 'W' && next_chr == 'E')
+		return (ft_get_tex_path(data, &data->tex_we, FLAG_WE));
+	else if (chr == 'E' && next_chr == 'A')
+		return (ft_get_tex_path(data, &data->tex_ea, FLAG_EA));
+	else if (chr == 'S' && next_chr == 'O')
+		return (ft_get_tex_path(data, &data->tex_so, FLAG_SO));
+	else if (chr == 'R' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
+		return (ft_get_resolution(data));
+	else if (chr == 'C' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
+		return (ft_get_ceil(data));
+	else if (chr == 'F' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
+		return (ft_get_floor(data));
+	else if (chr == 'S' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
+		return (ft_get_tex_path(data, &data->sprite, FLAG_SP));
+	return (ft_error_parser(data, ERR_NOT_ELEM));
+}
+
+void	ft_set_player_pos(t_cub*data, int x, int y)
+{
+	
+}
+
+int		ft_check_map_line(t_cub* data)
+{
+	register char *ptr;
+
+	ptr = data->line;
+	while (*ptr)
+	{
+		if (*ptr == ' ' || ft_strchr(VALID_NBR, *ptr))
+			*ptr++;
+		else if (*ptr == '\t')
+			*ptr+= 4;
+		else if (ft_strchr(VALID_DIR, *ptr))
+			{
+				if (data->dir)
+					return (ft_error_parser(data, ERR_PL_DIR));
+				data->y_pos = data->y_map;
+				data->y_pos = ptr - data->line;
+				data->dir = *ptr;
+			}
+		else
+			return (ft_error_parser(data, ERR_PL_DIR));
+	}
+	if (ptr - data->line > data->x_map)
+		data->x_map = ptr - data->line;
+}
+
+int		ft_parse_map(t_cub* data)
+{
+	data->y_map++;
+	if (data->first)
+	{
+		data->last->next = ft_lstnew(data->line);
+		data->last = data->last->next;
+	}
+	else
+	{
+		data->first = ft_lstnew(data->line);
+		data->last = data->first;
+	}
+	if (!data->last)
+		return (ft_error_parser(data, strerror(errno)));
+	if (ft_check_map_line(data))
+		return (1);
+	return (0);	
+}
+
+int		ft_check_mid(t_cub	*data, int ret)
+{
+	if (ret < 0)
+		return (ft_error_parser(data, ERR_GNL));
+	if (ret == 0 || !(data->flag == FLAG_ALL))
+		return (ft_error_parser(data, ERR_INCOMP));
+	return (0);
+}
+
+int		ft_parse_cubfile(t_cub	*data)
 {
 	int		ret;
-	int		i;
 
-	i = 0;
 	ret = get_next_line(data->fd, &data->line);
-	while (ret > 0 && i < 23)
+	while (ret > 0)
 	{
-		ft_printf("\ni: %i \n", i++);
-		ft_printf("Line:>%s<\n", data->line);
 		data->ptr = ft_skip_spaces(data->line);
-		if (ft_strchr("CEFNRSW", *data->ptr))
-		{
-			if (ft_parse_data(data))
-				return (1);
-		}
-		else if (!ft_isdigit(*data->ptr))
-			return (ft_error_parser(data, ERR_DEBUG));
+		if (ft_isdigit(*data->ptr))
+			break;
+		if (ft_parse_data(data))
+			return (1);	
 		free(data->line);
 		ret = get_next_line(data->fd, &data->line);
 	}
-	free(data->line);
-	return (1);
+	if (ft_check_mid(data, ret))
+		return (1);
+	while (ret > 0)
+	{
+		if (ft_parse_map(data))
+			return (1);	
+		ret = get_next_line(data->fd, &data->line);
+	}
+	if (ret < 0)
+		return (ft_error_parser(data, ERR_GNL));
+	return (0);
 }
 
 int		main(int argc, char **argv)
@@ -354,7 +384,7 @@ int		main(int argc, char **argv)
 	data.fd = ft_checkargs(argc, argv);
 	if (data.fd < 0)
 		return (1);
-	if (!ft_parse_cubfile(&data))
+	if (ft_parse_cubfile(&data))
 		return (1);
 	ft_print_data(&data);
 	ft_printf("End of parsing\n");
