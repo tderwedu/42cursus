@@ -6,47 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/08 16:47:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/09 10:42:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
-
-#define R_FLAG		0x01
-#define C_FLAG		0x02
-#define F_FLAG		0x04
-#define FLAG_SP		0x08
-#define FLAG_NO		0x10
-#define FLAG_SO		0x20
-#define FLAG_WE		0x40
-#define FLAG_EA		0x80
-#define FLAG_ALL	0xFF
-
-typedef struct s_cub
-{
-	int		width;
-	int		height;
-	int		floor;
-	int		ceil;
-	char	*tex_no;
-	char	*tex_so;
-	char	*tex_we;
-	char	*tex_ea;
-	char	*sprite;
-	char	*line;
-	char	*ptr;
-	int		fd;
-	int		flag;
-	int		**map;
-	t_list	*first;
-	t_list	*last;
-	int		x_map;
-	int		y_map;
-	int		x_pos;
-	int		y_pos;
-	char	dir;
-}				t_cub;
 
 void	ft_init_cub_struct(t_cub *data)
 {
@@ -91,6 +56,10 @@ void	ft_free_cub_struct(t_cub *data)
 		free(data->first);
 	if (data->last)
 		free(data->last);
+	if (data->map)
+		free(data->map);
+	if (data->first)
+		ft_lstclear(&data->first, &free);
 }
 
 int		ft_error_parser(t_cub *data, char *str)
@@ -247,7 +216,7 @@ int		ft_get_tex_path(t_cub *data, char **path, int flag)
 void	ft_print_data(t_cub	*data)
 {
 	ft_printf("\n***\n");
-	ft_printf("Resolution: %i - %i\n", data->width, data->height);
+	ft_printf("Resolutiozln: %i - %i\n", data->width, data->height);
 	ft_printf("Ceil: %#.8x\n", data->ceil);
 	ft_printf("Floor: %#.8x\n", data->floor);
 	ft_printf("Wall North: %s\n", data->tex_no);
@@ -286,38 +255,7 @@ int		ft_parse_data(t_cub *data)
 	return (ft_error_parser(data, ERR_NOT_ELEM));
 }
 
-void	ft_set_player_pos(t_cub*data, int x, int y)
-{
-	
-}
-
-int		ft_check_map_line(t_cub* data)
-{
-	register char *ptr;
-
-	ptr = data->line;
-	while (*ptr)
-	{
-		if (*ptr == ' ' || ft_strchr(VALID_NBR, *ptr))
-			*ptr++;
-		else if (*ptr == '\t')
-			*ptr+= 4;
-		else if (ft_strchr(VALID_DIR, *ptr))
-			{
-				if (data->dir)
-					return (ft_error_parser(data, ERR_PL_DIR));
-				data->y_pos = data->y_map;
-				data->y_pos = ptr - data->line;
-				data->dir = *ptr;
-			}
-		else
-			return (ft_error_parser(data, ERR_PL_DIR));
-	}
-	if (ptr - data->line > data->x_map)
-		data->x_map = ptr - data->line;
-}
-
-int		ft_parse_map(t_cub* data)
+int		ft_map_parse(t_cub* data)
 {
 	data->y_map++;
 	if (data->first)
@@ -332,7 +270,7 @@ int		ft_parse_map(t_cub* data)
 	}
 	if (!data->last)
 		return (ft_error_parser(data, strerror(errno)));
-	if (ft_check_map_line(data))
+	if (ft_map_check_line(data))
 		return (1);
 	return (0);	
 }
@@ -340,7 +278,7 @@ int		ft_parse_map(t_cub* data)
 int		ft_check_mid(t_cub	*data, int ret)
 {
 	if (ret < 0)
-		return (ft_error_parser(data, ERR_GNL));
+		return (ft_error_parser(data, strerror(errno)));
 	if (ret == 0 || !(data->flag == FLAG_ALL))
 		return (ft_error_parser(data, ERR_INCOMP));
 	return (0);
@@ -365,12 +303,12 @@ int		ft_parse_cubfile(t_cub	*data)
 		return (1);
 	while (ret > 0)
 	{
-		if (ft_parse_map(data))
-			return (1);	
+		if (ft_map_parse(data))
+			return (1);
 		ret = get_next_line(data->fd, &data->line);
 	}
 	if (ret < 0)
-		return (ft_error_parser(data, ERR_GNL));
+		return (ft_error_parser(data, strerror(errno)));
 	return (0);
 }
 
