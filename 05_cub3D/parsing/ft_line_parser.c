@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_data_parse.c                                    :+:      :+:    :+:   */
+/*   ft_line_parser.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/09 15:18:19 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/09 15:37:56 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/04/10 11:19:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static inline char	*ft_skip_spaces(char *str)
 	return (ptr);
 }
 
-int					ft_data_parse(t_cub *data)
+int					ft_line_handler(t_cub *data)
 {
 	char chr;
 	char next_chr;
@@ -51,7 +51,7 @@ int					ft_data_parse(t_cub *data)
 	return (ft_error_parser(data, ERR_NOT_ELEM));
 }
 
-int					ft_get_resolution(t_cub	*data)
+int					ft_get_resolution(t_cub *data)
 {
 	t_uc chr;
 
