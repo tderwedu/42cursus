@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:23:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:25:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 12:01:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-void				ft_init_data(t_cub *data)
+void	ft_init_data(t_cub *data)
 {
 	data->width = 0;
 	data->height = 0;
@@ -40,7 +40,7 @@ void				ft_init_data(t_cub *data)
 
 static inline void	ft_free_map(t_cub *data)
 {
-	int y;
+	int	y;
 
 	y = -1;
 	while (++y < data->y_map)
@@ -49,7 +49,7 @@ static inline void	ft_free_map(t_cub *data)
 	free(data->map);
 }
 
-void				ft_free_data(t_cub *data)
+void	ft_free_data(t_cub *data)
 {
 	if (data->map)
 		ft_free_map(data);

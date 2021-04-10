@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:26:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 12:18:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-int					ft_parse_map(t_cub *data)
+int	ft_parse_map(t_cub *data)
 {
 	data->y_map++;
 	if (data->first)
@@ -44,7 +44,7 @@ static inline int	ft_set_player_pos(t_cub *data, char *ptr)
 	return (0);
 }
 
-int					ft_check_map_line(t_cub *data)
+int	ft_check_map_line(t_cub *data)
 {
 	int				empty;
 	register char	*ptr;
@@ -70,30 +70,30 @@ int					ft_check_map_line(t_cub *data)
 	return (0);
 }
 
-int					ft_create_map(t_cub *data)
+int	ft_create_map(t_cub *data)
 {
-	register int	x;
-	register int	y;
+	int				yx[2];
 	register int	**map;
 	register char	*line;
 
-	if (!(map = malloc(sizeof(int*) * data->y_map)))
+	map = malloc(sizeof(int *) * data->y_map);
+	if (!(map))
 		return (ft_error_parser(data, strerror(errno)));
 	data->map = map;
-	data->last = data->first;
-	line = data->last->content;
-	y = -1;
-	while (++y < data->y_map)
+	line = data->first->content;
+	yx[0] = -1;
+	while (++yx[0] < data->y_map)
 	{
-		if (!(map[y] = malloc(sizeof(int) * data->x_map)))
+		map[yx[0]] = malloc(sizeof(int) * data->x_map);
+		if (!(map[yx[0]]))
 			return (ft_error_parser(data, strerror(errno)));
-		x = -1;
-		while (++x < data->x_map && line[x])
-			map[y][x] = line[x] - '0';
-		while (x < data->x_map)
-			map[y][x++] = ' ' - '0';
-		data->last = data->last->next;
-		if (data->last)
+		yx[1] = -1;
+		while (++yx[1] < data->x_map && line[yx[1]])
+			map[yx[0]][yx[1]] = line[yx[1]] - '0';
+		while (yx[1] < data->x_map)
+			map[yx[0]][yx[1]++] = ' ' - '0';
+		data->first = ft_lst_pop(data->first, &free);
+		if (data->first)
 			line = data->last->content;
 	}
 	return (0);

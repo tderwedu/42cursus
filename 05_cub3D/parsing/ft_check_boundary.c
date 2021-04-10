@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:58:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:26:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 11:55:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static inline int	ft_boundary_x_bulk(t_cub *data, register int y)
 	return (0);
 }
 
-int					ft_check_boundary_x(t_cub *data)
+int	ft_check_boundary_x(t_cub *data)
 {
 	int				**map;
 	register int	x;
@@ -92,7 +92,7 @@ static inline int	ft_boundary_y_bulk(t_cub *data, register int x)
 	return (0);
 }
 
-int					ft_check_boundary_y(t_cub *data)
+int	ft_check_boundary_y(t_cub *data)
 {
 	int				**map;
 	register int	y;

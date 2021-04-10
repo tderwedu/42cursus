@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:23:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 11:58:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static inline char	*ft_skip_spaces(char *str)
 {
-	register char *ptr;
+	register char	*ptr;
 
 	ptr = str;
 	while (*ptr && (t_ui)(*ptr == ' ' || (*ptr - 9U) < 4U))
@@ -32,7 +32,7 @@ static inline int	ft_check_data(t_cub *data, int ret)
 	return (0);
 }
 
-int					ft_get_data(t_cub *data, int argc, char **argv)
+int	ft_get_data(t_cub *data, int argc, char **argv)
 {
 	ft_init_data(data);
 	data->fd = open(argv[1], O_RDONLY);
@@ -57,9 +57,9 @@ int					ft_get_data(t_cub *data, int argc, char **argv)
 	return (0);
 }
 
-int					ft_parse_cubfile(t_cub *data)
+int	ft_parse_cubfile(t_cub *data)
 {
-	int		ret;
+	int	ret;
 
 	ret = get_next_line(data->fd, &data->line);
 	while (ret > 0)

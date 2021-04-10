@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:47:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:22:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 11:56:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-int					ft_error_arg(t_cub *data, char *str, char *arg)
+int	ft_error_arg(t_cub *data, char *str, char *arg)
 {
 	ft_printf("Error:\n%s\n", str);
 	ft_printf(">>\"%s\"\n", arg);
@@ -21,7 +21,7 @@ int					ft_error_arg(t_cub *data, char *str, char *arg)
 	return (1);
 }
 
-int					ft_error_parser(t_cub *data, char *str)
+int	ft_error_parser(t_cub *data, char *str)
 {
 	ft_printf("Error:\n%s\n", str);
 	ft_printf("line: \"%s\"\n", data->line);
@@ -29,7 +29,7 @@ int					ft_error_parser(t_cub *data, char *str)
 	return (1);
 }
 
-int					ft_error_map(t_cub *data, char *str, int y_e, int x_e)
+int	ft_error_map(t_cub *data, char *str, int y_e, int x_e)
 {
 	int		x;
 	int		y;

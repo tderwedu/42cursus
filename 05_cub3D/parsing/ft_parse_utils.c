@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:26:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 11:57:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-int					ft_get_int(char **ptr)
+int	ft_get_int(char **ptr)
 {
 	uint64_t		val;
 	register char	*nbr;
@@ -31,7 +31,7 @@ int					ft_get_int(char **ptr)
 	return (val);
 }
 
-int32_t				ft_get_color(char *ptr)
+int32_t	ft_get_color(char *ptr)
 {
 	uint32_t	tmp;
 	uint32_t	rgb;
@@ -56,7 +56,7 @@ int32_t				ft_get_color(char *ptr)
 	return (rgb);
 }
 
-void				ft_print_data(t_cub *data)
+void	ft_print_data(t_cub *data)
 {
 	ft_printf("***\n");
 	ft_printf("Data parsed from CUB file:\n");
@@ -73,7 +73,7 @@ void				ft_print_data(t_cub *data)
 	ft_printf("\n***\n");
 }
 
-void				ft_print_map(t_cub *data)
+void	ft_print_map(t_cub *data)
 {
 	int		x;
 	int		y;

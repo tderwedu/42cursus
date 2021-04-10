@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:19:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/10 11:58:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 static inline char	*ft_skip_spaces(char *str)
 {
-	register char *ptr;
+	register char	*ptr;
 
 	ptr = str;
 	while (*ptr && (t_ui)(*ptr == ' ' || (*ptr - 9U) < 4U))
@@ -23,10 +23,10 @@ static inline char	*ft_skip_spaces(char *str)
 	return (ptr);
 }
 
-int					ft_line_handler(t_cub *data)
+int	ft_line_handler(t_cub *data)
 {
-	char chr;
-	char next_chr;
+	char	chr;
+	char	next_chr;
 
 	chr = *data->ptr;
 	if (chr == '\0')
@@ -51,9 +51,9 @@ int					ft_line_handler(t_cub *data)
 	return (ft_error_parser(data, ERR_NOT_ELEM));
 }
 
-int					ft_get_resolution(t_cub *data)
+int	ft_get_resolution(t_cub *data)
 {
-	t_uc chr;
+	t_uc	chr;
 
 	chr = *++data->ptr;
 	if (!(chr == ' ' || (chr - 9U) < 4U))
@@ -73,9 +73,9 @@ int					ft_get_resolution(t_cub *data)
 	return (0);
 }
 
-int					ft_get_pavement(t_cub *data, int *rgb, int flag)
+int	ft_get_pavement(t_cub *data, int *rgb, int flag)
 {
-	t_uc chr;
+	t_uc	chr;
 
 	chr = *++data->ptr;
 	if (!(chr == ' ' || (chr - 9U) < 4U))
@@ -90,7 +90,7 @@ int					ft_get_pavement(t_cub *data, int *rgb, int flag)
 	return (0);
 }
 
-int					ft_get_tex_path(t_cub *data, char **path, int flag)
+int	ft_get_tex_path(t_cub *data, char **path, int flag)
 {
 	if (data->flag & flag)
 		return (ft_error_parser(data, ERR_DEF_TWICE));
