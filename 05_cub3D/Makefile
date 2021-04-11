@@ -6,33 +6,48 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/04/02 21:05:16 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/04/11 15:06:40 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME	=	cub3D
+NAME		=	cub3D
 
-LIBMLX	=	-lmlx
-MLX		=	./mlx_linux/libmlx.a
-MLXDIR	=	$(dir ${MLX})
-LDFLAGS =	-L ${MLXDIR} ${LIBMLX} -lXext -lX11 -lm
+LIBMLX		=	-lmlx
+MLX			=	./mlx_linux/libmlx.a
+MLXDIR		=	$(dir ${MLX})
+LDFLAGS 	=	-L ${MLXDIR} ${LIBMLX} -lXext -lX11 -lm
 
-CC		=	gcc
-CFLAGS	=	-O3 #-Wall -Werror -Wextra
+LFTDIR		=	./Libft
+LFTFLAGS	=	-L ${LFTDIR} -lft
 
-SRC		=	raycasting.c
-OBJ		=	${SRC:.c=.o}
+CC			=	gcc
+CFLAGS		=	-O3 -Wall -Werror -Wextra -fsanitize=address
 
-SRCDIR	=	src/
-INCDIR	=	-I$(MLXDIR) -I/usr/include
-OBJDIR	=	bin/
+SRC			=	./main.c\
+				./parsing/ft_parse_file.c\
+				./parsing/ft_get_data.c\
+				./parsing/ft_get_map.c\
+				./parsing/ft_check_boundary.c\
+				./parsing/ft_data.c\
+				./parsing/ft_error.c\
+				./parsing/ft_parse_utils.c
+
+OBJ			=	${SRC:.c=.o}
+
+SRCDIR		=	src/
+INCDIR		=	-I$(MLXDIR) -I/usr/include -I${LFTDIR}/include -I./include
+OBJDIR	=		bin/
 
 
 .c.o:		
 			${CC} ${CFLAGS} ${INCDIR} -c $< -o $@
 
+all:		${NAME}
+
 $(NAME):	${OBJ}
-			${CC} ${CFLAGS} ${OBJ} ${LDFLAGS} -o ${NAME}
+			${MAKE} -s -w -C ${LFTDIR}
+			${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} -o ${NAME}
+			# ${CC} ${CFLAGS} ${OBJ} ${LDFLAGS} -o ${NAME}
 
 clean:
 			rm -f ${OBJ}

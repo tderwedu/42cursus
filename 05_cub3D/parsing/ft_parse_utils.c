@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:57:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/11 14:54:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ int	ft_get_int(char **ptr)
 		val = val * 10 + (*nbr++ - '0');
 	if (nbr == *ptr)
 		return (-1);
+	while (*nbr && (*nbr == ' ' || (t_ui)(*nbr - 9U) < 4U))
+		nbr++;
 	*ptr = nbr;
 	return (val);
 }
@@ -70,6 +72,13 @@ void	ft_print_data(t_cub *data)
 	ft_printf("    Sprite: %s\n", data->sprite);
 	ft_printf("     y_map: %i\n", data->y_map);
 	ft_printf("     x_map: %i\n", data->x_map);
+	ft_printf(" lst first: %p\n", data->first);
+	ft_printf("  lst last: %p\n", data->last);
+	if (data->first)
+	{
+		ft_printf(" str first: >>%s<<\n", data->first->content);
+		ft_printf("  lst last: >>%s<<\n", data->last->content);
+	}
 	ft_printf("\n***\n");
 }
 
@@ -78,12 +87,20 @@ void	ft_print_map(t_cub *data)
 	int		x;
 	int		y;
 
+	ft_printf("=== The MAP === \n");
 	y = -1;
 	while (++y < data->y_map)
 	{
 		x = -1;
 		while (++x < data->x_map)
-			ft_printf("%- 3i", data->map[y][x]);
+		{
+			if (data->map[y][x] == 1)
+				ft_printf("%s1%s", RGB_YLW, RGB_NC);
+			else if (data->map[y][x] > 1)
+				ft_printf("%s%i%s", RGB_GRN, data->map[y][x], RGB_NC);
+			else
+				ft_printf("%i", data->map[y][x]);
+		}
 		ft_printf("\n");
 	}
 }

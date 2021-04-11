@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 11:58:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:04:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,6 @@ static inline char	*ft_skip_spaces(char *str)
 	return (ptr);
 }
 
-static inline int	ft_check_data(t_cub *data, int ret)
-{
-	if (ret < 0)
-		return (ft_error_parser(data, strerror(errno)));
-	if (ret == 0 || !(data->flag == FLAG_ALL))
-		return (ft_error_parser(data, ERR_INCOMP));
-	return (0);
-}
-
 int	ft_get_data(t_cub *data, int argc, char **argv)
 {
 	ft_init_data(data);
@@ -46,6 +37,7 @@ int	ft_get_data(t_cub *data, int argc, char **argv)
 		return (1);
 	if (close(data->fd))
 		return (ft_error_parser(data, strerror(errno)));
+	data->fd = 0;
 	if (DEBUG)
 		ft_print_data(data);
 	if (ft_create_map(data))
@@ -54,6 +46,30 @@ int	ft_get_data(t_cub *data, int argc, char **argv)
 		return (1);
 	if (DEBUG)
 		ft_print_map(data);
+	if (DEBUG)
+		ft_print_data(data);
+	return (0);
+}
+
+static inline int	ft_check_data(t_cub *data, int ret)
+{
+	if (ret < 0)
+		return (ft_error_parser(data, strerror(errno)));
+	if (ret == 0 || !(data->flag == FLAG_ALL))
+		return (ft_error_parser(data, ERR_INCOMP));
+	return (0);
+}
+
+static inline int	ft_check_map(t_cub *data, int ret)
+{
+	if (ret < 0)
+		return (ft_error_parser(data, strerror(errno)));
+	if (ft_parse_map(data))
+		return (1);
+	if (!data->y_map || !data->x_map)
+		return (ft_error_parser(data, ERR_MAP_MSG));
+	if (data->dir == 0)
+		return (ft_error_parser(data, ERR_MAP_DIR));
 	return (0);
 }
 
@@ -80,7 +96,7 @@ int	ft_parse_cubfile(t_cub *data)
 			return (1);
 		ret = get_next_line(data->fd, &data->line);
 	}
-	if (ret < 0)
-		return (ft_error_parser(data, strerror(errno)));
+	if (ft_check_map(data, ret))
+		return (1);
 	return (0);
 }

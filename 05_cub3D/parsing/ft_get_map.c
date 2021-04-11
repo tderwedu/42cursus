@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/10 12:18:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/11 15:21:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_parse_map(t_cub *data)
 static inline int	ft_set_player_pos(t_cub *data, char *ptr)
 {
 	if (data->dir)
-		return (ft_error_parser(data, ERR_MAP_DIR));
+		return (ft_error_parser(data, ERR_MAP_DIR2));
 	data->y_pos = data->y_map;
 	data->x_pos = ptr - data->line;
 	data->dir = *ptr;
@@ -94,7 +94,7 @@ int	ft_create_map(t_cub *data)
 			map[yx[0]][yx[1]++] = ' ' - '0';
 		data->first = ft_lst_pop(data->first, &free);
 		if (data->first)
-			line = data->last->content;
+			line = data->first->content;
 	}
 	return (0);
 }
