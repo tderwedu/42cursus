@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/11 14:54:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/12 11:50:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,13 +63,13 @@ void	ft_print_data(t_cub *data)
 	ft_printf("***\n");
 	ft_printf("Data parsed from CUB file:\n");
 	ft_printf("Resolution: %i - %i\n", data->width, data->height);
-	ft_printf("      Ceil: %#.8x\n", data->ceil);
-	ft_printf("     Floor: %#.8x\n", data->floor);
-	ft_printf("Wall North: %s\n", data->tex_no);
-	ft_printf(" Wall West: %s\n", data->tex_we);
-	ft_printf("Wall South: %s\n", data->tex_so);
-	ft_printf(" Wall East: %s\n", data->tex_ea);
-	ft_printf("    Sprite: %s\n", data->sprite);
+	ft_printf("      Ceil: %#.8x\n", data->rgb[C]);
+	ft_printf("     Floor: %#.8x\n", data->rgb[F]);
+	ft_printf("Wall North: %s\n", data->tex[NO]);
+	ft_printf(" Wall West: %s\n", data->tex[WE]);
+	ft_printf("Wall South: %s\n", data->tex[SO]);
+	ft_printf(" Wall East: %s\n", data->tex[EA]);
+	ft_printf("    Sprite: %s\n", data->tex[S]);
 	ft_printf("     y_map: %i\n", data->y_map);
 	ft_printf("     x_map: %i\n", data->x_map);
 	ft_printf(" lst first: %p\n", data->first);
@@ -98,6 +98,8 @@ void	ft_print_map(t_cub *data)
 				ft_printf("%s1%s", RGB_YLW, RGB_NC);
 			else if (data->map[y][x] > 1)
 				ft_printf("%s%i%s", RGB_GRN, data->map[y][x], RGB_NC);
+			else if  (data->map[y][x] < 0)
+				ft_printf(" ");
 			else
 				ft_printf("%i", data->map[y][x]);
 		}

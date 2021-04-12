@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/11 15:21:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/12 13:22:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-int	ft_parse_map(t_cub *data)
+int	ft_parse_map(t_cub *data, int empty)
 {
 	data->y_map++;
 	if (data->first)
@@ -28,7 +28,7 @@ int	ft_parse_map(t_cub *data)
 	}
 	if (!data->last)
 		return (ft_error_parser(data, strerror(errno)));
-	if (ft_check_map_line(data))
+	if (ft_check_map_line(data, empty))
 		return (1);
 	return (0);
 }
@@ -44,13 +44,11 @@ static inline int	ft_set_player_pos(t_cub *data, char *ptr)
 	return (0);
 }
 
-int	ft_check_map_line(t_cub *data)
+int	ft_check_map_line(t_cub *data, int empty)
 {
-	int				empty;
 	register char	*ptr;
 
 	ptr = data->line;
-	empty = 1;
 	while (*ptr)
 	{
 		if (ft_strchr(VALID_NBR, *ptr))
