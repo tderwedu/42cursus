@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 16:14:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:25:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,29 +32,29 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	while (++i <= S)
 		if (rc_get_tex(data, mlx, i))
 			return (1);
-	rc_set_player(data, mlx->player);
+	rc_set_cam(data, mlx->cam);
 	return (0);
 }
 
-void	rc_set_player(t_cub *data, t_player *player)
+void	rc_set_cam(t_cub *data, t_cam *cam)
 {
 	double	fov;
 
 	fov = (FOV / 2.0) * M_PI / 180;
-	player->pos_x = data->x_pos;
-	player->pos_y = data->x_pos;
-	player->dir_x = 0.0;
-	player->dir_y = 0.0;
+	cam->x_pos = data->x_pos;
+	cam->y_pos = data->x_pos;
+	cam->x_dir = 0.0;
+	cam->y_dir = 0.0;
 	if (data->dir = 'N')
-		player->dir_y = -1.0;
+		cam->y_dir = -1.0;
 	else if (data->dir = 'W')
-		player->dir_x = -1.0;
+		cam->x_dir = -1.0;
 	else if (data->dir = 'S')
-		player->dir_y = 1.0;
+		cam->y_dir = 1.0;
 	else if (data->dir = 'E')
-		player->dir_x = 1.0;
-	player->plane_x = -player->dir_y * tan(fov);
-	player->plane_y = player->dir_x * tan(fov);
+		cam->x_dir = 1.0;
+	cam->x_plane = -cam->y_dir * tan(fov);
+	cam->y_plane = cam->x_dir * tan(fov);
 }
 
 

@@ -6,108 +6,98 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 16:49:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/12 19:32:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-int		ft_darker_color(int color)
+void	rc_scanline(t_mlx *mlx, t_cam *cam, t_img *img)
 {
-	return ((color >> 1) & 0x7F7F7F);
+	if (mlx->rgb[C] || mlx->rgb[F])
+		rc_scanline_rgb(mlx, mlx->cam, mlx->img);
+	if (mlx->tex[C].addr || mlx->tex[F].addr)
+		rc_scanline_tex(mlx, mlx->cam, mlx->img);
 }
 
-
-void	ft_scanline(t_mlx *mlx, t_player *player, t_img *img)
+void	rc_scanline_rgb(t_mlx *mlx, t_cam *cam, t_img *img)
 {
-	
-}
-
-void	ft_scanline_rgb(t_mlx *mlx, t_player *player, t_img *img)
-{
-	int		y;
-	int		h;
-	t_ui	*ceil;
-	t_ui	*floor;
-	register int x;
+	register int	x;
+	int				y;
+	int				h;
+	t_ui			rgb[2];
+	t_ui			*addr[2];
 
 	y = -1;
 	h = mlx->height / 2;
+	rgb[0] = ((mlx->rgb[C] >> 1) & 0x7F7F7F);
+	rgb[1] = ((mlx->rgb[F] >> 1) & 0x7F7F7F);
 	while (++y < h)
 	{
-		ceil = (t_ui*)(img->addr + y * img->sl);
-		floor = (t_ui*)(img->addr + (mlx->height - 1 - y) * img->sl);
+		addr[0] = (t_ui *)(img->addr + y * img->sl);
+		addr[1] = (t_ui *)(img->addr + (mlx->height - 1 - y) * img->sl);
 		x = -1;
 		while (++x < mlx->width)
 		{
-			*(ceil + img->bpp * x) = (mlx->rgb[C] >> 1) & 0x7F7F7F);
-			*(floor + img->bpp * x) = (mlx->rgb[F] >> 1) & 0x7F7F7F);
+			*(addr[0] + img->bpp * x) = rgb[0];
+			*(addr[1] + img->bpp * x) = rgb[1];
 		}
 	}
 }
 
-void	ft_scanline_tex(t_mlx *mlx, t_player *player, t_img *img)
+typedef struct s_scan
 {
-	t_tex		floor;
-	t_tex		ceil;
-
-	floor = mlx->tex[F];
-	ceil = mlx->tex[C];
-
 	int		x;
 	int		y;
 	int		h;
-	int		cell_x;
-	int		cell_y;
-	int		tex_x;
-	int		tex_y;
-	double	row_dist;
-	double	ceil_step_x;
-	double	ceil_step_y;
-	double	ceil_x;
-	double	ceil_y;
-	t_ui	*dst;
+	double	x_pxl_stepx;
+	double	y_pxl_stepx;
+	double	x_pxl;
+	double	y_pxl;
+	int		x_tex;
+	int		y_tex;
+	double	factor;
+}				t_scan;
+
+static inline void	rc_get_tex_rgb(t_img *img, t_tex *tex, t_scan *sc)
+{
 	t_ui	*src;
+	t_ui	*dst;
+	double x_pc;
+	double y_pc;
 
-	y = -1;
-	// rayDir for leftmost ray (x = 0) and rightmost ray (x = w)
-	h = mlx->height / 2;
-	while (++y < h)
+	x_pc = (double)(sc->x_pxl - (int)sc->x_pxl);
+	y_pc = (double)(sc->y_pxl - (int)sc->y_pxl);
+	sc->x_tex = (int)(tex->width * x_pc) & (tex->width - 1);
+	sc->y_tex = (int)(tex->height * y_pc) & (tex->height - 1);	
+	dst = (t_ui *)img->addr + img->sl * sc->y + img->bpp * sc->x;
+	src = (t_ui *)tex->addr + tex->height * sc->x_tex + sc->y_tex;
+	*dst = ((*src >> 1) & 0x7F7F7F);
+}
+
+void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img)
+{
+	t_scan			sc;
+
+	sc.y = -1;
+	sc.h = mlx->height / 2;
+	while (++sc.y < sc.h)
 	{
-		// Scaling factor. Grows as y -> the horizon
-		row_dist = mlx->height / (2.0 * y - mlx->height);
-		// calculate the real world step vector we have to add for each x (parallel to camera plane)
-		// adding step by step avoids multiplications with a weight in the inner loop
-		ceil_step_x = (row_dist * 2.0 * player->plane_x) / mlx->width;
-		ceil_step_y = (row_dist * 2.0 * player->plane_y) / mlx->height;
-		// real world coordinates of the leftmost column. This will be updated as we step to the right.
-		ceil_x = player->pos_x + row_dist * (player->dir_x - player->plane_x);
-		ceil_y = player->pos_y + row_dist * (player->dir_y - player->plane_y);
-
-		x = -1;
-		while (++x < mlx->width)
+		sc.factor = mlx->height / (2.0 * sc.y - mlx->height);
+		sc.x_pxl = cam->x_pos + sc.factor * (cam->x_dir - cam->x_plane);
+		sc.y_pxl = cam->y_pos + sc.factor * (cam->y_dir - cam->y_plane);
+		sc.x_pxl_stepx = (sc.factor * 2.0 * cam->x_plane) / mlx->width;
+		sc.y_pxl_stepx = (sc.factor * 2.0 * cam->y_plane) / mlx->height;
+		sc.x = -1;
+		while (++sc.x < mlx->width)
 		{
-			// the cell coord is simply got from the integer parts of floorX and floorY
-			cell_x = (int)(ceil_x);
-			cell_y = (int)(ceil_y);
-			// CEIL
-			// get the texture coordinate from the fractional part
-			tex_x = (int)(ceil.width * (ceil_x - cell_x)) & (ceil.width - 1);
-			tex_y = (int)(ceil.height * (ceil_y - cell_y)) & (ceil.height - 1);
-			dst = (int*)(img->addr + y * img->sl + x * (img->bpp / 8));
-			src = (int*)ceil.addr + tex_x * ceil.height + tex_y;
-			*dst = ft_darker_color(*src);
-
-			// FLOOR (symmetrical, at mlx->height - y - 1 instead of y)
-			// get the texture coordinate from the fractional part
-			tex_x = (int)(floor.width * (ceil_x - cell_x)) & (floor.width - 1);
-			tex_y = (int)(floor.height * (ceil_y - cell_y)) & (floor.height - 1);
-			dst = (int*)(img->addr + (mlx->height - 1 - y) * img->sl + x * (img->bpp / 8));
-			src = (int*)floor.addr + tex_x * floor.height + tex_y;
-			*dst = ft_darker_color(*src);
-			ceil_x += ceil_step_x;
-			ceil_y += ceil_step_y;
+			if (mlx->tex[C].addr)
+				rc_get_tex_rgb(img, &mlx->tex[C], &sc);
+			if (mlx->tex[F].addr)
+				rc_get_tex_rgb(img, &mlx->tex[F], &sc);
+			sc.x_pxl += sc.x_pxl_stepx;
+			sc.y_pxl += sc.y_pxl_stepx;
 		}
 	}
 }
