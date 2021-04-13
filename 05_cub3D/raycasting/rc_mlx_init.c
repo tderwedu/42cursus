@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 18:25:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/13 15:57:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,11 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 		return (rc_error_data(data, mlx, ERR_RC_WIN));
 	i = -1;
 	while (++i <= S)
-		if (rc_get_tex(data, mlx, i))
+		if (rc_get_wall_tex(data, mlx, i))
 			return (1);
 	rc_set_cam(data, mlx->cam);
+	mlx->map = data->map;
+	data->map = NULL;
 	return (0);
 }
 
@@ -41,24 +43,29 @@ void	rc_set_cam(t_cub *data, t_cam *cam)
 	double	fov;
 
 	fov = (FOV / 2.0) * M_PI / 180;
-	cam->x_pos = data->x_pos;
-	cam->y_pos = data->x_pos;
+	cam->x_pos = (double)data->x_pos + 0.5;
+	cam->y_pos = (double)data->y_pos + 0.5;
 	cam->x_dir = 0.0;
 	cam->y_dir = 0.0;
-	if (data->dir = 'N')
+	if (data->dir == 'N')
 		cam->y_dir = -1.0;
-	else if (data->dir = 'W')
+	else if (data->dir == 'W')
 		cam->x_dir = -1.0;
-	else if (data->dir = 'S')
+	else if (data->dir == 'S')
 		cam->y_dir = 1.0;
-	else if (data->dir = 'E')
+	else if (data->dir == 'E')
 		cam->x_dir = 1.0;
 	cam->x_plane = -cam->y_dir * tan(fov);
 	cam->y_plane = cam->x_dir * tan(fov);
+	if (DEBUG)
+	{
+		ft_printf("  POS| y: % .2f | x: % .2f\n", cam->y_pos, cam->x_pos);
+		ft_printf("  DIR| y: % .2f | x: % .2f\n", cam->y_dir, cam->x_dir);
+		ft_printf("PLANE| y: % .2f | x: % .2f\n", cam->y_plane, cam->x_plane);
+	}
 }
 
-
-int	rc_get_tex(t_cub *d, t_mlx *x, int i)
+int	rc_get_wall_tex(t_cub *d, t_mlx *x, int i)
 {
 	t_tex	*t;
 
@@ -78,13 +85,14 @@ int	rc_get_tex(t_cub *d, t_mlx *x, int i)
 	if (!t->addr)
 		return (rc_error_data(d, x, ERR_RC_ADDR_XPM));
 	t->bpp /= 8;
+	t->sl /= 4;
 	if (!(t->bpp == sizeof(int)))
 		return (rc_error_data(d, x, ERR_RC_BPP));
-	rc_rotate_tex(t);
+	rc_rotate_wall_tex(t);
 	return (0);
 }
 
-void	rc_rotate_tex(t_tex *tex)
+void	rc_rotate_wall_tex(t_tex *tex)
 {
 	t_ui			tmp;
 	register int	x;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 11:33:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/13 12:20:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	ft_get_pavement(t_cub *data, int i, int flag)
 	if (data->flag & flag)
 		return (ft_error_parser(data, ERR_DEF_TWICE));
 	data->flag |= flag;
-	// data->ptr = ft_skip_spaces(++data->ptr);
 	data->rgb[i] = ft_get_color(data->ptr);
 	if (data->rgb[i] < 0)
 		return (ft_error_parser(data, ERR_COLOR));
@@ -92,9 +91,7 @@ int	ft_get_resolution(t_cub *data)
 	if (data->flag & FLAG_R)
 		return (ft_error_parser(data, ERR_DEF_TWICE));
 	data->flag |= FLAG_R;
-	// data->ptr = ft_skip_spaces(++data->ptr);
 	data->width = ft_get_int(&data->ptr);
-	// data->ptr = ft_skip_spaces(data->ptr);
 	data->height = ft_get_int(&data->ptr);
 	if (data->width < 1 || data->width < 1)
 		return (ft_error_parser(data, ERR_WRONG_RES));

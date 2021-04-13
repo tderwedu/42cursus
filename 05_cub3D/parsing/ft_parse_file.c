@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 11:46:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/13 11:55:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,6 @@ int	ft_get_data(t_cub *data, int argc, char **argv)
 		return (1);
 	if (DEBUG)
 		ft_print_map(data);
-	if (DEBUG)
-		ft_print_data(data);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 13:22:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/12 18:14:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	ft_parse_map(t_cub *data, int empty)
 	return (0);
 }
 
-static inline int	ft_set_player_pos(t_cub *data, char *ptr)
+static inline int	ft_set_cam_pos(t_cub *data, char *ptr)
 {
 	if (data->dir)
 		return (ft_error_parser(data, ERR_MAP_DIR2));
@@ -56,7 +56,7 @@ int	ft_check_map_line(t_cub *data, int empty)
 		else if (*ptr == ' ')
 			;
 		else if (ft_strchr(VALID_DIR, *ptr))
-			ft_set_player_pos(data, ptr);
+			ft_set_cam_pos(data, ptr);
 		else
 			return (ft_error_parser(data, ERR_MAP_CHR));
 		ptr++;

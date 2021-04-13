@@ -6,14 +6,14 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/04/11 15:06:40 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/04/13 21:02:59 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
 LIBMLX		=	-lmlx
-MLX			=	./mlx_linux/libmlx.a
+MLX			=	./mlx/mlx_linux/libmlx.a
 MLXDIR		=	$(dir ${MLX})
 LDFLAGS 	=	-L ${MLXDIR} ${LIBMLX} -lXext -lX11 -lm
 
@@ -22,7 +22,6 @@ LFTFLAGS	=	-L ${LFTDIR} -lft
 
 CC			=	gcc
 CFLAGS		=	-O3 -Wall -Werror -Wextra -fsanitize=address
-
 SRC			=	./main.c\
 				./parsing/ft_parse_file.c\
 				./parsing/ft_get_data.c\
@@ -30,7 +29,16 @@ SRC			=	./main.c\
 				./parsing/ft_check_boundary.c\
 				./parsing/ft_data.c\
 				./parsing/ft_error.c\
-				./parsing/ft_parse_utils.c
+				./parsing/ft_parse_utils.c\
+				./raycasting/rc_set_mlx.c\
+				./raycasting/rc_error.c\
+				./raycasting/rc_scanline.c\
+				./raycasting/rc_key_hooks.c\
+				./raycasting/rc_raycasting.c\
+				./raycasting/rc_mlx_init.c
+
+# CFLAGS		=	-O3 -fsanitize=address
+# SRC			=	./raycasting_old.c
 
 OBJ			=	${SRC:.c=.o}
 
@@ -46,7 +54,8 @@ all:		${NAME}
 
 $(NAME):	${OBJ}
 			${MAKE} -s -w -C ${LFTDIR}
-			${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} -o ${NAME}
+			${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} ${LDFLAGS} -o ${NAME}
+			# ${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} -o ${NAME}
 			# ${CC} ${CFLAGS} ${OBJ} ${LDFLAGS} -o ${NAME}
 
 clean:

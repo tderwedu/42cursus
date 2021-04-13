@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 11:50:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/13 14:45:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ void	ft_print_data(t_cub *data)
 	ft_printf("    Sprite: %s\n", data->tex[S]);
 	ft_printf("     y_map: %i\n", data->y_map);
 	ft_printf("     x_map: %i\n", data->x_map);
+	ft_printf("     y_pos: %i\n", data->y_pos);
+	ft_printf("     x_pos: %i\n", data->x_pos);
 	ft_printf(" lst first: %p\n", data->first);
 	ft_printf("  lst last: %p\n", data->last);
 	if (data->first)
@@ -98,8 +100,10 @@ void	ft_print_map(t_cub *data)
 				ft_printf("%s1%s", RGB_YLW, RGB_NC);
 			else if (data->map[y][x] > 1)
 				ft_printf("%s%i%s", RGB_GRN, data->map[y][x], RGB_NC);
-			else if  (data->map[y][x] < 0)
+			else if (data->map[y][x] < 0)
 				ft_printf(" ");
+			else if (y == data->y_pos && x == data->x_pos)
+				ft_printf("%s%c%s", RGB_BLU, data->dir, RGB_NC);
 			else
 				ft_printf("%i", data->map[y][x]);
 		}
