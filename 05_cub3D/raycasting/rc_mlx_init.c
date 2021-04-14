@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/13 15:57:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:49:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	rc_get_wall_tex(t_cub *d, t_mlx *x, int i)
 	t->img = mlx_xpm_file_to_image(x->mlx, d->tex[i], &t->width, &t->height);
 	if (!t->img)
 		return (rc_error_data(d, x, ERR_RC_IMG_XPM));
-	t->addr = mlx_get_data_addr(t->img , &t->bpp, &t->sl, &t->endia);
+	t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->sl, &t->endia);
 	if (!t->addr)
 		return (rc_error_data(d, x, ERR_RC_ADDR_XPM));
 	t->bpp /= 8;
@@ -98,8 +98,8 @@ void	rc_rotate_wall_tex(t_tex *tex)
 	register int	x;
 	register int	y;
 	register t_ui	*addr;
-	
-	addr = (t_ui*)tex->addr;
+
+	addr = (t_ui *)tex->addr;
 	x = -1;
 	while (++x < tex->width)
 	{

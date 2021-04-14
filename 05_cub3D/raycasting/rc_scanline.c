@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/13 21:08:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/14 09:48:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,13 +50,13 @@ static inline void	set_tex_rgb(t_img *img, t_tex *tex, t_scan *sc)
 {
 	t_ui	*src;
 	t_ui	*dst;
-	double x_pc;
-	double y_pc;
+	double	x_pc;
+	double	y_pc;
 
 	x_pc = (double)(sc->x_tex - (int)sc->x_tex);
 	y_pc = (double)(sc->y_tex - (int)sc->y_tex);
 	sc->x_pxl = (int)(tex->width * x_pc) & (tex->width - 1);
-	sc->y_pxl = (int)(tex->height * y_pc) & (tex->height - 1);	
+	sc->y_pxl = (int)(tex->height * y_pc) & (tex->height - 1);
 	dst = (t_ui *)img->addr + img->sl * sc->y + sc->x;
 	src = (t_ui *)tex->addr + tex->width * sc->x_pxl + sc->y_pxl;
 	*dst = ((*src >> 1) & 0x7F7F7F);
