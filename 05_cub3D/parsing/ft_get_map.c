@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/12 18:14:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/16 14:19:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,10 @@ int	ft_check_map_line(t_cub *data, int empty)
 	while (*ptr)
 	{
 		if (ft_strchr(VALID_NBR, *ptr))
+		{
 			empty = 0;
+			data->nb_spr += (*ptr == '2');
+		}
 		else if (*ptr == ' ')
 			;
 		else if (ft_strchr(VALID_DIR, *ptr))

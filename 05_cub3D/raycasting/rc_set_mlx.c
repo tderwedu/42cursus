@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/14 09:49:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/16 18:38:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,18 @@ void	rc_draw_img(t_mlx *mlx)
 {
 	t_img	img;
 
+	// ft_printf("== NEW ==\n");
 	img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	img.addr = mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.endia);
 	img.bpp /= 8;
 	img.sl /= 4;
 	mlx->img = &img;
+	mlx->lst = NULL;
 	rc_scanline(mlx);
 	rc_raycasting(mlx, mlx->cam);
+	rc_sprite(mlx, &img);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx, img.img);
 	mlx->img = NULL;
+	// ft_printf("== END ==\n\n");
 }

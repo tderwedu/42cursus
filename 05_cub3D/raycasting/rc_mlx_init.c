@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/14 09:49:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/16 16:53:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,17 +32,17 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	while (++i <= S)
 		if (rc_get_wall_tex(data, mlx, i))
 			return (1);
-	rc_set_cam(data, mlx->cam);
+	mlx->fov = (FOV / 2.0) * M_PI / 180;
+	rc_set_cam(data, mlx->cam, mlx->fov);
+	rc_spr_init(data, mlx);
 	mlx->map = data->map;
 	data->map = NULL;
+	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	return (0);
 }
 
-void	rc_set_cam(t_cub *data, t_cam *cam)
+void	rc_set_cam(t_cub *data, t_cam *cam, double fov)
 {
-	double	fov;
-
-	fov = (FOV / 2.0) * M_PI / 180;
 	cam->x_pos = (double)data->x_pos + 0.5;
 	cam->y_pos = (double)data->y_pos + 0.5;
 	cam->x_dir = 0.0;
@@ -65,30 +65,31 @@ void	rc_set_cam(t_cub *data, t_cam *cam)
 	}
 }
 
-int	rc_get_wall_tex(t_cub *d, t_mlx *x, int i)
+int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 {
-	t_tex	*t;
+	t_tex	*tex;
 
-	t = &x->tex[i];
-	if (!d->tex[i])
+	tex = &mlx->tex[i];
+	if (!data->tex[i])
 	{
-		x->rgb[i] = d->rgb[i];
-		t->img = NULL;
-		t->addr = NULL;
+		mlx->rgb[i] = data->rgb[i];
+		tex->img = NULL;
+		tex->addr = NULL;
 		return (0);
 	}
-	x->rgb[i] = 0;
-	t->img = mlx_xpm_file_to_image(x->mlx, d->tex[i], &t->width, &t->height);
-	if (!t->img)
-		return (rc_error_data(d, x, ERR_RC_IMG_XPM));
-	t->addr = mlx_get_data_addr(t->img, &t->bpp, &t->sl, &t->endia);
-	if (!t->addr)
-		return (rc_error_data(d, x, ERR_RC_ADDR_XPM));
-	t->bpp /= 8;
-	t->sl /= 4;
-	if (!(t->bpp == sizeof(int)))
-		return (rc_error_data(d, x, ERR_RC_BPP));
-	rc_rotate_wall_tex(t);
+	mlx->rgb[i] = 0;
+	tex->img = mlx_xpm_file_to_image(mlx->mlx, data->tex[i], &tex->width,
+				&tex->height);
+	if (!tex->img)
+		return (rc_error_data(data, mlx, ERR_RC_IMG_XPM));
+	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->sl, &tex->endia);
+	if (!tex->addr)
+		return (rc_error_data(data, mlx, ERR_RC_ADDR_XPM));
+	tex->bpp /= 8;
+	tex->sl /= 4;
+	if (!(tex->bpp == sizeof(int)))
+		return (rc_error_data(data, mlx, ERR_RC_BPP));
+	rc_rotate_wall_tex(tex);
 	return (0);
 }
 
@@ -111,4 +112,34 @@ void	rc_rotate_wall_tex(t_tex *tex)
 			*(addr + y * tex->width + x) = tmp;
 		}
 	}
+}
+
+int	rc_spr_init(t_cub *data, t_mlx *mlx)
+{
+	int		y;
+	int		x;
+	t_spr	*tab;
+
+	tab = malloc(sizeof(t_spr) * data->nb_spr);
+	if (!tab)
+		return (rc_error_data(data, mlx, ERR_MALLOC));
+	mlx->tab = tab;
+	y = -1;
+	mlx->nb_spr = data->nb_spr;
+	while (++y < data->y_map)
+	{
+		x = -1;
+		while (++x < data->x_map)
+		{
+			if (data->map[y][x] == 2)
+			{
+				ft_printf("INIT| y_map: %i - x_map: %i\n", y, x);
+				tab->x_map = x + 0.5;
+				tab->y_map = y + 0.5;
+				tab->tex = &mlx->tex[S];
+				tab++;
+			}
+		}
+	}
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:16:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/14 09:47:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/16 16:46:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 void	rc_free_mlx(t_mlx *mlx)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	while (++i <= S)
@@ -25,6 +25,10 @@ void	rc_free_mlx(t_mlx *mlx)
 		mlx_destroy_image(mlx->mlx, mlx->img);
 	if (mlx->win)
 		mlx_destroy_window(mlx->mlx, mlx->win);
+	if (mlx->z_buff)
+		free(mlx->z_buff);
+	if (mlx->tab)
+		free(mlx->tab);
 }
 
 int	rc_error(t_mlx *mlx, char *str)

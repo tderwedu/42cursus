@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/13 22:08:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/16 17:11:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ static inline void	rc_wall_hit(t_mlx *mlx, t_cam *cam, t_rc *rc)
 		rc->y_dist = (cam->y_pos - rc->y_map) * rc->y_dt_dist;
 	else
 		rc->y_dist = (rc->y_map + 1.0 - cam->y_pos) * rc->y_dt_dist;
-	while (!(mlx->map[rc->y_map][rc->x_map] == 1))
+	rc->hit = 0;
+	while (!(rc->hit == 1))
 	{
 		if (rc->x_dist < rc->y_dist)
 		{
@@ -37,6 +38,7 @@ static inline void	rc_wall_hit(t_mlx *mlx, t_cam *cam, t_rc *rc)
 			rc->y_map += rc->y_step;
 			rc->side = 1;
 		}
+		rc->hit = mlx->map[rc->y_map][rc->x_map];
 	}
 }
 
@@ -127,7 +129,6 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 {
 	t_rc	r;
 
-	r.fov = (FOV / 2.0) * M_PI / 180;
 	r.x = -1;
 	while (++r.x < mlx->width)
 	{
@@ -145,9 +146,12 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			r.w_dist = (r.x_map - cam->x_pos + (1 - r.x_step) / 2) / r.x_r_dir;
 		else
 			r.w_dist = (r.y_map - cam->y_pos + (1 - r.y_step) / 2) / r.y_r_dir;
-		r.line_h = (int)(mlx->width / (2.0 * tan(r.fov) * r.w_dist));
+		r.line_h = (int)(mlx->width / (2.0 * tan(mlx->fov) * r.w_dist));
 		r.y_s = -r.line_h / 2 + mlx->height / 2;
 		r.y_e = r.line_h / 2 + mlx->height / 2;
 		rc_set_tex(mlx, &r);
+		mlx->z_buff[r.x] = r.w_dist;
+		// if (r.x == 0 || r.x == (mlx->width - 1))
+		// 	ft_printf("Raycasting| y:%i - x:%i\n", r.y_map, r.x_map);
 	}
 }
