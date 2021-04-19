@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/04/13 21:02:59 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/04/19 16:47:26 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,9 @@ SRC			=	./main.c\
 				./raycasting/rc_scanline.c\
 				./raycasting/rc_key_hooks.c\
 				./raycasting/rc_raycasting.c\
-				./raycasting/rc_mlx_init.c
+				./raycasting/rc_mlx_init.c\
+				./raycasting/rc_sprites.c\
+				./raycasting/rc_mmap.c
 
 # CFLAGS		=	-O3 -fsanitize=address
 # SRC			=	./raycasting_old.c

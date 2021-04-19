@@ -13,12 +13,42 @@
 #include "libft.h"
 #include "cub3d.h"
 
-void	rc_sprite_lst_add(t_mlx *mlx, t_spr *new)
+// typedef struct	s_spr_lst
+// {
+// 	double				x_map;
+// 	double				y_map;
+// 	double				x_tr;
+// 	double				y_tr;
+// 	double				dist;
+// 	t_tex				*tex;
+// 	struct s_spr_lst	*next;	
+// }				t_spr_lst;
+
+// typedef struct s_spr_vars
+// {
+// 	int		x_screen;
+// 	int		spr_h;
+// 	int		spr_w;
+// 	int		y_s;
+// 	int		y_e;
+// 	int		x_s;
+// 	int		x_e;
+// 	int		x_tex;
+// 	int		y_tex;
+// 	int		tex_h;
+// 	int		tex_w;
+// 	int		y;
+// 	t_u32	*src;
+// 	t_u32	*dst;
+// }				t_spr_vars;
+
+void	rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new)
 {
-	t_spr	*lst;
+	t_spr_lst	*lst;
+	t_spr_lst	*prev;
 
 	lst = mlx->lst;
-	if (!lst || (new->y_tr > lst->y_tr))
+	if (!lst || (new->dist > lst->dist))
 	{
 		if (lst)
 			new->next = mlx->lst;
@@ -28,23 +58,41 @@ void	rc_sprite_lst_add(t_mlx *mlx, t_spr *new)
 	}
 	else
 	{
-		while (new->y_tr < lst->y_tr && lst->next)
+		prev = mlx->lst;
+		while (new->dist < lst->dist && lst->next)
+		{
+			prev = lst;
 			lst = lst->next;
+		}
 		if (lst->next)
-			new->next = lst->next;
+		{
+			prev->next = new;
+		}
+		else
+			lst->next = new;
+		if (lst->next)
+			new->next = lst;
 		else
 			new->next = NULL;
-		lst->next = new;
 	}
+	// Print the sprite's list
+	ft_printf("=Update=\n");
+	lst = mlx->lst;
+	while (lst->next)
+	{
+		ft_printf("(%4.2f, %4.2f) - dist: %4.2f\n", lst->y_map, lst->x_map, lst->dist);
+		lst = lst->next;
+	}
+	ft_printf("(%.2f, %.2f) - dist: %.2f\n", lst->y_map, lst->x_map, lst->dist);
 }
 
-void	rc_sprite_update(t_mlx *mlx, t_cam *cam)
+void	rc_sprite_update_lst(t_mlx *mlx, t_cam *cam)
 {
-	int		i;
-	t_spr	*tab;
-	double	det;
-	double	dt_x;
-	double	dt_y;
+	int			i;
+	t_spr_lst	*tab;
+	double		det;
+	double		dt_x;
+	double		dt_y;
 
 	det = 1.0 / (cam->x_plane * cam->y_dir - cam->y_plane * cam->x_dir);
 	tab = mlx->tab;
@@ -55,6 +103,7 @@ void	rc_sprite_update(t_mlx *mlx, t_cam *cam)
 		dt_y = tab->y_map - cam->y_pos;
 		tab->x_tr = det * (cam->y_dir * dt_x - cam->x_dir * dt_y);
 		tab->y_tr = det * (-cam->y_plane * dt_x + cam->x_plane * dt_y);
+		tab->dist = tab->y_tr * tab->y_tr + tab->x_tr * tab->x_tr; 
 		if (tab->y_tr > 0)
 			rc_sprite_lst_add(mlx, tab);
 		else
@@ -63,7 +112,7 @@ void	rc_sprite_update(t_mlx *mlx, t_cam *cam)
 	}
 }
 
-static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr *lst, t_spmp *v)
+static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr_lst *lst, t_spr_vars *v)
 {
 	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));
 	v->spr_h = (int)(mlx->height / lst->y_tr);
@@ -85,12 +134,41 @@ static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr *lst, t_spmp *v)
 	v->tex_w = lst->tex->width;
 }
 
+int	rc_spr_init(t_cub *data, t_mlx *mlx)
+{
+	int			y;
+	int			x;
+	t_spr_lst	*tab;
+
+	tab = malloc(sizeof(t_spr_lst) * data->nb_spr);
+	if (!tab)
+		return (rc_error_data(data, mlx, ERR_MALLOC));
+	mlx->tab = tab;
+	y = -1;
+	mlx->nb_spr = data->nb_spr;
+	while (++y < data->y_map)
+	{
+		x = -1;
+		while (++x < data->x_map)
+		{
+			if (data->map[y][x] == 2)
+			{
+				tab->x_map = x + 0.5;
+				tab->y_map = y + 0.5;
+				tab->tex = &mlx->tex[S];
+				tab++;
+			}
+		}
+	}
+	return (0);
+}
+
 void	rc_sprite(t_mlx *mlx, t_img *img)
 {
-	t_spr	*lst;
-	t_spmp	v;
+	t_spr_lst	*lst;
+	t_spr_vars	v;
 
-	rc_sprite_update(mlx, mlx->cam);
+	rc_sprite_update_lst(mlx, mlx->cam);
 	lst = mlx->lst;
 	while (lst)
 	{
@@ -99,15 +177,15 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 		{
 			v.x_tex = (v.x_s - v.x_screen + v.spr_w / 2) * v.tex_w;
 			v.x_tex /= v.spr_w;
-			v.src = (t_ui *)lst->tex->addr + v.tex_w * v.x_tex;
-			v.dst = (t_ui *)img->addr + v.x_s;
+			v.src = lst->tex->addr + lst->tex->sl * v.x_tex;
+			v.dst = img->addr + v.x_s;
 			v.y = v.y_s - 1;
 			while (++v.y < v.y_e)
 			{
 				v.y_tex = (v.y - mlx->height / 2 + v.spr_h / 2) * v.tex_h;
 				v.y_tex /= v.spr_h;
 				if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
-					*(v.dst + img->sl * v.y) = *(v.src + v.y_tex);
+					*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);
 			}
 		}
 		lst = lst->next;

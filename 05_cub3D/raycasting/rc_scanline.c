@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/14 09:48:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:10:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img)
 	register int	x;
 	int				y;
 	int				h;
-	t_ui			rgb[2];
-	t_ui			*addr[2];
+	t_u32			rgb[2];
+	t_u32			*addr[2];
 
 	y = -1;
 	h = mlx->height / 2;
@@ -35,8 +35,8 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img)
 	rgb[1] = ((mlx->rgb[F] >> 1) & 0x7F7F7F);
 	while (++y < h)
 	{
-		addr[0] = (t_ui *)(img->addr + y * img->sl * 4);
-		addr[1] = (t_ui *)(img->addr + (mlx->height - 1 - y) * img->sl * 4);
+		addr[0] = (img->addr + y * img->sl);
+		addr[1] = (img->addr + (mlx->height - 1 - y) * img->sl);
 		x = -1;
 		while (++x < mlx->width)
 		{
@@ -48,8 +48,8 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img)
 
 static inline void	set_tex_rgb(t_img *img, t_tex *tex, t_scan *sc)
 {
-	t_ui	*src;
-	t_ui	*dst;
+	t_u32	*src;
+	t_u32	*dst;
 	double	x_pc;
 	double	y_pc;
 
@@ -57,8 +57,8 @@ static inline void	set_tex_rgb(t_img *img, t_tex *tex, t_scan *sc)
 	y_pc = (double)(sc->y_tex - (int)sc->y_tex);
 	sc->x_pxl = (int)(tex->width * x_pc) & (tex->width - 1);
 	sc->y_pxl = (int)(tex->height * y_pc) & (tex->height - 1);
-	dst = (t_ui *)img->addr + img->sl * sc->y + sc->x;
-	src = (t_ui *)tex->addr + tex->width * sc->x_pxl + sc->y_pxl;
+	dst = img->addr + sc->y * img->height + sc->x;
+	src = tex->addr + sc->x_pxl * tex->width + sc->y_pxl;
 	*dst = ((*src >> 1) & 0x7F7F7F);
 }
 

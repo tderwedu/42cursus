@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 16:53:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:11:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	rc_set_cam(data, mlx->cam, mlx->fov);
 	rc_spr_init(data, mlx);
 	mlx->map = data->map;
+	mlx->y_max = data->y_map;
+	mlx->x_max = data->x_map;
 	data->map = NULL;
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	return (0);
@@ -82,12 +84,12 @@ int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 				&tex->height);
 	if (!tex->img)
 		return (rc_error_data(data, mlx, ERR_RC_IMG_XPM));
-	tex->addr = mlx_get_data_addr(tex->img, &tex->bpp, &tex->sl, &tex->endia);
+	tex->addr = (t_u32 *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->sl, &tex->endia);
 	if (!tex->addr)
 		return (rc_error_data(data, mlx, ERR_RC_ADDR_XPM));
 	tex->bpp /= 8;
 	tex->sl /= 4;
-	if (!(tex->bpp == sizeof(int)))
+	if (!(tex->bpp == sizeof(t_u32)))
 		return (rc_error_data(data, mlx, ERR_RC_BPP));
 	rc_rotate_wall_tex(tex);
 	return (0);
@@ -95,13 +97,14 @@ int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 
 void	rc_rotate_wall_tex(t_tex *tex)
 {
-	t_ui			tmp;
+	t_u32			tmp;
 	register int	x;
 	register int	y;
-	register t_ui	*addr;
+	register t_u32	*addr;
 
-	addr = (t_ui *)tex->addr;
+	addr = (t_u32 *)tex->addr;
 	x = -1;
+	tex->sl = tex->sl * tex->width / tex->height;
 	while (++x < tex->width)
 	{
 		y = -1;
@@ -112,34 +115,4 @@ void	rc_rotate_wall_tex(t_tex *tex)
 			*(addr + y * tex->width + x) = tmp;
 		}
 	}
-}
-
-int	rc_spr_init(t_cub *data, t_mlx *mlx)
-{
-	int		y;
-	int		x;
-	t_spr	*tab;
-
-	tab = malloc(sizeof(t_spr) * data->nb_spr);
-	if (!tab)
-		return (rc_error_data(data, mlx, ERR_MALLOC));
-	mlx->tab = tab;
-	y = -1;
-	mlx->nb_spr = data->nb_spr;
-	while (++y < data->y_map)
-	{
-		x = -1;
-		while (++x < data->x_map)
-		{
-			if (data->map[y][x] == 2)
-			{
-				ft_printf("INIT| y_map: %i - x_map: %i\n", y, x);
-				tab->x_map = x + 0.5;
-				tab->y_map = y + 0.5;
-				tab->tex = &mlx->tex[S];
-				tab++;
-			}
-		}
-	}
-	return (0);
 }
