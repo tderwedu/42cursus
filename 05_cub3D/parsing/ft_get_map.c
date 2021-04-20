@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 14:19:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 12:06:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,8 @@ int	ft_check_map_line(t_cub *data, int empty)
 {
 	register char	*ptr;
 
-	ptr = data->line;
-	while (*ptr)
+	ptr = data->line - 1;
+	while (*++ptr)
 	{
 		if (ft_strchr(VALID_NBR, *ptr))
 		{
@@ -59,10 +59,12 @@ int	ft_check_map_line(t_cub *data, int empty)
 		else if (*ptr == ' ')
 			;
 		else if (ft_strchr(VALID_DIR, *ptr))
-			ft_set_cam_pos(data, ptr);
+		{
+			if (ft_set_cam_pos(data, ptr))
+				return (1);
+		}
 		else
 			return (ft_error_parser(data, ERR_MAP_CHR));
-		ptr++;
 	}
 	if (ptr - data->line > data->x_map)
 		data->x_map = ptr - data->line;

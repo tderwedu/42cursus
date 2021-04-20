@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:23:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 14:16:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:59:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ static inline void	ft_free_map(t_cub *data)
 		if (data->map[y])
 			free(data->map[y]);
 	free(data->map);
+	data->map = NULL;
 }
 
 void	ft_free_data(t_cub *data)
@@ -61,7 +62,7 @@ void	ft_free_data(t_cub *data)
 		close(data->fd);
 	if (data->map)
 		ft_free_map(data);
-	else if (data->first)
+	if (data->first)
 		ft_lstclear(&data->first, &free);
 	else if (data->line)
 		free(data->line);

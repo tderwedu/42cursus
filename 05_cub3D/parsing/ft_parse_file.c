@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/13 11:55:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:57:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	ft_get_data(t_cub *data, int argc, char **argv)
 		ft_print_data(data);
 	if (ft_create_map(data))
 		return (1);
-	if (ft_check_boundary_x(data) && ft_check_boundary_y(data))
+	if (ft_check_boundary_x(data) || ft_check_boundary_y(data))
 		return (1);
 	if (DEBUG)
 		ft_print_map(data);
