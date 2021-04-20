@@ -102,8 +102,9 @@ static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr_lst *lst, t_spr_vars *v)
 	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));;
 	v->spr_h = (int)(mlx->ratio / lst->y_tr);
 	v->spr_w = (int)(mlx->ratio / lst->y_tr);
-	v->y_s = -v->spr_h / 2 + mlx->height / 2;
-	v->y_e = v->spr_h / 2 + mlx->height / 2;
+	v->z_move = mlx->cam->pitch + mlx->cam->z_pos / lst->y_tr;
+	v->y_s = -v->spr_h / 2 + mlx->height / 2 + v->z_move;
+	v->y_e = v->spr_h / 2 + mlx->height / 2 + v->z_move;
 	v->x_s = -v->spr_w / 2 + v->x_screen;
 	v->x_e = v->spr_w / 2 + v->x_screen;
 	if (v->y_s < 0)
@@ -169,7 +170,7 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 				v.y = v.y_s - 1;
 				while (++v.y < v.y_e)
 				{
-					v.y_tex = (v.y - mlx->height / 2 + v.spr_h / 2) * v.tex_h;
+					v.y_tex = (v.y - mlx->height / 2 + v.spr_h / 2 - v.z_move) * v.tex_h;
 					v.y_tex /= v.spr_h;
 					if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
 						*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 16:34:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:00:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ typedef struct	s_cam
 {
 	double	x_pos;
 	double	y_pos;
+	double	z_pos;
+	double	pitch;
 	double	x_dir;
 	double	y_dir;
 	double	x_plane;
@@ -129,6 +131,7 @@ typedef struct s_spr_vars
 	int		x_screen;
 	int		spr_h;
 	int		spr_w;
+	int		z_move;
 	int		y_s;
 	int		y_e;
 	int		x_s;
@@ -174,7 +177,10 @@ typedef struct s_scan
 	double	y_grid;
 	int		x_tex;
 	int		y_tex;
-	double	factor;
+	int		p;
+	int		is_floor;
+	double	z_cam;
+	double	row_dist;
 }				t_scan;
 
 typedef struct	s_ray

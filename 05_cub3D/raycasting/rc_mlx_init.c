@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 11:13:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 19:15:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	rc_set_cam(t_cub *data, t_cam *cam, double fov)
 {
 	cam->x_pos = (double)data->x_pos + 0.5;
 	cam->y_pos = (double)data->y_pos + 0.5;
+	cam->z_pos = -200.0;
+	cam->pitch = 0.0;
 	cam->x_dir = 0.0;
 	cam->y_dir = 0.0;
 	if (data->dir == 'N')

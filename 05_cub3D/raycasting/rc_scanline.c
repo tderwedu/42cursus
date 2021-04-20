@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 16:51:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 18:27:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,11 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type)
 
 	rgb = (mlx->rgb[type] >> 1) & 0x7F7F7F;
 	if (type == C)
-	{
-		y = -1;
-		y_max = mlx->height / 2;
-	}
+		y = 0;
 	else
-	{
-		y = mlx->height / 2 - 1;
-		y_max = mlx->height - 1;
-	}
+		y = mlx->height / 2;
+	y_max = y + mlx->height / 2;
+	y--;
 	while (++y < y_max)
 	{
 		addr = (img->addr + y * img->sl);
@@ -71,7 +67,7 @@ static inline void	set_tex_rgb(t_img *img, t_tex *tex, t_scan *sc)
 
 void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
 {
-	t_scan			sc;
+	t_scan	sc;
 
 	if (type == C)
 		sc.y = 0;
@@ -81,11 +77,20 @@ void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
 	sc.y--;
 	while (++sc.y < sc.y_max)
 	{
-		sc.factor = mlx->height / (2.0 * sc.y - mlx->height);
-		sc.x_grid = cam->x_pos + sc.factor * (cam->x_dir - cam->x_plane);
-		sc.y_grid = cam->y_pos + sc.factor * (cam->y_dir - cam->y_plane);
-		sc.x_grid_step = (sc.factor * 2.0 * cam->x_plane) / mlx->width;
-		sc.y_grid_step = (sc.factor * 2.0 * cam->y_plane) / mlx->width;
+		sc.is_floor = sc.y > (mlx->height / 2 + cam->pitch);
+		if (sc.is_floor)
+			sc.p = sc.y - mlx->height / 2 - cam->pitch;
+		else
+			sc.p = sc.y - mlx->height / 2 + cam->pitch;
+		if (sc.is_floor)
+			sc.z_cam = mlx->height / 2 + cam->z_pos;
+		else
+			sc.z_cam =  mlx->height / 2 - cam->z_pos;
+		sc.row_dist = sc.z_cam / sc.p;
+		sc.x_grid = cam->x_pos + sc.row_dist * (cam->x_dir - cam->x_plane);
+		sc.y_grid = cam->y_pos + sc.row_dist * (cam->y_dir - cam->y_plane);
+		sc.x_grid_step = (sc.row_dist * 2.0 * cam->x_plane) / mlx->width;
+		sc.y_grid_step = (sc.row_dist * 2.0 * cam->y_plane) / mlx->width;
 		sc.x = -1;
 		while (++sc.x < mlx->width)
 		{
