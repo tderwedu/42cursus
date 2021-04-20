@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 14:18:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:00:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,14 @@ void	ft_print_data(t_cub *data)
 	ft_printf("***\n");
 	ft_printf("Data parsed from CUB file:\n");
 	ft_printf("Resolution: %i - %i\n", data->width, data->height);
-	ft_printf("      Ceil: %#.8x\n", data->rgb[C]);
-	ft_printf("     Floor: %#.8x\n", data->rgb[F]);
+	if (data->rgb[C] > 0)
+		ft_printf("      Ceil: %#.8x\n", data->rgb[C]);
+	else
+		ft_printf("      Ceil: %s\n", data->tex[C]);
+	if (data->rgb[F] > 0)
+		ft_printf("     Floor: %#.8x\n", data->rgb[F]);
+	else
+		ft_printf("     Floor: %s\n", data->tex[F]);
 	ft_printf("Wall North: %s\n", data->tex[NO]);
 	ft_printf(" Wall West: %s\n", data->tex[WE]);
 	ft_printf("Wall South: %s\n", data->tex[SO]);

@@ -158,7 +158,6 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 	while (lst)
 	{
 		rc_sprite_init_v(mlx, lst, &v);
-		ft_printf("(%4.2f, %4.2f) | dist: %4.2f | y_tr: %4.2f| (%i, %i)\n", lst->y_map, lst->x_map, lst->dist, lst->y_tr, v.y_s, v.y_e);
 		while (++v.x_s < v.x_e)
 		{
 			if (lst->y_tr < mlx->z_buff[v.x_s])

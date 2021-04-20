@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 18:48:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 16:34:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,11 @@
 
 # include "cub3d_error.h"
 
-# define DEBUG				1
+# define DEBUG			1
+# define BONUS			1
 
 # ifndef M_PI
-#  define M_PI 3.14159265358979323846
+#  define M_PI			3.14159265358979323846
 # endif
 
 /*
@@ -67,6 +68,9 @@
 # define FLAG_EA			0x80
 # define FLAG_ALL			0xFF
 
+typedef uint32_t	t_u32;
+typedef uint64_t	t_u64;
+
 enum	e_tex
 {
 	NO,
@@ -91,9 +95,9 @@ typedef struct	s_cam
 typedef struct	s_tex
 {
 	int		*img;
-	char	*addr;
+	t_u32	*addr;
 	int		width;
-    int		height;
+	int		height;
 	int		bpp;
 	int		sl;
 	int		endia;
@@ -101,23 +105,26 @@ typedef struct	s_tex
 
 typedef struct	s_img {
 	void	*img;
-	char	*addr;
+	t_u32	*addr;
+	int		width;
+	int		height;
 	int		bpp;
 	int		sl;
 	int		endia;
 }				t_img;
 
-typedef struct	s_spr
+typedef struct	s_spr_lst
 {
-	double			x_map;
-	double			y_map;
-	double			x_tr;
-	double			y_tr;
-	t_tex			*tex;
-	struct s_spr	*next;	
-}				t_spr;
+	double				x_map;
+	double				y_map;
+	double				x_tr;
+	double				y_tr;
+	double				dist;
+	t_tex				*tex;
+	struct s_spr_lst	*next;	
+}				t_spr_lst;
 
-typedef struct s_spmp
+typedef struct s_spr_vars
 {
 	int		x_screen;
 	int		spr_h;
@@ -131,9 +138,9 @@ typedef struct s_spmp
 	int		tex_h;
 	int		tex_w;
 	int		y;
-	t_ui	*src;
-	t_ui	*dst;
-}				t_spmp;
+	t_u32	*src;
+	t_u32	*dst;
+}				t_spr_vars;
 
 typedef struct	s_mlx
 {
@@ -142,32 +149,35 @@ typedef struct	s_mlx
 	int		width;
 	int		height;
 	double	fov;
+	double	ratio;
 	int		**map;
+	int		y_max;
+	int		x_max;
 	t_cam	*cam;
 	t_img	*img;
 	t_tex	tex[7];
 	int		rgb[7];
 	double 	*z_buff;
 	int		nb_spr;
-	t_spr	*tab;
-	t_spr	*lst;
+	t_spr_lst	*tab;
+	t_spr_lst	*lst;
 }				t_mlx;
 
 typedef struct s_scan
 {
 	int		x;
 	int		y;
-	int		h;
-	double	x_tex_stepx;
-	double	y_tex_stepx;
-	double	x_tex;
-	double	y_tex;
-	int		x_pxl;
-	int		y_pxl;
+	int		y_max;
+	double	x_grid_step;
+	double	y_grid_step;
+	double	x_grid;
+	double	y_grid;
+	int		x_tex;
+	int		y_tex;
 	double	factor;
 }				t_scan;
 
-typedef struct	s_rc
+typedef struct	s_ray
 {
 	int		x;
 	int		x_map;
@@ -188,7 +198,7 @@ typedef struct	s_rc
 	double	w_dist;
 	double	x_dist;
     double	y_dist;
-}				t_rc;
+}				t_ray;
 
 typedef struct s_cub
 {
@@ -297,7 +307,7 @@ void			rc_turn(int keycode, t_cam *cam);
 ** [raycasting] rc_raycasting.c
 */
 
-void			rc_draw_img(t_mlx *mlx);
+void			rc_new_frame(t_mlx *mlx);
 int				rc_set_mlx(t_cub *data, int show_win);
 
 
@@ -306,21 +316,27 @@ int				rc_set_mlx(t_cub *data, int show_win);
 */
 
 void			rc_raycasting(t_mlx *mlx, t_cam *cam);
-void			rc_set_tex(t_mlx *mlx, t_rc *rc);
 
 /*
 ** [raycasting] rc_scanline.c
 */
 
 void			rc_scanline(t_mlx *mlx);
-void			rc_scanline_rgb(t_mlx *mlx, t_img *img);
-void			rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img);
+void			rc_scanline_rgb(t_mlx *mlx, t_img *img, int type);
+void			rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type);
 
 /*
 ** [raycasting] rc_sprites.c
 */
 
 void			rc_sprite(t_mlx *mlx, t_img *img);
-void			rc_sprite_update(t_mlx *mlx, t_cam *cam);
-void			rc_sprite_lst_add(t_mlx *mlx, t_spr *new);
+void			rc_sprite_update_lst(t_mlx *mlx, t_cam *cam);
+void			rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new);
+
+/*
+** [raycasting] rc_mini_map.c
+*/
+void			rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
+void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
+
 #endif
