@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/19 17:15:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 10:53:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,16 +23,17 @@ int	rc_set_mlx(t_cub *data, int show_win)
 		return (1);
 	ft_free_data(data);
 	(void)show_win;
-	rc_draw_img(&mlx);
+	rc_new_frame(&mlx);
 	mlx_hook(mlx.win, 2, 1L << 0, rc_key_hooks, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
 
-void	rc_draw_img(t_mlx *mlx)
+void	rc_new_frame(t_mlx *mlx)
 {
 	t_img	img;
 
+	ft_printf("= New Frame =\n");
 	img.img = mlx_new_image(mlx->mlx, mlx->width, mlx->height);
 	img.addr = (t_u32 *)mlx_get_data_addr(img.img, &img.bpp, &img.sl, &img.endia);
 	img.width = mlx->width;

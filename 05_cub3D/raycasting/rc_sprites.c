@@ -48,42 +48,27 @@ void	rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new)
 	t_spr_lst	*prev;
 
 	lst = mlx->lst;
-	if (!lst || (new->dist > lst->dist))
+	if (!lst || (new->dist >= lst->dist))
 	{
-		if (lst)
-			new->next = mlx->lst;
-		else
-			new->next = NULL;
+		new->next = mlx->lst;
 		mlx->lst = new;
+		return ;
 	}
-	else
+	prev = mlx->lst;
+	while (new->dist < lst->dist && lst->next)
 	{
-		prev = mlx->lst;
-		while (new->dist < lst->dist && lst->next)
-		{
-			prev = lst;
-			lst = lst->next;
-		}
-		if (lst->next)
-		{
-			prev->next = new;
-		}
-		else
-			lst->next = new;
-		if (lst->next)
-			new->next = lst;
-		else
-			new->next = NULL;
-	}
-	// Print the sprite's list
-	ft_printf("=Update=\n");
-	lst = mlx->lst;
-	while (lst->next)
-	{
-		ft_printf("(%4.2f, %4.2f) - dist: %4.2f\n", lst->y_map, lst->x_map, lst->dist);
+		prev = lst;
 		lst = lst->next;
 	}
-	ft_printf("(%.2f, %.2f) - dist: %.2f\n", lst->y_map, lst->x_map, lst->dist);
+	if (!lst->next && new->dist < lst->dist)
+	{
+		lst->next = new;
+		new->next = NULL;
+		return ;
+	}
+	prev->next = new;
+	new->next = lst;
+
 }
 
 void	rc_sprite_update_lst(t_mlx *mlx, t_cam *cam)
@@ -114,9 +99,9 @@ void	rc_sprite_update_lst(t_mlx *mlx, t_cam *cam)
 
 static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr_lst *lst, t_spr_vars *v)
 {
-	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));
-	v->spr_h = (int)(mlx->height / lst->y_tr);
-	v->spr_w = (int)(mlx->height / lst->y_tr);
+	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));;
+	v->spr_h = (int)(mlx->ratio / lst->y_tr);
+	v->spr_w = (int)(mlx->ratio / lst->y_tr);
 	v->y_s = -v->spr_h / 2 + mlx->height / 2;
 	v->y_e = v->spr_h / 2 + mlx->height / 2;
 	v->x_s = -v->spr_w / 2 + v->x_screen;
@@ -173,21 +158,36 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 	while (lst)
 	{
 		rc_sprite_init_v(mlx, lst, &v);
-		while (++v.x_s < v.x_e && lst->y_tr < mlx->z_buff[v.x_s])
+		ft_printf("(%4.2f, %4.2f) | dist: %4.2f | y_tr: %4.2f| (%i, %i)\n", lst->y_map, lst->x_map, lst->dist, lst->y_tr, v.y_s, v.y_e);
+		while (++v.x_s < v.x_e)
 		{
-			v.x_tex = (v.x_s - v.x_screen + v.spr_w / 2) * v.tex_w;
-			v.x_tex /= v.spr_w;
-			v.src = lst->tex->addr + lst->tex->sl * v.x_tex;
-			v.dst = img->addr + v.x_s;
-			v.y = v.y_s - 1;
-			while (++v.y < v.y_e)
+			if (lst->y_tr < mlx->z_buff[v.x_s])
 			{
-				v.y_tex = (v.y - mlx->height / 2 + v.spr_h / 2) * v.tex_h;
-				v.y_tex /= v.spr_h;
-				if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
-					*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);
+				v.x_tex = (v.x_s - v.x_screen + v.spr_w / 2) * v.tex_w;
+				v.x_tex /= v.spr_w;
+				v.src = lst->tex->addr + lst->tex->sl * v.x_tex;
+				v.dst = img->addr + v.x_s;
+				v.y = v.y_s - 1;
+				while (++v.y < v.y_e)
+				{
+					v.y_tex = (v.y - mlx->height / 2 + v.spr_h / 2) * v.tex_h;
+					v.y_tex /= v.spr_h;
+					if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
+						*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);
+				}
 			}
 		}
 		lst = lst->next;
 	}
 }
+	// // Print the sprite's list
+	// ft_printf("=Update=\n");
+	// int i = 0;
+	// lst = mlx->lst;
+	// while (lst->next && i++ < 5)
+	// {
+	// 	ft_printf("(%4.2f, %4.2f) - dist: %4.2f\n", lst->y_map, lst->x_map, lst->dist);
+	// 	lst = lst->next;
+	// }
+	// ft_printf("(%.2f, %.2f) - dist: %.2f\n", lst->y_map, lst->x_map, lst->dist);
+	// ft_printf("POS:(%.2f, %.2f)\n", mlx->cam->y_pos, mlx->cam->x_pos);

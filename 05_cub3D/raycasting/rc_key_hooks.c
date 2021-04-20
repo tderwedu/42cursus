@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/14 09:50:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 10:00:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	rc_key_hooks(int keycode, t_mlx *mlx)
 		rc_turn(keycode, cam);
 	else
 		return (0);
-	rc_draw_img(mlx);
+	rc_new_frame(mlx);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/15 16:46:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 10:54:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@
 */
 
 # define FOV			75
-# define WALK_SPEED 		0.25
-# define TURN_SPEED 		25
+# define WALK_SPEED 	0.25
+# define TURN_SPEED 	25
 
 /*
 **	Keyboard's mapping
@@ -67,6 +67,9 @@
 # define FLAG_EA			0x80
 # define FLAG_ALL			0xFF
 
+typedef uint32_t	t_u32;
+typedef uint64_t	t_u64;
+
 enum	e_tex
 {
 	NO,
@@ -77,16 +80,6 @@ enum	e_tex
 	C,
 	S
 };
-
-typedef struct	s_sprite
-{
-	int			x_map;
-	int			y_map;
-	int			num;
-	double		dist;
-	t_sprite	*next;	
-}				t_sprite;
-
 
 typedef struct	s_cam
 {
@@ -101,9 +94,9 @@ typedef struct	s_cam
 typedef struct	s_tex
 {
 	int		*img;
-	char	*addr;
+	t_u32	*addr;
 	int		width;
-    int		height;
+	int		height;
 	int		bpp;
 	int		sl;
 	int		endia;
@@ -111,11 +104,42 @@ typedef struct	s_tex
 
 typedef struct	s_img {
 	void	*img;
-	char	*addr;
+	t_u32	*addr;
+	int		width;
+	int		height;
 	int		bpp;
 	int		sl;
 	int		endia;
 }				t_img;
+
+typedef struct	s_spr_lst
+{
+	double				x_map;
+	double				y_map;
+	double				x_tr;
+	double				y_tr;
+	double				dist;
+	t_tex				*tex;
+	struct s_spr_lst	*next;	
+}				t_spr_lst;
+
+typedef struct s_spr_vars
+{
+	int		x_screen;
+	int		spr_h;
+	int		spr_w;
+	int		y_s;
+	int		y_e;
+	int		x_s;
+	int		x_e;
+	int		x_tex;
+	int		y_tex;
+	int		tex_h;
+	int		tex_w;
+	int		y;
+	t_u32	*src;
+	t_u32	*dst;
+}				t_spr_vars;
 
 typedef struct	s_mlx
 {
@@ -123,13 +147,19 @@ typedef struct	s_mlx
 	void	*win;
 	int		width;
 	int		height;
+	double	fov;
+	double	ratio;
 	int		**map;
+	int		y_max;
+	int		x_max;
 	t_cam	*cam;
 	t_img	*img;
 	t_tex	tex[7];
 	int		rgb[7];
 	double 	*z_buff;
-	t_list	*sprites;
+	int		nb_spr;
+	t_spr_lst	*tab;
+	t_spr_lst	*lst;
 }				t_mlx;
 
 typedef struct s_scan
@@ -158,7 +188,6 @@ typedef struct	s_rc
 	int		y_s;
 	int		y_e;
 	int 	hit;
-	double	fov;
 	double	pc_wall;
 	double	pc_plane;
 	double	x_r_dir;
@@ -180,6 +209,7 @@ typedef struct s_cub
 	int		y_map;
 	int		x_pos;
 	int		y_pos;
+	int		nb_spr;
 	int		rgb[7];
 	char	*tex[7];
 	char	*ptr;
@@ -250,9 +280,10 @@ void			ft_free_data(t_cub *data);
 */
 
 int				rc_mlx_init(t_cub *data, t_mlx *mlx);
-void			rc_set_cam(t_cub *data, t_cam *cam);
+void			rc_set_cam(t_cub *data, t_cam *cam, double fov);
 int				rc_get_wall_tex(t_cub *d, t_mlx *x, int i);
 void			rc_rotate_wall_tex(t_tex *tex);
+int				rc_spr_init(t_cub *data, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_error.c
@@ -275,7 +306,7 @@ void			rc_turn(int keycode, t_cam *cam);
 ** [raycasting] rc_raycasting.c
 */
 
-void			rc_draw_img(t_mlx *mlx);
+void			rc_new_frame(t_mlx *mlx);
 int				rc_set_mlx(t_cub *data, int show_win);
 
 
@@ -284,7 +315,6 @@ int				rc_set_mlx(t_cub *data, int show_win);
 */
 
 void			rc_raycasting(t_mlx *mlx, t_cam *cam);
-void			rc_set_tex(t_mlx *mlx, t_rc *rc);
 
 /*
 ** [raycasting] rc_scanline.c
@@ -298,6 +328,14 @@ void			rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img);
 ** [raycasting] rc_sprites.c
 */
 
-int				rc_check_sprite(t_mlx *mlx, t_rc *rc);
+void			rc_sprite(t_mlx *mlx, t_img *img);
+void			rc_sprite_update_lst(t_mlx *mlx, t_cam *cam);
+void			rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new);
+
+/*
+** [raycasting] rc_mini_map.c
+*/
+void			rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
+void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
 
 #endif

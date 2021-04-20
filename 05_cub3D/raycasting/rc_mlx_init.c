@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/19 17:11:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 10:54:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 		if (rc_get_wall_tex(data, mlx, i))
 			return (1);
 	mlx->fov = (FOV / 2.0) * M_PI / 180;
+	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov));
 	rc_set_cam(data, mlx->cam, mlx->fov);
 	rc_spr_init(data, mlx);
 	mlx->map = data->map;

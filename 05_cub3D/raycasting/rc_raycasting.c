@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/19 17:12:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 10:54:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 	t_rc	rc;
 	t_tex	*tex;
 	int		x_tex;
-
+	ft_printf("Wall Dist\n");
 	rc.x = -1;
 	while (++rc.x < mlx->width)
 	{
@@ -115,15 +115,15 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			rc.w_dist = (rc.x_map - cam->x_pos + (1 - rc.x_step) / 2) / rc.x_r_dir;
 		else
 			rc.w_dist = (rc.y_map - cam->y_pos + (1 - rc.y_step) / 2) / rc.y_r_dir;
-		rc.line_h = (int)(mlx->width / (2.0 * tan(mlx->fov) * rc.w_dist));
+		rc.line_h = (int)(mlx->ratio / rc.w_dist);
 		rc.y_s = -rc.line_h / 2 + mlx->height / 2;
 		rc.y_e = rc.line_h / 2 + mlx->height / 2;
 		if (rc.y_e >= mlx->height)
 			rc.y_e = mlx->height - 1;
 		if (rc.side == 0)
-			rc.pc_wall = mlx->cam->y_pos + rc.w_dist * rc.y_r_dir;
+			rc.pc_wall = cam->y_pos + rc.w_dist * rc.y_r_dir;
 		else
-			rc.pc_wall = mlx->cam->x_pos + rc.w_dist * rc.x_r_dir;
+			rc.pc_wall = cam->x_pos + rc.w_dist * rc.x_r_dir;
 		rc.pc_wall -= floor(rc.pc_wall);
 		
 		if (rc.side && rc.y_r_dir > 0)
@@ -144,5 +144,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			set_tex_rgb_s(mlx->img, tex, &rc, x_tex);
 		
 		mlx->z_buff[rc.x] = rc.w_dist;
+
+		ft_printf("Map: (%i;%i) | wall dist: %4.2f | (%i;%i)\n", rc.y_map, rc.x_map, rc.w_dist, rc.y_s , rc.y_e);
 	}
 }
