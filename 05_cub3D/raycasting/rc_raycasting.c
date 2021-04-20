@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 10:54:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/20 11:29:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static inline void	set_tex_rgb_b(t_img *img, t_tex *tex, t_rc *rc, int x_tex)
 		{
 			y_tex++;
 			eps -= rc->line_h;
+			if (y_tex >=  tex->height)
+				y_tex = tex->height - 1;
 		}
 	}
 }
@@ -54,7 +56,7 @@ static inline void	set_tex_rgb_s(t_img *img, t_tex *tex, t_rc *rc, int x_tex)
 	dst = (t_u32 *)img->addr + rc->x;
 	src = (t_u32 *)tex->addr + x_tex * tex->sl;
 	*(dst + y_s * img->sl) = *(src + y_tex);
-	while (y_tex <= tex->height)
+	while (y_tex < tex->height)
 	{
 		y_tex++;
 		eps += rc->line_h;
@@ -144,7 +146,6 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			set_tex_rgb_s(mlx->img, tex, &rc, x_tex);
 		
 		mlx->z_buff[rc.x] = rc.w_dist;
-
-		ft_printf("Map: (%i;%i) | wall dist: %4.2f | (%i;%i)\n", rc.y_map, rc.x_map, rc.w_dist, rc.y_s , rc.y_e);
+		// ft_printf("Map: (%i;%i) | wall dist: %4.2f | (%i;%i)\n", rc.y_map, rc.x_map, rc.w_dist, rc.y_s , rc.y_e);
 	}
 }
