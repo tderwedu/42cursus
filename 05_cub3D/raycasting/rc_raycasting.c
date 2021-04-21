@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 18:35:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 10:34:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,8 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 		else
 			ray.w_dist = (ray.y_map - cam->y_pos + (1 - ray.y_step) / 2) / ray.y_r_dir;
 		ray.line_h = (int)(mlx->ratio / ray.w_dist);
-		ray.y_s = -ray.line_h / 2 + mlx->height / 2 + cam->pitch + cam->z_pos / ray.line_h;
-		ray.y_e = ray.line_h / 2 + mlx->height / 2 + cam->pitch + cam->z_pos / ray.line_h;
+		ray.y_s = -ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
+		ray.y_e = ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
 		if (ray.y_e >= mlx->height)
 			ray.y_e = mlx->height - 1;
 		if (ray.side == 0)

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 19:00:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 10:00:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct	s_cam
 	double	y_pos;
 	double	z_pos;
 	double	pitch;
+	double	height_pitch;
 	double	x_dir;
 	double	y_dir;
 	double	x_plane;
@@ -151,6 +152,7 @@ typedef struct	s_mlx
 	void	*win;
 	int		width;
 	int		height;
+	int		height_2;
 	double	fov;
 	double	ratio;
 	int		**map;
@@ -178,7 +180,6 @@ typedef struct s_scan
 	int		x_tex;
 	int		y_tex;
 	int		p;
-	int		is_floor;
 	double	z_cam;
 	double	row_dist;
 }				t_scan;

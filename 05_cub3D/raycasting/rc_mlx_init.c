@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 19:15:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 10:37:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 		mlx->width = data->width;
 	if (mlx->height > data->height)
 		mlx->height = data->height;
+	mlx->height_2 = mlx->height / 2;
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height, "cub3D");
 	if (!mlx->win)
 		return (rc_error_data(data, mlx, ERR_RC_WIN));
@@ -35,6 +36,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->fov = (FOV / 2.0) * M_PI / 180;
 	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov));
 	rc_set_cam(data, mlx->cam, mlx->fov);
+	mlx->cam->height_pitch = mlx->height_2 + mlx->cam->pitch;
 	rc_spr_init(data, mlx);
 	mlx->map = data->map;
 	mlx->y_max = data->y_map;
@@ -48,7 +50,7 @@ void	rc_set_cam(t_cub *data, t_cam *cam, double fov)
 {
 	cam->x_pos = (double)data->x_pos + 0.5;
 	cam->y_pos = (double)data->y_pos + 0.5;
-	cam->z_pos = -200.0;
+	cam->z_pos = 0.0;
 	cam->pitch = 0.0;
 	cam->x_dir = 0.0;
 	cam->y_dir = 0.0;
