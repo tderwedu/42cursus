@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 12:03:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:57:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,5 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			set_tex_rgb_s(mlx->img, tex, &ray, x_tex);
 		
 		mlx->z_buff[ray.x] = ray.w_dist;
-		// ft_printf("Map: (%i;%i) | wall dist: %4.2f | (%i;%i)\n", ray.y_map, ray.x_map, ray.w_dist, ray.y_s , ray.y_e);
 	}
 }

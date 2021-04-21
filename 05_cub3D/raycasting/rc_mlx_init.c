@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 10:37:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 15:25:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	if (mlx->height > data->height)
 		mlx->height = data->height;
 	mlx->height_2 = mlx->height / 2;
+	mlx->width_2 = mlx->width / 2;
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->height, "cub3D");
 	if (!mlx->win)
 		return (rc_error_data(data, mlx, ERR_RC_WIN));

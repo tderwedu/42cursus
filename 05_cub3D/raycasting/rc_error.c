@@ -6,12 +6,19 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:16:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/16 16:46:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:45:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
+
+int	rc_exit(t_mlx *mlx)
+{
+	rc_free_mlx(mlx);
+	exit(0);
+	return (0);
+}
 
 void	rc_free_mlx(t_mlx *mlx)
 {

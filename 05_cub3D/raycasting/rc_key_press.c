@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 12:07:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 13:44:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,7 @@ int	rc_key_press(int keycode, t_mlx *mlx)
 
 	cam = mlx->cam;
 	if (keycode == KEY_ESCAPE)
-	{
-		rc_free_mlx(mlx);
-		exit(0);
-	}
+		rc_exit(mlx);
 	else if (keycode == KEY_WALK_FWD || keycode == KEY_WALK_BWK)
 		rc_press_walk(keycode, mlx, cam);
 	else if (keycode == KEY_STRAFE_L || keycode == KEY_STRAFE_R)

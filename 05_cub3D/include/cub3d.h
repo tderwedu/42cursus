@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 12:05:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 15:38:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@
 */
 
 # define FOV			75
-# define WALK_SPEED 	0.25
+# define WALK_SPEED 	0.125
 # define TURN_SPEED 	25
 
 /*
@@ -153,6 +153,7 @@ typedef struct	s_mlx
 	void	*mlx;
 	void	*win;
 	int		width;
+	int		width_2;
 	int		height;
 	int		height_2;
 	double	fov;
@@ -299,6 +300,7 @@ int				rc_spr_init(t_cub *data, t_mlx *mlx);
 ** [raycasting] rc_error.c
 */
 
+int				rc_exit(t_mlx *mlx);
 void			rc_free_mlx(t_mlx *mlx);
 int				rc_error(t_mlx *mlx, char *str);
 int				rc_error_data(t_cub *data,t_mlx *mlx, char *str);
@@ -320,6 +322,15 @@ void			rc_press_jump(t_mlx *mlx, t_cam *cam);
 
 int				rc_key_release(int keycode, t_mlx *mlx);
 void			rc_release_crouch(t_cam *cam);
+
+
+/*
+** [raycasting] rc_mouse_hook.c
+*/
+
+void			rc_mouse_hook(t_mlx *mlx);
+void			rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
+void			rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
 
 /*
 ** [raycasting] rc_raycasting.c
