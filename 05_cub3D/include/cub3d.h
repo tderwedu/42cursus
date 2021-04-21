@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 10:00:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:05:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,8 @@
 # define KEY_STRAFE_L	XK_q
 # define KEY_STRAFE_R	XK_e
 # define KEY_ESCAPE		XK_Escape
+# define KEY_CTRL		XK_Control_L
+# define KEY_SPACE		XK_space
 
 # define F_WALL				1.5
 
@@ -302,19 +304,28 @@ int				rc_error(t_mlx *mlx, char *str);
 int				rc_error_data(t_cub *data,t_mlx *mlx, char *str);
 
 /*
-** [raycasting] rc_key_hooks.c
+** [raycasting] rc_key_press.c
 */
 
-int				rc_key_hooks(int keycode, t_mlx *mlx);
-void			rc_walk(int keycode, t_mlx *mlx, t_cam *cam);
-void			rc_strafe(int keycode, t_mlx *mlx, t_cam *cam);
-void			rc_turn(int keycode, t_cam *cam);
+int				rc_key_press(int keycode, t_mlx *mlx);
+void			rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam);
+void			rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam);
+void			rc_press_turn(int keycode, t_cam *cam);
+void			rc_press_crouch(t_mlx *mlx, t_cam *cam);
+void			rc_press_jump(t_mlx *mlx, t_cam *cam);
+
+/*
+** [raycasting] rc_key_release.c
+*/
+
+int				rc_key_release(int keycode, t_mlx *mlx);
+void			rc_release_crouch(t_cam *cam);
 
 /*
 ** [raycasting] rc_raycasting.c
 */
 
-void			rc_new_frame(t_mlx *mlx);
+int				rc_new_frame(t_mlx *mlx);
 int				rc_set_mlx(t_cub *data, int show_win);
 
 

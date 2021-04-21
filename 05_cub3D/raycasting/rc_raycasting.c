@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 10:34:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/21 12:03:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 	t_ray	ray;
 	t_tex	*tex;
 	int		x_tex;
-	ft_printf("Wall Dist\n");
+
 	ray.x = -1;
 	while (++ray.x < mlx->width)
 	{
