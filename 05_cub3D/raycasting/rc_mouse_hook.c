@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 15:37:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 08:50:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,9 @@ void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
 	double	rc_sin;
 
 	delta = mlx->width_2 - x;
-	if (delta > 0.15 * mlx->width_2)
+	if (delta > 0.125 * mlx->width_2)
 		delta /= mlx->width_2;
-	else if (delta < -0.15 * mlx->width_2)
+	else if (delta < -0.125 * mlx->width_2)
 		delta /= mlx->width_2;
 	else
 		delta = 0.0;

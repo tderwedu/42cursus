@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 15:25:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 11:48:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	rc_set_cam(t_cub *data, t_cam *cam, double fov)
 		ft_printf("  POS| y: % .2f | x: % .2f\n", cam->y_pos, cam->x_pos);
 		ft_printf("  DIR| y: % .2f | x: % .2f\n", cam->y_dir, cam->x_dir);
 		ft_printf("PLANE| y: % .2f | x: % .2f\n", cam->y_plane, cam->x_plane);
+		ft_printf("PITCH| % .2f | ZPOS: % .2f\n", cam->pitch, cam->z_pos);
 	}
 }
 
@@ -97,7 +98,8 @@ int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 	tex->sl /= 4;
 	if (!(tex->bpp == sizeof(t_u32)))
 		return (rc_error_data(data, mlx, ERR_RC_BPP));
-	rc_rotate_wall_tex(tex);
+	if (i != C && i != F)
+		rc_rotate_wall_tex(tex);
 	return (0);
 }
 

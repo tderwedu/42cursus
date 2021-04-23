@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 15:38:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 11:28:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ typedef struct s_cub
 	int		nb_spr;
 	int		rgb[7];
 	char	*tex[7];
+	char	*sky[4];
 	char	*ptr;
 	char	*line;
 	t_list	*first;
@@ -230,6 +231,16 @@ typedef struct s_cub
 	int		**map;
 	char	dir;
 }				t_cub;
+
+typedef struct	s_sky
+{
+	int		x;
+	int		x_tex;
+	int		dt_x_tex;
+	int		y;
+	int		y_tex;
+	int		dt_y_tex;
+}				t_sky;
 
 /*
 ** 1: [parsing] ft_parse_file.c
@@ -367,5 +378,10 @@ void			rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new);
 */
 void			rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
 void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
+
+/*
+** [raycasting] rc_skybox.c
+*/
+void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 #endif

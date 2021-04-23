@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 13:57:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/22 14:32:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.pc_wall = cam->y_pos + ray.w_dist * ray.y_r_dir;
 		else
 			ray.pc_wall = cam->x_pos + ray.w_dist * ray.x_r_dir;
-		ray.pc_wall -= floor(ray.pc_wall);
+		ray.pc_wall = ray.pc_wall - (int)ray.pc_wall;
 		
 		if (ray.side && ray.y_r_dir > 0)
 			tex = &mlx->tex[SO];
