@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 11:28:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:05:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,8 @@ void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
 		{
 			x_pc = (double)(sc.x_grid - (int)sc.x_grid);
 			y_pc = (double)(sc.y_grid - (int)sc.y_grid);
-			sc.x_tex = (int)(tex->width * x_pc) & (tex->width - 1);
-			sc.y_tex = (int)(tex->height * y_pc) & (tex->height - 1);
+			sc.x_tex = (int)(tex->width * x_pc) & tex->w_mask;
+			sc.y_tex = (int)(tex->height * y_pc) & tex->h_mask;
 			*(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex* tex->sl);
 
 			sc.x_grid += sc.x_grid_step;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 11:28:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:04:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ typedef struct	s_tex
 	t_u32	*addr;
 	int		width;
 	int		height;
+	int		w_mask;
+	int		h_mask;
 	int		bpp;
 	int		sl;
 	int		endia;

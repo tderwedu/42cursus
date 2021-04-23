@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/21 13:44:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:32:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 	if (keycode == KEY_WALK_FWD)
 	{
 		new_x = cam->x_pos + cam->x_dir * WALK_SPEED * F_WALL;
-		new_y = cam->y_pos + cam->y_dir * WALK_SPEED *F_WALL;
+		new_y = cam->y_pos + cam->y_dir * WALK_SPEED * F_WALL;
 		if (mlx->map[(int)new_y][(int)new_x] == 0)
 		{
 			cam->x_pos = cam->x_pos + cam->x_dir * WALK_SPEED;

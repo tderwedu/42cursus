@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 11:48:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/23 15:05:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,18 +74,21 @@ void	rc_set_cam(t_cub *data, t_cam *cam, double fov)
 	}
 }
 
+static inline int	rc_get_rgb(t_cub *data, t_mlx *mlx, int i)
+{
+	mlx->rgb[i] = data->rgb[i];
+	mlx->tex[i].img = NULL;
+	mlx->tex[i].addr = NULL;
+	return (0);
+}
+
 int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 {
 	t_tex	*tex;
 
 	tex = &mlx->tex[i];
 	if (!data->tex[i])
-	{
-		mlx->rgb[i] = data->rgb[i];
-		tex->img = NULL;
-		tex->addr = NULL;
-		return (0);
-	}
+		rc_get_rgb(data, mlx, i);
 	mlx->rgb[i] = 0;
 	tex->img = mlx_xpm_file_to_image(mlx->mlx, data->tex[i], &tex->width,
 				&tex->height);
@@ -96,6 +99,8 @@ int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 		return (rc_error_data(data, mlx, ERR_RC_ADDR_XPM));
 	tex->bpp /= 8;
 	tex->sl /= 4;
+	tex->h_mask = tex->height - 1;
+	tex->w_mask = tex->width - 1;
 	if (!(tex->bpp == sizeof(t_u32)))
 		return (rc_error_data(data, mlx, ERR_RC_BPP));
 	if (i != C && i != F)
