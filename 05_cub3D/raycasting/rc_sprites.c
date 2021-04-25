@@ -13,35 +13,6 @@
 #include "libft.h"
 #include "cub3d.h"
 
-// typedef struct	s_spr_lst
-// {
-// 	double				x_map;
-// 	double				y_map;
-// 	double				x_tr;
-// 	double				y_tr;
-// 	double				dist;
-// 	t_tex				*tex;
-// 	struct s_spr_lst	*next;	
-// }				t_spr_lst;
-
-// typedef struct s_spr_vars
-// {
-// 	int		x_screen;
-// 	int		spr_h;
-// 	int		spr_w;
-// 	int		y_s;
-// 	int		y_e;
-// 	int		x_s;
-// 	int		x_e;
-// 	int		x_tex;
-// 	int		y_tex;
-// 	int		tex_h;
-// 	int		tex_w;
-// 	int		y;
-// 	t_u32	*src;
-// 	t_u32	*dst;
-// }				t_spr_vars;
-
 void	rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new)
 {
 	t_spr_lst	*lst;
@@ -180,14 +151,3 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 		lst = lst->next;
 	}
 }
-	// // Print the sprite's list
-	// ft_printf("=Update=\n");
-	// int i = 0;
-	// lst = mlx->lst;
-	// while (lst->next && i++ < 5)
-	// {
-	// 	ft_printf("(%4.2f, %4.2f) - dist: %4.2f\n", lst->y_map, lst->x_map, lst->dist);
-	// 	lst = lst->next;
-	// }
-	// ft_printf("(%.2f, %.2f) - dist: %.2f\n", lst->y_map, lst->x_map, lst->dist);
-	// ft_printf("POS:(%.2f, %.2f)\n", mlx->cam->y_pos, mlx->cam->x_pos);

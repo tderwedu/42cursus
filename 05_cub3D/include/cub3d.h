@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 15:04:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:25:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,12 @@
 */
 
 # define VALID_DIR			"NWSE"
-# define VALID_NBR			"012"
+# if BONUS
+#  define VALID_NBR			"0123"
+# else
+#  define VALID_NBR			"012"
+#endif
+
 # define FLAG_R				0x01
 # define FLAG_C				0x02
 # define FLAG_F				0x04
@@ -69,6 +74,7 @@
 # define FLAG_WE			0x40
 # define FLAG_EA			0x80
 # define FLAG_ALL			0xFF
+# define FLAG_D				0x100
 
 typedef uint32_t	t_u32;
 typedef uint64_t	t_u64;
@@ -79,6 +85,7 @@ enum	e_tex
 	WE,
 	SO,
 	EA,
+	D,
 	F,
 	C,
 	S
@@ -165,10 +172,11 @@ typedef struct	s_mlx
 	int		x_max;
 	t_cam	*cam;
 	t_img	*img;
-	t_tex	tex[7];
+	t_tex	tex[8];
 	int		rgb[7];
 	double 	*z_buff;
 	int		nb_spr;
+	int		nb_door;
 	t_spr_lst	*tab;
 	t_spr_lst	*lst;
 }				t_mlx;
@@ -223,9 +231,9 @@ typedef struct s_cub
 	int		x_pos;
 	int		y_pos;
 	int		nb_spr;
+	int		nb_door;
 	int		rgb[7];
-	char	*tex[7];
-	char	*sky[4];
+	char	*tex[8];
 	char	*ptr;
 	char	*line;
 	t_list	*first;
@@ -305,8 +313,8 @@ void			ft_free_data(t_cub *data);
 
 int				rc_mlx_init(t_cub *data, t_mlx *mlx);
 void			rc_set_cam(t_cub *data, t_cam *cam, double fov);
-int				rc_get_wall_tex(t_cub *d, t_mlx *x, int i);
-void			rc_rotate_wall_tex(t_tex *tex);
+int				rc_get_tex(t_cub *d, t_mlx *x, int i);
+void			rc_rotate_tex(t_tex *tex);
 int				rc_spr_init(t_cub *data, t_mlx *mlx);
 
 /*

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 15:05:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:22:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 		return (rc_error_data(data, mlx, ERR_RC_WIN));
 	i = -1;
 	while (++i <= S)
-		if (rc_get_wall_tex(data, mlx, i))
+		if (rc_get_tex(data, mlx, i))
 			return (1);
 	mlx->fov = (FOV / 2.0) * M_PI / 180;
 	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov));
@@ -42,6 +42,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->map = data->map;
 	mlx->y_max = data->y_map;
 	mlx->x_max = data->x_map;
+	mlx->nb_door = data->nb_door;
 	data->map = NULL;
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	return (0);
@@ -82,7 +83,7 @@ static inline int	rc_get_rgb(t_cub *data, t_mlx *mlx, int i)
 	return (0);
 }
 
-int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
+int	rc_get_tex(t_cub *data, t_mlx *mlx, int i)
 {
 	t_tex	*tex;
 
@@ -104,11 +105,11 @@ int	rc_get_wall_tex(t_cub *data, t_mlx *mlx, int i)
 	if (!(tex->bpp == sizeof(t_u32)))
 		return (rc_error_data(data, mlx, ERR_RC_BPP));
 	if (i != C && i != F)
-		rc_rotate_wall_tex(tex);
+		rc_rotate_tex(tex);
 	return (0);
 }
 
-void	rc_rotate_wall_tex(t_tex *tex)
+void	rc_rotate_tex(t_tex *tex)
 {
 	t_u32			tmp;
 	register int	x;

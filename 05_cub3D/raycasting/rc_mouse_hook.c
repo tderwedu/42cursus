@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 14:38:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 10:13:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@ void	rc_mouse_hook(t_mlx *mlx)
 	int y;
 
 	mlx_mouse_get_pos(mlx->mlx, mlx->win, &x, &y);
-	rc_mouse_pitch(mlx, mlx->cam, y);
-	rc_mouse_yaw(mlx, mlx->cam, x);
+	if (x >= 0 && x < mlx->width && y >= 0 && y < mlx->height)
+	{
+		rc_mouse_pitch(mlx, mlx->cam, y);
+		rc_mouse_yaw(mlx, mlx->cam, x);
+	}
+	else
+	{
+		rc_mouse_pitch(mlx, mlx->cam, mlx->height_2);
+		rc_mouse_yaw(mlx, mlx->cam, mlx->width_2);
+	}
 }
 
 void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y)

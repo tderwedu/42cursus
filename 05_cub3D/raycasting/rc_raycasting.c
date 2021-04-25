@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/22 14:32:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:26:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 		ray.y_map = (int)cam->y_pos;
 		ray.x_r_dir = cam->x_dir + cam->x_plane * ray.pc_plane;
 		ray.y_r_dir = cam->y_dir + cam->y_plane * ray.pc_plane;
+		// Mandatory Part Style:
 		ray.x_dt_dist = fabs(1.0 / ray.x_r_dir);
 		ray.y_dt_dist = fabs(1.0 / ray.y_r_dir);
 		ray.x_step = 1 - 2 * (ray.x_r_dir < 0);
@@ -96,7 +97,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 		else
 			ray.y_dist = (ray.y_map + 1.0 - cam->y_pos) * ray.y_dt_dist;
 		ray.hit = 0;
-		while (!(ray.hit == 1))
+		while (ray.hit != 1)
 		{
 			if (ray.x_dist < ray.y_dist)
 			{
@@ -111,12 +112,29 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 				ray.side = 1;
 			}
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
+			if (ray.hit == 3)
+			{
+				double	dt_x;
+				double	y_ray;
+				
+				dt_x = ray.x_map + 0.5 - cam->x_pos;
+				y_ray = dt_x * (ray.y_r_dir / ray.x_r_dir) + cam->y_pos;
+				// ft_printf("y_map: %i\n", ray.y_map);
+				// ft_printf(" dt_x: %4.2f\n", dt_x);
+				// ft_printf(" y_ray: %4.2f\n", y_ray);
+				if ((int)y_ray == ray.y_map)
+				{
+					// ray.hit = 1;
+					ray.x_step = 0;
+					break;
+				}
+			}
 		}
 		
 		if (!ray.side)
-			ray.w_dist = (ray.x_map - cam->x_pos + (1 - ray.x_step) / 2) / ray.x_r_dir;
+			ray.w_dist = (ray.x_map - cam->x_pos + (1.0 - ray.x_step) / 2.0) / ray.x_r_dir;
 		else
-			ray.w_dist = (ray.y_map - cam->y_pos + (1 - ray.y_step) / 2) / ray.y_r_dir;
+			ray.w_dist = (ray.y_map - cam->y_pos + (1.0 - ray.y_step) / 2.0) / ray.y_r_dir;
 		ray.line_h = (int)(mlx->ratio / ray.w_dist);
 		ray.y_s = -ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
 		ray.y_e = ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
@@ -127,8 +145,10 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 		else
 			ray.pc_wall = cam->x_pos + ray.w_dist * ray.x_r_dir;
 		ray.pc_wall = ray.pc_wall - (int)ray.pc_wall;
-		
-		if (ray.side && ray.y_r_dir > 0)
+	
+		if (ray.hit == 3)
+			tex = &mlx->tex[D];
+		else if (ray.side && ray.y_r_dir > 0)
 			tex = &mlx->tex[SO];
 		else if (ray.side)
 			tex = &mlx->tex[NO];
@@ -136,6 +156,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			tex = &mlx->tex[EA];
 		else
 			tex = &mlx->tex[WE];
+		
 		x_tex = (int)(ray.pc_wall * (double)tex->width);
 		if ((ray.side == 0 && ray.x_r_dir < 0) || (ray.side && ray.y_r_dir > 0))
 			x_tex = tex->width - x_tex - 1;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 12:31:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 11:35:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	rc_set_mlx(t_cub *data, int show_win)
 	ft_free_data(data);
 	(void)show_win;
 	rc_new_frame(&mlx);
-	mlx_mouse_move(mlx.mlx, mlx.win, mlx.width / 2, mlx.height / 2);
-	mlx_mouse_hide(mlx.mlx, mlx.win); // TODO: does not work!
+	// mlx_mouse_move(mlx.mlx, mlx.win, mlx.width / 2, mlx.height / 2);
+	// mlx_mouse_hide(mlx.mlx, mlx.win); // TODO: does not work!
 	mlx_hook(mlx.win, 2, 1L << 0, &rc_key_press, &mlx);
 	mlx_hook(mlx.win, 3, 1L << 1, &rc_key_release, &mlx);
 	mlx_hook(mlx.win, 33, 1L << 17, &rc_exit, &mlx);
-	mlx_loop_hook (mlx.mlx, &rc_new_frame, &mlx);
+	// mlx_loop_hook (mlx.mlx, &rc_new_frame, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
@@ -46,7 +46,7 @@ int	rc_new_frame(t_mlx *mlx)
 	img.sl /= 4;
 	mlx->img = &img;
 	mlx->lst = NULL;
-	rc_mouse_hook(mlx);
+	// rc_mouse_hook(mlx);
 	if (mlx->cam->z_pos > 0.0)
 		mlx->cam->z_pos -= 10;
 	rc_scanline(mlx);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 16:00:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:34:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	ft_line_handler(t_cub *data)
 		return (ft_get_pavement(data, F, FLAG_F));
 	else if (chr == 'S' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
 		return (ft_get_wall(data, S, FLAG_SP));
+	else if (chr == 'D' && next_chr == ' ' && BONUS)
+		return (ft_get_wall(data, D, FLAG_D));
 	return (ft_error_parser(data, ERR_NOT_ELEM));
 }
 
@@ -80,7 +82,6 @@ int	ft_get_pavement(t_cub *data, int i, int flag)
 	{
 		if (BONUS)
 		{
-			ft_printf("OK\n");
 			data->tex[i] = ft_trimspaces(data->ptr);
 			if (!(*data->tex[i]))
 				return (ft_error_parser(data, strerror(errno)));

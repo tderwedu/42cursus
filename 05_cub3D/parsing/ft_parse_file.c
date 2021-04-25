@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/20 11:57:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/25 15:37:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static inline int	ft_check_data(t_cub *data, int ret)
 {
 	if (ret < 0)
 		return (ft_error_parser(data, strerror(errno)));
-	if (ret == 0 || !(data->flag == FLAG_ALL))
+	if (ret == 0 || !(data->flag >= FLAG_ALL)) // TODO: 
 		return (ft_error_parser(data, ERR_INCOMP));
 	return (0);
 }
