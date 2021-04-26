@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/04/23 11:29:19 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/04/26 11:17:46 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRC			=	./main.c\
 				./raycasting/rc_error.c\
 				./raycasting/rc_scanline.c\
 				./raycasting/rc_skybox.c\
+				./raycasting/rc_doors.c\
 				./raycasting/rc_key_press.c\
 				./raycasting/rc_key_release.c\
 				./raycasting/rc_mouse_hook.c\

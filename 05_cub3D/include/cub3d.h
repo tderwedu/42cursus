@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/25 15:25:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/26 12:03:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,6 +209,8 @@ typedef struct	s_ray
 	int		y_s;
 	int		y_e;
 	int 	hit;
+	int		x_tex;
+	t_tex	*tex;
 	double	pc_wall;
 	double	pc_plane;
 	double	x_r_dir;
@@ -392,6 +394,13 @@ void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
 /*
 ** [raycasting] rc_skybox.c
 */
+
 void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
+
+/*
+** [raycasting] rc_doors.c
+*/
+
+int				rc_is_door_leaf(t_cam *cam, t_ray *ray);
 
 #endif

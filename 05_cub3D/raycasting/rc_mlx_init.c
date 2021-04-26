@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/25 15:22:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/26 10:55:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ static inline int	rc_get_rgb(t_cub *data, t_mlx *mlx, int i)
 	return (0);
 }
 
+// TODO: MAY NOT BE DEFINED FOR BONUS!!
 int	rc_get_tex(t_cub *data, t_mlx *mlx, int i)
 {
 	t_tex	*tex;

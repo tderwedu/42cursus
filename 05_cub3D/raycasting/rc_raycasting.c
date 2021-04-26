@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/25 15:26:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/26 12:31:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ static inline void	set_tex_rgb_s(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 {
 	t_ray	ray;
-	t_tex	*tex;
-	int		x_tex;
 
 	ray.x = -1;
 	while (++ray.x < mlx->width)
@@ -112,59 +110,48 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 				ray.side = 1;
 			}
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
-			if (ray.hit == 3)
-			{
-				double	dt_x;
-				double	y_ray;
-				
-				dt_x = ray.x_map + 0.5 - cam->x_pos;
-				y_ray = dt_x * (ray.y_r_dir / ray.x_r_dir) + cam->y_pos;
-				// ft_printf("y_map: %i\n", ray.y_map);
-				// ft_printf(" dt_x: %4.2f\n", dt_x);
-				// ft_printf(" y_ray: %4.2f\n", y_ray);
-				if ((int)y_ray == ray.y_map)
-				{
-					// ray.hit = 1;
-					ray.x_step = 0;
+			if (ray.hit == 3 && !ray.side)
+				if (rc_is_door_leaf(cam, &ray))
 					break;
-				}
-			}
+		}
+
+		if (ray.hit != 3)
+		{
+			if (!ray.side)
+				ray.w_dist = (ray.x_map - cam->x_pos + (1.0 - ray.x_step) / 2.0) / ray.x_r_dir;
+			else
+				ray.w_dist = (ray.y_map - cam->y_pos + (1.0 - ray.y_step) / 2.0) / ray.y_r_dir;
+			if (ray.side == 0)
+				ray.pc_wall = cam->y_pos + ray.w_dist * ray.y_r_dir;
+			else
+				ray.pc_wall = cam->x_pos + ray.w_dist * ray.x_r_dir;
+			ray.pc_wall = ray.pc_wall - (int)ray.pc_wall;
 		}
 		
-		if (!ray.side)
-			ray.w_dist = (ray.x_map - cam->x_pos + (1.0 - ray.x_step) / 2.0) / ray.x_r_dir;
-		else
-			ray.w_dist = (ray.y_map - cam->y_pos + (1.0 - ray.y_step) / 2.0) / ray.y_r_dir;
 		ray.line_h = (int)(mlx->ratio / ray.w_dist);
 		ray.y_s = -ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
 		ray.y_e = ray.line_h / 2 + cam->height_pitch + cam->z_pos / ray.w_dist;
 		if (ray.y_e >= mlx->height)
 			ray.y_e = mlx->height - 1;
-		if (ray.side == 0)
-			ray.pc_wall = cam->y_pos + ray.w_dist * ray.y_r_dir;
-		else
-			ray.pc_wall = cam->x_pos + ray.w_dist * ray.x_r_dir;
-		ray.pc_wall = ray.pc_wall - (int)ray.pc_wall;
-	
 		if (ray.hit == 3)
-			tex = &mlx->tex[D];
+			ray.tex = &mlx->tex[D];
 		else if (ray.side && ray.y_r_dir > 0)
-			tex = &mlx->tex[SO];
+			ray.tex = &mlx->tex[SO];
 		else if (ray.side)
-			tex = &mlx->tex[NO];
+			ray.tex = &mlx->tex[NO];
 		else if (ray.x_r_dir > 0)
-			tex = &mlx->tex[EA];
+			ray.tex = &mlx->tex[EA];
 		else
-			tex = &mlx->tex[WE];
+			ray.tex = &mlx->tex[WE];
 		
-		x_tex = (int)(ray.pc_wall * (double)tex->width);
+		ray.x_tex = (int)(ray.pc_wall * (double)ray.tex->width);
 		if ((ray.side == 0 && ray.x_r_dir < 0) || (ray.side && ray.y_r_dir > 0))
-			x_tex = tex->width - x_tex - 1;
+			ray.x_tex = ray.tex->width - ray.x_tex - 1;
 		
-		if (ray.line_h > tex->height)
-			set_tex_rgb_b(mlx->img, tex, &ray, x_tex);
+		if (ray.line_h > ray.tex->height)
+			set_tex_rgb_b(mlx->img, ray.tex, &ray, ray.x_tex);
 		else
-			set_tex_rgb_s(mlx->img, tex, &ray, x_tex);
+			set_tex_rgb_s(mlx->img, ray.tex, &ray, ray.x_tex);
 		
 		mlx->z_buff[ray.x] = ray.w_dist;
 	}
