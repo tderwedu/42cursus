@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 12:31:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/26 17:50:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.y_e = mlx->height - 1;
 		if (ray.hit == 3)
 			ray.tex = &mlx->tex[D];
-		else if (ray.side && ray.y_r_dir > 0)
+		else if (ray.side && ray.y_r_dir > 0)	
 			ray.tex = &mlx->tex[SO];
 		else if (ray.side)
 			ray.tex = &mlx->tex[NO];
