@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 11:20:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:31:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,11 +111,11 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 				ray.side = 1;
 			}
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
-			if (ray.hit == 3 && !ray.side)
+			if (ray.hit == 3)
 				if (rc_is_door_leaf(mlx, cam, &ray))
 					break;
 		}
-
+		
 		if (ray.hit != 3)
 		{
 			if (!ray.side)
@@ -144,6 +144,13 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.tex = &mlx->tex[EA];
 		else
 			ray.tex = &mlx->tex[WE];
+		// Opened Door handling
+		if (mlx->map[(int)cam->y_pos][(int)cam->x_pos] == 3 && 
+			(int)cam->x_pos == ray.x_map && ray.pc_wall > 0.5)
+		{
+			ray.tex = &mlx->tex[D];
+			ray.pc_wall -= 0.5;
+		}
 		
 		ray.x_tex = (int)(ray.pc_wall * (double)ray.tex->width);
 		if ((ray.side == 0 && ray.x_r_dir < 0) || (ray.side && ray.y_r_dir > 0))

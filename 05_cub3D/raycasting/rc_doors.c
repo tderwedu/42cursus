@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:45:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 12:47:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:25:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ int	rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray)
 		tmp = (1.0 - ray->y_step) / 2.0;
 		ray->w_dist = (ray->y_map - cam->y_pos + tmp) / ray->y_r_dir;
 		ray->pc_wall = cam->x_pos + ray->w_dist * ray->x_r_dir;
-		ray->pc_wall = (ray->pc_wall - (int)ray->pc_wall) -0.5;
+		ray->pc_wall = (ray->pc_wall - (int)ray->pc_wall) - 0.5;
 		return 1;
 	}
 	if (y_ray <= door->y_1_max)

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 12:36:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 17:32:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int	rc_set_mlx(t_cub *data, int show_win)
 	mlx_hook(mlx.win, 2, 1L << 0, &rc_key_press, &mlx);
 	mlx_hook(mlx.win, 3, 1L << 1, &rc_key_release, &mlx);
 	mlx_hook(mlx.win, 33, 1L << 17, &rc_exit, &mlx);
-	// mlx_loop_hook (mlx.mlx, &rc_new_frame, &mlx);
+	mlx_loop_hook (mlx.mlx, &rc_new_frame, &mlx);
 	mlx_loop(mlx.mlx);
 	return (0);
 }
