@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 10:55:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 10:50:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->nb_door = data->nb_door;
 	data->map = NULL;
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
+	if (ft_create_ptr_map(mlx))
+		return (1);
 	return (0);
 }
 
@@ -83,7 +85,7 @@ static inline int	rc_get_rgb(t_cub *data, t_mlx *mlx, int i)
 	return (0);
 }
 
-// TODO: MAY NOT BE DEFINED FOR BONUS!!
+// TODO: SOME VALUE MAY NOT BE DEFINED FOR BONUS!!
 int	rc_get_tex(t_cub *data, t_mlx *mlx, int i)
 {
 	t_tex	*tex;
@@ -131,3 +133,4 @@ void	rc_rotate_tex(t_tex *tex)
 		}
 	}
 }
+

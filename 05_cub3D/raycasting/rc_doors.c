@@ -6,30 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/25 09:45:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 19:46:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:47:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
-
-#define DOOR_SPEED	5.0 * M_PI / 180
-
-
-typedef struct	s_door
-{
-	int		updated;
-	double	angle;
-	double	moving;
-	double	y_ray;
-	double	dx;
-	double	y_leaf_1;
-	double	y_leaf_2;
-	double	y_1_min;
-	double	y_1_max;
-	double	y_2_min;
-	double	y_2_max;
-}				t_door;
 
 static inline void	rc_set_limits(t_door *door)
 {
@@ -55,14 +37,18 @@ static inline void	rc_set_limits(t_door *door)
 	}
 }
 
-void	rc_update_door_leaf(t_cam *cam, t_ray *ray, t_door *door)
+static inline void	rc_update_door_leaf(t_cam *cam, t_ray *ray, t_door *door)
 {
 	double	slope;
 	double	cos_leaf;
 	double	sin_leaf;
 
-	if (door->moving)
-		door->angle += door->moving * DOOR_SPEED;
+	if (cam->x_pos >= (ray->x_map - 2) && cam->x_pos <= (ray->x_map + 3) && 
+		cam->y_pos >= (ray->y_map - 2) && cam->y_pos <= (ray->y_map + 2))
+		door->moving = 1.0;
+	else
+		door->moving = -1.0;
+	door->angle += door->moving * DOOR_SPEED;
 	if (door->angle > M_PI_2)
 		door->angle = M_PI_2;
 	else if (door->angle < 0.0)
@@ -70,44 +56,53 @@ void	rc_update_door_leaf(t_cam *cam, t_ray *ray, t_door *door)
 	cos_leaf = 0.5 * cos(door->angle);
 	sin_leaf = 0.5 * sin(door->angle);
 	door->dx = ray->x_map + 0.5 - cam->x_pos;
-	door->y_ray = (ray->y_r_dir / ray->x_r_dir) + cam->y_pos - ray->y_map;
-	door->y_ray *= door->dx;
 	slope = (ray->y_map - cam->y_pos + cos_leaf) / (door->dx + sin_leaf);
 	door->y_leaf_1 = cos_leaf - sin_leaf * slope;
 	slope = (ray->y_map - cam->y_pos + 1.0 - cos_leaf) / (door->dx + sin_leaf);
 	door->y_leaf_2 = 1.0 - cos_leaf - sin_leaf * slope;
 	rc_set_limits(door);
+	door->sin_leaf = sin_leaf;
 	door->updated = 1;
 }
 
-int	rc_is_door_leaf(t_cam *cam, t_ray *ray)
+int	rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray)
 {
+	t_door	*door;
+	double	y_ray;
+	double	tmp;
 
-	t_door	door;
-
-	if (y_ray < y_1_min || y_ray > y_2_max)
+	door = (t_door *)mlx->ptr[ray->y_map][ray->x_map];
+	if (!door->updated)
+		rc_update_door_leaf(cam, ray, door);
+	y_ray = door->dx * (ray->y_r_dir / ray->x_r_dir) + cam->y_pos - ray->y_map;
+	if (y_ray < door->y_1_min || y_ray > door->y_2_max)
 		return (0);
-	if (angle == 90.0 * M_PI / 180.0)
+	if (door->angle == M_PI_2)
 	{
-		if (y_ray > y_1_max && y_ray < y_2_min)
+		if (y_ray > door->y_1_max && y_ray < door->y_2_min)
 			return (0);
 		ray->y_map += ray->y_step;
-		ray->w_dist = (ray->y_map - cam->y_pos + (1.0 - ray->y_step) / 2.0) / ray->y_r_dir;
+		tmp = (1.0 - ray->y_step) / 2.0;
+		ray->w_dist = (ray->y_map - cam->y_pos + tmp) / ray->y_r_dir;
 		ray->pc_wall = cam->x_pos + ray->w_dist * ray->x_r_dir;
-		ray->pc_wall = ray->pc_wall - (int)ray->pc_wall;
+		ray->pc_wall = (ray->pc_wall - (int)ray->pc_wall) -0.5;
 		return 1;
 	}
-	if (y_ray <= y_1_max)
+	if (y_ray <= door->y_1_max)
 	{
-		ray->pc_wall = 0.5 * y_ray / y_leaf_1;
-		ray->w_dist = (dx + sin_leaf * (y_ray / y_leaf_1)) / ray->x_r_dir;
+		ray->pc_wall = 0.5 * y_ray / door->y_leaf_1;
+		tmp = (y_ray / door->y_leaf_1);
+		ray->w_dist = (door->dx + door->sin_leaf * tmp) / ray->x_r_dir;
 		return 1;
 	}
-	else if(y_ray >= y_2_min)
+	else if(y_ray >= door->y_2_min)
 	{
-		ray->pc_wall = 0.5 * (y_ray - y_leaf_2) / (1.0 - y_leaf_2) + 0.5;
-		ray->w_dist = (dx + sin_leaf * ((1.0 - y_ray) / (1.0 - y_leaf_2))) / ray->x_r_dir;
+		tmp = (y_ray - door->y_leaf_2) / (1.0 - door->y_leaf_2);
+		ray->pc_wall = 0.5 * tmp + 0.5;
+		tmp = ((1.0 - y_ray) / (1.0 - door->y_leaf_2));
+		ray->w_dist = (door->dx + door->sin_leaf * tmp) / ray->x_r_dir;
 		return 1;
 	}
 	return 0;
 }
+

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 19:45:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 11:33:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # ifndef M_PI_2
 #  define M_PI_2		1.57079632679489661923
 # endif
+
 /*
 **	cam's behaviour
 */
@@ -40,6 +41,8 @@
 # define FOV			75
 # define WALK_SPEED 	0.125
 # define TURN_SPEED 	25
+// # define DOOR_SPEED		0.87
+# define DOOR_SPEED		5.0 * M_PI / 180
 
 /*
 **	Keyboard's mapping
@@ -66,7 +69,7 @@
 #  define VALID_NBR			"0123"
 # else
 #  define VALID_NBR			"012"
-#endif
+# endif
 
 # define FLAG_R				0x01
 # define FLAG_C				0x02
@@ -171,6 +174,7 @@ typedef struct	s_mlx
 	double	fov;
 	double	ratio;
 	int		**map;
+	void	***ptr;
 	int		y_max;
 	int		x_max;
 	t_cam	*cam;
@@ -257,6 +261,21 @@ typedef struct	s_sky
 	int		dt_y_tex;
 }				t_sky;
 
+typedef struct	s_door
+{
+	int		updated;
+	double	angle;
+	double	moving;
+	double	dx;
+	double	sin_leaf;
+	double	y_leaf_1;
+	double	y_leaf_2;
+	double	y_1_min;
+	double	y_1_max;
+	double	y_2_min;
+	double	y_2_max;
+}				t_door;
+
 /*
 ** 1: [parsing] ft_parse_file.c
 */
@@ -327,9 +346,16 @@ int				rc_spr_init(t_cub *data, t_mlx *mlx);
 */
 
 int				rc_exit(t_mlx *mlx);
-void			rc_free_mlx(t_mlx *mlx);
 int				rc_error(t_mlx *mlx, char *str);
 int				rc_error_data(t_cub *data,t_mlx *mlx, char *str);
+
+/*
+** [raycasting] rc_free.c
+*/
+
+void			rc_free_mlx(t_mlx *mlx);
+void			rc_free_map(t_mlx *mlx);
+void			rc_free_ptr_map(t_mlx *mlx);
 
 /*
 ** [raycasting] rc_key_press.c
@@ -404,6 +430,14 @@ void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 ** [raycasting] rc_doors.c
 */
 
-int				rc_is_door_leaf(t_cam *cam, t_ray *ray);
+int				rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
+
+/*
+** [raycasting] rc_ptr_map.c
+*/
+
+int				ft_create_ptr_map(t_mlx *mlx);
+int				ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
+void			ft_update_ptr_map(t_mlx *mlx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 17:50:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 11:20:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 {
 	t_ray	ray;
 
+	ft_update_ptr_map(mlx);
 	ray.x = -1;
 	while (++ray.x < mlx->width)
 	{
@@ -111,7 +112,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			}
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
 			if (ray.hit == 3 && !ray.side)
-				if (rc_is_door_leaf(cam, &ray))
+				if (rc_is_door_leaf(mlx, cam, &ray))
 					break;
 		}
 

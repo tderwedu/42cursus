@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 15:47:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/04/27 12:16:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 	{
 		new_x = cam->x_pos + cam->x_dir * WALK_SPEED * F_WALL;
 		new_y = cam->y_pos + cam->y_dir * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] == 0)
+		if (mlx->map[(int)new_y][(int)new_x] != 1)
 		{
 			cam->x_pos = cam->x_pos + cam->x_dir * WALK_SPEED;
 			cam->y_pos = cam->y_pos + cam->y_dir * WALK_SPEED;
@@ -57,7 +57,7 @@ void	rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 	{
 		new_x = cam->x_pos - cam->x_dir * WALK_SPEED * F_WALL;
 		new_y = cam->y_pos - cam->y_dir * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] == 0)
+		if (mlx->map[(int)new_y][(int)new_x] != 1)
 		{
 			cam->x_pos = cam->x_pos - cam->x_dir * WALK_SPEED;
 			cam->y_pos = cam->y_pos - cam->y_dir * WALK_SPEED;
@@ -74,7 +74,7 @@ void	rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam)
 	{
 		new_x = cam->x_pos - cam->x_plane * WALK_SPEED * F_WALL;
 		new_y = cam->y_pos - cam->y_plane * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] == 0)
+		if (mlx->map[(int)new_y][(int)new_x] != 1)
 		{
 			cam->x_pos = cam->x_pos - cam->x_plane * WALK_SPEED;
 			cam->y_pos = cam->y_pos - cam->y_plane * WALK_SPEED;
@@ -84,7 +84,7 @@ void	rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam)
 	{
 		new_x = cam->x_pos + cam->x_plane * WALK_SPEED * F_WALL;
 		new_y = cam->y_pos + cam->y_plane * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] == 0)
+		if (mlx->map[(int)new_y][(int)new_x] != 1)
 		{
 			cam->x_pos = cam->x_pos + cam->x_plane * WALK_SPEED;
 			cam->y_pos = cam->y_pos + cam->y_plane * WALK_SPEED;
@@ -123,13 +123,13 @@ void	rc_press_turn(int keycode, t_cam *cam)
 
 void	rc_press_crouch(t_mlx *mlx, t_cam *cam)
 {
-	if (cam->z_pos == 0.0 && mlx->width >= mlx->height)
+	if (cam->z_pos != 1.0 && mlx->width >= mlx->height)
 		cam->z_pos = -mlx->height / 4;
 }
 
 void	rc_press_jump(t_mlx *mlx, t_cam *cam)
 {
-	if (cam->z_pos == 0.0 && mlx->width >= mlx->height)
+	if (cam->z_pos != 1.0 && mlx->width >= mlx->height)
 		cam->z_pos = mlx->height / 3;
 }
 
