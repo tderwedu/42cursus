@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 11:33:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/02 11:58:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 
 # define DEBUG			1
 # define BONUS			1
+
+# define SHADOW			1
+# define BLACK_DIST		4.0
 
 # ifndef M_PI
 #  define M_PI			3.14159265358979323846
@@ -439,5 +442,11 @@ int				rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
 int				ft_create_ptr_map(t_mlx *mlx);
 int				ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
 void			ft_update_ptr_map(t_mlx *mlx);
+
+/*
+** [raycasting] rc_ptr_map.c
+*/
+
+int				rc_shadow_effect(int color, double dist);
 
 #endif

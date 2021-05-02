@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/04/27 11:19:09 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/02 11:58:45 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRC			=	./main.c\
 				./raycasting/rc_mouse_hook.c\
 				./raycasting/rc_raycasting.c\
 				./raycasting/rc_mlx_init.c\
+				./raycasting/rc_shadow_effect.c\
 				./raycasting/rc_sprites.c\
 				./raycasting/rc_mmap.c
 

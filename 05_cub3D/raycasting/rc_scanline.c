@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 15:43:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/02 12:34:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,8 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type)
 	t_u32			rgb;
 	t_u32			*addr;
 
-	rgb = (mlx->rgb[type] >> 1) & 0x7F7F7F;
+	// rgb = (mlx->rgb[type] >> 1) & 0x7F7F7F;
+	rgb = mlx->rgb[type];
 	if (type == C)
 		y = 0;
 	else
@@ -91,7 +92,11 @@ void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
 			y_pc = (double)(sc.y_grid - (int)sc.y_grid);
 			sc.x_tex = (int)(tex->width * x_pc) & tex->w_mask;
 			sc.y_tex = (int)(tex->height * y_pc) & tex->h_mask;
-			*(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex* tex->sl);
+			if (SHADOW && type == F)
+				*(dst + sc.x) = rc_shadow_effect(*(tex->addr + sc.x_tex + sc.y_tex * tex->sl), sc.row_dist);
+			else
+				*(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex * tex->sl);
+			// *(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex* tex->sl);
 
 			sc.x_grid += sc.x_grid_step;
 			sc.y_grid += sc.y_grid_step;

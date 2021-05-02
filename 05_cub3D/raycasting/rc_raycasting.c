@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 17:31:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/02 12:27:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,13 @@ static inline void	set_tex_rgb_b(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 	while (y_s <= ray->y_e)
 	{	
 		if (y_s >= 0)
-			*(dst + y_s * img->sl) = *(src + y_tex);
+		{
+			// *(dst + y_s * img->sl) = *(src + y_tex);
+			if (SHADOW)
+				*(dst + y_s * img->sl) = rc_shadow_effect(*(src + y_tex), ray->w_dist);
+			else
+				*(dst + y_s * img->sl) = *(src + y_tex);
+		}
 		y_s++;
 		eps += tex->height;
 		if ((eps << 1) >= ray->line_h)
@@ -62,7 +68,10 @@ static inline void	set_tex_rgb_s(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 		eps += ray->line_h;
 		if ((eps << 1) >= tex->height)
 		{
-			*(dst + y_s * img->sl) = *(src + y_tex);
+			if (SHADOW)
+				*(dst + y_s * img->sl) = rc_shadow_effect(*(src + y_tex), ray->w_dist);
+			else
+				*(dst + y_s * img->sl) = *(src + y_tex);
 			y_s++;
 			eps -= tex->height;
 		}
@@ -82,7 +91,6 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 		ray.y_map = (int)cam->y_pos;
 		ray.x_r_dir = cam->x_dir + cam->x_plane * ray.pc_plane;
 		ray.y_r_dir = cam->y_dir + cam->y_plane * ray.pc_plane;
-		// Mandatory Part Style:
 		ray.x_dt_dist = fabs(1.0 / ray.x_r_dir);
 		ray.y_dt_dist = fabs(1.0 / ray.y_r_dir);
 		ray.x_step = 1 - 2 * (ray.x_r_dir < 0);
