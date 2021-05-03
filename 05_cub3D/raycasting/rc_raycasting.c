@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/02 12:27:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/02 16:10:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	set_tex_rgb_b(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 	{	
 		if (y_s >= 0)
 		{
-			// *(dst + y_s * img->sl) = *(src + y_tex);
+			*(dst + y_s * img->sl) = *(src + y_tex);
 			if (SHADOW)
 				*(dst + y_s * img->sl) = rc_shadow_effect(*(src + y_tex), ray->w_dist);
 			else
@@ -68,10 +68,10 @@ static inline void	set_tex_rgb_s(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 		eps += ray->line_h;
 		if ((eps << 1) >= tex->height)
 		{
-			if (SHADOW)
+			// if (SHADOW)
 				*(dst + y_s * img->sl) = rc_shadow_effect(*(src + y_tex), ray->w_dist);
-			else
-				*(dst + y_s * img->sl) = *(src + y_tex);
+			// else
+			// 	*(dst + y_s * img->sl) = *(src + y_tex);
 			y_s++;
 			eps -= tex->height;
 		}
@@ -120,8 +120,12 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			}
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
 			if (ray.hit == 3)
+			{
 				if (rc_is_door_leaf(mlx, cam, &ray))
 					break;
+			}
+			else if (ray.hit == 5)
+				ray.hit = 1;
 		}
 		
 		if (ray.hit != 3)

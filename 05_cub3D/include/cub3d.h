@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/02 11:58:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/02 16:10:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@
 
 # define VALID_DIR			"NWSE"
 # if BONUS
-#  define VALID_NBR			"0123"
+#  define VALID_NBR			"01235"
 # else
 #  define VALID_NBR			"012"
 # endif

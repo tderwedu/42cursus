@@ -144,7 +144,12 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 					v.y_tex = (v.y - mlx->height_2 + v.spr_h - v.z_move) * v.tex_h;
 					v.y_tex /= (v.spr_h << 1);
 					if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
-						*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);
+					{
+						if (SHADOW)
+							*(v.dst + v.y * img->sl) = rc_shadow_effect(*(v.src + v.y_tex), lst->y_tr );
+						else
+							*(v.dst + v.y * img->sl) = *(v.src + v.y_tex);
+					}
 				}
 			}
 		}
