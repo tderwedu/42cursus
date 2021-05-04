@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 11:41:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 19:10:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 #define	RIGT_ARM_0	"./textures/Dague_1_H240.xpm"
 #define RIGT_ARM_1	"./textures/Dague_3_H160.xpm"
 #define LEFT_ARM_0	"./textures/Torche_1_H240.xpm"
-
 
 int	rc_get_arms(t_mlx *mlx)
 {
@@ -65,44 +64,32 @@ int	rc_get_arms(t_mlx *mlx)
 
 void	rc_draw_arms(t_mlx *mlx)
 {
-	int		y;
-	int		x;
-	int		y_tex;
-	int		x_tex;
-	t_tex	*arm;
-	t_u32	*dst;
-	t_u32	*src;
+	double	ratio;
+	int		i;
+	t_loop	box;
 
-	arm = &mlx->left_arm[0];
-	y = mlx->height - arm->height;
-	y_tex = 0;
-	while (++y_tex < arm->height)
-	{
-		x = 0;
-		x_tex = -1;
-		dst = mlx->img->addr + ++y * mlx->img->sl;
-		src = arm->addr + y_tex * arm->sl;
-		while (++x_tex < arm->width)
-		{
-			if (*(src + x_tex) != 0xFFFFFF)
-				*(dst + x) = *(src + x_tex);
-			x++;
-		}
-	}
-	arm = &mlx->right_arm[1];
-	y = mlx->height - arm->height;
-	y_tex = 0;
-	while (++y_tex < arm->height)
-	{
-		x = mlx->width - arm->width;
-		x_tex = -1;
-		dst = mlx->img->addr + ++y * mlx->img->sl;
-		src = arm->addr + y_tex * arm->sl;
-		while (++x_tex < arm->width)
-		{
-			if (*(src + x_tex) != 0xFFFFFF)
-				*(dst + x) = *(src + x_tex);
-			x++;
-		}
-	}
+	box = (t_loop){0, 0, 0, mlx->left_arm[0].height, 0, 0, 0, mlx->left_arm[0].width};
+	ratio = 1.5 * box.y_tex_max / mlx->height;
+	box.y = mlx->height - box.y_tex_max * ratio;
+	box.x_max = box.x_tex_max * ratio;
+	box.y_max = box.y_tex_max * ratio;
+	if (box.y_tex_max < box.y_max)
+		set_tex_y_loop(mlx, &mlx->left_arm[0], &box, 0xFFFFFF);
+	else
+		set_tex_y_tex_loop(mlx, &mlx->left_arm[0], &box, 0xFFFFFF);
+	i = (mlx->attack > 0);
+	box = (t_loop){0, mlx->height, 0, mlx->right_arm[i].height, 0, 0, 0, mlx->right_arm[i].width};
+	ratio = 1.5 * box.y_tex_max / mlx->height;
+	box.y = mlx->height - box.y_tex_max * ratio;
+	box.x = mlx->width - box.x_tex_max * ratio;
+	box.x_max = box.x_tex_max * ratio;
+	box.y_max = box.y_tex_max * ratio;
+	if (box.y_tex_max < box.y_max)
+		set_tex_y_loop(mlx, &mlx->right_arm[i], &box, 0xFFFFFF);
+	else
+		set_tex_y_tex_loop(mlx, &mlx->right_arm[i], &box, 0xFFFFFF);
+	if (mlx->attack > 0)
+		mlx->attack++;
+	if (mlx->attack > 5)
+		mlx->attack = 0;
 }

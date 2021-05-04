@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 10:21:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 19:05:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,7 @@
 
 # define DEBUG			1
 # define BONUS			1
-
-# define SHADOW			1
-# define BLACK_DIST		4.0
+# define SHADOW			0
 
 # ifndef M_PI
 #  define M_PI			3.14159265358979323846
@@ -60,6 +58,7 @@
 # define KEY_ESCAPE		XK_Escape
 # define KEY_CTRL		XK_Control_L
 # define KEY_SPACE		XK_space
+# define BUTTON_LEFT	0x1
 
 # define F_WALL				1.5
 
@@ -189,6 +188,7 @@ typedef struct	s_mlx
 	double 	*z_buff;
 	int		nb_spr;
 	int		nb_door;
+	int		attack;
 	t_spr_lst	*tab;
 	t_spr_lst	*lst;
 }				t_mlx;
@@ -256,15 +256,27 @@ typedef struct s_cub
 	char	dir;
 }				t_cub;
 
-typedef struct	s_sky
+typedef struct	s_loop
 {
-	int		x;
-	int		x_tex;
-	int		dt_x_tex;
 	int		y;
+	int		y_max;
 	int		y_tex;
-	int		dt_y_tex;
-}				t_sky;
+	int		y_tex_max;
+	int		x;
+	int		x_max;
+	int		x_tex;
+	int		x_tex_max;
+}				t_loop;
+
+// typedef struct	s_sky
+// {
+// 	int		x;
+// 	int		x_tex;
+// 	int		dt_x_tex;
+// 	int		y;
+// 	int		y_tex;
+// 	int		dt_y_tex;
+// }				t_sky;
 
 typedef struct	s_door
 {
@@ -388,6 +400,8 @@ void			rc_release_crouch(t_cam *cam);
 void			rc_mouse_hook(t_mlx *mlx);
 void			rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
 void			rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
+int				rc_button_press(int button, int x, int y, t_mlx *mlx);
+int				rc_button_release(int button, int x, int y, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_raycasting.c
@@ -429,8 +443,6 @@ void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
 ** [raycasting] rc_skybox.c
 */
 
-void			skybox_y_loop(t_mlx *mlx, t_tex *tex, t_sky *box);
-void			skybox_y_tex_loop(t_mlx *mlx, t_tex *tex, t_sky *box);
 void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
@@ -459,5 +471,14 @@ int				rc_shadow_effect(int color, double dist);
 
 int				rc_get_arms(t_mlx *mlx);
 void			rc_draw_arms(t_mlx *mlx);
+
+/*
+** [raycasting] set_tex_loop.c
+*/
+
+void			set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void			set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void			set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void			set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 10:03:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 18:26:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->y_max = data->y_map;
 	mlx->x_max = data->x_map;
 	mlx->nb_door = data->nb_door;
+	mlx->attack = 0;
 	data->map = NULL;
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	if (ft_create_ptr_map(mlx))

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 12:23:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 19:05:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,26 @@ void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
 	cam->y_dir = old_x_dir * -rc_sin + cam->y_dir * rc_cos;
 	cam->x_plane = cam->x_plane * rc_cos + cam->y_plane * rc_sin;
 	cam->y_plane = old_x_plane * -rc_sin + cam->y_plane * rc_cos;
+}
+
+int	rc_button_press(int button, int x, int y, t_mlx *mlx)
+{
+	(void)x;
+	(void)y;
+	printf("button (press): %i \n", button);
+	if (button == BUTTON_LEFT)
+		mlx->attack = 1;
+	rc_new_frame(mlx);
+	return (0);
+}
+
+int	rc_button_release(int button, int x, int y, t_mlx *mlx)
+{
+	(void)x;
+	(void)y;
+	printf("button (release): %i \n", button);
+	if (button == BUTTON_LEFT)
+		mlx->attack = 0;
+	rc_new_frame(mlx);
+	return (0);
 }
