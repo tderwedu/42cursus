@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/02 16:10:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 10:21:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,6 +183,8 @@ typedef struct	s_mlx
 	t_cam	*cam;
 	t_img	*img;
 	t_tex	tex[8];
+	t_tex	right_arm[2];
+	t_tex	left_arm[2];
 	int		rgb[7];
 	double 	*z_buff;
 	int		nb_spr;
@@ -427,6 +429,8 @@ void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
 ** [raycasting] rc_skybox.c
 */
 
+void			skybox_y_loop(t_mlx *mlx, t_tex *tex, t_sky *box);
+void			skybox_y_tex_loop(t_mlx *mlx, t_tex *tex, t_sky *box);
 void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
@@ -448,5 +452,12 @@ void			ft_update_ptr_map(t_mlx *mlx);
 */
 
 int				rc_shadow_effect(int color, double dist);
+
+/*
+** [raycasting] rc_draw_arms.c
+*/
+
+int				rc_get_arms(t_mlx *mlx);
+void			rc_draw_arms(t_mlx *mlx);
 
 #endif

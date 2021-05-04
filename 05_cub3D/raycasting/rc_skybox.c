@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:24:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/23 15:38:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 09:45:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ static inline void	skybox_x_tex_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
 	}
 }
 
-static inline void	skybox_y_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
+void	skybox_y_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
 {
 	int	eps;
 
@@ -84,7 +84,7 @@ static inline void	skybox_y_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
 	}
 }
 
-static inline void	skybox_y_tex_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
+void	skybox_y_tex_loop(t_mlx *mlx, t_tex *tex, t_sky *box)
 {
 	int	eps;
 

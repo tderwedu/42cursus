@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/27 17:32:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/04 10:27:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ int	rc_new_frame(t_mlx *mlx)
 	rc_raycasting(mlx, mlx->cam);
 	rc_sprite(mlx, &img);
 	rc_draw_mini_map(mlx, &img); // TODO
+	rc_draw_arms(mlx);
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img.img, 0, 0);
 	mlx_destroy_image(mlx->mlx, img.img);
 	mlx->img = NULL;
