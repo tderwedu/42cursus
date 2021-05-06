@@ -1,7 +1,7 @@
 /* XPM */
 static char * C:\Users\Derwe\Downloads\Textures\Dague_1_1_xpm[] = {
 "168 240 1403 2",
-"  	c #FFFFFF",
+"  	c #22B14C",
 ". 	c #6D7979",
 "+ 	c #3C4646",
 "@ 	c #9EAFAA",
@@ -1638,9 +1638,9 @@ static char * C:\Users\Derwe\Downloads\Textures\Dague_1_1_xpm[] = {
 "                                    ''''X;X;c%c%m*m*)')'!'!'~'~'{'{'*&*&)$)$X#X#k$k$)$)$I$I$X#X#]']'6&6&X#X#X#X#X#X#3=3=k$k$X#X#I$I$k%k%^'^'[-[-x-x-/'/'('('_'_'Y-Y-:':'k$k$X#X#[*[*K*K*X#X#X#X#q,q,<%<%S$S$}%}%c%c%<'<'l$l$['['X#X#}'}'0,0,y>y>&*&*T,T,q,q,{%{%E$E$<%<%'%'%J*J*`>`>S$S$>*>*9&9&y=y=[,[,|'|'X#X#                                ",
 "                                    1'1'X#X#2'2'3'3'4'4'5'5'X#X#&*&*)$)$X#X#X#X#W#W#D-D-X#X#X#X#D-D-[*[*X#X#m;m;:=:=v%v%X#X#X#X#X#X#o*o*9-9-2-2-]&]&6'6'f*f*7'7'8'8'S>S>`&`&X#X#K*K*X#X#9=9=]-]-9'9'x&x&|%|%B*B*_,_,7*7*(,(,U-U-0'0';*;*a'a'>;>;c%c%n%n%!-!-k$k$K*K*G$G$g%g%m*m*t;t;s,s,b'b'j$j$];];]%]%&*&*v%v%y,y,^,^,X#X#                    ",
 "                                    1'1'X#X#2'2'3'3'4'4'5'5'X#X#&*&*)$)$X#X#X#X#W#W#D-D-X#X#X#X#D-D-[*[*X#X#m;m;:=:=v%v%X#X#X#X#X#X#o*o*9-9-2-2-]&]&6'6'f*f*7'7'8'8'S>S>`&`&X#X#K*K*X#X#9=9=]-]-9'9'x&x&|%|%B*B*_,_,7*7*(,(,U-U-0'0';*;*a'a'>;>;c%c%n%n%!-!-k$k$K*K*G$G$g%g%m*m*t;t;s,s,b'b'j$j$];];]%]%&*&*v%v%y,y,^,^,X#X#                    ",
-"                                    c'c'd'd'e'e'X#X#X#X#f'f'{'{'{'{')$)$X#X#X#X#X#X#[*[*X#X#K*K*a*a*W#W#X#X#F$F$g'g')$)$X#X#X#X#X#X#X#X#h'h'i'i'j'j'^%^%k'k'~&~&l'l'm'm'X#X#X#X#y,y,n'n'`&`&`&`&r,r,I$I$o'o'2%2%_*_*7&7&;*;*p'p'q'q'r'r's's'T&T&t't'U-U-K,K,v%v%$;$;o>o>:=:=n>n>>%>%m>m>u'u'8*8*m*m*v'v'w'w's-s-b'b'x'x'o>o>j&j&y'y'X#X#        ",
-"                                    c'c'd'd'e'e'X#X#X#X#f'f'{'{'{'{')$)$X#X#X#X#X#X#[*[*X#X#K*K*a*a*W#W#X#X#F$F$g'g')$)$X#X#X#X#X#X#X#X#h'h'i'i'j'j'^%^%k'k'~&~&l'l'm'm'X#X#X#X#y,y,n'n'`&`&`&`&r,r,I$I$o'o'2%2%_*_*7&7&;*;*p'p'q'q'r'r's's'T&T&t't'U-U-K,K,v%v%$;$;o>o>:=:=n>n>>%>%m>m>u'u'8*8*m*m*v'v'w'w's-s-b'b'x'x'o>o>j&j&y'y'X#X#        ",
-"                                    X#X#z'z'A'A'B'B'C'C'D'D'E'E'F'F'w>w>q-q-X#X#F$F$X#X#j=j=X#X#k$k$X#X#X#X#X#X#G'G'X#X#X#X#X#X#.-.-X#X#A$A$H'H'I'I'%&%&J'J'K'K's,s,L'L'X#X#k$k$X#X#F*F*,*,*X#X#M'M'N'N'o'o'V&V&D%D%#=#=8*8*`>`>O'O'P'P'Q'Q'R'R'$;$;t't'm*m*:=:=X#X#`&`&G$G$>'>'K,K,/%/%E$E$];];O%O%S'S'I=I=T'T'U'U':%:%r-r-V'V'W'W'e-e-X'X'Y'Y'",
+"                                    c'c'd'd'e'e'X#X#X#X#f'f'{'{'{'{')$)$X#X#X#X#X#X#[*[*X#X#K*K*a*a*W#W#X#X#F$F$g'g')$)$X#X#X#X#X#X#X#X#h'h'i'i'j'j'^%^%k'k'~&~&l'l'm'm'X#X#X#X#y,y,n'n'`&`&`&`&r,r,I$I$o'o'2%2%_*_*7&7&;*;*p'p'q'q'r'r's's'T&T&t't'U-U-K,K,v%v%$;$;o>o>:=:=n>n>>%>%m>m>u'u'8*8*m*m*v'v'w'w's-s-b'b'x'x'o>o>j&j&y'y'X#X#b'b'b'b'",
+"                                    c'c'd'd'e'e'X#X#X#X#f'f'{'{'{'{')$)$X#X#X#X#X#X#[*[*X#X#K*K*a*a*W#W#X#X#F$F$g'g')$)$X#X#X#X#X#X#X#X#h'h'i'i'j'j'^%^%k'k'~&~&l'l'm'm'X#X#X#X#y,y,n'n'`&`&`&`&r,r,I$I$o'o'2%2%_*_*7&7&;*;*p'p'q'q'r'r's's'T&T&t't'U-U-K,K,v%v%$;$;o>o>:=:=n>n>>%>%m>m>u'u'8*8*m*m*v'v'w'w's-s-b'b'x'x'o>o>j&j&y'y'X#X#b'b'b'b'",
+"                                    X#X#z'z'A'A'B'B'C'C'D'D'E'E'F'F'w>w>q-q-X#X#F$F$X#X#j=j=X#X#k$k$X#X#X#X#X#X#G'G'X#X#X#X#X#X#.-.-X#X#A$A$H'H'I'I'%&%&J'J'K'K's,s,L'L'X#X#k$k$X#X#F*F*,*,*X#X#M'M'N'N'o'o'V&V&D%D%#=#=8*8*`>`>O'O'P'P'Q'Q'R'R'$;$;t't'm*m*:=:=X#X#`&`&G$G$>'>'K,K,/%/%E$E$];];O%O%S'S'I=I=T'T'U'U':%:%r-r-V'V'W'W'e-e-b'X'Y'Y'",
 "                                    X#X#z'z'A'A'B'B'C'C'D'D'E'E'F'F'w>w>q-q-X#X#F$F$X#X#j=j=X#X#k$k$X#X#X#X#X#X#G'G'X#X#X#X#X#X#.-.-X#X#A$A$H'H'I'I'%&%&J'J'K'K's,s,L'L'X#X#k$k$X#X#F*F*,*,*X#X#M'M'N'N'o'o'V&V&D%D%#=#=8*8*`>`>O'O'P'P'Q'Q'R'R'$;$;t't'm*m*:=:=X#X#`&`&G$G$>'>'K,K,/%/%E$E$];];O%O%S'S'I=I=T'T'U'U':%:%r-r-V'V'W'W'e-e-X'X'Y'Y'",
 "                                    Z'Z'`'`' ) )m;m;A$A$.).)+)+)@)@)#)#)$)$)X#X#X#X#)$)$T$T$c*c*T$T$)$)$X#X#m;m;7-7-G$G$X#X#X#X#X#X#%)%)B$B$X#X#&)&)*)*)}=}==)=)r=r=x'x'K,K,`&`&X#X#T$T$^,^,-)-););)>)>)M-M-i%i%&,&,g-g-,),);*;*',',')')))))3-3-!)!)~)~)&*&*@%@%{){)j=j=b=b=z&z&g%g%[%[%0'0'K%K%j$j$])])^)^)|%|%|%|%'%'%/)/)J*J*r'r':>:>^%^%()()",
 "                                    Z'Z'`'`' ) )m;m;A$A$.).)+)+)@)@)#)#)$)$)X#X#X#X#)$)$T$T$c*c*T$T$)$)$X#X#m;m;7-7-G$G$X#X#X#X#X#X#%)%)B$B$X#X#&)&)*)*)}=}==)=)r=r=x'x'K,K,`&`&X#X#T$T$^,^,-)-););)>)>)M-M-i%i%&,&,g-g-,),);*;*',',')')))))3-3-!)!)~)~)&*&*@%@%{){)j=j=b=b=z&z&g%g%[%[%0'0'K%K%j$j$])])^)^)|%|%|%|%'%'%/)/)J*J*r'r':>:>^%^%()()"};

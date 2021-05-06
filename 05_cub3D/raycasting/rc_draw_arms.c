@@ -6,15 +6,15 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/06 12:43:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/06 16:58:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-#define	RIGT_ARM_0	"./textures/Dague_1_0.xpm"
-#define RIGT_ARM_1	"./textures/Dague_2_0.xpm"
+#define	RIGT_ARM_0	"./textures/Dague_1_1.xpm"
+#define RIGT_ARM_1	"./textures/Dague_2_1.xpm"
 #define LEFT_ARM_0	"./textures/Torche_1.xpm"
 
 int	rc_get_arms(t_mlx *mlx)
@@ -75,9 +75,9 @@ void	rc_draw_arms(t_mlx *mlx)
 	box.x_max = box.x_tex_max * ratio;
 	box.y_max = box.y_tex_max * ratio;
 	if (box.y_tex_max < box.y_max)
-		set_tex_y_loop(mlx, &mlx->left_arm[0], &box, 0xFFFFFF);
+		set_tex_y_loop(mlx, &mlx->left_arm[0], &box, 0x22B14C);
 	else
-		set_tex_y_tex_loop(mlx, &mlx->left_arm[0], &box, 0xFFFFFF);
+		set_tex_y_tex_loop(mlx, &mlx->left_arm[0], &box, 0x22B14C);
 	
 	// Left Arm
 	i = (mlx->attack > 0);
@@ -103,10 +103,10 @@ void	rc_draw_arms(t_mlx *mlx)
 	box.x_max = box.x_tex_max * ratio;
 	box.y_max = box.y_tex_max * ratio;
 	if (box.y_tex_max < box.y_max)
-		set_tex_y_loop(mlx, &mlx->right_arm[i], &box, 0xFFFFFF);
+		set_tex_y_loop(mlx, &mlx->right_arm[i], &box, 0x22B14C);
 	else
-		set_tex_y_tex_loop(mlx, &mlx->right_arm[i], &box, 0xFFFFFF);
-	if (mlx->attack > 0) //TOD: improve and ADD object detection
+		set_tex_y_tex_loop(mlx, &mlx->right_arm[i], &box, 0x22B14C);
+	if (mlx->attack > 0) //TODO: improve and ADD object detection
 		mlx->attack++;
 	if (mlx->attack > 9)
 		mlx->attack = 0;
