@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 19:05:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/06 08:58:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -401,7 +401,6 @@ void			rc_mouse_hook(t_mlx *mlx);
 void			rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
 void			rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
 int				rc_button_press(int button, int x, int y, t_mlx *mlx);
-int				rc_button_release(int button, int x, int y, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_raycasting.c

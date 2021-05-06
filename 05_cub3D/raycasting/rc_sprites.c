@@ -70,9 +70,12 @@ void	rc_sprite_update_lst(t_mlx *mlx, t_cam *cam)
 
 static inline void	rc_sprite_init_v(t_mlx *mlx, t_spr_lst *lst, t_spr_vars *v)
 {
-	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));;
+	v->x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));
 	v->spr_h = (int)(mlx->ratio / lst->y_tr) / 2;
 	v->spr_w = (int)(mlx->ratio / lst->y_tr) / 2;
+	// v->x_screen = (int)((mlx->width / 8) * (1 + lst->x_tr / lst->y_tr));
+	// v->spr_h = (int)(mlx->ratio / lst->y_tr) / 8;
+	// v->spr_w = (int)(mlx->ratio / lst->y_tr) / 8;
 	v->z_move = mlx->cam->pitch + mlx->cam->z_pos / lst->y_tr;
 	v->y_s = -v->spr_h + mlx->height_2 + v->z_move;
 	v->y_e = v->spr_h  + mlx->height_2 + v->z_move;
@@ -143,7 +146,7 @@ void	rc_sprite(t_mlx *mlx, t_img *img)
 				{
 					v.y_tex = (v.y - mlx->height_2 + v.spr_h - v.z_move) * v.tex_h;
 					v.y_tex /= (v.spr_h << 1);
-					if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
+					if (*(v.src + v.y_tex) != 0xffffff) // if ((*(v.src + v.y_tex) & 0xFFFFFF) != 0)
 					{
 						if (SHADOW)
 							*(v.dst + v.y * img->sl) = rc_shadow_effect(*(v.src + v.y_tex), lst->y_tr );

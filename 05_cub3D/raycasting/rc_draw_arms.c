@@ -6,16 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/06 08:54:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/06 12:43:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-#define	RIGT_ARM_0	"./textures/Dague_1_H240.xpm"
-#define RIGT_ARM_1	"./textures/Dague_3_H160.xpm"
-#define LEFT_ARM_0	"./textures/Torche_1_H240.xpm"
+#define	RIGT_ARM_0	"./textures/Dague_1_0.xpm"
+#define RIGT_ARM_1	"./textures/Dague_2_0.xpm"
+#define LEFT_ARM_0	"./textures/Torche_1.xpm"
 
 int	rc_get_arms(t_mlx *mlx)
 {

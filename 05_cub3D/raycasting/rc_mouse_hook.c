@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 19:05:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/06 08:58:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,20 +80,8 @@ int	rc_button_press(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
-	printf("button (press): %i \n", button);
 	if (button == BUTTON_LEFT)
 		mlx->attack = 1;
-	rc_new_frame(mlx);
-	return (0);
-}
-
-int	rc_button_release(int button, int x, int y, t_mlx *mlx)
-{
-	(void)x;
-	(void)y;
-	printf("button (release): %i \n", button);
-	if (button == BUTTON_LEFT)
-		mlx->attack = 0;
 	rc_new_frame(mlx);
 	return (0);
 }
