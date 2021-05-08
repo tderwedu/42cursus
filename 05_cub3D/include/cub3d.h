@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/06 08:58:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/08 18:40:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <math.h>
 # include <mlx.h>
+# include "time.h"
 
 # define XK_LATIN1
 # define XK_MISCELLANY
@@ -142,55 +143,59 @@ typedef struct	s_spr_lst
 	double				x_tr;
 	double				y_tr;
 	double				dist;
+	int					show;
 	t_tex				*tex;
-	struct s_spr_lst	*next;	
+	struct s_spr_lst	*next;
 }				t_spr_lst;
 
-typedef struct s_spr_vars
-{
-	int		x_screen;
-	int		spr_h;
-	int		spr_w;
-	int		z_move;
-	int		y_s;
-	int		y_e;
-	int		x_s;
-	int		x_e;
-	int		x_tex;
-	int		y_tex;
-	int		tex_h;
-	int		tex_w;
-	int		y;
-	t_u32	*src;
-	t_u32	*dst;
-}				t_spr_vars;
+// typedef struct s_spr_vars
+// {
+// 	int		x_screen;
+// 	int		spr_h;
+// 	int		spr_w;
+// 	int		z_move;
+// 	int		y_s;
+// 	int		y_e;
+// 	int		x_s;
+// 	int		x_e;
+// 	int		x_tex;
+// 	int		y_tex;
+// 	int		tex_h;
+// 	int		tex_w;
+// 	int		y;
+// 	t_u32	*src;
+// 	t_u32	*dst;
+// }				t_spr_vars;
 
 typedef struct	s_mlx
 {
-	void	*mlx;
-	void	*win;
-	int		width;
-	int		width_2;
-	int		height;
-	int		height_2;
-	double	fov;
-	double	ratio;
-	int		**map;
-	void	***ptr;
-	int		y_max;
-	int		x_max;
-	t_cam	*cam;
-	t_img	*img;
-	t_tex	tex[8];
-	t_tex	right_arm[2];
-	t_tex	left_arm[2];
-	int		rgb[7];
-	double 	*z_buff;
-	int		nb_spr;
-	int		nb_door;
-	int		attack;
+	void		*mlx;
+	void		*win;
+	int			width;
+	int			width_2;
+	int			height;
+	int			height_2;
+	double		fov_2;
+	double		ratio;
+	int			**map;
+	void		***ptr;
+	int			y_max;
+	int			x_max;
+	t_cam		*cam;
+	t_img		*img;
+	t_tex		tex[8];
+	t_tex		right_arm[2];
+	t_tex		left_arm[2];
+	int			rgb[7];
+	double 		*z_buff;
+	int			nb_spr;
+	int			nb_door;
+	int			attack;
 	t_spr_lst	*tab;
 	t_spr_lst	*lst;
+	long		fps; // TODO: remove
+	long		avg; // TODO: remove
+	long		count; // TODO: remove
 }				t_mlx;
 
 typedef struct s_scan
@@ -260,23 +265,15 @@ typedef struct	s_loop
 {
 	int		y;
 	int		y_max;
+	int		y_range;
 	int		y_tex;
-	int		y_tex_max;
+	int		y_tex_range;
 	int		x;
 	int		x_max;
+	int		x_range;
 	int		x_tex;
-	int		x_tex_max;
+	int		x_tex_range;
 }				t_loop;
-
-// typedef struct	s_sky
-// {
-// 	int		x;
-// 	int		x_tex;
-// 	int		dt_x_tex;
-// 	int		y;
-// 	int		y_tex;
-// 	int		dt_y_tex;
-// }				t_sky;
 
 typedef struct	s_door
 {
@@ -297,187 +294,196 @@ typedef struct	s_door
 ** 1: [parsing] ft_parse_file.c
 */
 
-int				ft_get_data(t_cub *data, int argc, char **argv);
-int				ft_parse_cubfile(t_cub *data);
+int		ft_get_data(t_cub *data, int argc, char **argv);
+int		ft_parse_cubfile(t_cub *data);
 
 /*
 ** 2: [parsing] ft_get_data.c
 */
 
-int				ft_line_handler(t_cub *data);
-int				ft_get_wall(t_cub *data, int i, int flag);
-int				ft_get_pavement(t_cub *data, int i, int flag);
-int				ft_get_resolution(t_cub *data);
+int		ft_line_handler(t_cub *data);
+int		ft_get_wall(t_cub *data, int i, int flag);
+int		ft_get_pavement(t_cub *data, int i, int flag);
+int		ft_get_resolution(t_cub *data);
 
 /*
 ** 3: [parsing] ft_get_map.c
 */
 
-int				ft_parse_map(t_cub *data, int empty);
-int				ft_check_map_line(t_cub *data, int empty);
-int				ft_create_map(t_cub *data);
+int		ft_parse_map(t_cub *data, int empty);
+int		ft_check_map_line(t_cub *data, int empty);
+int		ft_create_map(t_cub *data);
 
 /*
 ** 4: [parsing] ft_check_boundary.c
 */
 
-int				ft_check_boundary_y(t_cub *data);
-int				ft_check_boundary_x(t_cub *data);
+int		ft_check_boundary_y(t_cub *data);
+int		ft_check_boundary_x(t_cub *data);
 
 /*
 ** [parsing] ft_parse_utils.c
 */
 
-int				ft_get_int(char **ptr);
-int32_t			ft_get_color(char *ptr);
-void			ft_print_data(t_cub *data);
-void			ft_print_map(t_cub *data);
+int		ft_get_int(char **ptr);
+int32_t	ft_get_color(char *ptr);
+void	ft_print_data(t_cub *data);
+void	ft_print_map(t_cub *data);
 
 /*
 ** [parsing] ft_error.c
 */
 
-int				ft_error_arg(t_cub *data, char *str, char *arg);
-int				ft_error_parser(t_cub *data, char *str);
-int				ft_error_map(t_cub *data, char *str, int y_e, int x_e);
+int		ft_error_arg(t_cub *data, char *str, char *arg);
+int		ft_error_parser(t_cub *data, char *str);
+int		ft_error_map(t_cub *data, char *str, int y_e, int x_e);
 
 /*
 ** [parsing] ft_data.c
 */
 
-void			ft_init_data(t_cub *data);
-void			ft_free_data(t_cub *data);
+void	ft_init_data(t_cub *data);
+void	ft_free_data(t_cub *data);
 
 /*
 ** [raycasting] rc_mlx_init.c
 */
 
-int				rc_mlx_init(t_cub *data, t_mlx *mlx);
-void			rc_set_cam(t_cub *data, t_cam *cam, double fov);
-int				rc_get_tex(t_cub *d, t_mlx *x, int i);
-void			rc_rotate_tex(t_tex *tex);
-int				rc_spr_init(t_cub *data, t_mlx *mlx);
+int		rc_mlx_init(t_cub *data, t_mlx *mlx);
+void	rc_set_cam(t_cub *data, t_cam *cam, double fov);
+int		rc_get_tex(t_cub *d, t_mlx *x, int i);
+void	rc_rotate_tex(t_tex *tex);
+int		spr_new_lst(t_cub *data, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_error.c
 */
 
-int				rc_exit(t_mlx *mlx);
-int				rc_error(t_mlx *mlx, char *str);
-int				rc_error_data(t_cub *data,t_mlx *mlx, char *str);
+int		rc_exit(t_mlx *mlx);
+int		rc_error(t_mlx *mlx, char *str);
+int		rc_error_data(t_cub *data,t_mlx *mlx, char *str);
 
 /*
 ** [raycasting] rc_free.c
 */
 
-void			rc_free_mlx(t_mlx *mlx);
-void			rc_free_map(t_mlx *mlx);
-void			rc_free_ptr_map(t_mlx *mlx);
+void	rc_free_mlx(t_mlx *mlx);
+void	rc_free_map(t_mlx *mlx);
+void	rc_free_ptr_map(t_mlx *mlx);
 
 /*
 ** [raycasting] rc_key_press.c
 */
 
-int				rc_key_press(int keycode, t_mlx *mlx);
-void			rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam);
-void			rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam);
-void			rc_press_turn(int keycode, t_cam *cam);
-void			rc_press_crouch(t_mlx *mlx, t_cam *cam);
-void			rc_press_jump(t_mlx *mlx, t_cam *cam);
+int		rc_key_press(int keycode, t_mlx *mlx);
+void	rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam);
+void	rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam);
+void	rc_press_turn(int keycode, t_cam *cam);
+void	rc_press_crouch(t_mlx *mlx, t_cam *cam);
+void	rc_press_jump(t_mlx *mlx, t_cam *cam);
 
 /*
 ** [raycasting] rc_key_release.c
 */
 
-int				rc_key_release(int keycode, t_mlx *mlx);
-void			rc_release_crouch(t_cam *cam);
+int		rc_key_release(int keycode, t_mlx *mlx);
+void	rc_release_crouch(t_cam *cam);
 
 
 /*
 ** [raycasting] rc_mouse_hook.c
 */
 
-void			rc_mouse_hook(t_mlx *mlx);
-void			rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
-void			rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
-int				rc_button_press(int button, int x, int y, t_mlx *mlx);
+void	rc_mouse_hook(t_mlx *mlx);
+void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
+void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
+int		rc_button_press(int button, int x, int y, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_raycasting.c
 */
 
-int				rc_new_frame(t_mlx *mlx);
-int				rc_set_mlx(t_cub *data, int show_win);
+int		rc_new_frame(t_mlx *mlx);
+int		rc_set_mlx(t_cub *data, int show_win);
 
 
 /*
 ** [raycasting] rc_set_raycasting.c
 */
 
-void			rc_raycasting(t_mlx *mlx, t_cam *cam);
+void	rc_raycasting(t_mlx *mlx, t_cam *cam);
 
 /*
 ** [raycasting] rc_scanline.c
 */
 
-void			rc_scanline(t_mlx *mlx);
-void			rc_scanline_rgb(t_mlx *mlx, t_img *img, int type);
-void			rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type);
+void	rc_scanline(t_mlx *mlx);
+void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type);
+void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type);
 
 /*
-** [raycasting] rc_sprites.c
+** [raycasting] spr_draws.c
 */
 
-void			rc_sprite(t_mlx *mlx, t_img *img);
-void			rc_sprite_update_lst(t_mlx *mlx, t_cam *cam);
-void			rc_sprite_lst_add(t_mlx *mlx, t_spr_lst *new);
+void	spr_draw(t_mlx *mlx);
+void	spr_lst_sort(t_mlx *mlx, t_cam *cam);
+void	spr_lst_add(t_mlx *mlx, t_spr_lst *new);
 
 /*
 ** [raycasting] rc_mini_map.c
 */
-void			rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
-void			rc_draw_mini_map(t_mlx *mlx, t_img *img);
+void	rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
+void	rc_draw_mini_map(t_mlx *mlx, t_img *img);
 
 /*
 ** [raycasting] rc_skybox.c
 */
 
-void			rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
+void	rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
 ** [raycasting] rc_doors.c
 */
 
-int				rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
+int		rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
 
 /*
 ** [raycasting] rc_ptr_map.c
 */
 
-int				ft_create_ptr_map(t_mlx *mlx);
-int				ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
-void			ft_update_ptr_map(t_mlx *mlx);
+int		ft_create_ptr_map(t_mlx *mlx);
+int		ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
+void	ft_update_ptr_map(t_mlx *mlx);
 
 /*
 ** [raycasting] rc_ptr_map.c
 */
 
-int				rc_shadow_effect(int color, double dist);
+int		rc_shadow_effect(int color, double dist);
 
 /*
 ** [raycasting] rc_draw_arms.c
 */
 
-int				rc_get_arms(t_mlx *mlx);
-void			rc_draw_arms(t_mlx *mlx);
+int		rc_get_arms(t_mlx *mlx);
+void	rc_draw_arms(t_mlx *mlx);
 
 /*
-** [raycasting] set_tex_loop.c
+** [raycasting] set_tex_Yx_loop.c
 */
 
-void			set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void			set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void			set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void			set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+
+/*
+** [raycasting] set_tex_Xy_loop.c
+*/
+
+void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
+void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
 
 #endif

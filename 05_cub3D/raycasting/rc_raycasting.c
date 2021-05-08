@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 18:12:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/07 16:31:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	set_tex_rgb_b(t_img *img, t_tex *tex, t_ray *ray, int x_tex)
 	{	
 		if (y_s >= 0)
 		{
-			*(dst + y_s * img->sl) = *(src + y_tex);
+			// *(dst + y_s * img->sl) = *(src + y_tex);
 			if (SHADOW)
 				*(dst + y_s * img->sl) = rc_shadow_effect(*(src + y_tex), ray->w_dist);
 			else

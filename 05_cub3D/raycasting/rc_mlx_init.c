@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/04 18:26:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/07 17:28:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,20 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	while (++i <= S)
 		if (rc_get_tex(data, mlx, i))
 			return (1);
-	mlx->fov = (FOV / 2.0) * M_PI / 180;
-	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov));
-	rc_set_cam(data, mlx->cam, mlx->fov);
+	mlx->fov_2 = (FOV / 2.0) * M_PI / 180;
+	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov_2));
+	rc_set_cam(data, mlx->cam, mlx->fov_2);
 	mlx->cam->height_pitch = mlx->height_2 + mlx->cam->pitch;
-	rc_spr_init(data, mlx);
+	spr_new_lst(data, mlx);
 	mlx->map = data->map;
 	mlx->y_max = data->y_map;
 	mlx->x_max = data->x_map;
 	mlx->nb_door = data->nb_door;
 	mlx->attack = 0;
 	data->map = NULL;
+	mlx->fps = 0; // TODO: remove
+	mlx->avg = 0; // TODO: remove
+	mlx->count = 0; // TODO: remove
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	if (ft_create_ptr_map(mlx))
 		return (1);
