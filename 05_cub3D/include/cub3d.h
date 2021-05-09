@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/08 18:40:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/09 10:48:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <math.h>
 # include <mlx.h>
-# include "time.h"
+# include <time.h>
 
 # define XK_LATIN1
 # define XK_MISCELLANY
@@ -191,8 +191,12 @@ typedef struct	s_mlx
 	int			nb_spr;
 	int			nb_door;
 	int			attack;
+	int			left_arm;
+	int			right_arm;
 	t_spr_lst	*tab;
 	t_spr_lst	*lst;
+	t_tex		tex_b[9];
+	t_spr_lst	*spr_b;
 	long		fps; // TODO: remove
 	long		avg; // TODO: remove
 	long		count; // TODO: remove

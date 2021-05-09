@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/07 15:24:48 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/09 10:39:22 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,24 +30,25 @@ SRC			=	./main.c\
 				./parsing/ft_data.c\
 				./parsing/ft_error.c\
 				./parsing/ft_parse_utils.c\
-				./raycasting/rc_set_mlx.c\
-				./raycasting/rc_error.c\
-				./raycasting/rc_free.c\
-				./raycasting/rc_ptr_map.c\
-				./raycasting/rc_scanline.c\
-				./raycasting/rc_skybox.c\
-				./raycasting/rc_doors.c\
-				./raycasting/rc_key_press.c\
-				./raycasting/rc_key_release.c\
-				./raycasting/rc_mouse_hook.c\
-				./raycasting/rc_raycasting.c\
-				./raycasting/rc_mlx_init.c\
-				./raycasting/rc_shadow_effect.c\
-				./raycasting/rc_sprites.c\
-				./raycasting/set_tex_yx_loop.c\
-				./raycasting/set_tex_xy_loop.c\
-				./raycasting/rc_draw_arms.c\
-				./raycasting/rc_mmap.c
+				./raycasting/draw/doors.c\
+				./raycasting/draw/floor_ceil.c\
+				./raycasting/draw/raycasting.c\
+				./raycasting/draw/arms.c\
+				./raycasting/draw/sprites.c\
+				./raycasting/draw/skybox.c\
+				./raycasting/mlx_init.c\
+				./raycasting/bonus/mini_map_bonus.c\
+				./raycasting/bonus/sprites_bonus.c\
+				./raycasting/bonus/ptr_map_bonus.c\
+				./raycasting/bonus/light_effect_bonus.c\
+				./raycasting/utils/free.c\
+				./raycasting/utils/set_tex_yx_loop.c\
+				./raycasting/utils/set_tex_xy_loop.c\
+				./raycasting/utils/error_exit.c\
+				./raycasting/new_frame.c\
+				./raycasting/events/mouse.c\
+				./raycasting/events/key_release.c\
+				./raycasting/events/key_press.c
 
 # CFLAGS		=	-O3 -fsanitize=address
 # SRC			=	./raycasting_old.c
