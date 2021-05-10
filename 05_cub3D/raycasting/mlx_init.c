@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:36:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:04:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->fps = 0; // TODO: remove
 	mlx->avg = 0; // TODO: remove
 	mlx->count = 0; // TODO: remove
+	spr_b_init(mlx);
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
 	if (ft_create_ptr_map(mlx))
 		return (1);

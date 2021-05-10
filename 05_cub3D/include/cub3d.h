@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:48:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/10 15:20:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@
 
 # define FOV			75
 # define WALK_SPEED 	0.125
+# define SPR_B_SPEED 	0.03125
 # define TURN_SPEED 	25
 // # define DOOR_SPEED		0.87
 # define DOOR_SPEED		5.0 * M_PI / 180
@@ -138,15 +139,28 @@ typedef struct	s_img {
 
 typedef struct	s_spr_lst
 {
-	double				x_map;
 	double				y_map;
-	double				x_tr;
+	double				x_map;
 	double				y_tr;
+	double				x_tr;
 	double				dist;
 	int					show;
 	t_tex				*tex;
 	struct s_spr_lst	*next;
 }				t_spr_lst;
+
+typedef struct	t_spr_b
+{
+	double				y_map;
+	double				x_map;
+	double				y_dir;
+	double				x_dir;
+	double				y_tr;
+	double				x_tr;
+	double				dist;
+	int					dead;
+	t_tex				*tex;
+}				t_spr_b;
 
 // typedef struct s_spr_vars
 // {
@@ -186,17 +200,17 @@ typedef struct	s_mlx
 	t_tex		tex[8];
 	t_tex		right_arm[2];
 	t_tex		left_arm[2];
+	int			show_left;
+	int			show_right;
 	int			rgb[7];
 	double 		*z_buff;
 	int			nb_spr;
 	int			nb_door;
 	int			attack;
-	int			left_arm;
-	int			right_arm;
 	t_spr_lst	*tab;
 	t_spr_lst	*lst;
 	t_tex		tex_b[9];
-	t_spr_lst	*spr_b;
+	t_spr_b		spr_b;
 	long		fps; // TODO: remove
 	long		avg; // TODO: remove
 	long		count; // TODO: remove
@@ -489,5 +503,15 @@ void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
 void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
 void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
 void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
+
+/*
+** [raycasting] spr_bonus.c
+*/
+
+int		get_tex(t_mlx *mlx, t_tex *tex, char *dir);
+int		spr_b_init(t_mlx *mlx);
+void	spr_b_move(t_mlx *mlx, t_spr_b *spr);
+void	spr_b_dist(t_mlx *mlx, t_cam *cam, t_spr_b *spr);
+void	spr_b_draw(t_mlx *mlx);
 
 #endif

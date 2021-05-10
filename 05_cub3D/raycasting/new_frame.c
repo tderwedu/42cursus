@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rc_set_mlx.c                                       :+:      :+:    :+:   */
+/*   new_frame.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/08 18:47:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/10 14:25:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	rc_new_frame(t_mlx *mlx)
 	rc_scanline(mlx);
 	rc_raycasting(mlx, mlx->cam);
 	spr_draw(mlx);
+	spr_b_draw(mlx);
 	rc_draw_mini_map(mlx, &img); // TODO
 	rc_draw_arms(mlx);
 
