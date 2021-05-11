@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 10:45:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 12:01:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int	rc_button_press(int button, int x, int y, t_mlx *mlx)
 	(void)x;
 	(void)y;
 	if (button == BUTTON_LEFT)
-		mlx->attack = 1;
+		mlx->strike = 1;
 	rc_new_frame(mlx);
 	return (0);
 }

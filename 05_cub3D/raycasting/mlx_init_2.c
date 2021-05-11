@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 10:11:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:15:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:54:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ int	get_tex(t_mlx *mlx, t_tex *tex, char *dir)
 	return (0);
 }
 
-int	load_bonus_tex(t_mlx *mlx)
+int	load_bonus_tex_1(t_mlx *mlx)
 {
 	if (get_tex(mlx, &mlx->tex[S_broken], S_BROKEN))
 		return (1);
-	if (get_tex(mlx, &mlx->tex[knife], KNIFE))
+	if (get_tex(mlx, &mlx->tex[knife], SPR_KNIFE))
 		return (1);
 	if (get_tex(mlx, &mlx->tex[kfc_y000], KFC_Y000))
 		return (1);
@@ -54,6 +54,13 @@ int	load_bonus_tex(t_mlx *mlx)
 		return (1);
 	if (get_tex(mlx, &mlx->tex[kfc_y000], KFC_DEAD))
 		return (1);
-	if (get_tex(mlx, &mlx->tex[door], DOOR))
+	if (get_tex(mlx, &mlx->tex[door], TEX_DOOR))
+		return (1);
+}
+int	load_bonus_tex_2(t_mlx *mlx)
+{
+	if (get_tex(mlx, &mlx->tex[0], S_BROKEN))
+		return (1);
+	if (get_tex(mlx, &mlx->tex[1], SPR_KNIFE))
 		return (1);
 }

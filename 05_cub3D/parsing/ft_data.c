@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:23:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/25 15:35:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:44:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	ft_init_data(t_cub *data)
 	data->width = 0;
 	data->height = 0;
 	data->nb_spr = 0;
-	data->nb_door = 0;
+	data->nb_TEX_DOOR = 0;
 	data->map = NULL;
 	data->ptr = NULL;
 	data->line = NULL;

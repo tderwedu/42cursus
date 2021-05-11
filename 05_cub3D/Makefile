@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/09 10:39:22 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/11 11:44:51 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ SRC			=	./main.c\
 				./parsing/ft_data.c\
 				./parsing/ft_error.c\
 				./parsing/ft_parse_utils.c\
-				./raycasting/draw/doors.c\
+				./raycasting/draw/TEX_DOORs.c\
 				./raycasting/draw/floor_ceil.c\
 				./raycasting/draw/raycasting.c\
 				./raycasting/draw/arms.c\

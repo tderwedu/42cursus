@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:30:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 12:01:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ enum			e_tex
 	C,
 	S,
 	S_broken,
-	knife,
+	tex_knife,
 	kfc_y000,
 	kfc_y045,
 	kfc_y090,
@@ -36,7 +36,9 @@ enum			e_tex
 	kfc_y270,
 	kfc_y315,
 	kfc_dead,
-	I_door
+	tex_door,
+	arm_0,
+	arm_1
 };
 
 enum			e_map
@@ -119,18 +121,16 @@ typedef struct s_mlx
 	int			x_max;
 	t_cam		*cam;
 	t_img		*img;
-	t_tex		tex[20];
+	t_tex		tex[22];
 	t_u32		rgb[2];
 	double		*z_buff;
 	int			nb_spr;
-	int			attack;
+	int			strike;
 	t_spr		*tab;
 	t_spr		*lst;
-	t_tex		right_arm[2];
-	t_tex		left_arm[2];
 	int			show_left;
 	int			show_right;
-	int			nb_door;
+	int			nb_TEX_DOOR;
 	long		fps; 	// TODO: remove
 	long		avg;	// TODO: remove
 	long		count;	// TODO: remove
@@ -188,7 +188,7 @@ typedef struct s_cub
 	int			x_pos;
 	int			y_pos;
 	int			nb_spr;
-	int			nb_door;
+	int			nb_TEX_DOOR;
 	int			rgb[7];
 	char		*tex[8];
 	char		*ptr;
@@ -214,7 +214,7 @@ typedef struct s_loop
 	uint32_t	rgb;
 }				t_loop;
 
-typedef struct s_door
+typedef struct s_TEX_DOOR
 {
 	int			updated;
 	double		angle;
@@ -227,6 +227,6 @@ typedef struct s_door
 	double		y_1_max;
 	double		y_2_min;
 	double		y_2_max;
-}				t_door;
+}				t_TEX_DOOR;
 
 #endif

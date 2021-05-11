@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:26:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:44:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 {
 	t_ray	ray;
 
-	ft_update_ptr_map(mlx);
+	ptr_map_update(mlx);
 	ray.x = -1;
 	while (++ray.x < mlx->width)
 	{
@@ -124,7 +124,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
 			if (ray.hit == 3)
 			{
-				if (is_door(mlx, cam, &ray))
+				if (is_TEX_DOOR(mlx, cam, &ray))
 					break;
 			}
 			else if (ray.hit == 5)
@@ -159,7 +159,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.tex = &mlx->tex[EA];
 		else
 			ray.tex = &mlx->tex[WE];
-		// Opened Door handling
+		// Opened TEX_DOOR handling
 		if (mlx->map[(int)cam->y_pos][(int)cam->x_pos] == 3 && 
 			(int)cam->x_pos == ray.x_map && ray.pc_wall > 0.5)
 		{

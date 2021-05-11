@@ -6,14 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:50:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:34:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:44:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
-int	ft_create_ptr_map(t_mlx *mlx)
+int	ptr_map_create(t_mlx *mlx)
 {
 	int		y;
 	void	***ptr;
@@ -29,16 +28,16 @@ int	ft_create_ptr_map(t_mlx *mlx)
 		if (!(ptr[y]))
 			return (rc_error(mlx, strerror(errno)));
 	}
-	if (ft_fill_ptr_map(mlx, ptr))
+	if (ptr_map_fill(mlx, ptr))
 		return (1);
 	return (0);
 }
 
-int	ft_fill_ptr_map(t_mlx *mlx, void ***ptr)
+int	ptr_map_fill(t_mlx *mlx, void ***ptr)
 {
 	int		y;
 	int		x;
-	t_door	*door;
+	t_TEX_DOOR	*TEX_DOOR;
 
 	y = -1;
 	while (++y < mlx->y_max)
@@ -48,13 +47,13 @@ int	ft_fill_ptr_map(t_mlx *mlx, void ***ptr)
 		{
 			if (mlx->map[y][x] == 3)
 			{
-				door = malloc(sizeof(t_door));
-				if (!(door))
+				TEX_DOOR = malloc(sizeof(t_TEX_DOOR));
+				if (!(TEX_DOOR))
 					return (rc_error(mlx, strerror(errno)));
-				door->updated = 0;
-				door->angle = 90.0;
-				door->moving = 0.0;
-				ptr[y][x] = (void *)door;
+				TEX_DOOR->updated = 0;
+				TEX_DOOR->angle = 90.0;
+				TEX_DOOR->moving = 0.0;
+				ptr[y][x] = (void *)TEX_DOOR;
 			}
 			else
 				mlx->ptr[y][x] = NULL;
@@ -63,7 +62,7 @@ int	ft_fill_ptr_map(t_mlx *mlx, void ***ptr)
 	return (0);
 }
 
-void	ft_update_ptr_map(t_mlx *mlx)
+void	ptr_map_update(t_mlx *mlx)
 {
 	int		y;
 	int		x;
@@ -75,7 +74,7 @@ void	ft_update_ptr_map(t_mlx *mlx)
 		while (++x < mlx->x_max)
 		{
 			if (mlx->map[y][x] == 3)
-				((t_door *)mlx->ptr[y][x])->updated = 0;
+				((t_TEX_DOOR *)mlx->ptr[y][x])->updated = 0;
 		}
 	}
 }

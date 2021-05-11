@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 10:55:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:51:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	rc_new_frame(t_mlx *mlx)
 	spr_draw(mlx);
 	spr_b_draw(mlx);
 	rc_draw_mini_map(mlx, &img); // TODO
-	rc_draw_arms(mlx);
+	arm(mlx);
 
 	clock_gettime(CLOCK_REALTIME, &ts_2);
 	mlx->fps = 1000000000 / (ts_2.tv_nsec - ts_1.tv_nsec);

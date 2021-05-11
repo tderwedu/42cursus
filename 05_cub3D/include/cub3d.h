@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:26:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:51:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,25 +171,25 @@ void	rc_draw_mini_map(t_mlx *mlx, t_img *img);
 void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
-** [raycasting] rc_doors.c
+** [raycasting] rc_TEX_DOORs.c
 */
 
-int		is_door(t_mlx *mlx, t_cam *cam, t_ray *ray);
+int		is_TEX_DOOR(t_mlx *mlx, t_cam *cam, t_ray *ray);
 
 /*
 ** [raycasting] rc_ptr_map.c
 */
 
-int		ft_create_ptr_map(t_mlx *mlx);
-int		ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
-void	ft_update_ptr_map(t_mlx *mlx);
+int		ptr_map_create(t_mlx *mlx);
+int		ptr_map_fill(t_mlx *mlx, void ***ptr);
+void	ptr_map_update(t_mlx *mlx);
 
 /*
-** [raycasting] rc_draw_arms.c
+** [raycasting] arm.c
 */
 
 int		rc_get_arms(t_mlx *mlx);
-void	rc_draw_arms(t_mlx *mlx);
+void	arm(t_mlx *mlx);
 
 /*
 ** [raycasting] set_tex_Yx_loop.c
