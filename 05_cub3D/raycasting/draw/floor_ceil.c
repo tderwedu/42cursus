@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:34:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:57:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,7 @@ void	floor_ceil_tex(t_mlx *mlx, t_cam *cam, t_img *img, int id)
 	t_tex	*tex;
 	t_u32	*dst;
 
-
-	tex= &mlx->tex[id];
+	tex = &mlx->tex[id];
 	floor_ceil_part_1(mlx, &sc, id);
 	while (++sc.y < sc.y_max)
 	{

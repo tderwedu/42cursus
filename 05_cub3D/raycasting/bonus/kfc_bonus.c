@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:03:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:54:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 		{
 			spr->y_map = new_y;
 			spr->x_map = new_x;
-			mlx->map[(int)new_y][(int)new_x] = kfc;
+			mlx->map[(int)new_y][(int)new_x] = m_kfc;
 		}
 	}
 	kfc_tex(mlx, cam, spr);
@@ -51,7 +51,7 @@ void	kfc_tex(t_mlx *mlx, t_cam *cam, t_spr *spr)
 		tex = ((int)(dir * 1800 / M_PI) + 2025) % 3600;
 		if (tex < 0)
 			tex += 3600;
-		tex = tex/450 + kfc_y000;
+		tex = tex / 450 + kfc_y000;
 		spr->tex = &mlx->tex[tex];
 	}
 	else

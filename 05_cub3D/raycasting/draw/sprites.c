@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 12:02:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:02:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 int	spr_new_lst(t_cub *data, t_mlx *mlx)
 {
-	int			y;
-	int			x;
+	int		y;
+	int		x;
 	t_spr	*tab;
 
 	tab = malloc(sizeof(t_spr) * data->nb_spr);
@@ -29,10 +29,10 @@ int	spr_new_lst(t_cub *data, t_mlx *mlx)
 	{
 		x = -1;
 		while (++x < data->x_map)
-			if (data->map[y][x] >= sprite && data->map[y][x] <= kfc)
+			if (data->map[y][x] >= m_spr && data->map[y][x] <= m_kfc)
 				*tab++ = (t_spr){data->map[y][x], y + 0.5, x + 0.5, 1.0, 0.0,
-						0.0, 0.0, 0.0, 0, 1, &mlx->tex[data->map[y][x] - sprite + S],
-						 NULL};
+					0.0, 0.0, 0.0, 0, 1,
+					&mlx->tex[data->map[y][x] - m_spr + S], NULL};
 	}
 	tab = NULL;
 	return (0);
@@ -64,7 +64,6 @@ void	spr_lst_add(t_mlx *mlx, t_spr *new)
 	}
 	prev->next = new;
 	new->next = lst;
-
 }
 
 void	spr_lst_sort(t_mlx *mlx, t_cam *cam)
@@ -78,7 +77,7 @@ void	spr_lst_sort(t_mlx *mlx, t_cam *cam)
 	det = 1.0 / (cam->x_plane * cam->y_dir - cam->y_plane * cam->x_dir);
 	while (tab)
 	{
-		if (tab->id = kfc)
+		if (tab->id == m_kfc)
 			kfc_move(mlx, cam, tab);
 		dt_x = tab->x_map - cam->x_pos;
 		dt_y = tab->y_map - cam->y_pos;

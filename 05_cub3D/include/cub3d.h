@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:51:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:51:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
 int		rc_button_press(int button, int x, int y, t_mlx *mlx);
 
 /*
-** [raycasting] rc_raycasting.c
+** [raycasting] raycasting.c
 */
 
 int		rc_new_frame(t_mlx *mlx);
@@ -140,7 +140,7 @@ int		rc_set_mlx(t_cub *data, int show_win);
 ** [raycasting] rc_set_raycasting.c
 */
 
-void	rc_raycasting(t_mlx *mlx, t_cam *cam);
+void	raycasting(t_mlx *mlx, t_cam *cam);
 
 /*
 ** [raycasting] floor_ceil.c
@@ -171,10 +171,10 @@ void	rc_draw_mini_map(t_mlx *mlx, t_img *img);
 void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
-** [raycasting] rc_TEX_DOORs.c
+** [raycasting] rc_doors.c
 */
 
-int		is_TEX_DOOR(t_mlx *mlx, t_cam *cam, t_ray *ray);
+int		is_door(t_mlx *mlx, t_cam *cam, t_ray *ray);
 
 /*
 ** [raycasting] rc_ptr_map.c
@@ -188,7 +188,6 @@ void	ptr_map_update(t_mlx *mlx);
 ** [raycasting] arm.c
 */
 
-int		rc_get_arms(t_mlx *mlx);
 void	arm(t_mlx *mlx);
 
 /*

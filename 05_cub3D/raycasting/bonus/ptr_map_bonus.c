@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:50:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:44:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 14:29:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ptr_map_fill(t_mlx *mlx, void ***ptr)
 {
 	int		y;
 	int		x;
-	t_TEX_DOOR	*TEX_DOOR;
+	t_door	*door;
 
 	y = -1;
 	while (++y < mlx->y_max)
@@ -47,13 +47,13 @@ int	ptr_map_fill(t_mlx *mlx, void ***ptr)
 		{
 			if (mlx->map[y][x] == 3)
 			{
-				TEX_DOOR = malloc(sizeof(t_TEX_DOOR));
-				if (!(TEX_DOOR))
+				door = malloc(sizeof(t_door));
+				if (!(door))
 					return (rc_error(mlx, strerror(errno)));
-				TEX_DOOR->updated = 0;
-				TEX_DOOR->angle = 90.0;
-				TEX_DOOR->moving = 0.0;
-				ptr[y][x] = (void *)TEX_DOOR;
+				door->updated = 0;
+				door->angle = 90.0;
+				door->moving = 0.0;
+				ptr[y][x] = (void *)door;
 			}
 			else
 				mlx->ptr[y][x] = NULL;
@@ -74,7 +74,7 @@ void	ptr_map_update(t_mlx *mlx)
 		while (++x < mlx->x_max)
 		{
 			if (mlx->map[y][x] == 3)
-				((t_TEX_DOOR *)mlx->ptr[y][x])->updated = 0;
+				((t_door *)mlx->ptr[y][x])->updated = 0;
 		}
 	}
 }

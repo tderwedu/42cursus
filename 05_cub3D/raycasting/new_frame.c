@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:51:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 15:38:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	rc_new_frame(t_mlx *mlx)
 	if (mlx->cam->z_pos > 0.0)
 		mlx->cam->z_pos -= 10;
 	floor_ceil(mlx);
-	rc_raycasting(mlx, mlx->cam);
+	raycasting(mlx, mlx->cam);
 	spr_draw(mlx);
 	spr_b_draw(mlx);
 	rc_draw_mini_map(mlx, &img); // TODO

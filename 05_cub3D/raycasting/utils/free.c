@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:58:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:28:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:09:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	rc_free_mlx(t_mlx *mlx)
 	int		i;
 
 	i = -1;
-	while (++i <= S)
+	while (++i <= arm_1)
 		if (mlx->tex[i].img)
 			mlx_destroy_image(mlx->mlx, mlx->tex[i].img);
 	if (mlx->img)
@@ -65,4 +65,3 @@ void	rc_free_ptr_map(t_mlx *mlx)
 	}
 	free(mlx->ptr);
 }
-

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 12:01:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 14:29:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	rc_mlx_init(t_cub *data, t_mlx *mlx)
 	mlx->map = data->map;
 	mlx->y_max = data->y_map;
 	mlx->x_max = data->x_map;
-	mlx->nb_TEX_DOOR = data->nb_TEX_DOOR;
+	mlx->nb_door = data->nb_door;
 	mlx->strike = 0;
 	data->map = NULL;
 	mlx->fps = 0; // TODO: remove

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:24:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:20:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 16:03:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam)
 	box.x = 0;
 	box.x_range = mlx->width;
 	box.x_tex_range = tex->width * FOV / 360.0;
-	box.x_tex = (int)((atan2(y_dir, x_dir) + M_PI)/(2 * M_PI) * tex->width);
+	box.x_tex = (int)((atan2(y_dir, x_dir) + M_PI) / (2 * M_PI) * tex->width);
 	box.x_tex -= box.x_tex_range / 2;
 	if (box.x_tex < 0)
 		box.x_tex += tex->width;
 	box.y = 0;
 	box.y_range = cam->height_pitch;
-	box.y_tex = (0.3 * mlx->height_2 - cam->pitch) * box.x_tex_range / box.x_range;
+	box.y_tex = ((0.3 * mlx->height_2 - cam->pitch) * box.x_tex_range
+			/ box.x_range);
 	box.y_tex_range = box.y_range * box.x_tex_range / box.x_range;
 	box.rgb = 0xFF000000;
 	if (box.y_tex_range < box.y_range)
