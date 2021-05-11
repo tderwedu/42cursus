@@ -6,28 +6,27 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:35:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:34:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
-void	rc_scanline(t_mlx *mlx)
+void	floor_ceil(t_mlx *mlx)
 {
-	if (mlx->rgb[C])
-		rc_scanline_rgb(mlx, mlx->img, C);
+	if (mlx->rgb[0])
+		floor_ceil_rgb(mlx, mlx->img, C);
 	else if (mlx->tex[C].width > mlx->tex[C].height)
-		rc_skybox(mlx, &mlx->tex[C], mlx->cam);
+		skybox(mlx, &mlx->tex[C], mlx->cam);
 	else
-		rc_scanline_tex(mlx, mlx->cam, mlx->img, C);
-	if (mlx->rgb[F])
-		rc_scanline_rgb(mlx, mlx->img, F);
+		floor_ceil_tex(mlx, mlx->cam, mlx->img, C);
+	if (mlx->rgb[1])
+		floor_ceil_rgb(mlx, mlx->img, F);
 	else
-		rc_scanline_tex(mlx, mlx->cam, mlx->img, F);
+		floor_ceil_tex(mlx, mlx->cam, mlx->img, F);
 }
 
-void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type)
+void	floor_ceil_rgb(t_mlx *mlx, t_img *img, int id)
 {
 	register int	x;
 	int				y;
@@ -35,14 +34,17 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type)
 	t_u32			rgb;
 	t_u32			*addr;
 
-	// rgb = (mlx->rgb[type] >> 1) & 0x7F7F7F;
-	rgb = mlx->rgb[type];
-	if (type == C)
-		y = 0;
+	rgb = mlx->rgb[id];
+	if (!id)
+	{
+		y = -1;
+		y_max = mlx->cam->height_pitch;
+	}
 	else
-		y = mlx->height_2;
-	y_max = y + mlx->height_2;
-	y--;
+	{
+		y = mlx->cam->height_pitch - 1;
+		y_max = mlx->height;
+	}
 	while (++y < y_max)
 	{
 		addr = (img->addr + y * img->sl);
@@ -52,30 +54,48 @@ void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type)
 	}
 }
 
-void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
+static inline void	floor_ceil_part_1(t_mlx *mlx, t_floor *sc, int id)
 {
-	t_scan	sc;
-	t_tex	*tex;
-	t_u32	*dst;
-	double	x_pc;
-	double	y_pc;
-
-	tex= &mlx->tex[type];
-	if (type == C)
+	if (id == C)
 	{
-		sc.y = -1;
-		sc.y_max = cam->height_pitch;
-		sc.z_cam = mlx->height_2 - cam->z_pos;
+		sc->y = -1;
+		sc->y_max = mlx->cam->height_pitch;
+		sc->z_cam = mlx->height_2 - mlx->cam->z_pos;
 	}
 	else
 	{
-		sc.y = cam->height_pitch - 1;
-		sc.y_max = mlx->height;
-		sc.z_cam = mlx->height_2 + cam->z_pos;
+		sc->y = mlx->cam->height_pitch - 1;
+		sc->y_max = mlx->height;
+		sc->z_cam = mlx->height_2 + mlx->cam->z_pos;
 	}
+}
+
+static inline void	floor_ceil_part_2(t_tex *tex, t_floor *sc, t_u32 *dst)
+{
+	double	x_pc;
+	double	y_pc;
+
+	x_pc = (double)(sc->x_grid - (int)sc->x_grid);
+	y_pc = (double)(sc->y_grid - (int)sc->y_grid);
+	sc->x_tex = (int)(tex->width * x_pc) & tex->w_mask;
+	sc->y_tex = (int)(tex->height * y_pc) & tex->h_mask;
+	*(dst + sc->x) = *(tex->addr + sc->x_tex + sc->y_tex * tex->sl);
+	sc->x_grid += sc->x_grid_step;
+	sc->y_grid += sc->y_grid_step;
+}
+
+void	floor_ceil_tex(t_mlx *mlx, t_cam *cam, t_img *img, int id)
+{
+	t_floor	sc;
+	t_tex	*tex;
+	t_u32	*dst;
+
+
+	tex= &mlx->tex[id];
+	floor_ceil_part_1(mlx, &sc, id);
 	while (++sc.y < sc.y_max)
 	{
-		if (type == C)
+		if (id == C)
 			sc.p = cam->height_pitch - sc.y;
 		else
 			sc.p = sc.y - cam->height_pitch;
@@ -87,19 +107,6 @@ void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type)
 		dst = img->addr + sc.y * img->sl;
 		sc.x = -1;
 		while (++sc.x < mlx->width)
-		{
-			x_pc = (double)(sc.x_grid - (int)sc.x_grid);
-			y_pc = (double)(sc.y_grid - (int)sc.y_grid);
-			sc.x_tex = (int)(tex->width * x_pc) & tex->w_mask;
-			sc.y_tex = (int)(tex->height * y_pc) & tex->h_mask;
-			if (SHADOW && type == F)
-				*(dst + sc.x) = rc_shadow_effect(*(tex->addr + sc.x_tex + sc.y_tex * tex->sl), sc.row_dist);
-			else
-				*(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex * tex->sl);
-			// *(dst + sc.x) = *(tex->addr + sc.x_tex + sc.y_tex* tex->sl);
-
-			sc.x_grid += sc.x_grid_step;
-			sc.y_grid += sc.y_grid_step;
-		}
+			floor_ceil_part_2(tex, &sc, dst);
 	}
 }

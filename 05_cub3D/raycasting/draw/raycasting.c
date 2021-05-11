@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:35:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:26:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ void	rc_raycasting(t_mlx *mlx, t_cam *cam)
 			ray.hit = mlx->map[ray.y_map][ray.x_map];
 			if (ray.hit == 3)
 			{
-				if (rc_is_door_leaf(mlx, cam, &ray))
+				if (is_door(mlx, cam, &ray))
 					break;
 			}
 			else if (ray.hit == 5)

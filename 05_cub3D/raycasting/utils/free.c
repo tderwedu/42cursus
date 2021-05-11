@@ -6,11 +6,10 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:58:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/09 10:36:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:28:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
 void	rc_free_mlx(t_mlx *mlx)

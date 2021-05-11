@@ -1,36 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error_exit.c                                       :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/12 16:16:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 11:27:48 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/05/11 11:00:50 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/11 11:03:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	rc_exit(t_mlx *mlx)
+int	check_4_walls(t_mlx *mlx, double new_y, double new_x, double dt)
 {
-	rc_free_mlx(mlx);
-	printf("fps = %li \n", mlx->avg / mlx->count);
-	exit(0);
-	return (0);
-}
+	int ret;
 
-int	rc_error(t_mlx *mlx, char *str)
-{
-	ft_printf("Error\n%s\n", str);
-	rc_free_mlx(mlx);
-	return (1);
-}
-
-int	rc_error_data(t_cub *data, t_mlx *mlx, char *str)
-{
-	ft_printf("Error\n%s\n", str);
-	ft_free_data(data);
-	rc_free_mlx(mlx);
-	return (1);
+	ret = 0;
+	ret += (mlx->map[(int)(new_y)][(int)(new_x)] != 0);
+	ret += (mlx->map[(int)(new_y + dt)][(int)(new_x)] != 0);
+	ret += (mlx->map[(int)(new_y - dt)][(int)(new_x)] != 0);
+	ret += (mlx->map[(int)(new_y)][(int)(new_x + dt)] != 0);
+	ret += (mlx->map[(int)(new_y)][(int)(new_x - dt)] != 0);
+	return (ret);
 }

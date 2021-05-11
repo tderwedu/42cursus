@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/10 15:20:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 11:26:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,296 +17,9 @@
 # include <mlx.h>
 # include <time.h>
 
-# define XK_LATIN1
-# define XK_MISCELLANY
-# include <X11/keysymdef.h>
-# include <X11/X.h>
-
+# include "cub3d_define.h"
+# include "cub3d_struct.h"
 # include "cub3d_error.h"
-
-# define DEBUG			1
-# define BONUS			1
-# define SHADOW			0
-
-# ifndef M_PI
-#  define M_PI			3.14159265358979323846
-# endif
-
-# ifndef M_PI_2
-#  define M_PI_2		1.57079632679489661923
-# endif
-
-/*
-**	cam's behaviour
-*/
-
-# define FOV			75
-# define WALK_SPEED 	0.125
-# define SPR_B_SPEED 	0.03125
-# define TURN_SPEED 	25
-// # define DOOR_SPEED		0.87
-# define DOOR_SPEED		5.0 * M_PI / 180
-
-/*
-**	Keyboard's mapping
-*/
-
-# define KEY_WALK_FWD	XK_w
-# define KEY_WALK_BWK	XK_s
-# define KEY_TURN_L		XK_a
-# define KEY_TURN_R		XK_d
-# define KEY_STRAFE_L	XK_q
-# define KEY_STRAFE_R	XK_e
-# define KEY_ESCAPE		XK_Escape
-# define KEY_CTRL		XK_Control_L
-# define KEY_SPACE		XK_space
-# define BUTTON_LEFT	0x1
-
-# define F_WALL				1.5
-
-/*
-**	Used to parse the '.cub' file
-*/
-
-# define VALID_DIR			"NWSE"
-# if BONUS
-#  define VALID_NBR			"01235"
-# else
-#  define VALID_NBR			"012"
-# endif
-
-# define FLAG_R				0x01
-# define FLAG_C				0x02
-# define FLAG_F				0x04
-# define FLAG_SP			0x08
-# define FLAG_NO			0x10
-# define FLAG_SO			0x20
-# define FLAG_WE			0x40
-# define FLAG_EA			0x80
-# define FLAG_ALL			0xFF
-# define FLAG_D				0x100
-
-typedef uint32_t	t_u32;
-typedef uint64_t	t_u64;
-
-enum	e_tex
-{
-	NO,
-	WE,
-	SO,
-	EA,
-	D,
-	F,
-	C,
-	S
-};
-
-typedef struct	s_cam
-{
-	double	x_pos;
-	double	y_pos;
-	double	z_pos;
-	double	pitch;
-	double	height_pitch;
-	double	x_dir;
-	double	y_dir;
-	double	x_plane;
-	double	y_plane;
-}				t_cam;
-
-typedef struct	s_tex
-{
-	int		*img;
-	t_u32	*addr;
-	int		width;
-	int		height;
-	int		w_mask;
-	int		h_mask;
-	int		bpp;
-	int		sl;
-	int		endia;
-}				t_tex;
-
-typedef struct	s_img {
-	void	*img;
-	t_u32	*addr;
-	int		width;
-	int		height;
-	int		bpp;
-	int		sl;
-	int		endia;
-}				t_img;
-
-typedef struct	s_spr_lst
-{
-	double				y_map;
-	double				x_map;
-	double				y_tr;
-	double				x_tr;
-	double				dist;
-	int					show;
-	t_tex				*tex;
-	struct s_spr_lst	*next;
-}				t_spr_lst;
-
-typedef struct	t_spr_b
-{
-	double				y_map;
-	double				x_map;
-	double				y_dir;
-	double				x_dir;
-	double				y_tr;
-	double				x_tr;
-	double				dist;
-	int					dead;
-	t_tex				*tex;
-}				t_spr_b;
-
-// typedef struct s_spr_vars
-// {
-// 	int		x_screen;
-// 	int		spr_h;
-// 	int		spr_w;
-// 	int		z_move;
-// 	int		y_s;
-// 	int		y_e;
-// 	int		x_s;
-// 	int		x_e;
-// 	int		x_tex;
-// 	int		y_tex;
-// 	int		tex_h;
-// 	int		tex_w;
-// 	int		y;
-// 	t_u32	*src;
-// 	t_u32	*dst;
-// }				t_spr_vars;
-
-typedef struct	s_mlx
-{
-	void		*mlx;
-	void		*win;
-	int			width;
-	int			width_2;
-	int			height;
-	int			height_2;
-	double		fov_2;
-	double		ratio;
-	int			**map;
-	void		***ptr;
-	int			y_max;
-	int			x_max;
-	t_cam		*cam;
-	t_img		*img;
-	t_tex		tex[8];
-	t_tex		right_arm[2];
-	t_tex		left_arm[2];
-	int			show_left;
-	int			show_right;
-	int			rgb[7];
-	double 		*z_buff;
-	int			nb_spr;
-	int			nb_door;
-	int			attack;
-	t_spr_lst	*tab;
-	t_spr_lst	*lst;
-	t_tex		tex_b[9];
-	t_spr_b		spr_b;
-	long		fps; // TODO: remove
-	long		avg; // TODO: remove
-	long		count; // TODO: remove
-}				t_mlx;
-
-typedef struct s_scan
-{
-	int		x;
-	int		y;
-	int		y_max;
-	double	x_grid_step;
-	double	y_grid_step;
-	double	x_grid;
-	double	y_grid;
-	int		x_tex;
-	int		y_tex;
-	int		p;
-	double	z_cam;
-	double	row_dist;
-}				t_scan;
-
-typedef struct	s_ray
-{
-	int		x;
-	int		x_map;
-	int		y_map;
-	int		x_step;
-	int		y_step;
-	int		side;
-	int		line_h;
-	int		y_s;
-	int		y_e;
-	int 	hit;
-	int		x_tex;
-	t_tex	*tex;
-	double	pc_wall;
-	double	pc_plane;
-	double	x_r_dir;
-	double	y_r_dir;
-	double	x_dt_dist;
-	double	y_dt_dist;
-	double	w_dist;
-	double	x_dist;
-    double	y_dist;
-}				t_ray;
-
-typedef struct s_cub
-{
-	int		width;
-	int		height;
-	int		fd;
-	int		flag;
-	int		x_map;
-	int		y_map;
-	int		x_pos;
-	int		y_pos;
-	int		nb_spr;
-	int		nb_door;
-	int		rgb[7];
-	char	*tex[8];
-	char	*ptr;
-	char	*line;
-	t_list	*first;
-	t_list	*last;
-	int		**map;
-	char	dir;
-}				t_cub;
-
-typedef struct	s_loop
-{
-	int		y;
-	int		y_max;
-	int		y_range;
-	int		y_tex;
-	int		y_tex_range;
-	int		x;
-	int		x_max;
-	int		x_range;
-	int		x_tex;
-	int		x_tex_range;
-}				t_loop;
-
-typedef struct	s_door
-{
-	int		updated;
-	double	angle;
-	double	moving;
-	double	dx;
-	double	sin_leaf;
-	double	y_leaf_1;
-	double	y_leaf_2;
-	double	y_1_min;
-	double	y_1_max;
-	double	y_2_min;
-	double	y_2_max;
-}				t_door;
 
 /*
 ** 1: [parsing] ft_parse_file.c
@@ -379,7 +92,7 @@ int		spr_new_lst(t_cub *data, t_mlx *mlx);
 
 int		rc_exit(t_mlx *mlx);
 int		rc_error(t_mlx *mlx, char *str);
-int		rc_error_data(t_cub *data,t_mlx *mlx, char *str);
+int		rc_error_data(t_cub *data, t_mlx *mlx, char *str);
 
 /*
 ** [raycasting] rc_free.c
@@ -407,7 +120,6 @@ void	rc_press_jump(t_mlx *mlx, t_cam *cam);
 int		rc_key_release(int keycode, t_mlx *mlx);
 void	rc_release_crouch(t_cam *cam);
 
-
 /*
 ** [raycasting] rc_mouse_hook.c
 */
@@ -424,7 +136,6 @@ int		rc_button_press(int button, int x, int y, t_mlx *mlx);
 int		rc_new_frame(t_mlx *mlx);
 int		rc_set_mlx(t_cub *data, int show_win);
 
-
 /*
 ** [raycasting] rc_set_raycasting.c
 */
@@ -432,12 +143,12 @@ int		rc_set_mlx(t_cub *data, int show_win);
 void	rc_raycasting(t_mlx *mlx, t_cam *cam);
 
 /*
-** [raycasting] rc_scanline.c
+** [raycasting] floor_ceil.c
 */
 
-void	rc_scanline(t_mlx *mlx);
-void	rc_scanline_rgb(t_mlx *mlx, t_img *img, int type);
-void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type);
+void	floor_ceil(t_mlx *mlx);
+void	floor_ceil_rgb(t_mlx *mlx, t_img *img, int id);
+void	floor_ceil_tex(t_mlx *mlx, t_cam *cam, t_img *img, int id);
 
 /*
 ** [raycasting] spr_draws.c
@@ -445,7 +156,7 @@ void	rc_scanline_tex(t_mlx *mlx, t_cam *cam, t_img *img, int type);
 
 void	spr_draw(t_mlx *mlx);
 void	spr_lst_sort(t_mlx *mlx, t_cam *cam);
-void	spr_lst_add(t_mlx *mlx, t_spr_lst *new);
+void	spr_lst_add(t_mlx *mlx, t_spr *new);
 
 /*
 ** [raycasting] rc_mini_map.c
@@ -454,16 +165,16 @@ void	rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
 void	rc_draw_mini_map(t_mlx *mlx, t_img *img);
 
 /*
-** [raycasting] rc_skybox.c
+** [raycasting] skybox.c
 */
 
-void	rc_skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
+void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 
 /*
 ** [raycasting] rc_doors.c
 */
 
-int		rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
+int		is_door(t_mlx *mlx, t_cam *cam, t_ray *ray);
 
 /*
 ** [raycasting] rc_ptr_map.c
@@ -472,12 +183,6 @@ int		rc_is_door_leaf(t_mlx *mlx, t_cam *cam, t_ray *ray);
 int		ft_create_ptr_map(t_mlx *mlx);
 int		ft_fill_ptr_map(t_mlx *mlx, void ***ptr);
 void	ft_update_ptr_map(t_mlx *mlx);
-
-/*
-** [raycasting] rc_ptr_map.c
-*/
-
-int		rc_shadow_effect(int color, double dist);
 
 /*
 ** [raycasting] rc_draw_arms.c
@@ -490,28 +195,31 @@ void	rc_draw_arms(t_mlx *mlx);
 ** [raycasting] set_tex_Yx_loop.c
 */
 
-void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
+void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
 
 /*
 ** [raycasting] set_tex_Xy_loop.c
 */
 
-void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb);
-void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
-void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb, double dist);
+void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
+void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
 
 /*
-** [raycasting] spr_bonus.c
+** [raycasting] kfc_bonus.c
 */
 
-int		get_tex(t_mlx *mlx, t_tex *tex, char *dir);
-int		spr_b_init(t_mlx *mlx);
-void	spr_b_move(t_mlx *mlx, t_spr_b *spr);
-void	spr_b_dist(t_mlx *mlx, t_cam *cam, t_spr_b *spr);
-void	spr_b_draw(t_mlx *mlx);
+void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr);
+void	kfc_tex(t_mlx *mlx, t_cam *cam, t_spr *spr);
+
+/*
+** [raycasting/utils] utils.c
+*/
+
+int		check_4_walls(t_mlx *mlx, double new_y, double new_x, double dt);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/10 15:23:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 10:45:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y)
 		delta = 0.30 * mlx->height_2;
 	else if (delta > 0.05 * mlx->height_2)
 		delta -= 0.05 * mlx->height_2;
-	else if (delta < -0.60 * mlx->height_2)
-		delta = -0.60 * mlx->height_2;
+	else if (delta < -0.35 * mlx->height_2)
+		delta = -0.30 * mlx->height_2;
 	else if (delta < -0.05 * mlx->height_2)
 		delta += 0.05 * mlx->height_2;
 	else
