@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:39:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:57:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:40:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 void	floor_ceil(t_mlx *mlx)
 {
 	if (mlx->rgb[0])
-		floor_ceil_rgb(mlx, mlx->img, C);
+		floor_ceil_rgb(mlx, mlx->img, 0);
 	else if (mlx->tex[C].width > mlx->tex[C].height)
 		skybox(mlx, &mlx->tex[C], mlx->cam);
 	else
 		floor_ceil_tex(mlx, mlx->cam, mlx->img, C);
 	if (mlx->rgb[1])
-		floor_ceil_rgb(mlx, mlx->img, F);
+		floor_ceil_rgb(mlx, mlx->img, 1);
 	else
 		floor_ceil_tex(mlx, mlx->cam, mlx->img, F);
 }

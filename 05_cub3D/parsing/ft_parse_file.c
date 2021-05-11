@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/26 10:45:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static inline int	ft_check_map(t_cub *data, int ret)
 		return (ft_error_parser(data, strerror(errno)));
 	if (ft_parse_map(data, 0))
 		return (1);
-	if (!data->y_map || !data->x_map)
+	if (!data->y_max || !data->x_max)
 		return (ft_error_parser(data, ERR_MAP_MSG));
 	if (data->dir == 0)
 		return (ft_error_parser(data, ERR_MAP_DIR));

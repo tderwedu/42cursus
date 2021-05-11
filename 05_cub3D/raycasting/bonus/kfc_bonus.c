@@ -6,11 +6,19 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:54:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:16:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static inline void	kfc_update_ptr(t_mlx *mlx, t_spr *spr, double y, double x)
+{
+	mlx->map[(int)spr->y_pos][(int)spr->x_pos] = m_empty;
+	mlx->ptr[(int)spr->y_pos][(int)spr->x_pos] = NULL;
+	mlx->map[(int)y][(int)x] = m_kfc;
+	mlx->ptr[(int)y][(int)x] = (void *)spr;
+}
 
 void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 {
@@ -28,13 +36,13 @@ void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 	}
 	if (tmp > -30 && tmp < 30)
 	{
-		new_y = spr->y_map + spr->y_dir * KFC_SPEED;
-		new_x = spr->x_map + spr->x_dir * KFC_SPEED;
+		new_y = spr->y_pos + spr->y_dir * KFC_SPEED;
+		new_x = spr->x_pos + spr->x_dir * KFC_SPEED;
 		if (!check_4_walls(mlx, new_y, new_x, 0.15))
 		{
-			spr->y_map = new_y;
-			spr->x_map = new_x;
-			mlx->map[(int)new_y][(int)new_x] = m_kfc;
+			kfc_update_ptr(mlx, spr, new_y, new_x);
+			spr->y_pos = new_y;
+			spr->x_pos = new_x;
 		}
 	}
 	kfc_tex(mlx, cam, spr);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 09:47:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/11 12:47:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,10 @@ int	ft_error_map(t_cub *data, char *str, int y_e, int x_e)
 
 	ft_printf("Error\n%s\n", str);
 	y = -1;
-	while (++y < data->y_map)
+	while (++y < data->y_max)
 	{
 		x = -1;
-		while (++x < data->x_map)
+		while (++x < data->x_max)
 		{
 			if (y == y_e && x == x_e)
 				ft_printf("%sX%s", RGB_RED, RGB_NC);

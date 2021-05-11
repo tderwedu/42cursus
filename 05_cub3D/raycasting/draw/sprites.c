@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 16:02:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int	spr_new_lst(t_cub *data, t_mlx *mlx)
 	mlx->tab = tab;
 	y = -1;
 	mlx->nb_spr = data->nb_spr;
-	while (++y < data->y_map)
+	while (++y < data->y_max)
 	{
 		x = -1;
-		while (++x < data->x_map)
+		while (++x < data->x_max)
 			if (data->map[y][x] >= m_spr && data->map[y][x] <= m_kfc)
 				*tab++ = (t_spr){data->map[y][x], y + 0.5, x + 0.5, 1.0, 0.0,
 					0.0, 0.0, 0.0, 0, 1,

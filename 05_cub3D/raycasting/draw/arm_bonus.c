@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:57:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:21:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ static inline void	arm_move(t_mlx *mlx, t_loop *box)
 		box->x_tex_range = (3 * box->x_tex_range) / 4;
 		box->y_tex_range = (3 * box->y_tex_range) / 4;
 	}
+	if (mlx->strike == 4)
+		;
 }
 
 void	arm(t_mlx *mlx)
@@ -54,4 +56,41 @@ void	arm(t_mlx *mlx)
 		mlx->strike++;
 	if (mlx->strike > 9)
 		mlx->strike = 0;
+}
+
+void	check_strike_spr(t_mlx *mlx, double y, double x, double dt)
+{
+	t_spr	*spr;
+
+	spr = (t_spr *)mlx->ptr[(int)y][(int)x];
+	 y -= spr->y_pos;
+	 x -= spr->x_pos;
+	if ((y >= -0.375 && y <= 0.375)
+		&& (x >= -0.375 && x <= 0.375))
+		spr->dead = 1;
+}
+
+void	check_strike(t_mlx *mlx)
+{
+	int		val;
+	double	y;
+	double	x;
+
+	y = mlx->cam->y_pos;
+	x = mlx->cam->x_pos;
+	val = mlx->map[(int)y][(int)x];
+	if (val == m_spr)
+		check_strike_spr(mlx, y, x, 0.15);
+	else if (val == m_kfc)
+		check_strike_spr(mlx, y, x, 0.25);
+	val = mlx->map[(int)y][(int)(x + 0.25)];
+	if (val == m_spr)
+		check_strike_spr(mlx, y, x + 0.25, 0.15);
+	else if (val == m_kfc)
+		check_strike_spr(mlx, y, x + 0.25, 0.25);
+	val = mlx->map[(int)(y + 0.5)][(int)x];
+	if (val == m_spr)
+		check_strike_spr(mlx, y + 0.5, x, 0.15);
+	else if (val == m_kfc)
+		check_strike_spr(mlx, y + 0.5, x, 0.25);
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:23:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 14:29:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ void	ft_init_data(t_cub *data)
 	data->fd = 0;
 	data->dir = 0;
 	data->flag = 0;
-	data->x_map = 0;
-	data->y_map = -1;
+	data->x_max = 0;
+	data->y_max = -1;
 	data->x_pos = 0;
 	data->y_pos = 0;
 	data->width = 0;
@@ -43,7 +43,7 @@ static inline void	ft_free_map(t_cub *data)
 	int	y;
 
 	y = -1;
-	while (++y < data->y_map)
+	while (++y < data->y_max)
 		if (data->map[y])
 			free(data->map[y]);
 	free(data->map);

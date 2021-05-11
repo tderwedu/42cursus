@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 16:06:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:16:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,13 @@
 
 enum			e_tex
 {
+	C,
+	F,
+	S,
 	NO,
 	WE,
 	SO,
 	EA,
-	D,
-	F,
-	C,
-	S,
 	S_broken,
 	tex_knife,
 	kfc_y000,
@@ -94,8 +93,8 @@ typedef struct s_spr
 	int				id;
 	int				dead;
 	int				show;
-	double			y_map;
-	double			x_map;
+	double			y_pos;
+	double			x_pos;
 	double			y_dir;
 	double			x_dir;
 	double			y_tr;
@@ -180,8 +179,8 @@ typedef struct s_cub
 	int			height;
 	int			fd;
 	int			flag;
-	int			x_map;
-	int			y_map;
+	int			x_max;
+	int			y_max;
 	int			x_pos;
 	int			y_pos;
 	int			nb_spr;

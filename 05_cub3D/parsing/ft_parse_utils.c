@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 14:29:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,8 +77,8 @@ void	ft_print_data(t_cub *data)
 	ft_printf(" Wall East: %s\n", data->tex[EA]);
 	ft_printf("      door: %s\n", data->tex[D]);
 	ft_printf("    Sprite: %s\n", data->tex[S]);
-	ft_printf("     y_map: %i\n", data->y_map);
-	ft_printf("     x_map: %i\n", data->x_map);
+	ft_printf("     y_map: %i\n", data->y_max);
+	ft_printf("     x_map: %i\n", data->x_max);
 	ft_printf("     y_pos: %i\n", data->y_pos);
 	ft_printf("     x_pos: %i\n", data->x_pos);
 	ft_printf("    nb spr: %i\n", data->nb_spr);
@@ -100,10 +100,10 @@ void	ft_print_map(t_cub *data)
 
 	ft_printf("=== The MAP === \n");
 	y = -1;
-	while (++y < data->y_map)
+	while (++y < data->y_max)
 	{
 		x = -1;
-		while (++x < data->x_map)
+		while (++x < data->x_max)
 		{
 			if (data->map[y][x] == 1)
 				ft_printf("%s1%s", RGB_YLW, RGB_NC);

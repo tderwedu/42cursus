@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:55:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 18:17:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ void	mmap_draw_mmap(t_mlx *mlx, t_img *img, t_mini *map)
 	}
 }
 
-void	rc_draw_mini_map(t_mlx *mlx, t_img *img)
+void	draw_mini_map(t_mlx *mlx, t_img *img)
 {
 	t_mini	map;
 

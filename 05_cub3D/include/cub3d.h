@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:51:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/11 19:20:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,40 @@ void	ft_init_data(t_cub *data);
 void	ft_free_data(t_cub *data);
 
 /*
-** [raycasting] rc_mlx_init.c
+** [raycasting] mlx_init_struct.c
 */
 
-int		rc_mlx_init(t_cub *data, t_mlx *mlx);
-void	rc_set_cam(t_cub *data, t_cam *cam, double fov);
-int		rc_get_tex(t_cub *d, t_mlx *x, int i);
-void	rc_rotate_tex(t_tex *tex);
-int		spr_new_lst(t_cub *data, t_mlx *mlx);
+int		mlx_init_struct(t_cub *data, t_mlx *mlx);
+void	cam_init_struct(t_cub *data, t_cam *cam, double fov);
+int		init_mandatory(t_cub *data, t_mlx *mlx);
+int		init_bonus(t_cub *data, t_mlx *mlx);
+
+/*
+** [raycasting] new_frame.c
+*/
+
+int		new_frame(t_mlx *mlx);
+
+/*
+** [raycasting] set_mlx.c
+*/
+
+int		set_mlx(t_cub *data, int show_win);
+
+/*
+** [raycasting / utils] get_tex.c
+*/
+
+int		get_floor_ceil(t_cub *data, t_mlx *mlx);
+int		get_tex(t_cub *data, t_mlx *mlx);
+int		load_tex(t_mlx *mlx, t_tex *tex, char *dir);
+void	rotate_tex(t_tex *tex);
+
+/*
+** [raycasting / utils] get_tex_bonus.c
+*/
+int		load_bonus_tex_1(t_mlx *mlx);
+int		load_bonus_tex_2(t_mlx *mlx);
 
 /*
 ** [raycasting] rc_error.c
@@ -130,13 +156,6 @@ void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
 int		rc_button_press(int button, int x, int y, t_mlx *mlx);
 
 /*
-** [raycasting] raycasting.c
-*/
-
-int		rc_new_frame(t_mlx *mlx);
-int		rc_set_mlx(t_cub *data, int show_win);
-
-/*
 ** [raycasting] rc_set_raycasting.c
 */
 
@@ -154,6 +173,7 @@ void	floor_ceil_tex(t_mlx *mlx, t_cam *cam, t_img *img, int id);
 ** [raycasting] spr_draws.c
 */
 
+int		spr_new_lst(t_cub *data, t_mlx *mlx);
 void	spr_draw(t_mlx *mlx);
 void	spr_lst_sort(t_mlx *mlx, t_cam *cam);
 void	spr_lst_add(t_mlx *mlx, t_spr *new);
@@ -162,7 +182,7 @@ void	spr_lst_add(t_mlx *mlx, t_spr *new);
 ** [raycasting] rc_mini_map.c
 */
 void	rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
-void	rc_draw_mini_map(t_mlx *mlx, t_img *img);
+void	draw_mini_map(t_mlx *mlx, t_img *img);
 
 /*
 ** [raycasting] skybox.c
@@ -177,10 +197,12 @@ void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam);
 int		is_door(t_mlx *mlx, t_cam *cam, t_ray *ray);
 
 /*
-** [raycasting] rc_ptr_map.c
+** [raycasting / bonus] ptr_map_bonus.c
 */
 
 int		ptr_map_create(t_mlx *mlx);
+int		ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x);
+void	ptr_map_fill_spr(t_mlx *mlx, void ***ptr, int y, int x);
 int		ptr_map_fill(t_mlx *mlx, void ***ptr);
 void	ptr_map_update(t_mlx *mlx);
 
@@ -189,6 +211,8 @@ void	ptr_map_update(t_mlx *mlx);
 */
 
 void	arm(t_mlx *mlx);
+void	check_strike(t_mlx *mlx);
+void	check_strike_spr(t_mlx *mlx, double y, double x, double dt);
 
 /*
 ** [raycasting] set_tex_Yx_loop.c
