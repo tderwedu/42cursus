@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 10:23:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:16:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ int		rc_error_data(t_cub *data, t_mlx *mlx, char *str);
 
 void	rc_free_mlx(t_mlx *mlx);
 void	rc_free_map(t_mlx *mlx);
-void	rc_free_ptr_map(t_mlx *mlx);
 
 /*
 ** [raycasting] rc_key_press.c
@@ -212,9 +211,9 @@ int		is_door(t_mlx *mlx, t_cam *cam, t_ray *ray);
 */
 
 int		ptr_map_create(t_mlx *mlx);
-int		ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x);
+void	ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x);
 void	ptr_map_fill_spr(t_mlx *mlx, void ***ptr, int y, int x);
-int		ptr_map_fill(t_mlx *mlx, void ***ptr);
+void	ptr_map_fill(t_mlx *mlx, void ***ptr);
 void	ptr_map_update(t_mlx *mlx);
 
 /*
@@ -229,19 +228,19 @@ void	check_strike_spr(t_mlx *mlx, double y, double x, double dt);
 ** [raycasting] set_tex_Yx_loop.c
 */
 
-void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
-void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
-void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	set_tex_yx_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	set_tex_yx_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	set_tex_yx_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
 void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
 
 /*
 ** [raycasting] set_tex_Xy_loop.c
 */
 
-void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
-void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
-void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
-void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
+void	set_tex_xy_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	set_tex_xy_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box);
+void	set_tex_xy_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
+void	set_tex_xy_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double d);
 
 /*
 ** [raycasting] kfc_bonus.c

@@ -6,11 +6,36 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 11:00:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 10:01:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:20:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+int	check_4_walls(t_mlx *mlx, double new_y, double new_x, double dt)
+{
+	int	y;
+	int	x;
+
+	x = (int)(new_x);
+	y = (int)(new_y);
+	if (mlx->map[y][x] == m_secret)
+		return (0);
+	y = (int)(new_y + dt);
+	if (mlx->map[y][x] == m_wall)
+		return (1);
+	y = (int)(new_y - dt);
+	if (mlx->map[y][x] == m_wall)
+		return (1);
+	y = (int)(new_y);
+	x = (int)(new_x + dt);
+	if (mlx->map[y][x] == m_wall)
+		return (1);
+	x = (int)(new_x - dt);
+	if (mlx->map[y][x] == m_wall)
+		return (1);
+	return (0);
+}
 
 int	check_4_collisions(t_mlx *mlx, double new_y, double new_x, double dt)
 {
@@ -18,21 +43,24 @@ int	check_4_collisions(t_mlx *mlx, double new_y, double new_x, double dt)
 	double	y;
 	double	x;
 	t_spr	*spr;
+	t_door	*door;
 
 	map = mlx->map[(int)new_y][(int)new_x];
-	if (map == m_wall)
+	if (check_4_walls(mlx, new_y, new_x, dt))
 		return (1);
-	else if (map == m_spr || map == m_kfc)
+	else if (map == m_spr)
 	{
 		spr = mlx->ptr[(int)new_y][(int)new_x];
 		y = new_y - spr->y_pos;
 		x = new_x - spr->x_pos;
-		if (map == m_spr)
-			dt += 0.4;
-		else
-			dt += 0.15;
+		dt += 0.25;
 		if ((y >= -dt && y <= dt) && (x >= -dt && x <= dt))
 			return (1);
+	}
+	else if (map == m_door)
+	{
+		door = mlx->ptr[(int)new_y][(int)new_x];
+		return ((door->angle == 0.0));
 	}
 	return (0);
 }

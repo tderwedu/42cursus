@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 17:57:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:03:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 15:07:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	get_tex(t_cub *data, t_mlx *mlx)
 			return (1);
 		if (load_bonus_tex_2(mlx))
 			return (1);
+		while (++i <= tex_door)
+			rotate_tex(&mlx->tex[i]);
 	}
 	else
 		while (++i <= arm_1)

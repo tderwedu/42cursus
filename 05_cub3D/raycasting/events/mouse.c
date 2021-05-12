@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 10:50:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 13:43:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,6 @@ void	mouse_pitch(t_mlx *mlx, t_cam *cam, int y)
 		delta = 0.0;
 	cam->pitch = delta;
 	cam->height_pitch = mlx->height_2 + cam->pitch;
-	mlx_mouse_move(mlx->mlx, mlx->win, mlx->width_2, mlx->height_2);
 }
 
 void	mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
@@ -66,15 +65,14 @@ void	mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
 		delta /= mlx->width_2;
 	else
 		delta = 0.0;
-	rc_sin = sin(TURN_SPEED * delta / 256);
-	rc_cos = cos(TURN_SPEED * delta / 256);
+	rc_sin = sin(TURN_SPEED * delta / 256.0);
+	rc_cos = cos(TURN_SPEED * delta / 256.0);
 	old_x_dir = cam->x_dir;
 	old_x_plane = cam->x_plane;
 	cam->x_dir = cam->x_dir * rc_cos + cam->y_dir * rc_sin;
 	cam->y_dir = old_x_dir * -rc_sin + cam->y_dir * rc_cos;
 	cam->x_plane = cam->x_plane * rc_cos + cam->y_plane * rc_sin;
 	cam->y_plane = old_x_plane * -rc_sin + cam->y_plane * rc_cos;
-	mlx_mouse_move(mlx->mlx, mlx->win, mlx->width_2, mlx->height_2);
 }
 
 int	button_press(int button, int x, int y, t_mlx *mlx)

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:50:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:54:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:08:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,17 @@ int	ptr_map_create(t_mlx *mlx)
 		if (!(ptr[y]))
 			return (rc_error(mlx, strerror(errno)));
 	}
-	if (ptr_map_fill(mlx, ptr))
-		return (1);
+	ptr_map_fill(mlx, ptr);
 	return (0);
 }
 
-int	ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x)
+void	ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x)
 {
-	t_door	*door;
-
-	door = malloc(sizeof(t_door));
-	if (!door)
-		return (rc_error(mlx, strerror(errno)));
-	door->updated = 0;
-	door->angle = 90.0;
-	door->moving = 0.0;
-	ptr[y][x] = (void *)door;
-	return (0);
+	mlx->door->updated = 0;
+	mlx->door->angle = M_PI_2;
+	mlx->door->moving = 0.0;
+	ptr[y][x] = (void *)mlx->door;
+	mlx->door++;
 }
 
 void	ptr_map_fill_spr(t_mlx *mlx, void ***ptr, int y, int x)
@@ -62,7 +56,7 @@ void	ptr_map_fill_spr(t_mlx *mlx, void ***ptr, int y, int x)
 	ptr[y][x] = (void *)tab;
 }
 
-int	ptr_map_fill(t_mlx *mlx, void ***ptr)
+void	ptr_map_fill(t_mlx *mlx, void ***ptr)
 {
 	int		y;
 	int		x;
@@ -74,17 +68,13 @@ int	ptr_map_fill(t_mlx *mlx, void ***ptr)
 		while (++x < mlx->x_max)
 		{
 			if (mlx->map[y][x] == m_door)
-			{
-				if (ptr_map_fill_door(mlx, ptr, y, x))
-					return (1);
-			}
-			else if (mlx->map[y][x] == m_spr || mlx->map[y][x] == m_kfc)
+				ptr_map_fill_door(mlx, ptr, y, x);
+			else if (mlx->map[y][x] >= m_spr && mlx->map[y][x] <= m_kfc)
 				ptr_map_fill_spr(mlx, ptr, y, x);
 			else
 				mlx->ptr[y][x] = NULL;
 		}
 	}
-	return (0);
 }
 
 void	ptr_map_update(t_mlx *mlx)

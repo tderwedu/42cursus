@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 10:46:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:34:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,12 @@ int	spr_new_lst(t_cub *data, t_mlx *mlx)
 	{
 		x = -1;
 		while (++x < data->x_max)
+		{
 			if (data->map[y][x] >= m_spr && data->map[y][x] <= m_kfc)
-				*tab++ = (t_spr){data->map[y][x], y + 0.5, x + 0.5, 1.0, 0.0,
-					0.0, 0.0, 0.0, 0, 1,
-					&mlx->tex[data->map[y][x] - m_spr + S], NULL};
+				*tab++ = (t_spr){data->map[y][x], 0, 1, y + 0.5, x + 0.5, 1.0,
+					0.0, 0.0, 0.0, 0.0, &mlx->tex[data->map[y][x] - m_spr + S],
+					NULL};
+		}
 	}
 	tab = NULL;
 	return (0);
@@ -67,16 +69,18 @@ void	spr_lst_add(t_mlx *mlx, t_spr *new)
 
 void	spr_lst_sort(t_mlx *mlx, t_cam *cam)
 {
+	int			i;
 	t_spr		*tab;
 	double		det;
 	double		dt_x;
 	double		dt_y;
 
+	i = -1;
 	tab = mlx->tab;
 	det = 1.0 / (cam->x_plane * cam->y_dir - cam->y_plane * cam->x_dir);
-	while (tab)
+	while (++i < mlx->nb_spr)
 	{
-		if (tab->id == m_kfc)
+		if (tab->id == m_kfc && !tab->dead)
 			kfc_move(mlx, cam, tab);
 		dt_y = tab->y_pos - cam->y_pos;
 		dt_x = tab->x_pos - cam->x_pos;
@@ -87,8 +91,6 @@ void	spr_lst_sort(t_mlx *mlx, t_cam *cam)
 			tab->dist = tab->y_tr * tab->y_tr + tab->x_tr * tab->x_tr;
 			spr_lst_add(mlx, tab);
 		}
-		else
-			tab->next = NULL;
 		tab++;
 	}
 }
@@ -114,9 +116,9 @@ void	spr_draw(t_mlx *mlx)
 			box.y = -box.y_range / 2 + mlx->height_2 + z_move;
 			box.x = -box.x_range / 2 + x_screen;
 			if (box.y_tex_range < box.y_range)
-				xy_set_tex_x_loop(mlx, lst->tex, &box, lst->y_tr);
+				set_tex_xy_x_loop(mlx, lst->tex, &box, lst->y_tr);
 			else
-				xy_set_tex_x_tex_loop(mlx, lst->tex, &box, lst->y_tr);
+				set_tex_xy_x_tex_loop(mlx, lst->tex, &box, lst->y_tr);
 		}
 		lst = lst->next;
 	}

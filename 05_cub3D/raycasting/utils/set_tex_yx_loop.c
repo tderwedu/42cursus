@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:12:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:22:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 14:05:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
+void	set_tex_yx_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		x;
@@ -43,12 +43,12 @@ void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 
 static inline void 	x_max(t_mlx *mlx, t_loop *box)
 {
-	box->y_max = box->y_range + box->y;
+	box->x_max = box->x_range + box->x;
 	if (box->x_max > mlx->width)
 		box->x_max = mlx->width;
 }
 
-void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
+void	set_tex_yx_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		x;
@@ -76,7 +76,7 @@ void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	}
 }
 
-void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
+void	set_tex_yx_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int	eps;
 
@@ -88,9 +88,9 @@ void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	while (++box->y < box->y_max)
 	{
 		if (box->x_tex_range < box->x_range)
-			yx_set_tex_x_loop(mlx, tex, box);
+			set_tex_yx_x_loop(mlx, tex, box);
 		else
-			yx_set_tex_x_tex_loop(mlx, tex, box);
+			set_tex_yx_x_tex_loop(mlx, tex, box);
 		eps += box->y_tex_range;
 		if ((eps << 1) >= box->y_range)
 		{
@@ -115,9 +115,9 @@ void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 		if ((eps << 1) >= box->y_tex_range)
 		{
 			if (box->x_tex_range < box->x_range)
-				yx_set_tex_x_loop(mlx, tex, box);
+				set_tex_yx_x_loop(mlx, tex, box);
 			else
-				yx_set_tex_x_tex_loop(mlx, tex, box);
+				set_tex_yx_x_tex_loop(mlx, tex, box);
 			box->y++;
 			eps -= box->y_tex_range;
 		}

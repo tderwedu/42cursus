@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:56:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:33:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	draw_mini_map(t_mlx *mlx, t_img *img)
 	mmap_draw_edge(img, &map);
 	mmap_draw_player_pos(mlx->cam, img, &map);
 }
-
 
 void	mmap_set_info(t_mlx *mlx, t_mini *map)
 {
@@ -104,7 +103,7 @@ void	mmap_draw_mmap(t_mlx *mlx, t_img *img, t_mini *map)
 		while (++x < map->x_max)
 		{
 			x_draw = x + 2 - map->x_min;
-			mmap_get_rgb(img, mlx->map[x][y], y_draw, x_draw);
+			mmap_get_rgb(img, mlx->map[y][x], y_draw, x_draw);
 		}
 		x_draw = x + 2 - map->x_min;
 		mmap_draw_square(img, y_draw, x_draw, RGB_EDGE);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:51:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 15:58:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 		new_x = cam->x_pos - cam->x_dir * WALK_SPEED;
 		new_y = cam->y_pos - cam->y_dir * WALK_SPEED;
 	}
-	if (!check_4_collisions(mlx, new_y, new_x, 0.3))
+	if (!check_4_collisions(mlx, new_y, new_x, 0.25))
 	{
 		cam->x_pos = new_x;
 		cam->y_pos = new_y;
@@ -80,7 +80,7 @@ void	press_strafe(int keycode, t_mlx *mlx, t_cam *cam)
 		new_x = cam->x_pos + cam->x_plane * WALK_SPEED;
 		new_y = cam->y_pos + cam->y_plane * WALK_SPEED;
 	}
-	if (!check_4_collisions(mlx, new_y, new_x, 0.3))
+	if (!check_4_collisions(mlx, new_y, new_x, 0.25))
 	{
 		cam->x_pos = new_x;
 		cam->y_pos = new_y;

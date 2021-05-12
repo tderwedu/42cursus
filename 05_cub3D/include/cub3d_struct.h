@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:49:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 15:19:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ enum			e_tex
 	SO,
 	EA,
 	S,
-	S_broken,
 	tex_knife,
 	kfc_y000,
 	kfc_y045,
@@ -35,6 +34,7 @@ enum			e_tex
 	kfc_y270,
 	kfc_y315,
 	kfc_dead,
+	S_broken,
 	tex_door,
 	arm_0,
 	arm_1
@@ -104,35 +104,47 @@ typedef struct s_spr
 	struct s_spr	*next;
 }				t_spr;
 
-typedef struct s_mlx
+typedef struct s_loop
 {
-	void		*mlx;
-	void		*win;
-	int			width;
-	int			width_2;
-	int			height;
-	int			height_2;
-	double		fov_2;
-	double		ratio;
-	int			**map;
-	void		***ptr;
+	int			y;
 	int			y_max;
+	int			y_range;
+	int			y_tex;
+	int			y_tex_range;
+	int			x;
 	int			x_max;
-	t_cam		*cam;
-	t_img		*img;
-	t_tex		tex[22];
-	t_u32		rgb[2];
-	double		*z_buff;
-	int			nb_spr;
-	t_spr		*tab;
-	t_spr		*lst;
-	int			strike;
-	int			knife;
-	int			nb_door;
-	long		fps; 	// TODO: remove
-	long		avg;	// TODO: remove
-	long		count;	// TODO: remove
-}				t_mlx;
+	int			x_range;
+	int			x_tex;
+	int			x_tex_range;
+	uint32_t	rgb;
+}				t_loop;
+
+typedef struct s_mini
+{
+	int	x_min;
+	int	x_max;
+	int	y_min;
+	int	y_max;
+	int	nb_x;
+	int	nb_y;
+	int	size;
+	int	update;
+}				t_mini;
+
+typedef struct s_door
+{
+	int			updated;
+	double		angle;
+	double		moving;
+	double		dx;
+	double		sin_leaf;
+	double		y_leaf_1;
+	double		y_leaf_2;
+	double		y_1_min;
+	double		y_1_max;
+	double		y_2_min;
+	double		y_2_max;
+}				t_door;
 
 typedef struct s_floor
 {
@@ -194,46 +206,35 @@ typedef struct s_cub
 	char		dir;
 }				t_cub;
 
-typedef struct s_loop
+typedef struct s_mlx
 {
-	int			y;
+	void		*mlx;
+	void		*win;
+	int			width;
+	int			width_2;
+	int			height;
+	int			height_2;
+	double		fov_2;
+	double		ratio;
+	int			**map;
+	void		***ptr;
 	int			y_max;
-	int			y_range;
-	int			y_tex;
-	int			y_tex_range;
-	int			x;
 	int			x_max;
-	int			x_range;
-	int			x_tex;
-	int			x_tex_range;
-	uint32_t	rgb;
-}				t_loop;
-
-typedef struct s_mini
-{
-	int	x_min;
-	int	x_max;
-	int	y_min;
-	int	y_max;
-	int	nb_x;
-	int	nb_y;
-	int	size;
-	int	update;
-}				t_mini;
-
-typedef struct s_door
-{
-	int			updated;
-	double		angle;
-	double		moving;
-	double		dx;
-	double		sin_leaf;
-	double		y_leaf_1;
-	double		y_leaf_2;
-	double		y_1_min;
-	double		y_1_max;
-	double		y_2_min;
-	double		y_2_max;
-}				t_door;
+	t_cam		*cam;
+	t_img		*img;
+	t_tex		tex[22];
+	t_u32		rgb[2];
+	double		*z_buff;
+	int			nb_spr;
+	t_spr		*tab;
+	t_spr		*lst;
+	t_door		*door;
+	int			strike;
+	int			knife;
+	int			nb_door;
+	long		fps; 	// TODO: remove
+	long		avg;	// TODO: remove
+	long		count;	// TODO: remove
+}				t_mlx;
 
 #endif

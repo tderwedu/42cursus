@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/22 15:24:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 16:03:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 13:56:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	skybox(t_mlx *mlx, t_tex *tex, t_cam *cam)
 	box.y_tex_range = box.y_range * box.x_tex_range / box.x_range;
 	box.rgb = 0xFF000000;
 	if (box.y_tex_range < box.y_range)
-		yx_set_tex_y_loop(mlx, tex, &box);
+		set_tex_yx_y_loop(mlx, tex, &box);
 	else
 		yx_set_tex_y_tex_loop(mlx, tex, &box);
 }

@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:36:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:22:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 13:56:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	xy_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
+void	set_tex_xy_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		y;
@@ -48,7 +48,7 @@ static inline void 	y_max(t_mlx *mlx, t_loop *box)
 		box->y_max = mlx->height;
 }
 
-void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
+void	set_tex_xy_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		y;
@@ -76,7 +76,7 @@ void	xy_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	}
 }
 
-void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
+void	set_tex_xy_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 {
 	int	eps;
 
@@ -90,9 +90,9 @@ void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 		if (box->x > 0 && dist < mlx->z_buff[box->x])
 		{
 			if (box->y_tex_range < box->y_range)
-				xy_set_tex_y_loop(mlx, tex, box);
+				set_tex_xy_y_loop(mlx, tex, box);
 			else
-				xy_set_tex_y_tex_loop(mlx, tex, box);
+				set_tex_xy_y_tex_loop(mlx, tex, box);
 		}
 		eps += box->x_tex_range;
 		if ((eps << 1) >= box->x_range)
@@ -103,7 +103,7 @@ void	xy_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 	}
 }
 
-void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
+void	set_tex_xy_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 {
 	int	eps;
 
@@ -120,9 +120,9 @@ void	xy_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 			if (box->x > 0 && dist < mlx->z_buff[box->x])
 			{
 				if (box->y_tex_range < box->y_range)
-					xy_set_tex_y_loop(mlx, tex, box);
+					set_tex_xy_y_loop(mlx, tex, box);
 				else
-					xy_set_tex_y_tex_loop(mlx, tex, box);
+					set_tex_xy_y_tex_loop(mlx, tex, box);
 			}
 			box->x++;
 			eps -= box->x_tex_range;

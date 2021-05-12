@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:51:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 15:55:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,12 @@ void	arm(t_mlx *mlx)
 		0, 0, 0, mlx->tex[i].width, 0x22B14C};
 	ratio = 1.5 * box.y_tex_range / mlx->height;
 	arm_move(mlx, &box);
-	box.y = mlx->height - box.y_tex_range * ratio;
-	box.x = mlx->width - box.x_tex_range * ratio;
-	box.x_range = box.x_tex_range * ratio;
 	box.y_range = box.y_tex_range * ratio;
+	box.y = mlx->height - box.y_range;
+	box.x_range = box.x_tex_range * ratio;
+	box.x = mlx->width - box.x_range;
 	if (box.y_tex_range < box.y_range)
-		yx_set_tex_y_loop(mlx, &mlx->tex[i], &box);
+		set_tex_yx_y_loop(mlx, &mlx->tex[i], &box);
 	else
 		yx_set_tex_y_tex_loop(mlx, &mlx->tex[i], &box);
 	if (mlx->strike > 0)
@@ -63,10 +63,16 @@ void	check_strike_spr(t_mlx *mlx, double y, double x, double dt)
 	t_spr	*spr;
 
 	spr = (t_spr *)mlx->ptr[(int)y][(int)x];
-	 y -= spr->y_pos;
-	 x -= spr->x_pos;
+	y -= spr->y_pos;
+	x -= spr->x_pos;
 	if ((y >= -dt && y <= dt) && (x >= -dt && x <= dt))
+	{
 		spr->dead = 1;
+		if (spr->id == m_spr)
+			spr->tex =&mlx->tex[S_broken];
+		else if (spr->id == m_kfc)
+			spr->tex =&mlx->tex[kfc_dead];
+	}
 }
 
 void	check_strike(t_mlx *mlx)
@@ -80,13 +86,13 @@ void	check_strike(t_mlx *mlx)
 	val = mlx->map[(int)y][(int)x];
 	if (val == m_spr)
 		check_strike_spr(mlx, y, x, 0.3);
-	else if (val == m_kfc && mlx->cam->z_pos <= mlx->height / 4)
+	else if (val == m_kfc && mlx->cam->z_pos == -mlx->height / 4)
 		check_strike_spr(mlx, y, x, 0.15);
 	y = mlx->cam->y_pos + mlx->cam->y_dir / 2;
 	x = mlx->cam->x_pos + mlx->cam->x_dir / 2;
 	val = mlx->map[(int)y][(int)x];
 	if (val == m_spr)
 		check_strike_spr(mlx, y, x, 0.3);
-	else if (val == m_kfc && mlx->cam->z_pos <= mlx->height / 4)
+	else if (val == m_kfc && mlx->cam->z_pos == -mlx->height / 4)
 		check_strike_spr(mlx, y, x, 0.15);
 }

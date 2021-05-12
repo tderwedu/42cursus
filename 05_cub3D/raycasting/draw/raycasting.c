@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:54:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 13:56:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,14 +77,8 @@ static inline void	rc_range(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 	}
 	ray->line_h = (int)(mlx->ratio / ray->w_dist);
 	box->rgb = 0xFF000000;
+	box->y_range = ray->line_h;
 	box->y = -ray->line_h / 2 + cam->height_pitch + cam->z_pos / ray->w_dist;
-	box->y_max = ray->line_h / 2 + cam->height_pitch + cam->z_pos / ray->w_dist;
-	if (box->y_max >= mlx->height)
-		box->y_max = mlx->height;
-	if (box->y >= 0)
-		box->y_range = box->y_max - box->y;
-	else 
-		box->y_range = box->y_max;
 }
 
 static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
@@ -100,14 +94,14 @@ static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 	else
 		ray->tex = &mlx->tex[WE];
 	if (mlx->map[(int)cam->y_pos][(int)cam->x_pos] == m_door &&
-		(int)cam->x_pos == ray->x_map && ray->pc_wall > 0.5)
+		(int)cam->x_pos == ray->x_map && ray->pc_wall > 0.5) // change with hit == m_dor?
 	{
 		ray->tex = &mlx->tex[tex_door];
 		ray->pc_wall -= 0.5;
 	}
 	box->y_tex = 0;
-	box->x_tex = (int)(ray->pc_wall * (double)ray->tex->width);
 	box->y_tex_range = ray->tex->height;
+	box->x_tex = (int)(ray->pc_wall * (double)ray->tex->width);
 	if ((ray->side == 0 && ray->x_r_dir < 0)
 		|| (ray->side && ray->y_r_dir > 0))
 		box->x_tex = ray->tex->width - box->x_tex - 1;
@@ -127,9 +121,9 @@ void	raycasting(t_mlx *mlx, t_cam *cam)
 		rc_range(mlx, cam, &ray, &box);
 		rc_tex(mlx, cam, &ray, &box);
 		if (ray.line_h > ray.tex->height)
-			xy_set_tex_y_loop(mlx, ray.tex, &box);
+			set_tex_xy_y_loop(mlx, ray.tex, &box);
 		else
-			xy_set_tex_y_tex_loop(mlx, ray.tex, &box);
+			set_tex_xy_y_tex_loop(mlx, ray.tex, &box);
 		mlx->z_buff[box.x] = ray.w_dist;
 	}
 }

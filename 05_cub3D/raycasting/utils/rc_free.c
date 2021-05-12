@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:58:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:13:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:21:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ void	rc_free_mlx(t_mlx *mlx)
 		free(mlx->z_buff);
 	if (mlx->tab)
 		free(mlx->tab);
+	if (mlx->door)
+		free(mlx->door);
+	printf("%f | %f\n", mlx->cam->y_pos, mlx->cam->x_pos);
 	if (mlx->map)
 		rc_free_map(mlx);
-	if (mlx->ptr)
-		rc_free_ptr_map(mlx);
 }
 
 void	rc_free_map(t_mlx *mlx)
@@ -43,25 +44,9 @@ void	rc_free_map(t_mlx *mlx)
 	{
 		if (mlx->map[y])
 			free(mlx->map[y]);
+		if (mlx->ptr[y])
+			free(mlx->ptr[y]);
 	}
 	free(mlx->map);
-}
-
-void	rc_free_ptr_map(t_mlx *mlx)
-{
-	int		y;
-	int		x;
-
-	y = -1;
-	while (++y < mlx->y_max)
-	{
-		x = -1;
-		while (++x < mlx->x_max)
-		{
-			if (mlx->ptr[y][x])
-				free(mlx->ptr[y][x]);
-		}
-		free(mlx->ptr[y]);
-	}
 	free(mlx->ptr);
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 08:53:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 16:30:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ static inline void	kfc_update_ptr(t_mlx *mlx, t_spr *spr, double y, double x)
 	mlx->ptr[(int)spr->y_pos][(int)spr->x_pos] = NULL;
 	mlx->map[(int)y][(int)x] = m_kfc;
 	mlx->ptr[(int)y][(int)x] = (void *)spr;
+	spr->y_pos = y;
+	spr->x_pos = x;
 }
 
 void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
@@ -27,7 +29,7 @@ void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 	double	new_x;
 	double	new_dir;
 
-	tmp = rand() % 240 - 120;
+	tmp = rand() % 120 - 60;
 	if (tmp > -15 && tmp < 15)
 	{
 		new_dir = atan2(spr->y_dir, spr->x_dir) + tmp * M_PI / 180.0;
@@ -39,10 +41,11 @@ void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 		new_y = spr->y_pos + spr->y_dir * KFC_SPEED;
 		new_x = spr->x_pos + spr->x_dir * KFC_SPEED;
 		if (!check_4_collisions(mlx, new_y, new_x, 0.15))
-		{
 			kfc_update_ptr(mlx, spr, new_y, new_x);
-			spr->y_pos = new_y;
-			spr->x_pos = new_x;
+		else
+		{
+			spr->y_dir = -spr->y_dir;
+			spr->x_dir = -spr->x_dir;
 		}
 	}
 	kfc_tex(mlx, cam, spr);
