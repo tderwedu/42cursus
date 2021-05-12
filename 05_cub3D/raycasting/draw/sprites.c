@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:46:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	spr_new_lst(t_cub *data, t_mlx *mlx)
 		return (rc_error_data(data, mlx, ERR_MALLOC));
 	mlx->tab = tab;
 	y = -1;
-	mlx->nb_spr = data->nb_spr;
 	while (++y < data->y_max)
 	{
 		x = -1;
@@ -79,8 +78,8 @@ void	spr_lst_sort(t_mlx *mlx, t_cam *cam)
 	{
 		if (tab->id == m_kfc)
 			kfc_move(mlx, cam, tab);
-		dt_x = tab->x_map - cam->x_pos;
-		dt_y = tab->y_map - cam->y_pos;
+		dt_y = tab->y_pos - cam->y_pos;
+		dt_x = tab->x_pos - cam->x_pos;
 		tab->y_tr = det * (-cam->y_plane * dt_x + cam->x_plane * dt_y);
 		if (tab->y_tr > 0 && tab->show)
 		{

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:02:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:00:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:36:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@
 #  define DOOR_SPEED		0.869140625
 
 #  define S_BROKEN	"./textures/pillar.xpm"
-#  define TEX_KNIFE	"./textures/knife_0.xpm"
+#  define TEX_KNIFE	"./textures/Dague_0.xpm"
 #  define KFC_Y000	"./textures/chicken_y000.xpm"
 #  define KFC_Y045	"./textures/chicken_y045.xpm"
 #  define KFC_Y090	"./textures/chicken_y090.xpm"
@@ -56,7 +56,7 @@
 #  define KFC_Y270	"./textures/chicken_y270.xpm"
 #  define KFC_Y315	"./textures/chicken_y315.xpm"
 #  define KFC_DEAD	"./textures/pillar.xpm"
-#  define TEX_DOOR	"./textures/wood_door.xpm"
+#  define TEX_DOOR	"./textures/Door_128.xpm"
 #  define TEX_ARM_0	"./textures/Dague_1_1.xpm"
 #  define TEX_ARM_1	"./textures/Dague_2_1.xpm"
 

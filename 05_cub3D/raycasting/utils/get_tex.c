@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 17:57:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:57:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:03:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@ int	get_tex(t_cub *data, t_mlx *mlx)
 	i = NO - 1;
 	while (++i <= S)
 	{
-		if (load_tex(data, &mlx->tex[i], data->tex[i]))
+		if (load_tex(mlx, &mlx->tex[i], data->tex[i]))
 			return (1);
 		rotate_tex(&mlx->tex[i]);
 	}
+	i--;
 	if (BONUS)
 	{
 		if (load_bonus_tex_1(mlx))
@@ -32,6 +33,9 @@ int	get_tex(t_cub *data, t_mlx *mlx)
 		if (load_bonus_tex_2(mlx))
 			return (1);
 	}
+	else
+		while (++i <= arm_1)
+			mlx->tex[i].img = NULL;
 	return (0);
 }
 
@@ -67,10 +71,11 @@ int	get_floor_ceil(t_cub *data, t_mlx *mlx)
 int	load_tex(t_mlx *mlx, t_tex *tex, char *dir)
 {
 	tex->img = mlx_xpm_file_to_image(mlx->mlx, dir, &tex->width,
-				&tex->height);
+			&tex->height);
 	if (!tex->img)
 		return (rc_error(mlx, ERR_RC_IMG_XPM));
-	tex->addr = (t_u32 *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->sl, &tex->endia);
+	tex->addr = (t_u32 *)mlx_get_data_addr(tex->img, &tex->bpp, &tex->sl,
+			&tex->endia);
 	if (!tex->addr)
 		return (rc_error(mlx, ERR_RC_ADDR_XPM));
 	tex->bpp /= 8;

@@ -6,11 +6,24 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:17:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:56:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void	draw_mini_map(t_mlx *mlx, t_img *img)
+{
+	t_mini	map;
+
+	mmap_set_info(mlx, &map);
+	if (map.update)
+		mmap_upate_limits(mlx, &map);
+	mmap_draw_mmap(mlx, img, &map);
+	mmap_draw_edge(img, &map);
+	mmap_draw_player_pos(mlx->cam, img, &map);
+}
+
 
 void	mmap_set_info(t_mlx *mlx, t_mini *map)
 {
@@ -96,16 +109,4 @@ void	mmap_draw_mmap(t_mlx *mlx, t_img *img, t_mini *map)
 		x_draw = x + 2 - map->x_min;
 		mmap_draw_square(img, y_draw, x_draw, RGB_EDGE);
 	}
-}
-
-void	draw_mini_map(t_mlx *mlx, t_img *img)
-{
-	t_mini	map;
-
-	mmap_set_info(mlx, &map);
-	if (map.update)
-		mmap_upate_limits(mlx, &map);
-	mmap_draw_mmap(mlx, img, &map);
-	mmap_draw_edge(img, &map);
-	mmap_draw_player_pos(mlx->cam, img, &map);
 }

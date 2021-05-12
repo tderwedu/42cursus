@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:06:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,47 +30,6 @@ int	ft_parse_map(t_cub *data, int empty)
 		return (ft_error_parser(data, strerror(errno)));
 	if (ft_check_map_line(data, empty))
 		return (1);
-	return (0);
-}
-
-static inline int	ft_set_cam_pos(t_cub *data, char *ptr)
-{
-	if (data->dir)
-		return (ft_error_parser(data, ERR_MAP_DIR2));
-	data->y_pos = data->y_max;
-	data->x_pos = ptr - data->line;
-	data->dir = *ptr;
-	*ptr = '0';
-	return (0);
-}
-
-int	ft_check_map_line(t_cub *data, int empty)
-{
-	register char	*ptr;
-
-	ptr = data->line - 1;
-	while (*++ptr)
-	{
-		if (ft_strchr(VALID_NBR, *ptr))
-		{
-			empty = 0;
-			data->nb_spr += (*ptr == '2');
-			data->nb_door += (*ptr == '3');
-		}
-		else if (*ptr == ' ')
-			;
-		else if (ft_strchr(VALID_DIR, *ptr))
-		{
-			if (ft_set_cam_pos(data, ptr))
-				return (1);
-		}
-		else
-			return (ft_error_parser(data, ERR_MAP_CHR));
-	}
-	if (ptr - data->line > data->x_max)
-		data->x_max = ptr - data->line;
-	if (empty)
-		return (ft_error_parser(data, ERR_MAP_EMPTY));
 	return (0);
 }
 

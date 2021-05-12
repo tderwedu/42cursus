@@ -6,33 +6,32 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 14:44:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:40:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:50:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
-
-void	rc_mouse_hook(t_mlx *mlx)
+void	mouse_hook(t_mlx *mlx)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	mlx_mouse_get_pos(mlx->mlx, mlx->win, &x, &y);
 	if (x >= 0 && x < mlx->width && y >= 0 && y < mlx->height)
 	{
-		rc_mouse_pitch(mlx, mlx->cam, y);
-		rc_mouse_yaw(mlx, mlx->cam, x);
+		mouse_pitch(mlx, mlx->cam, y);
+		mouse_yaw(mlx, mlx->cam, x);
 	}
 	else
 	{
-		rc_mouse_pitch(mlx, mlx->cam, mlx->height_2);
-		rc_mouse_yaw(mlx, mlx->cam, mlx->width_2);
+		mouse_pitch(mlx, mlx->cam, mlx->height_2);
+		mouse_yaw(mlx, mlx->cam, mlx->width_2);
 	}
 }
 
-void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y)
+void	mouse_pitch(t_mlx *mlx, t_cam *cam, int y)
 {
 	double	delta;
 
@@ -52,7 +51,7 @@ void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y)
 	mlx_mouse_move(mlx->mlx, mlx->win, mlx->width_2, mlx->height_2);
 }
 
-void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
+void	mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
 {
 	double	delta;
 	double	old_x_dir;
@@ -78,12 +77,14 @@ void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x)
 	mlx_mouse_move(mlx->mlx, mlx->win, mlx->width_2, mlx->height_2);
 }
 
-int	rc_button_press(int button, int x, int y, t_mlx *mlx)
+int	button_press(int button, int x, int y, t_mlx *mlx)
 {
 	(void)x;
 	(void)y;
-	if (button == BUTTON_LEFT)
+	if (button == BUTTON_LEFT && mlx->knife)
+	{
 		mlx->strike = 1;
-	new_frame(mlx);
+		new_frame(mlx);
+	}
 	return (0);
 }

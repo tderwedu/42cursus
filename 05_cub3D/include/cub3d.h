@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 19:20:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:23:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int		ft_parse_cubfile(t_cub *data);
 
 int		ft_line_handler(t_cub *data);
 int		ft_get_wall(t_cub *data, int i, int flag);
-int		ft_get_pavement(t_cub *data, int i, int flag);
+int		ft_get_floor_ceil(t_cub *data, int i, int flag);
 int		ft_get_resolution(t_cub *data);
 
 /*
@@ -132,28 +132,28 @@ void	rc_free_ptr_map(t_mlx *mlx);
 ** [raycasting] rc_key_press.c
 */
 
-int		rc_key_press(int keycode, t_mlx *mlx);
-void	rc_press_walk(int keycode, t_mlx *mlx, t_cam *cam);
-void	rc_press_strafe(int keycode, t_mlx *mlx, t_cam *cam);
-void	rc_press_turn(int keycode, t_cam *cam);
-void	rc_press_crouch(t_mlx *mlx, t_cam *cam);
-void	rc_press_jump(t_mlx *mlx, t_cam *cam);
+int		key_press(int keycode, t_mlx *mlx);
+void	press_walk(int keycode, t_mlx *mlx, t_cam *cam);
+void	press_strafe(int keycode, t_mlx *mlx, t_cam *cam);
+void	press_turn(int keycode, t_cam *cam);
+void	press_crouch(t_mlx *mlx, t_cam *cam);
+void	press_jump(t_mlx *mlx, t_cam *cam);
 
 /*
 ** [raycasting] rc_key_release.c
 */
 
-int		rc_key_release(int keycode, t_mlx *mlx);
-void	rc_release_crouch(t_cam *cam);
+int		key_release(int keycode, t_mlx *mlx);
+void	release_crouch(t_cam *cam);
 
 /*
 ** [raycasting] rc_mouse_hook.c
 */
 
-void	rc_mouse_hook(t_mlx *mlx);
-void	rc_mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
-void	rc_mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
-int		rc_button_press(int button, int x, int y, t_mlx *mlx);
+void	mouse_hook(t_mlx *mlx);
+void	mouse_pitch(t_mlx *mlx, t_cam *cam, int y);
+void	mouse_yaw(t_mlx *mlx, t_cam *cam, int x);
+int		button_press(int button, int x, int y, t_mlx *mlx);
 
 /*
 ** [raycasting] rc_set_raycasting.c
@@ -162,7 +162,7 @@ int		rc_button_press(int button, int x, int y, t_mlx *mlx);
 void	raycasting(t_mlx *mlx, t_cam *cam);
 
 /*
-** [raycasting] floor_ceil.c
+** [raycasting / draw] floor_ceil.c
 */
 
 void	floor_ceil(t_mlx *mlx);
@@ -170,7 +170,7 @@ void	floor_ceil_rgb(t_mlx *mlx, t_img *img, int id);
 void	floor_ceil_tex(t_mlx *mlx, t_cam *cam, t_img *img, int id);
 
 /*
-** [raycasting] spr_draws.c
+** [raycasting / draw] sprites.c
 */
 
 int		spr_new_lst(t_cub *data, t_mlx *mlx);
@@ -179,10 +179,21 @@ void	spr_lst_sort(t_mlx *mlx, t_cam *cam);
 void	spr_lst_add(t_mlx *mlx, t_spr *new);
 
 /*
-** [raycasting] rc_mini_map.c
+** [raycasting / bonus] mini_map_bonus_1.c
 */
-void	rc_draw_square_16(t_img *img, int y, int x, t_u32 rgb);
+
 void	draw_mini_map(t_mlx *mlx, t_img *img);
+void	mmap_set_info(t_mlx *mlx, t_mini *map);
+void	mmap_upate_limits(t_mlx *mlx, t_mini *map);
+void	mmap_draw_mmap(t_mlx *mlx, t_img *img, t_mini *map);
+
+/*
+** [raycasting / bonus] mini_map_bonus_1.c
+*/
+
+void	mmap_draw_square(t_img *img, int y_0, int x_0, t_u32 rgb);
+void	mmap_draw_edge(t_img *img, t_mini *map);
+void	mmap_draw_player_pos(t_cam *cam, t_img *img, t_mini *map);
 
 /*
 ** [raycasting] skybox.c
@@ -243,6 +254,7 @@ void	kfc_tex(t_mlx *mlx, t_cam *cam, t_spr *spr);
 ** [raycasting/utils] utils.c
 */
 
-int		check_4_walls(t_mlx *mlx, double new_y, double new_x, double dt);
+int		check_4_collisions(t_mlx *mlx, double new_y, double new_x, double dt);
+void	check_4_knife(t_mlx *mlx, t_cam *cam);
 
 #endif

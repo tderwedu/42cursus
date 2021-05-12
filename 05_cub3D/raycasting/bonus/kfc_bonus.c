@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 10:48:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 19:16:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 08:53:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	kfc_move(t_mlx *mlx, t_cam *cam, t_spr *spr)
 	{
 		new_y = spr->y_pos + spr->y_dir * KFC_SPEED;
 		new_x = spr->x_pos + spr->x_dir * KFC_SPEED;
-		if (!check_4_walls(mlx, new_y, new_x, 0.15))
+		if (!check_4_collisions(mlx, new_y, new_x, 0.15))
 		{
 			kfc_update_ptr(mlx, spr, new_y, new_x);
 			spr->y_pos = new_y;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 19:21:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:51:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline void	arm_move(t_mlx *mlx, t_loop *box)
 		box->y_tex_range = (3 * box->y_tex_range) / 4;
 	}
 	if (mlx->strike == 4)
-		;
+		check_strike(mlx);
 }
 
 void	arm(t_mlx *mlx)
@@ -65,8 +65,7 @@ void	check_strike_spr(t_mlx *mlx, double y, double x, double dt)
 	spr = (t_spr *)mlx->ptr[(int)y][(int)x];
 	 y -= spr->y_pos;
 	 x -= spr->x_pos;
-	if ((y >= -0.375 && y <= 0.375)
-		&& (x >= -0.375 && x <= 0.375))
+	if ((y >= -dt && y <= dt) && (x >= -dt && x <= dt))
 		spr->dead = 1;
 }
 
@@ -80,17 +79,14 @@ void	check_strike(t_mlx *mlx)
 	x = mlx->cam->x_pos;
 	val = mlx->map[(int)y][(int)x];
 	if (val == m_spr)
+		check_strike_spr(mlx, y, x, 0.3);
+	else if (val == m_kfc && mlx->cam->z_pos <= mlx->height / 4)
 		check_strike_spr(mlx, y, x, 0.15);
-	else if (val == m_kfc)
-		check_strike_spr(mlx, y, x, 0.25);
-	val = mlx->map[(int)y][(int)(x + 0.25)];
+	y = mlx->cam->y_pos + mlx->cam->y_dir / 2;
+	x = mlx->cam->x_pos + mlx->cam->x_dir / 2;
+	val = mlx->map[(int)y][(int)x];
 	if (val == m_spr)
-		check_strike_spr(mlx, y, x + 0.25, 0.15);
-	else if (val == m_kfc)
-		check_strike_spr(mlx, y, x + 0.25, 0.25);
-	val = mlx->map[(int)(y + 0.5)][(int)x];
-	if (val == m_spr)
-		check_strike_spr(mlx, y + 0.5, x, 0.15);
-	else if (val == m_kfc)
-		check_strike_spr(mlx, y + 0.5, x, 0.25);
+		check_strike_spr(mlx, y, x, 0.3);
+	else if (val == m_kfc && mlx->cam->z_pos <= mlx->height / 4)
+		check_strike_spr(mlx, y, x, 0.15);
 }

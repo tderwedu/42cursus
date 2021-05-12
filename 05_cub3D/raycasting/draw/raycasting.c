@@ -6,15 +6,15 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 15:59:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:54:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static inline void	rc_init(t_mlx *mlx, t_cam *cam, t_ray *ray)
+static inline void	rc_init(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 {
-	ray->pc_plane = 2.0 * ray->x / (double)mlx->width - 1.0;
+	ray->pc_plane = 2.0 * box->x / (double)mlx->width - 1.0;
 	ray->x_map = (int)cam->x_pos;
 	ray->y_map = (int)cam->y_pos;
 	ray->x_r_dir = cam->x_dir + cam->x_plane * ray->pc_plane;
@@ -52,7 +52,7 @@ static inline void	rc_dda(t_mlx *mlx, t_cam *cam, t_ray *ray)
 		}
 		ray->hit = mlx->map[ray->y_map][ray->x_map];
 		if (ray->hit == m_door)
-			if (is_door(mlx, cam, &ray))
+			if (is_door(mlx, cam, ray))
 				break ;
 		if (ray->hit == m_secret)
 			ray->hit = m_wall;
@@ -79,14 +79,18 @@ static inline void	rc_range(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 	box->rgb = 0xFF000000;
 	box->y = -ray->line_h / 2 + cam->height_pitch + cam->z_pos / ray->w_dist;
 	box->y_max = ray->line_h / 2 + cam->height_pitch + cam->z_pos / ray->w_dist;
+	if (box->y_max >= mlx->height)
+		box->y_max = mlx->height;
+	if (box->y >= 0)
+		box->y_range = box->y_max - box->y;
+	else 
+		box->y_range = box->y_max;
 }
 
 static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 {
-	if (box->y_max >= mlx->height)
-		box->y_max = mlx->height - 1;
 	if (ray->hit == m_door)
-		ray->tex = &mlx->tex[D];
+		ray->tex = &mlx->tex[tex_door];
 	else if (ray->side && ray->y_r_dir > 0)
 		ray->tex = &mlx->tex[SO];
 	else if (ray->side)
@@ -98,9 +102,10 @@ static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 	if (mlx->map[(int)cam->y_pos][(int)cam->x_pos] == m_door &&
 		(int)cam->x_pos == ray->x_map && ray->pc_wall > 0.5)
 	{
-		ray->tex = &mlx->tex[D];
+		ray->tex = &mlx->tex[tex_door];
 		ray->pc_wall -= 0.5;
 	}
+	box->y_tex = 0;
 	box->x_tex = (int)(ray->pc_wall * (double)ray->tex->width);
 	box->y_tex_range = ray->tex->height;
 	if ((ray->side == 0 && ray->x_r_dir < 0)
@@ -117,7 +122,7 @@ void	raycasting(t_mlx *mlx, t_cam *cam)
 	box.x = -1;
 	while (++box.x < mlx->width)
 	{
-		rc_init(mlx, cam, &ray);
+		rc_init(mlx, cam, &ray, &box);
 		rc_dda(mlx, cam, &ray);
 		rc_range(mlx, cam, &ray, &box);
 		rc_tex(mlx, cam, &ray, &box);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:50:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ void	ft_print_data(t_cub *data)
 	ft_printf(" Wall West: %s\n", data->tex[WE]);
 	ft_printf("Wall South: %s\n", data->tex[SO]);
 	ft_printf(" Wall East: %s\n", data->tex[EA]);
-	ft_printf("      door: %s\n", data->tex[D]);
 	ft_printf("    Sprite: %s\n", data->tex[S]);
 	ft_printf("     y_map: %i\n", data->y_max);
 	ft_printf("     x_map: %i\n", data->x_max);
@@ -83,13 +82,6 @@ void	ft_print_data(t_cub *data)
 	ft_printf("     x_pos: %i\n", data->x_pos);
 	ft_printf("    nb spr: %i\n", data->nb_spr);
 	ft_printf("   nb door: %i\n", data->nb_door);
-	ft_printf(" lst first: %p\n", data->first);
-	ft_printf("  lst last: %p\n", data->last);
-	if (data->first)
-	{
-		ft_printf(" str first: >>%s<<\n", data->first->content);
-		ft_printf("  lst last: >>%s<<\n", data->last->content);
-	}
 	ft_printf("\n***\n");
 }
 

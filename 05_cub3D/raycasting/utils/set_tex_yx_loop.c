@@ -6,14 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:12:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/08 17:34:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:22:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
-void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
+void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		x;
@@ -31,8 +30,7 @@ void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 		box->x_max = mlx->width;
 	while (++x < box->x_max)
 	{
-		// printf("x: %i \n", x);
-		if (*(src + x_tex) != rgb)
+		if (*(src + x_tex) != box->rgb)
 			*(dst + x) = *(src + x_tex);
 		eps += box->x_tex_range;
 		if ((eps << 1) >= box->x_range)
@@ -43,7 +41,14 @@ void	yx_set_tex_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 	}
 }
 
-void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
+static inline void 	x_max(t_mlx *mlx, t_loop *box)
+{
+	box->y_max = box->y_range + box->y;
+	if (box->x_max > mlx->width)
+		box->x_max = mlx->width;
+}
+
+void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int		eps;
 	int		x;
@@ -56,16 +61,14 @@ void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 	x_tex = box->x_tex;
 	dst = mlx->img->addr + box->y * mlx->img->sl;
 	src = tex->addr + box->y_tex * tex->sl;
-	box->x_max = box->x_range + box->x;
-	if (box->x_max > mlx->width)
-		box->x_max = mlx->width;
+	x_max(mlx, box);
 	while (x < box->x_max)
 	{
 		x_tex++;
 		eps += box->x_range;
 		if ((eps << 1) >= box->x_tex_range)
 		{
-			if (*(src + x_tex) != rgb)
+			if (*(src + x_tex) != box->rgb)
 				*(dst + x) = *(src + x_tex);
 			x++;
 			eps -= box->x_tex_range;
@@ -73,7 +76,7 @@ void	yx_set_tex_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 	}
 }
 
-void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
+void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int	eps;
 
@@ -84,18 +87,11 @@ void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 	box->y--;
 	while (++box->y < box->y_max)
 	{
-		// printf("y: %i \n", box->y);
 		if (box->x_tex_range < box->x_range)
-		{
-			// ft_printf("1\n");
-			yx_set_tex_x_loop(mlx, tex, box, rgb);
-		}
+			yx_set_tex_x_loop(mlx, tex, box);
 		else
-		{
-			// ft_printf("1\n");
-			yx_set_tex_x_tex_loop(mlx, tex, box, rgb);
-		}
-		eps +=  box->y_tex_range;
+			yx_set_tex_x_tex_loop(mlx, tex, box);
+		eps += box->y_tex_range;
 		if ((eps << 1) >= box->y_range)
 		{
 			box->y_tex++;
@@ -104,7 +100,7 @@ void	yx_set_tex_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 	}
 }
 
-void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
+void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 {
 	int	eps;
 
@@ -119,9 +115,9 @@ void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, t_u32 rgb)
 		if ((eps << 1) >= box->y_tex_range)
 		{
 			if (box->x_tex_range < box->x_range)
-				yx_set_tex_x_loop(mlx, tex, box, rgb);
+				yx_set_tex_x_loop(mlx, tex, box);
 			else
-				yx_set_tex_x_tex_loop(mlx, tex, box, rgb);
+				yx_set_tex_x_tex_loop(mlx, tex, box);
 			box->y++;
 			eps -= box->y_tex_range;
 		}

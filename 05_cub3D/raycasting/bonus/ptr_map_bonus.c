@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:50:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 19:19:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 09:54:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	ptr_map_fill_spr(t_mlx *mlx, void ***ptr, int y, int x)
 	while (tab)
 	{
 		if ((int)tab->y_pos == y && (int)tab->x_pos == x)
-			break;
+			break ;
 		else
 			tab++;
 	}
@@ -74,8 +74,10 @@ int	ptr_map_fill(t_mlx *mlx, void ***ptr)
 		while (++x < mlx->x_max)
 		{
 			if (mlx->map[y][x] == m_door)
+			{
 				if (ptr_map_fill_door(mlx, ptr, y, x))
 					return (1);
+			}
 			else if (mlx->map[y][x] == m_spr || mlx->map[y][x] == m_kfc)
 				ptr_map_fill_spr(mlx, ptr, y, x);
 			else

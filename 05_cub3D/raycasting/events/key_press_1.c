@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:34:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:51:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,17 @@ int	key_press(int keycode, t_mlx *mlx)
 	if (keycode == KEY_ESCAPE)
 		rc_exit(mlx);
 	else if (keycode == KEY_WALK_FWD || keycode == KEY_WALK_BWK)
-		rc_press_walk(keycode, mlx, cam);
+		press_walk(keycode, mlx, cam);
 	else if (keycode == KEY_STRAFE_L || keycode == KEY_STRAFE_R)
-		rc_press_strafe(keycode, mlx, cam);
+		press_strafe(keycode, mlx, cam);
 	else if (keycode == KEY_TURN_R || keycode == KEY_TURN_L)
-		rc_press_turn(keycode, cam);
+		press_turn(keycode, cam);
 	else if (keycode == KEY_CTRL)
-		rc_press_crouch(mlx, cam);
+		press_crouch(mlx, cam);
 	else if (keycode == KEY_CTRL)
-		rc_press_crouch(mlx, cam);
+		press_crouch(mlx, cam);
 	else if (keycode == KEY_SPACE)
-		rc_press_jump(mlx, cam);
+		press_jump(mlx, cam);
 	else
 		return (0);
 	new_frame(mlx);
@@ -42,25 +42,24 @@ void	press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 	double	new_x;
 	double	new_y;
 
+	new_y = 0.0;
+	new_x = 0.0;
 	if (keycode == KEY_WALK_FWD)
 	{
-		new_x = cam->x_pos + cam->x_dir * WALK_SPEED * F_WALL;
-		new_y = cam->y_pos + cam->y_dir * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] != 1)
-		{
-			cam->x_pos = cam->x_pos + cam->x_dir * WALK_SPEED;
-			cam->y_pos = cam->y_pos + cam->y_dir * WALK_SPEED;
-		}
+		new_x = cam->x_pos + cam->x_dir * WALK_SPEED;
+		new_y = cam->y_pos + cam->y_dir * WALK_SPEED;
 	}
 	else
 	{
-		new_x = cam->x_pos - cam->x_dir * WALK_SPEED * F_WALL;
-		new_y = cam->y_pos - cam->y_dir * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] != 1)
-		{
-			cam->x_pos = cam->x_pos - cam->x_dir * WALK_SPEED;
-			cam->y_pos = cam->y_pos - cam->y_dir * WALK_SPEED;
-		}
+		new_x = cam->x_pos - cam->x_dir * WALK_SPEED;
+		new_y = cam->y_pos - cam->y_dir * WALK_SPEED;
+	}
+	if (!check_4_collisions(mlx, new_y, new_x, 0.3))
+	{
+		cam->x_pos = new_x;
+		cam->y_pos = new_y;
+		if (!mlx->knife)
+			check_4_knife(mlx, cam);
 	}
 }
 
@@ -69,25 +68,24 @@ void	press_strafe(int keycode, t_mlx *mlx, t_cam *cam)
 	double	new_x;
 	double	new_y;
 
+	new_y = 0.0;
+	new_x = 0.0;
 	if (keycode == KEY_STRAFE_L)
 	{
-		new_x = cam->x_pos - cam->x_plane * WALK_SPEED * F_WALL;
-		new_y = cam->y_pos - cam->y_plane * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] != 1)
-		{
-			cam->x_pos = cam->x_pos - cam->x_plane * WALK_SPEED;
-			cam->y_pos = cam->y_pos - cam->y_plane * WALK_SPEED;
-		}
+		new_x = cam->x_pos - cam->x_plane * WALK_SPEED;
+		new_y = cam->y_pos - cam->y_plane * WALK_SPEED;
 	}
 	else
 	{
-		new_x = cam->x_pos + cam->x_plane * WALK_SPEED * F_WALL;
-		new_y = cam->y_pos + cam->y_plane * WALK_SPEED * F_WALL;
-		if (mlx->map[(int)new_y][(int)new_x] != 1)
-		{
-			cam->x_pos = cam->x_pos + cam->x_plane * WALK_SPEED;
-			cam->y_pos = cam->y_pos + cam->y_plane * WALK_SPEED;
-		}
+		new_x = cam->x_pos + cam->x_plane * WALK_SPEED;
+		new_y = cam->y_pos + cam->y_plane * WALK_SPEED;
+	}
+	if (!check_4_collisions(mlx, new_y, new_x, 0.3))
+	{
+		cam->x_pos = new_x;
+		cam->y_pos = new_y;
+		if (!mlx->knife)
+			check_4_knife(mlx, cam);
 	}
 }
 

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:28:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:54:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,14 @@ int	init_mandatory(t_cub *data, t_mlx *mlx)
 	mlx->ratio = mlx->width / (2.0 * tan(mlx->fov_2));
 	cam_init_struct(data, mlx->cam, mlx->fov_2);
 	mlx->cam->height_pitch = mlx->height_2 + mlx->cam->pitch;
-	if (spr_new_lst(data, mlx))
-		return (1);
+	mlx->nb_spr = data->nb_spr;
+	if (mlx->nb_spr)
+	{
+		if (spr_new_lst(data, mlx))
+			return (1);
+	}
+	else
+		mlx->tab = NULL;
 	mlx->map = data->map;
 	data->map = NULL;
 	mlx->z_buff = malloc(sizeof(double) * mlx->width);
@@ -83,6 +89,7 @@ int	init_mandatory(t_cub *data, t_mlx *mlx)
 int	init_bonus(t_cub *data, t_mlx *mlx)
 {
 	mlx->strike = 0;
+	mlx->knife = 0;
 	mlx->nb_door = data->nb_door;
 	mlx->fps = 0; // TODO: remove
 	mlx->avg = 0; // TODO: remove

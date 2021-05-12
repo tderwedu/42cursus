@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:42:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:50:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,19 @@ int	new_frame(t_mlx *mlx)
 	if (new_img(mlx, &img))
 		return (1);
 	mlx->lst = NULL;
-	rc_mouse_hook(mlx);
+	mouse_hook(mlx);
 	if (mlx->cam->z_pos > 0.0)
+	{
 		mlx->cam->z_pos -= 10;
+		if (mlx->cam->z_pos < 0.0)
+			mlx->cam->z_pos = 0.0;
+	}
 	floor_ceil(mlx);
 	raycasting(mlx, mlx->cam);
 	spr_draw(mlx);
 	draw_mini_map(mlx, &img);
-	arm(mlx);
+	if (mlx->knife)
+		arm(mlx);
 	clock_gettime(CLOCK_MONOTONIC, &ts_2); // TODO:remove
 	mlx->fps = 1000000000 / (ts_2.tv_nsec - ts_1.tv_nsec); // TODO:remove
 	mlx->avg += mlx->fps; // TODO:remove

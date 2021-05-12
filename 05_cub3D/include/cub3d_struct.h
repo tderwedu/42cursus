@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 19:16:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 11:49:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ enum			e_tex
 {
 	C,
 	F,
-	S,
 	NO,
 	WE,
 	SO,
 	EA,
+	S,
 	S_broken,
 	tex_knife,
 	kfc_y000,
@@ -124,11 +124,10 @@ typedef struct s_mlx
 	t_u32		rgb[2];
 	double		*z_buff;
 	int			nb_spr;
-	int			strike;
 	t_spr		*tab;
 	t_spr		*lst;
-	int			show_left;
-	int			show_right;
+	int			strike;
+	int			knife;
 	int			nb_door;
 	long		fps; 	// TODO: remove
 	long		avg;	// TODO: remove

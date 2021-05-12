@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/21 11:19:29 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 18:23:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 10:05:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	key_release(int keycode, t_mlx *mlx)
 
 	cam = mlx->cam;
 	if (keycode == KEY_CTRL)
-		rc_release_crouch(cam);
+		release_crouch(cam);
 	else
 		return (0);
 	new_frame(mlx);
@@ -31,4 +31,3 @@ void	release_crouch(t_cam *cam)
 	if (cam->z_pos < 0)
 		cam->z_pos = 0.0;
 }
-
