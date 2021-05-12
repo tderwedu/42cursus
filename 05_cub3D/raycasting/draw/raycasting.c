@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 13:56:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 18:23:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static inline void	rc_dda(t_mlx *mlx, t_cam *cam, t_ray *ray)
 
 static inline void	rc_range(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 {
-	if (ray->hit != 3)
+	if (ray->hit != m_door)
 	{
 		if (!ray->side)
 			ray->w_dist = (ray->x_map - cam->x_pos + (1.0 - ray->x_step)
@@ -94,7 +94,7 @@ static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 	else
 		ray->tex = &mlx->tex[WE];
 	if (mlx->map[(int)cam->y_pos][(int)cam->x_pos] == m_door &&
-		(int)cam->x_pos == ray->x_map && ray->pc_wall > 0.5) // change with hit == m_dor?
+		(int)cam->x_pos == ray->x_map && ray->pc_wall > 0.5)
 	{
 		ray->tex = &mlx->tex[tex_door];
 		ray->pc_wall -= 0.5;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:02:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 15:48:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 18:08:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@
 # if BONUS
 
 #  define KFC_SPEED 		0.03125
-#  define DOOR_SPEED		0.869140625
+#  define DOOR_SPEED		0.0869140625
 
 #  define S_BROKEN	"./textures/pillar.xpm"
 #  define TEX_KNIFE	"./textures/Dague_0.xpm"
@@ -65,6 +65,7 @@
 #  define RGB_SPRITE	0x00945D45
 #  define RGB_KNIFE		0x00945D45
 #  define RGB_DOOR		0x00945D45
+#  define RGB_KFC		0x00945D45
 #  define RGB_EMPTY		0x002C0C0B
 #  define RGB_PLAYER	0x000FFFFFF
 #  define RGB_EDGE		0x00000000

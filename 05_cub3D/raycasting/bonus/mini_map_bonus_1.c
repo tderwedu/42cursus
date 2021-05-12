@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 16:33:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 17:45:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ static inline void	mmap_get_rgb(t_img *img, int val, int y_draw, int x_draw)
 		mmap_draw_square(img, y_draw, x_draw, RGB_KNIFE);
 	else if (val == m_door)
 		mmap_draw_square(img, y_draw, x_draw, RGB_DOOR);
+	else if (val == m_kfc)
+		mmap_draw_square(img, y_draw, x_draw, RGB_KFC);
 	else if (val < 0)
 		mmap_draw_square(img, y_draw, x_draw, RGB_EMPTY);
 }

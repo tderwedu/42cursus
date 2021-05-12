@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 16:04:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 17:41:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int	init_bonus(t_cub *data, t_mlx *mlx)
 	mlx->knife = 0;
 	mlx->nb_door = data->nb_door;
 	mlx->door = malloc(sizeof(t_door) * mlx->nb_door);
-	if (!mlx->door)
+	if (!mlx->door && !mlx->nb_door)
 		return (rc_error(mlx, strerror(errno)));
 	mlx->fps = 0; // TODO: remove
 	mlx->avg = 0; // TODO: remove

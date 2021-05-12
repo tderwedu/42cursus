@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 16:34:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 17:41:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	spr_new_lst(t_cub *data, t_mlx *mlx)
 	t_spr	*tab;
 
 	tab = malloc(sizeof(t_spr) * data->nb_spr);
-	if (!tab)
+	if (!tab && !data->nb_spr)
 		return (rc_error_data(data, mlx, ERR_MALLOC));
 	mlx->tab = tab;
 	y = -1;

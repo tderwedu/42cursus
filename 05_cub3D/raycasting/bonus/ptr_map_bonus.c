@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:50:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 16:08:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/12 18:03:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	ptr_map_create(t_mlx *mlx)
 void	ptr_map_fill_door(t_mlx *mlx, void ***ptr, int y, int x)
 {
 	mlx->door->updated = 0;
-	mlx->door->angle = M_PI_2;
+	mlx->door->angle = 0.0;
 	mlx->door->moving = 0.0;
 	ptr[y][x] = (void *)mlx->door;
 	mlx->door++;
@@ -60,7 +60,9 @@ void	ptr_map_fill(t_mlx *mlx, void ***ptr)
 {
 	int		y;
 	int		x;
+	t_door	*door;
 
+	door = mlx->door;
 	y = -1;
 	while (++y < mlx->y_max)
 	{
@@ -75,6 +77,7 @@ void	ptr_map_fill(t_mlx *mlx, void ***ptr)
 				mlx->ptr[y][x] = NULL;
 		}
 	}
+	mlx->door = door;
 }
 
 void	ptr_map_update(t_mlx *mlx)
@@ -88,7 +91,7 @@ void	ptr_map_update(t_mlx *mlx)
 		x = -1;
 		while (++x < mlx->x_max)
 		{
-			if (mlx->map[y][x] == 3)
+			if (mlx->map[y][x] == m_door)
 				((t_door *)mlx->ptr[y][x])->updated = 0;
 		}
 	}
