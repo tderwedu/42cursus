@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:12:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 14:05:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/13 15:09:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_tex_yx_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 		eps += box->x_tex_range;
 		if ((eps << 1) >= box->x_range)
 		{
-			x_tex++;
+			x_tex = (x_tex + 1) % tex->width;
 			eps -= box->x_range;
 		}
 	}
@@ -64,7 +64,7 @@ void	set_tex_yx_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	x_max(mlx, box);
 	while (x < box->x_max)
 	{
-		x_tex++;
+		x_tex = (x_tex + 1) % tex->width;
 		eps += box->x_range;
 		if ((eps << 1) >= box->x_tex_range)
 		{
@@ -82,8 +82,8 @@ void	set_tex_yx_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 
 	eps = 0;
 	box->y_max = box->y_range + box->y;
-	if (box->y_max > mlx->height)
-		box->y_max = mlx->height;
+	if (box->y_max >= mlx->height)
+		box->y_max = mlx->height - 1;
 	box->y--;
 	while (++box->y < box->y_max)
 	{
@@ -95,6 +95,8 @@ void	set_tex_yx_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 		if ((eps << 1) >= box->y_range)
 		{
 			box->y_tex++;
+			if (box->y_tex > tex->height)
+				box->y_tex = tex->height;
 			eps -= box->y_range;
 		}
 	}
@@ -111,6 +113,8 @@ void	yx_set_tex_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	while (box->y < box->y_max)
 	{
 		box->y_tex++;
+		if (box->y_tex >= tex->height)
+			box->y_tex = tex->height - 1;
 		eps += box->y_range;
 		if ((eps << 1) >= box->y_tex_range)
 		{

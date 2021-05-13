@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:21:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 17:41:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/13 11:49:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	spr_draw(t_mlx *mlx)
 		if (lst->show)
 		{
 			box = (t_loop){0, 0, 0, 0, lst->tex->height, 0, 0,
-				(int)(mlx->ratio / lst->y_tr), 0, lst->tex->width, 0x0};
+				(int)(mlx->ratio / lst->y_tr), 0, lst->tex->width, 0x22B14C};
 			x_screen = (int)((mlx->width / 2) * (1 + lst->x_tr / lst->y_tr));
 			z_move = mlx->cam->pitch + mlx->cam->z_pos / lst->y_tr;
 			box.y_range = (int)(mlx->ratio / lst->y_tr);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 14:36:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 13:56:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/13 14:45:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	set_tex_xy_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 		eps += box->y_tex_range;
 		if ((eps << 1) >= box->y_range)
 		{
-			y_tex++;
+			y_tex = (y_tex + 1) & tex->h_mask;
 			eps -= box->y_range;
 		}
 	}
@@ -64,7 +64,7 @@ void	set_tex_xy_y_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 	y_max(mlx, box);
 	while (y < box->y_max)
 	{
-		y_tex++;
+		y_tex = (y_tex + 1) & tex->h_mask;
 		eps += box->y_range;
 		if ((eps << 1) >= box->y_tex_range)
 		{
@@ -97,7 +97,7 @@ void	set_tex_xy_x_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 		eps += box->x_tex_range;
 		if ((eps << 1) >= box->x_range)
 		{
-			box->x_tex++;
+			box->x_tex = (box->x_tex + 1) & tex->w_mask;
 			eps -= box->x_range;
 		}
 	}
@@ -113,7 +113,7 @@ void	set_tex_xy_x_tex_loop(t_mlx *mlx, t_tex *tex, t_loop *box, double dist)
 		box->x_max = mlx->width;
 	while (box->x < box->x_max)
 	{
-		box->x_tex++;
+		box->x_tex = (box->x_tex + 1) & tex->w_mask;
 		eps += box->x_range;
 		if ((eps << 1) >= box->x_tex_range)
 		{

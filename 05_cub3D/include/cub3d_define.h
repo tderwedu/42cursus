@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:02:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 18:08:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/13 11:51:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,20 @@
 #  define KFC_SPEED 		0.03125
 #  define DOOR_SPEED		0.0869140625
 
-#  define S_BROKEN	"./textures/pillar.xpm"
-#  define TEX_KNIFE	"./textures/Dague_0.xpm"
-#  define KFC_Y000	"./textures/chicken_y000.xpm"
-#  define KFC_Y045	"./textures/chicken_y045.xpm"
-#  define KFC_Y090	"./textures/chicken_y090.xpm"
-#  define KFC_Y135	"./textures/chicken_y135.xpm"
-#  define KFC_Y180	"./textures/chicken_y180.xpm"
-#  define KFC_Y225	"./textures/chicken_y225.xpm"
-#  define KFC_Y270	"./textures/chicken_y270.xpm"
-#  define KFC_Y315	"./textures/chicken_y315.xpm"
-#  define KFC_DEAD	"./textures/pillar.xpm"
-#  define TEX_DOOR	"./textures/Door_128.xpm"
-#  define TEX_ARM_0	"./textures/Dague_1_1.xpm"
-#  define TEX_ARM_1	"./textures/Dague_2_1.xpm"
+#  define S_BROKEN	"./textures/barrel_broken.xpm"
+#  define TEX_KNIFE	"./textures/knife_free.xpm"
+#  define KFC_Y000	"./textures/chick_y000.xpm"
+#  define KFC_Y045	"./textures/chick_y045.xpm"
+#  define KFC_Y090	"./textures/chick_y090.xpm"
+#  define KFC_Y135	"./textures/chick_y135.xpm"
+#  define KFC_Y180	"./textures/chick_y180.xpm"
+#  define KFC_Y225	"./textures/chick_y225.xpm"
+#  define KFC_Y270	"./textures/chick_y270.xpm"
+#  define KFC_Y315	"./textures/chick_y315.xpm"
+#  define KFC_DEAD	"./textures/kfc_bucket.xpm"
+#  define TEX_DOOR	"./textures/door_wood.xpm"
+#  define TEX_ARM_0	"./textures/knife_hand.xpm"
+#  define TEX_ARM_1	"./textures/knife_strike.xpm"
 
 #  define RGB_FLOOR		0x00FDAE80
 #  define RGB_WALL		0x00721A16
