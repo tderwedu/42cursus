@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/13 12:01:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:59:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ enum			e_tex
 	kfc_y315,
 	kfc_dead,
 	S_broken,
+	tex_secret,
 	tex_door,
+	tex_heart,
 	arm_0,
 	arm_1
 };
@@ -222,7 +224,7 @@ typedef struct s_mlx
 	int			x_max;
 	t_cam		*cam;
 	t_img		*img;
-	t_tex		tex[22];
+	t_tex		tex[23];
 	t_u32		rgb[2];
 	double		*z_buff;
 	int			nb_spr;
@@ -232,6 +234,7 @@ typedef struct s_mlx
 	int			strike;
 	int			knife;
 	int			nb_door;
+	int			life_bar;
 	long		fps; 	// TODO: remove
 	long		avg;	// TODO: remove
 	long		count;	// TODO: remove

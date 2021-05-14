@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 13:46:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:38:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	new_frame(t_mlx *mlx)
 	draw_mini_map(mlx, &img);
 	if (mlx->knife)
 		arm(mlx);
+	life_bar(mlx);
 	clock_gettime(CLOCK_MONOTONIC, &ts_2); // TODO:remove
 	mlx->fps = 1000000000 / (ts_2.tv_nsec - ts_1.tv_nsec); // TODO:remove
 	mlx->avg += mlx->fps; // TODO:remove

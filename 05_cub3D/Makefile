@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/12 14:07:44 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/14 18:57:53 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC			=	./parsing/ft_error.c\
 				./raycasting/draw/raycasting.c\
 				./raycasting/draw/door_bonus.c\
 				./raycasting/draw/sprites.c\
+				./raycasting/bonus/life_bar_bonus.c\
 				./raycasting/draw/skybox_bonus.c\
 				./raycasting/bonus/ptr_map_bonus.c\
 				./raycasting/bonus/kfc_bonus.c\
@@ -44,7 +45,7 @@ SRC			=	./parsing/ft_error.c\
 				./raycasting/utils/rc_free.c\
 				./raycasting/utils/set_tex_yx_loop.c\
 				./raycasting/utils/get_tex_bonus.c\
-				./raycasting/utils/utils.c\
+				./raycasting/utils/check_4_stuff.c\
 				./raycasting/utils/set_tex_xy_loop.c\
 				./raycasting/utils/get_tex.c\
 				./raycasting/utils/error_exit.c\

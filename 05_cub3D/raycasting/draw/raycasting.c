@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 21:57:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 18:23:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 15:59:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,12 @@ static inline void	rc_dda(t_mlx *mlx, t_cam *cam, t_ray *ray)
 		}
 		ray->hit = mlx->map[ray->y_map][ray->x_map];
 		if (ray->hit == m_door)
+		{
 			if (is_door(mlx, cam, ray))
 				break ;
-		if (ray->hit == m_secret)
-			ray->hit = m_wall;
+		}
+		else if (ray->hit == m_secret)
+			break ;
 	}
 }
 
@@ -85,6 +87,8 @@ static inline void	rc_tex(t_mlx *mlx, t_cam *cam, t_ray *ray, t_loop *box)
 {
 	if (ray->hit == m_door)
 		ray->tex = &mlx->tex[tex_door];
+	else if (ray->hit == m_secret)
+		ray->tex = &mlx->tex[tex_secret];
 	else if (ray->side && ray->y_r_dir > 0)
 		ray->tex = &mlx->tex[SO];
 	else if (ray->side)

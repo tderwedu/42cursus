@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 14:16:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 18:51:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,13 @@ void	spr_draw(t_mlx *mlx);
 void	spr_lst_sort(t_mlx *mlx, t_cam *cam);
 void	spr_lst_add(t_mlx *mlx, t_spr *new);
 
+
+/*
+** [raycasting / draw] life_bar.c
+*/
+
+void	life_bar(t_mlx *mlx);
+
 /*
 ** [raycasting / bonus] mini_map_bonus_1.c
 */
@@ -255,5 +262,6 @@ void	kfc_tex(t_mlx *mlx, t_cam *cam, t_spr *spr);
 
 int		check_4_collisions(t_mlx *mlx, double new_y, double new_x, double dt);
 void	check_4_knife(t_mlx *mlx, t_cam *cam);
+void	check_4_kfc(t_mlx *mlx, t_cam *cam);
 
 #endif

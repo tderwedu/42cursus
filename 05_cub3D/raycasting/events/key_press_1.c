@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 15:58:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:02:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	press_walk(int keycode, t_mlx *mlx, t_cam *cam)
 		cam->y_pos = new_y;
 		if (!mlx->knife)
 			check_4_knife(mlx, cam);
+		check_4_kfc(mlx, cam);
 	}
 }
 
@@ -86,6 +87,7 @@ void	press_strafe(int keycode, t_mlx *mlx, t_cam *cam)
 		cam->y_pos = new_y;
 		if (!mlx->knife)
 			check_4_knife(mlx, cam);
+		check_4_kfc(mlx, cam);
 	}
 }
 

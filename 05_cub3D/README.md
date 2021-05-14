@@ -6,6 +6,7 @@ This project’s objectives are information research and to improve skills in gr
 ## Acknowledgements
 
 - Lode Vandevenne's [Raycasting tutorials](https://lodev.org/cgtutor/raycasting.html#Introduction)
+- Emily Liberman's [barrels](https://www.artstation.com/artwork/gJV9XQ)
 
 ## License
 

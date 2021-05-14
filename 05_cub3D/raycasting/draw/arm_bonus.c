@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 15:55:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/14 19:30:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	check_strike(t_mlx *mlx)
 	if (val == m_spr)
 		check_strike_spr(mlx, y, x, 0.3);
 	else if (val == m_kfc && mlx->cam->z_pos == -mlx->height / 4)
-		check_strike_spr(mlx, y, x, 0.15);
+		check_strike_spr(mlx, y, x, 0.3);
 	y = mlx->cam->y_pos + mlx->cam->y_dir / 2;
 	x = mlx->cam->x_pos + mlx->cam->x_dir / 2;
 	val = mlx->map[(int)y][(int)x];
 	if (val == m_spr)
 		check_strike_spr(mlx, y, x, 0.3);
 	else if (val == m_kfc && mlx->cam->z_pos == -mlx->height / 4)
-		check_strike_spr(mlx, y, x, 0.15);
+		check_strike_spr(mlx, y, x, 0.3);
 }
