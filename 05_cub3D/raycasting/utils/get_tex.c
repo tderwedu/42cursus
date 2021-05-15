@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 17:57:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 15:07:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:37:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@ int	get_tex(t_cub *data, t_mlx *mlx)
 	int	i;
 
 	if (get_floor_ceil(data, mlx))
-		return (1);
+		return (ft_free_data(data));
 	i = NO - 1;
 	while (++i <= S)
 	{
 		if (load_tex(mlx, &mlx->tex[i], data->tex[i]))
-			return (1);
+			return (ft_free_data(data));
 		rotate_tex(&mlx->tex[i]);
 	}
 	i--;
@@ -35,9 +35,6 @@ int	get_tex(t_cub *data, t_mlx *mlx)
 		while (++i <= tex_door)
 			rotate_tex(&mlx->tex[i]);
 	}
-	else
-		while (++i <= arm_1)
-			mlx->tex[i].img = NULL;
 	return (0);
 }
 
@@ -53,7 +50,7 @@ int	get_floor_ceil(t_cub *data, t_mlx *mlx)
 	{
 		mlx->rgb[0] = 0;
 		if (load_tex(mlx, &mlx->tex[C], data->tex[C]))
-			return (1);
+			return (ft_free_data(data));
 	}
 	if (data->rgb[1])
 	{
@@ -65,7 +62,7 @@ int	get_floor_ceil(t_cub *data, t_mlx *mlx)
 	{
 		mlx->rgb[1] = 0;
 		if (load_tex(mlx, &mlx->tex[F], data->tex[F]))
-			return (1);
+			return (ft_free_data(data));
 	}
 	return (0);
 }

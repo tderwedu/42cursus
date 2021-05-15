@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 17:45:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:05:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ static inline void	mmap_get_rgb(t_img *img, int val, int y_draw, int x_draw)
 {
 	if (val == m_empty)
 		mmap_draw_square(img, y_draw, x_draw, RGB_FLOOR);
-	else if (val == m_wall)
+	else if (val == m_wall || val == m_secret)
 		mmap_draw_square(img, y_draw, x_draw, RGB_WALL);
 	else if (val == m_spr)
 		mmap_draw_square(img, y_draw, x_draw, RGB_SPRITE);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:23:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:48:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static inline void	ft_free_map(t_cub *data)
 	data->map = NULL;
 }
 
-void	ft_free_data(t_cub *data)
+int	ft_free_data(t_cub *data)
 {
 	int	i;
 
@@ -66,4 +66,5 @@ void	ft_free_data(t_cub *data)
 		ft_lstclear(&data->first, &free);
 	else if (data->line)
 		free(data->line);
+	return (1);
 }

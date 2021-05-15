@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 18:10:48 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 18:11:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:52:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int	set_mlx(t_cub *data, int show_win)
+int	set_mlx(t_cub *data)
 {
 	t_mlx	mlx;
 	t_cam	cam;
@@ -21,8 +21,7 @@ int	set_mlx(t_cub *data, int show_win)
 	if (mlx_init_struct(data, &mlx))
 		return (1);
 	ft_free_data(data);
-	(void)show_win; // TODO: add image saving!
-	if (new_frame(&mlx))
+	if (new_frame(&mlx)) // TODO: adda bmp saving!
 		return (1);
 	mlx_mouse_move(mlx.mlx, mlx.win, mlx.width_2, mlx.height_2);
 	mlx_mouse_hide(mlx.mlx, mlx.win); // TODO: does not work!
@@ -33,5 +32,19 @@ int	set_mlx(t_cub *data, int show_win)
 	mlx_loop_hook (mlx.mlx, &new_frame, &mlx);
 	mlx_loop(mlx.mlx);
 	mlx_do_key_autorepeatoff(mlx.mlx);
+	return (0);
+}
+
+int	save_frame(t_cub *data)
+{
+	t_mlx	mlx;
+	t_cam	cam;
+
+	mlx.cam = &cam;
+	printf("\n KO KO\n");
+	if (mlx_init_struct(data, &mlx))
+		return (1);
+	new_frame(&mlx);
+	ft_free_data(data);
 	return (0);
 }

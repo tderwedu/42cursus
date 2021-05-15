@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 18:51:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:28:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int		ft_error_map(t_cub *data, char *str, int y_e, int x_e);
 */
 
 void	ft_init_data(t_cub *data);
-void	ft_free_data(t_cub *data);
+int		ft_free_data(t_cub *data);
 
 /*
 ** [raycasting] mlx_init_struct.c
@@ -95,7 +95,8 @@ int		new_frame(t_mlx *mlx);
 ** [raycasting] set_mlx.c
 */
 
-int		set_mlx(t_cub *data, int show_win);
+int		set_mlx(t_cub *data);
+int		save_frame(t_cub *data);
 
 /*
 ** [raycasting / utils] get_tex.c

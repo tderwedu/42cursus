@@ -6,15 +6,31 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 19:11:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 19:36:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 #include "cub3d.h"
 
+static inline void	mlx_init_ptr(t_mlx *mlx)
+{
+	int	i;
+
+	i = -1;
+	while (++i <= arm_1)
+		mlx->tex[i].img = NULL;
+	mlx->win = NULL;
+	mlx->img = NULL;
+	mlx->map = NULL;
+	mlx->tab = NULL;
+	mlx->door = NULL;
+	mlx->z_buff = NULL;
+}
+
 int	mlx_init_struct(t_cub *data, t_mlx *mlx)
 {
+	mlx_init_ptr(mlx);
 	mlx->mlx = mlx_init();
 	if (!mlx->mlx)
 		return (rc_error_data(data, mlx, ERR_RC_INIT));
@@ -95,9 +111,6 @@ int	init_bonus(t_cub *data, t_mlx *mlx)
 	mlx->door = malloc(sizeof(t_door) * mlx->nb_door);
 	if (!mlx->door && !mlx->nb_door)
 		return (rc_error(mlx, strerror(errno)));
-	mlx->fps = 0; // TODO: remove
-	mlx->avg = 0; // TODO: remove
-	mlx->count = 0; // TODO: remove
 	if (ptr_map_create(mlx))
 		return (1);
 	return (0);

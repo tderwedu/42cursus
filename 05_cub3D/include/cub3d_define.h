@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:02:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 18:57:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 18:18:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,14 @@
 # include <X11/keysymdef.h>
 # include <X11/X.h>
 
+/*
+**	OPTIONS
+**  DEBUG : show the information parsed and the mini map.
+**  BONUS : Allows bonus additions
+*/
+
 # define DEBUG			1
 # define BONUS			1
-# define SHADOW			0
 
 # ifndef M_PI
 #  define M_PI			3.14159265358979323846
@@ -42,8 +47,8 @@
 
 # if BONUS
 
-#  define KFC_SPEED 		0.03125
-#  define DOOR_SPEED		0.0869140625
+#  define KFC_SPEED 	0.03125
+#  define DOOR_SPEED	0.0869140625
 
 #  define S_BROKEN		"./textures/barrel_broken.xpm"
 #  define TEX_KNIFE		"./textures/knife_free.xpm"
@@ -62,15 +67,16 @@
 #  define TEX_ARM_0		"./textures/knife_hand.xpm"
 #  define TEX_ARM_1		"./textures/knife_strike.xpm"
 
-#  define RGB_FLOOR		0x00FDAE80
-#  define RGB_WALL		0x00721A16
-#  define RGB_SPRITE	0x00945D45
-#  define RGB_KNIFE		0x00945D45
+
+#  define RGB_FLOOR		0x00C6BAAF
+#  define RGB_WALL		0x001D2526
+#  define RGB_SPRITE	0x00685748
+#  define RGB_KNIFE		0x001D2526
 #  define RGB_DOOR		0x00945D45
-#  define RGB_KFC		0x00945D45
-#  define RGB_EMPTY		0x002C0C0B
-#  define RGB_PLAYER	0x000FFFFFF
-#  define RGB_EDGE		0x00000000
+#  define RGB_KFC		0x00B75400
+#  define RGB_EMPTY		0x00262D2F
+#  define RGB_PLAYER	0x00FFFFFF
+#  define RGB_EDGE		0x00880015
 #  define SQ_SIZE		6
 
 # endif
@@ -94,25 +100,25 @@
 **	Used to parse the '.cub' file
 */
 
-# define VALID_DIR			"NWSE"
+# define VALID_DIR		"NWSE"
 # if BONUS
-#  define VALID_NBR			"0123456"
+#  define VALID_NBR		"0123456"
 # else
-#  define VALID_NBR			"012"
+#  define VALID_NBR		"012"
 # endif
 
-# define FLAG_R				0x01
-# define FLAG_C				0x02
-# define FLAG_F				0x04
-# define FLAG_SP			0x08
-# define FLAG_NO			0x10
-# define FLAG_SO			0x20
-# define FLAG_WE			0x40
-# define FLAG_EA			0x80
-# define FLAG_ALL			0xFF
-# define FLAG_D				0x100
+# define FLAG_R			0x01
+# define FLAG_C			0x02
+# define FLAG_F			0x04
+# define FLAG_SP		0x08
+# define FLAG_NO		0x10
+# define FLAG_SO		0x20
+# define FLAG_WE		0x40
+# define FLAG_EA		0x80
+# define FLAG_ALL		0xFF
+# define FLAG_D			0x100
 
-typedef uint32_t	t_u32;
-typedef uint64_t	t_u64;
+typedef uint32_t		t_u32;
+typedef uint64_t		t_u64;
 
 #endif

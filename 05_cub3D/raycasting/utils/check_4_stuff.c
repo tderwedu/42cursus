@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 11:00:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 19:28:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 19:34:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,12 +100,13 @@ void	check_4_kfc(t_mlx *mlx, t_cam *cam)
 		spr = (t_spr *)mlx->ptr[(int)cam->y_pos][(int)cam->x_pos];
 		y = cam->y_pos - spr->y_pos;
 		x = cam->x_pos - spr->x_pos;
-		if (y >= -0.15 && y <= 0.15 && x >= -0.15 && x <= 0.15)
+		if (y >= -0.2 && y <= 0.2 && x >= -0.2 && x <= 0.2)
 		{
-			if (spr->dead && spr->show)
+			if (spr->dead && spr->show && mlx->life_bar > 0)
 			{
 				mlx->life_bar += 2;
 				spr->show = 0;
+				mlx->map[(int)spr->y_pos][(int)spr->x_pos] = m_empty;
 			}
 			else if (!spr->dead)
 				mlx->life_bar--;

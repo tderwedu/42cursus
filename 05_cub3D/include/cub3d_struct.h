@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:04:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 18:59:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/15 17:46:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,9 +235,6 @@ typedef struct s_mlx
 	int			knife;
 	int			nb_door;
 	int			life_bar;
-	long		fps; 	// TODO: remove
-	long		avg;	// TODO: remove
-	long		count;	// TODO: remove
 }				t_mlx;
 
 #endif
