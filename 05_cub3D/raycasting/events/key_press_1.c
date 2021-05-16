@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 19:29:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 11:39:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ int	key_press(int keycode, t_mlx *mlx)
 	else
 		return (0);
 	new_frame(mlx);
-	return (0);
+	return (1);
 }
 
 void	press_walk(int keycode, t_mlx *mlx, t_cam *cam)

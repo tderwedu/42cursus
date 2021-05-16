@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/07 15:12:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/13 15:09:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 11:51:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,8 @@ void	set_tex_yx_y_loop(t_mlx *mlx, t_tex *tex, t_loop *box)
 		if ((eps << 1) >= box->y_range)
 		{
 			box->y_tex++;
-			if (box->y_tex > tex->height)
-				box->y_tex = tex->height;
+			if (box->y_tex >= tex->height)
+				box->y_tex = tex->height - 1;
 			eps -= box->y_range;
 		}
 	}

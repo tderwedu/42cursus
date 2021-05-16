@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/27 10:58:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 19:40:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 11:38:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ void	rc_free_mlx(t_mlx *mlx)
 		free(mlx->door);
 	if (mlx->map)
 		rc_free_map(mlx);
-	// if (mlx->mlx)
-	// 	free(mlx->mlx);
+	if (mlx->mlx)
+		free(mlx->mlx);
 }
 
 void	rc_free_map(t_mlx *mlx)

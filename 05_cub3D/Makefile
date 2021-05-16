@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/15 18:45:26 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/16 19:01:02 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ LFTDIR		=	./Libft
 LFTFLAGS	=	-L ${LFTDIR} -lft
 
 CC			=	gcc
-CFLAGS		=	-O3 -Wall -Werror -Wextra -fsanitize=address
+CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address
 SRC			=	./parsing/ft_error.c\
 				./parsing/ft_check_map_line.c\
 				./parsing/ft_parse_file.c\
@@ -34,13 +34,13 @@ SRC			=	./parsing/ft_error.c\
 				./raycasting/bonus/ptr_map_bonus.c\
 				./raycasting/bonus/kfc_bonus.c\
 				./raycasting/bonus/mini_map_bonus_2.c\
+				./raycasting/bonus/mini_map_bonus_1.c\
 				./raycasting/draw/arm_bonus.c\
 				./raycasting/draw/floor_ceil.c\
 				./raycasting/draw/raycasting.c\
 				./raycasting/draw/door_bonus.c\
 				./raycasting/draw/sprites.c\
 				./raycasting/draw/skybox_bonus.c\
-				./raycasting/bonus/mini_map_bonus_1.c\
 				./raycasting/events/key_press_1.c\
 				./raycasting/events/key_release.c\
 				./raycasting/events/key_press_2.c\
@@ -52,6 +52,7 @@ SRC			=	./parsing/ft_error.c\
 				./raycasting/utils/set_tex_xy_loop.c\
 				./raycasting/utils/get_tex.c\
 				./raycasting/utils/error_exit.c\
+				./raycasting/utils/bmp_save.c\
 				./raycasting/mlx_init_struct.c\
 				./raycasting/new_frame.c\
 				./raycasting/set_mlx.c\

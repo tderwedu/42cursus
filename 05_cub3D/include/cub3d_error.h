@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 21:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/04/15 16:02:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 18:29:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define ERR_ARG_OPT		"Invalid option"
 # define ERR_DEF_TWICE		"Element defined twice!"
 # define ERR_FILE_EXT		"File extension don’t match '.cub'!"
+# define ERR_READ_FILE		"An error occured while reading the .cub file!"
 # define ERR_WRONG_RES		"The resolution is not valid!"
 # define ERR_WRONG_LINE		"Not valid line!"
 # define ERR_COLOR			"The color specification is not valid!"

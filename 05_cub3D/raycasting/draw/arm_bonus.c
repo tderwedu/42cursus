@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/04 09:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 19:30:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 12:47:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ static inline void	arm_move(t_mlx *mlx, t_loop *box)
 void	arm(t_mlx *mlx)
 {
 	int		i;
-	double	ratio;
+	double		ratio;
 	t_loop	box;
 
 	i = arm_0 + (mlx->strike > 0);
 	box = (t_loop){0, mlx->height, mlx->height, 0, mlx->tex[i].height, 0,
 		0, 0, 0, mlx->tex[i].width, 0x22B14C};
-	ratio = 1.5 * box.y_tex_range / mlx->height;
+	ratio = mlx->height / 360.0;
 	arm_move(mlx, &box);
 	box.y_range = box.y_tex_range * ratio;
 	box.y = mlx->height - box.y_range;

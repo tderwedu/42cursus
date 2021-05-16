@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 18:10:48 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 18:52:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 19:40:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	set_mlx(t_cub *data)
 	t_cam	cam;
 
 	mlx.cam = &cam;
-	if (mlx_init_struct(data, &mlx))
+	if (mlx_init_struct(data, &mlx, 1))
 		return (1);
 	ft_free_data(data);
 	if (new_frame(&mlx)) // TODO: adda bmp saving!
@@ -39,12 +39,27 @@ int	save_frame(t_cub *data)
 {
 	t_mlx	mlx;
 	t_cam	cam;
+	t_img	img;
 
 	mlx.cam = &cam;
-	printf("\n KO KO\n");
-	if (mlx_init_struct(data, &mlx))
+	if (mlx_init_struct(data, &mlx, 0))
 		return (1);
-	new_frame(&mlx);
 	ft_free_data(data);
+	if (new_img(&mlx, &img))
+		return (1);
+	mlx.lst = NULL;
+	floor_ceil(&mlx);
+	raycasting(&mlx, &cam);
+	spr_draw(&mlx);
+	if (BONUS)
+	{
+		draw_mini_map(&mlx);
+		if (mlx.knife)
+			arm(&mlx);
+		life_bar(&mlx);
+	}
+	if (bmp_save(&mlx, &img))
+		return (1);
+	rc_free_mlx(&mlx);
 	return (0);
 }

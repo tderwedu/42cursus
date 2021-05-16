@@ -6,16 +6,17 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 12:22:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 18:28:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 19:39:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CUB3D_H
 # define CUB3D_H
 
+# include <unistd.h>
+# include <fcntl.h>
 # include <math.h>
 # include <mlx.h>
-# include <time.h>
 
 # include "cub3d_define.h"
 # include "cub3d_struct.h"
@@ -80,7 +81,7 @@ int		ft_free_data(t_cub *data);
 ** [raycasting] mlx_init_struct.c
 */
 
-int		mlx_init_struct(t_cub *data, t_mlx *mlx);
+int		mlx_init_struct(t_cub *data, t_mlx *mlx, int win);
 void	cam_init_struct(t_cub *data, t_cam *cam, double fov);
 int		init_mandatory(t_cub *data, t_mlx *mlx);
 int		init_bonus(t_cub *data, t_mlx *mlx);
@@ -88,7 +89,7 @@ int		init_bonus(t_cub *data, t_mlx *mlx);
 /*
 ** [raycasting] new_frame.c
 */
-
+int		new_img(t_mlx *mlx, t_img *img);
 int		new_frame(t_mlx *mlx);
 
 /*
@@ -189,7 +190,7 @@ void	life_bar(t_mlx *mlx);
 ** [raycasting / bonus] mini_map_bonus_1.c
 */
 
-void	draw_mini_map(t_mlx *mlx, t_img *img);
+void	draw_mini_map(t_mlx *mlx);
 void	mmap_set_info(t_mlx *mlx, t_mini *map);
 void	mmap_upate_limits(t_mlx *mlx, t_mini *map);
 void	mmap_draw_mmap(t_mlx *mlx, t_img *img, t_mini *map);
@@ -264,5 +265,13 @@ void	kfc_tex(t_mlx *mlx, t_cam *cam, t_spr *spr);
 int		check_4_collisions(t_mlx *mlx, double new_y, double new_x, double dt);
 void	check_4_knife(t_mlx *mlx, t_cam *cam);
 void	check_4_kfc(t_mlx *mlx, t_cam *cam);
+
+/*
+** [raycasting / utils] bmp_save.c
+*/
+
+int		bmp_save(t_mlx *mlx, t_img *img);
+void	bmp_file_header(t_mlx *mlx, int fd);
+void	bmp_info_header(t_mlx *mlx, int fd);
 
 #endif

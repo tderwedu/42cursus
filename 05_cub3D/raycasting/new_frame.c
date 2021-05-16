@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/13 10:53:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 19:43:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 19:10:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static inline int	game_over(t_mlx *mlx, t_img *img)
 	mlx_put_image_to_window(mlx->mlx, mlx->win, img->img, 0, 0);
 	mlx_destroy_image(mlx->mlx, img->img);
 	mlx->img = NULL;
-	return (0);
+	return (1);
 }
 
 int	new_frame(t_mlx *mlx)
@@ -68,7 +68,7 @@ int	new_frame(t_mlx *mlx)
 	spr_draw(mlx);
 	if (BONUS)
 	{
-		draw_mini_map(mlx, &img);
+		draw_mini_map(mlx);
 		if (mlx->knife)
 			arm(mlx);
 		life_bar(mlx);

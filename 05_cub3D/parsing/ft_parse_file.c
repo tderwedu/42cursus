@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/11 17:34:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 18:37:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	ft_parse_cubfile(t_cub *data)
 		free(data->line);
 		ret = get_next_line(data->fd, &data->line);
 	}
+	if (ret < 0)
+		return (ft_error_parser(data, ERR_READ_FILE));
 	if (ft_check_data(data, ret))
 		return (1);
 	while (ret > 0)

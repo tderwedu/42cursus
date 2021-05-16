@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/14 18:16:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/14 19:25:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 11:54:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 
 static inline void	life_bar_full_heart(t_mlx *mlx, t_loop *box, int i) 
 {
-	double	ratio;
+	int	ratio;
 
-	*box = (t_loop){SQ_SIZE, 0, 0, 0, mlx->tex[tex_heart].height, 0, 0, 0,
-		0, mlx->tex[tex_heart].width, 0x22B14C};
-	ratio = mlx->tex[tex_heart].height / 32.0;
-	box->y_range = (int)(ratio * mlx->tex[tex_heart].height);
+	ratio = (int)(mlx->height / 11.25);
+	*box = (t_loop){SQ_SIZE, 0, ratio, 0, mlx->tex[tex_heart].height, 0, 0,
+		ratio, 0, mlx->tex[tex_heart].width, 0x22B14C};
 	box->y_max = SQ_SIZE + box->y_range;
-	box->x_range = (int)(ratio * mlx->tex[tex_heart].height);
 	box->x = mlx->width - (5 - i) * (box->x_range + SQ_SIZE);
 	box->x_max = box->x + box->x_range;
 	if (box->y_tex_range < box->y_range)

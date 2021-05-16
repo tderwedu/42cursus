@@ -6,16 +6,18 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/15 17:05:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/16 19:09:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	draw_mini_map(t_mlx *mlx, t_img *img)
+void	draw_mini_map(t_mlx *mlx)
 {
 	t_mini	map;
+	t_img *img;
 
+	img = mlx->img;
 	mmap_set_info(mlx, &map);
 	if (map.update)
 		mmap_upate_limits(mlx, &map);
