@@ -1,34 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlcpy.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/10 11:09:00 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:58:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+size_t	ft_strlcpy(char *dst, const char *src, size_t size)
 {
-	t_cub	data;
+	register size_t	i;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
+	if (!dst || !src)
+		return (0);
+	i = 0;
+	if (size && dst != src)
 	{
-		if (set_mlx(&data))
-			return (1);
+		size--;
+		while (src[i] && i < size)
+		{
+			((t_uc *) dst)[i] = ((t_uc *) src)[i];
+			i++;
+		}
+		dst[i] = '\0';
 	}
-	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+	while (src[i])
+		i++;
+	return (i);
 }

@@ -1,34 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_atol.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/10 11:09:37 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:16:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+long	ft_atol(const char *nptr)
 {
-	t_cub	data;
+	long			sign;
+	t_ul			val;
+	register size_t	i;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
-	{
-		if (set_mlx(&data))
-			return (1);
-	}
+	i = 0;
+	val = 0;
+	while ((t_ui)(nptr[i] == ' ' || nptr[i] - 9U < 4U))
+		i++;
+	sign = (nptr[i] == '-');
+	i += (nptr[i] == '+' || nptr[i] == '-');
+	while ((nptr[i] - '0') < 10)
+		val = val * 10 + (nptr[i++] - '0');
+	if (sign)
+		return (~val + 1);
 	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+		return (val);
 }

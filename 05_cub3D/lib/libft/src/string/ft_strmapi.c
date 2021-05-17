@@ -1,34 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strmapi.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/12 14:52:34 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:30:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	t_cub	data;
+	char			*dst;
+	register size_t	len;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
-	{
-		if (set_mlx(&data))
-			return (1);
-	}
-	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+	if (!s || !f)
+		return (NULL);
+	len = ft_strlen(s);
+	dst = (char *)malloc(sizeof(*dst) * (len + 1));
+	if (!dst)
+		return (NULL);
+	dst[len] = '\0';
+	while (len--)
+		dst[len] = f(len, s[len]);
+	return (dst);
 }

@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_growvec.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:49:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+t_vec	*ft_growvec(t_vec *vec, size_t delta)
 {
-	t_cub	data;
+	char	*ptr;
+	size_t	size;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
+	size = (vec->max + delta - vec->start) * 2;
+	ptr = malloc(size);
+	if (!ptr)
 	{
-		if (set_mlx(&data))
-			return (1);
+		free(ptr);
+		return (NULL);
 	}
-	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+	vec->len = vec->ptr - vec->start;
+	ft_memcpy(ptr, vec->start, vec->len + 1);
+	free(vec->start);
+	vec->start = ptr;
+	vec->ptr = ptr + vec->len;
+	vec->max = vec->start + size - delta;
+	return (vec);
 }

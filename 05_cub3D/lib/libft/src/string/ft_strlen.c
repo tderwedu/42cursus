@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strlen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/05 10:24:23 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:37:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+size_t	ft_strlen(const char *str)
 {
-	t_cub	data;
+	register size_t	len;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
+	len = 0;
+	if (str)
 	{
-		if (set_mlx(&data))
-			return (1);
+		while (str[len])
+			len++;
 	}
-	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+	return (len);
 }

@@ -6,81 +6,78 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/16 19:01:02 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/05/17 16:43:52 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	cub3D
 
-LIBMLX		=	-lmlx
-MLX			=	./mlx/mlx_linux/libmlx.a
-MLXDIR		=	$(dir ${MLX})
-LDFLAGS 	=	-L ${MLXDIR} ${LIBMLX} -lXext -lX11 -lm
+MLX_LiB		=	./lib/mlx_linux/libmlx.a
+MLX_DIR		=	$(dir ${MLX_LiB})
+MLX_FLAG 	=	-L ${MLX_DIR} -lmlx -L /usr/include -lXext -lX11 -lm
 
-LFTDIR		=	./Libft
-LFTFLAGS	=	-L ${LFTDIR} -lft
+LIBFT_LIB	=	./lib/libft/libft.a
+LIBFT_DIR	=	$(dir ${LIBFT_LIB})
+LIBFT_FLAG	=	-L ${LIBFT_DIR} -lft
 
 CC			=	gcc
-CFLAGS		=	-Wall -Werror -Wextra -fsanitize=address
-SRC			=	./parsing/ft_error.c\
-				./parsing/ft_check_map_line.c\
-				./parsing/ft_parse_file.c\
-				./parsing/ft_get_map.c\
-				./parsing/ft_data.c\
-				./parsing/ft_parse_utils.c\
-				./parsing/ft_check_boundary.c\
-				./parsing/ft_get_data.c\
-				./raycasting/bonus/life_bar_bonus.c\
-				./raycasting/bonus/ptr_map_bonus.c\
-				./raycasting/bonus/kfc_bonus.c\
-				./raycasting/bonus/mini_map_bonus_2.c\
-				./raycasting/bonus/mini_map_bonus_1.c\
-				./raycasting/draw/arm_bonus.c\
-				./raycasting/draw/floor_ceil.c\
-				./raycasting/draw/raycasting.c\
-				./raycasting/draw/door_bonus.c\
-				./raycasting/draw/sprites.c\
-				./raycasting/draw/skybox_bonus.c\
-				./raycasting/events/key_press_1.c\
-				./raycasting/events/key_release.c\
-				./raycasting/events/key_press_2.c\
-				./raycasting/events/mouse_bonus.c\
-				./raycasting/utils/rc_free.c\
-				./raycasting/utils/set_tex_yx_loop.c\
-				./raycasting/utils/get_tex_bonus.c\
-				./raycasting/utils/check_4_stuff.c\
-				./raycasting/utils/set_tex_xy_loop.c\
-				./raycasting/utils/get_tex.c\
-				./raycasting/utils/error_exit.c\
-				./raycasting/utils/bmp_save.c\
-				./raycasting/mlx_init_struct.c\
-				./raycasting/new_frame.c\
-				./raycasting/set_mlx.c\
-				./main.c
+CC_FLAGS	=	-Wall -Werror -Wextra -fsanitize=address
 
-# CFLAGS		=	-O3 -fsanitize=address
-# SRC			=	./raycasting_old.c
+LIBS		=	${LIBFT_FLAG} ${LIBFT_FLAG}
+INCL_DIR	=	-I ${MLX_DIR} -I /usr/include -I ${LFT_DIR}/include -I ./include
+
+OBJ_DIR		=	bin/
+
+SRC			=	./src/parsing/ft_error.c\
+				./src/parsing/ft_check_map_line.c\
+				./src/parsing/ft_parse_file.c\
+				./src/parsing/ft_get_map.c\
+				./src/parsing/ft_parse_utils.c\
+				./src/parsing/ft_check_boundary.c\
+				./src/parsing/ft_init_free.c\
+				./src/parsing/ft_get_data.c\
+				./src/raycasting/mlx_init_struct.c\
+				./src/raycasting/draw/floor_ceil.c\
+				./src/raycasting/draw/raycasting.c\
+				./src/raycasting/draw/sprites.c\
+				./src/raycasting/bonus/mouse_bonus.c\
+				./src/raycasting/bonus/get_tex_bonus.c\
+				./src/raycasting/bonus/check_4_stuff_bonus.c\
+				./src/raycasting/bonus/life_bar_bonus.c\
+				./src/raycasting/bonus/arm_bonus.c\
+				./src/raycasting/bonus/ptr_map_bonus.c\
+				./src/raycasting/bonus/kfc_bonus.c\
+				./src/raycasting/bonus/mini_map_bonus_2.c\
+				./src/raycasting/bonus/door_bonus.c\
+				./src/raycasting/bonus/mini_map_bonus_1.c\
+				./src/raycasting/bonus/skybox_bonus.c\
+				./src/raycasting/utils/set_tex_yx_loop.c\
+				./src/raycasting/utils/rc_free.c\
+				./src/raycasting/utils/bmp_save.c\
+				./src/raycasting/utils/set_tex_xy_loop.c\
+				./src/raycasting/utils/get_tex.c\
+				./src/raycasting/utils/error_exit.c\
+				./src/raycasting/new_frame.c\
+				./src/raycasting/events/key_press_1.c\
+				./src/raycasting/events/key_release.c\
+				./src/raycasting/events/key_press_2.c\
+				./src/raycasting/set_mlx.c\
+				./main.c
 
 OBJ			=	${SRC:.c=.o}
 
-SRCDIR		=	src/
-INCDIR		=	-I$(MLXDIR) -I/usr/include -I${LFTDIR}/include -I./include
-OBJDIR	=		bin/
-
-
 .c.o:		
-			${CC} ${CFLAGS} ${INCDIR} -c $< -o $@
+			${CC} ${CC_FLAGS} ${INC_DIR} -c $< -o $@
 
 all:		${NAME}
 
 $(NAME):	${OBJ}
-			${MAKE} -s -w -C ${LFTDIR}
-			${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} ${LDFLAGS} -o ${NAME}
-			# ${CC} ${CFLAGS} ${OBJ} ${LFTFLAGS} -o ${NAME}
-			# ${CC} ${CFLAGS} ${OBJ} ${LDFLAGS} -o ${NAME}
+			${MAKE} -s -w -C ${MLX_DIR}
+			${MAKE} -s -w -C ${LFT_DIR}
+			${CC} ${CFLAGS} ${OBJ} ${LIBS} -o ${NAME}
 
 clean:
-			rm -f ${OBJ}
+			rm -f ${OBJ} save.bmp
 
 fclean:		clean
 			rm -f ${NAME}

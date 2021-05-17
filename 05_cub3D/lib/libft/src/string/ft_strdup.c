@@ -1,34 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strdup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/11 17:29:05 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:30:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+char	*ft_strdup(const char *s)
 {
-	t_cub	data;
+	char	*dest;
+	size_t	len;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
-	{
-		if (set_mlx(&data))
-			return (1);
-	}
-	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+	len = ft_strlen(s) + 1;
+	dest = malloc(sizeof(*dest) * len);
+	if (!dest)
+		return (NULL);
+	ft_memcpy(dest, s, len);
+	return (dest);
 }

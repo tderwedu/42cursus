@@ -1,34 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/04 18:16:55 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 14:52:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+void	ft_bzero(void *s, size_t n)
 {
-	t_cub	data;
+	t_ul	*sq;
+	size_t	i;
+	t_ptr	wsize;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
+	wsize = sizeof(t_ul);
+	if ((t_ptr)s % wsize)
 	{
-		if (set_mlx(&data))
-			return (1);
+		i = wsize - ((t_ptr)s % wsize);
+		n -= i;
+		while (i--)
+			*(t_uc *)s++ = 0;
 	}
-	else
+	i = n / wsize;
+	sq = (t_ul *)s;
+	if (i && sq)
+		while (i--)
+			*sq++ = 0;
+	i = n % wsize;
+	if (i)
 	{
-		if (save_frame(&data))
-			return (1);
+		s = (t_uc *)sq;
+		while (i--)
+			*(t_uc *)s++ = 0;
 	}
 }

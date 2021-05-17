@@ -1,34 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/04/06 09:51:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:38:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/01/07 11:14:26 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/05/17 15:15:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include "cub3d.h"
 
-int					main(int argc, char **argv)
+char	*ft_strchr(const char *s, int c)
 {
-	t_cub	data;
+	register size_t	i;
+	register t_uc	cc;
 
-	if (argc < 2 || argc > 3)
-		return (ft_printf("Error\n%s\n", ERR_ARG_NBR));
-	if (ft_get_data(&data, argc, argv))
-		return (1);
-	if (argc == 2)
+	cc = (t_uc)c;
+	i = -1;
+	while (s[++i])
 	{
-		if (set_mlx(&data))
-			return (1);
+		if ((t_uc)s[i] == cc)
+			return ((char *)(s + i));
 	}
+	if (c)
+		return (NULL);
 	else
-	{
-		if (save_frame(&data))
-			return (1);
-	}
+		return ((char *)(s + i));
 }
