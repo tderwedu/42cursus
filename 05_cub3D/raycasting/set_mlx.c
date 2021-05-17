@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 18:10:48 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:40:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 12:01:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	set_mlx(t_cub *data)
 	if (mlx_init_struct(data, &mlx, 1))
 		return (1);
 	ft_free_data(data);
-	if (new_frame(&mlx)) // TODO: adda bmp saving!
+	if (new_frame(&mlx))
 		return (1);
 	mlx_mouse_move(mlx.mlx, mlx.win, mlx.width_2, mlx.height_2);
-	mlx_mouse_hide(mlx.mlx, mlx.win); // TODO: does not work!
+	mlx_mouse_hide(mlx.mlx, mlx.win);
 	mlx_hook(mlx.win, 2, 1L << 0, &key_press, &mlx);
 	mlx_hook(mlx.win, 3, 1L << 1, &key_release, &mlx);
 	mlx_hook(mlx.win, 4, 1L << 2, &button_press, &mlx);

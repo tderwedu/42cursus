@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/09 10:32:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:09:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 12:05:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	draw_mini_map(t_mlx *mlx)
 {
 	t_mini	map;
-	t_img *img;
+	t_img	*img;
 
 	img = mlx->img;
 	mmap_set_info(mlx, &map);
