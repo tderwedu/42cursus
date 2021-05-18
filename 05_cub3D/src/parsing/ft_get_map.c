@@ -6,11 +6,10 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 10:38:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:06:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:53:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
 int	ft_parse_map(t_cub *data, int empty)

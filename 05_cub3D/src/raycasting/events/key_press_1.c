@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:17:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 11:39:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 18:36:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,13 @@ int	key_press(int keycode, t_mlx *mlx)
 	t_cam	*cam;
 
 	cam = mlx->cam;
+	if (BONUS)
+	{
+		if (keycode == KEY_CTRL)
+		press_crouch(mlx, cam);
+		else if (keycode == KEY_SPACE)
+		press_jump(mlx, cam);
+	}
 	if (keycode == KEY_ESCAPE)
 		rc_exit(mlx);
 	else if (keycode == KEY_WALK_FWD || keycode == KEY_WALK_BWK)
@@ -25,12 +32,6 @@ int	key_press(int keycode, t_mlx *mlx)
 		press_strafe(keycode, mlx, cam);
 	else if (keycode == KEY_TURN_R || keycode == KEY_TURN_L)
 		press_turn(keycode, cam);
-	else if (keycode == KEY_CTRL)
-		press_crouch(mlx, cam);
-	else if (keycode == KEY_CTRL)
-		press_crouch(mlx, cam);
-	else if (keycode == KEY_SPACE)
-		press_jump(mlx, cam);
 	else
 		return (0);
 	new_frame(mlx);

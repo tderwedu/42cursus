@@ -6,11 +6,10 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:15:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 09:50:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:53:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
 int	ft_get_int(char **ptr)
@@ -60,29 +59,29 @@ int32_t	ft_get_color(char *ptr)
 
 void	ft_print_data(t_cub *data)
 {
-	ft_printf("***\n");
-	ft_printf("Data parsed from CUB file:\n");
-	ft_printf("Resolution: %i - %i\n", data->width, data->height);
+	printf("***\n");
+	printf("Data parsed from CUB file:\n");
+	printf("Resolution: %i - %i\n", data->width, data->height);
 	if (data->rgb[C] > 0)
-		ft_printf("      Ceil: %#.8x\n", data->rgb[C]);
+		printf("      Ceil: %#.8x\n", data->rgb[C]);
 	else
-		ft_printf("      Ceil: %s\n", data->tex[C]);
+		printf("      Ceil: %s\n", data->tex[C]);
 	if (data->rgb[F] > 0)
-		ft_printf("     Floor: %#.8x\n", data->rgb[F]);
+		printf("     Floor: %#.8x\n", data->rgb[F]);
 	else
-		ft_printf("     Floor: %s\n", data->tex[F]);
-	ft_printf("Wall North: %s\n", data->tex[NO]);
-	ft_printf(" Wall West: %s\n", data->tex[WE]);
-	ft_printf("Wall South: %s\n", data->tex[SO]);
-	ft_printf(" Wall East: %s\n", data->tex[EA]);
-	ft_printf("    Sprite: %s\n", data->tex[S]);
-	ft_printf("     y_map: %i\n", data->y_max);
-	ft_printf("     x_map: %i\n", data->x_max);
-	ft_printf("     y_pos: %i\n", data->y_pos);
-	ft_printf("     x_pos: %i\n", data->x_pos);
-	ft_printf("    nb spr: %i\n", data->nb_spr);
-	ft_printf("   nb door: %i\n", data->nb_door);
-	ft_printf("\n***\n");
+		printf("     Floor: %s\n", data->tex[F]);
+	printf("Wall North: %s\n", data->tex[NO]);
+	printf(" Wall West: %s\n", data->tex[WE]);
+	printf("Wall South: %s\n", data->tex[SO]);
+	printf(" Wall East: %s\n", data->tex[EA]);
+	printf("    Sprite: %s\n", data->tex[S]);
+	printf("     y_map: %i\n", data->y_max);
+	printf("     x_map: %i\n", data->x_max);
+	printf("     y_pos: %i\n", data->y_pos);
+	printf("     x_pos: %i\n", data->x_pos);
+	printf("    nb spr: %i\n", data->nb_spr);
+	printf("   nb door: %i\n", data->nb_door);
+	printf("\n***\n");
 }
 
 void	ft_print_map(t_cub *data)
@@ -90,7 +89,7 @@ void	ft_print_map(t_cub *data)
 	int		x;
 	int		y;
 
-	ft_printf("=== The MAP === \n");
+	printf("=== The MAP === \n");
 	y = -1;
 	while (++y < data->y_max)
 	{
@@ -98,16 +97,16 @@ void	ft_print_map(t_cub *data)
 		while (++x < data->x_max)
 		{
 			if (data->map[y][x] == 1)
-				ft_printf("%s1%s", RGB_YLW, RGB_NC);
+				printf("%s1%s", RGB_YLW, RGB_NC);
 			else if (data->map[y][x] > 1)
-				ft_printf("%s%i%s", RGB_GRN, data->map[y][x], RGB_NC);
+				printf("%s%i%s", RGB_GRN, data->map[y][x], RGB_NC);
 			else if (data->map[y][x] < 0)
-				ft_printf(" ");
+				printf(" ");
 			else if (y == data->y_pos && x == data->x_pos)
-				ft_printf("%s%c%s", RGB_BLU, data->dir, RGB_NC);
+				printf("%s%c%s", RGB_BLU, data->dir, RGB_NC);
 			else
-				ft_printf("%i", data->map[y][x]);
+				printf("%i", data->map[y][x]);
 		}
-		ft_printf("\n");
+		printf("\n");
 	}
 }

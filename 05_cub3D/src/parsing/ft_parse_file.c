@@ -6,11 +6,10 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 15:21:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/17 12:00:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:53:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
 static inline char	*ft_skip_spaces(char *str)

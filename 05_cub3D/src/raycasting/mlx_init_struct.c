@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/12 16:12:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 19:39:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 18:31:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,10 +76,10 @@ void	cam_init_struct(t_cub *data, t_cam *cam, double fov)
 	cam->y_plane = cam->x_dir * tan(fov);
 	if (DEBUG)
 	{
-		ft_printf("  POS| y: % .2f | x: % .2f\n", cam->y_pos, cam->x_pos);
-		ft_printf("  DIR| y: % .2f | x: % .2f\n", cam->y_dir, cam->x_dir);
-		ft_printf("PLANE| y: % .2f | x: % .2f\n", cam->y_plane, cam->x_plane);
-		ft_printf("PITCH| % .2f | ZPOS: % .2f\n", cam->pitch, cam->z_pos);
+		printf("  POS| y: % .2f | x: % .2f\n", cam->y_pos, cam->x_pos);
+		printf("  DIR| y: % .2f | x: % .2f\n", cam->y_dir, cam->x_dir);
+		printf("PLANE| y: % .2f | x: % .2f\n", cam->y_plane, cam->x_plane);
+		printf("PITCH| % .2f | ZPOS: % .2f\n", cam->pitch, cam->z_pos);
 	}
 }
 

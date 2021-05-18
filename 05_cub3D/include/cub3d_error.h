@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/06 21:30:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/16 18:29:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 16:57:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@
 # define ERR_MAP_DIR		"The cam's initial position is not defined!"
 # define ERR_MAP_DIR2		"cam initial position defined more than once!"
 # define ERR_MAP_EMPTY		"No empty line is allowed in the map definition!"
-# define ERR_MAP_MSG		"The maps is missing!"
 # define ERR_MAP_MSG		"The maps is missing!"
 # define ERR_MAP_NOTCL		"The map is not closed! See below:"
 # define ERR_DEBUG			"ERR_DEBUG ERR_DEBUG ERR_DEBUG"

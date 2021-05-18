@@ -6,11 +6,10 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/12 11:24:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/17 18:31:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 #include "cub3d.h"
 
 static inline char	*ft_skip_spaces(char *str)
@@ -78,13 +77,10 @@ int	ft_get_floor_ceil(t_cub *data, int i, int flag)
 	data->rgb[i] = ft_get_color(data->ptr);
 	if (data->rgb[i] < 0)
 	{
-		if (BONUS)
-		{
-			data->rgb[i] = 0;
-			data->tex[i] = ft_trimspaces(data->ptr);
-			if (!(*data->tex[i]))
-				return (ft_error_parser(data, strerror(errno)));
-		}
+		data->rgb[i] = 0;
+		data->tex[i] = ft_trimspaces(data->ptr);
+		if (!(*data->tex[i]))
+			return (ft_error_parser(data, strerror(errno)));
 		else
 			return (ft_error_parser(data, ERR_COLOR));
 	}
