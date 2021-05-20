@@ -28,13 +28,13 @@ A short introduction to networking
 
 ***
 
-## [Ethernet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/EthernetProtocol.md)
+## [Ethernet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_Netwhat/EthernetProtocol.md)
 ### Frames
 ![Ethernet_Format](./Images/Ethernet_Format.svg)
 
 ***
 
-## [Network Models](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/NetworkModels.md)
+## [Network Models](https://github.com/tderwedu/42cursus/blob/main/04_Netwhat/NetworkModels.md)
 ### OSI Layers
 >**7** - Application  
 >**6** - Presentation  
@@ -53,7 +53,7 @@ A short introduction to networking
 
 ***
 
-## [IP addresses](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/IPs.md)
+## [IP addresses](https://github.com/tderwedu/42cursus/blob/main/04_Netwhat/IPs.md)
 
 **IP Address = [ network ] + [ host ]**  
 
@@ -98,7 +98,7 @@ A short introduction to networking
 
 ***
 
-## [Internet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_netwhat/InternetProtocol.md)
+## [Internet Protocol](https://github.com/tderwedu/42cursus/blob/main/04_Netwhat/InternetProtocol.md)
 
 **Packets = IP Header + Data**  
 **IP Header : Source IP + Destination IP**
