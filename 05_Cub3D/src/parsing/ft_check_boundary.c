@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/09 14:58:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/17 16:53:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/25 09:34:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static inline int	ft_boundary_x_bulk(t_cub *data, register int y)
 	open = 0;
 	map = data->map;
 	if (map[y][x] > 1 || map[y][x] == 0)
-		return (1);
+		return (ft_error_map(data, ERR_MAP_NOTCL, y, x));
 	while (++x < (data->x_max - 1))
 	{
 		if (map[y][x] == 1)
@@ -72,7 +72,7 @@ static inline int	ft_boundary_y_bulk(t_cub *data, register int x)
 	open = 0;
 	map = data->map;
 	if (map[y][x] > 1 || map[y][x] == 0)
-		return (1);
+		return (ft_error_map(data, ERR_MAP_NOTCL, y, x));
 	while (++y < (data->y_max - 1))
 	{
 		if (map[y][x] == 1)

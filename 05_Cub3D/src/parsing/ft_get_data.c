@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/04/10 10:46:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/19 16:35:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/25 09:36:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,8 @@ int	ft_line_handler(t_cub *data)
 		return (ft_get_floor_ceil(data, C, FLAG_C));
 	else if (chr == 'F' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
 		return (ft_get_floor_ceil(data, F, FLAG_F));
-	else if (chr == 'S' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
+	data->ptr--;
+	if (chr == 'S' && (next_chr == ' ' || (t_ui)(next_chr - 9U) < 4U))
 		return (ft_get_wall(data, S, FLAG_SP));
 	return (ft_error_parser(data, ERR_NOT_ELEM));
 }

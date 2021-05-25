@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 17:57:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/19 15:12:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/25 08:53:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	get_floor_ceil(t_cub *data, t_mlx *mlx)
 		if (load_tex(mlx, &mlx->tex[C], data->tex[C]))
 			return (ft_free_data(data));
 	}
-	if (data->rgb[1] >= 0) 
+	if (data->rgb[1] >= 0)
 	{
 		mlx->rgb[1] = data->rgb[1];
 		mlx->tex[F].img = NULL;

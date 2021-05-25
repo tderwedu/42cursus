@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/11 09:02:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/19 11:13:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/25 09:13:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 **	Keyboard's mapping
 **
 ** # define K_W_FWD		XK_w
-** # define K_W_BWK		XK_s
+** # define K_W_BWD		XK_s
 ** # define K_T_L		XK_a
 ** # define K_T_R		XK_d
 ** # define K_S_L		XK_q
@@ -47,7 +47,7 @@
 # define A_T_L		0xff51
 # define A_T_R		0xff53
 # define A_W_FWD	0xff52
-# define A_W_BWK	0xff54
+# define A_W_BWD	0xff54
 
 # if KEYBOARD == 1
 
@@ -58,7 +58,7 @@
 #  define K_T_L		0x0071
 #  define K_T_R		0x0065
 #  define K_W_FWD	0x0077
-#  define K_W_BWK	0x0073
+#  define K_W_BWD	0x0073
 #  define K_S_R		0x0064
 #  define K_S_L		0x0061
 #  define K_ESC		0xff1b
@@ -75,7 +75,7 @@
 #  define K_T_L		0x0061
 #  define K_T_R		0x0065
 #  define K_W_FWD	0x007a
-#  define K_W_BWK	0x0073
+#  define K_W_BWD	0x0073
 #  define K_S_R		0x0064
 #  define K_S_L		0x0071
 #  define K_ESC		0xff1b
@@ -90,7 +90,7 @@
 ** # define K_T_L		123
 ** # define K_T_R		124
 ** # define K_W_FWD	13
-** # define K_W_BWK	1
+** # define K_W_BWD	1
 ** # define K_S_R	2
 ** # define K_S_L	0
 ** # define K_ESC		0xff1b
