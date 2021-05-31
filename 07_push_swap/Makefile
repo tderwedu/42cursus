@@ -11,7 +11,13 @@ INCL_DIR	+= -I ${LIBFT_DIR}include
 
 SRC			=	./main.c \
 				./parse_input.c \
+				./swap.c \
+				./push.c \
+				./reverse_rotate.c \
+				./rotate.c \
+				./sort_3_nbr.c \
 				./utils.c
+
 
 OBJ			= ${SRC:.c=.o}
 

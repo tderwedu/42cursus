@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/30 12:30:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:12:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,64 @@
 
 void	init_stacks(t_stk *stk)
 {
-	stk->nb_a = 0;
+	stk->len_a = 0;
 	stk->stk_a = NULL;
-	stk->nb_b = 0;
+	stk->len_b = 0;
 	stk->stk_b = NULL;
+}
+
+void	print_stk(t_stk *stk)//TODO:remove/refactor
+{
+	int		i;
+	t_link	*stk_a;
+	t_link	*stk_b;
+
+	i = 0;
+	stk_a = stk->stk_a;
+	stk_b = stk->stk_b;
+	printf("\n\t  stk_a |  stk_b \n");
+	printf("\t %-6i | %-6i \n", stk->len_a, stk->len_b);
+	while (i < stk->len_a || i < stk->len_b)
+	{
+		if (i < stk->len_a && i < stk->len_b)
+			printf("\t % 6i | % 6i \n", stk_a->val, stk_b->val);
+		else if (i < stk->len_a)
+			printf("\t % 6i |\n", stk_a->val);
+		else
+			printf("\t       | % 6i \n", stk_b->val);
+		if (i < stk->len_a)
+			stk_a = stk_a->next;
+		if (i < stk->len_b)
+			stk_b = stk_b->next;
+		i++;
+	}
+}
+
+int	check_is_sorted(t_stk *stk)
+{
+	int		i;
+	t_link	*node;
+	t_link	*next;
+
+	if (stk->len_b != 0)
+		return (0);
+	i = 0;
+	node = stk->stk_a;
+	while (++i < stk->len_a)
+	{
+		next = node->next;
+		if (node->val > next->val)
+		{
+			if (DEBUG)
+				print_stk(stk);
+			return (0);
+		}
+		node = next;
+	}
+	if (DEBUG)
+	{
+		print_stk(stk);
+		write(1, "OK\n", 3);
+	}
+	return (1);
 }

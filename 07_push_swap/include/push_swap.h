@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/30 12:48:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/05/31 21:12:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,9 @@ typedef struct s_link
 
 typedef struct	s_stk
 {
-	int		nb_a;
+	int		len_a;
 	t_link	*stk_a;
-	int		nb_b;
+	int		len_b;
 	t_link	*stk_b;
 }				t_stk;
 
@@ -48,9 +48,48 @@ int		check_new_val(t_stk *stk, int new_val);
 int		add_new_val(t_stk *stk, int new_val);
 
 /*
+** swap.c
+*/
+
+void	stk_swap_a(t_stk *stk);
+void	stk_swap_b(t_stk *stk);
+void	stk_swap_ss(t_stk *stk);
+
+/*
+** push.c
+*/
+
+void	stk_push_a(t_stk *stk);
+void	stk_push_b(t_stk *stk);
+
+/*
+** rotate.c
+*/
+
+void	stk_rotate_ra(t_stk *stk);
+void	stk_rotate_rb(t_stk *stk);
+void	stk_rotate_rr(t_stk *stk);
+
+/*
+** retverse_rotate.c
+*/
+
+void	stk_reverse_rotate_rra(t_stk *stk);
+void	stk_reverse_rotate_rrb(t_stk *stk);
+void	stk_reverse_rotate_rrr(t_stk *stk);
+
+/*
+** sort_3_nbr.c
+*/
+
+void	sort_3_nbr(t_stk *stk);
+
+/*
 ** utils.c
 */
 
 void	init_stacks(t_stk *stk);
+int		check_is_sorted(t_stk *stk);
+void	print_stk(t_stk *stk);
 
 #endif
