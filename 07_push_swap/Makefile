@@ -12,10 +12,15 @@ INCL_DIR	+= -I ${LIBFT_DIR}include
 SRC			=	./main.c \
 				./parse_input.c \
 				./swap.c \
-				./push.c \
+				./push_a.c \
+				./push_b.c \
 				./reverse_rotate.c \
 				./rotate.c \
-				./sort_3_nbr.c \
+				./sort_2_nodes.c \
+				./sort_3_nodes.c \
+				./sort_find_median_value.c \
+				./sort_quick_sort.c \
+				./t_list.c\
 				./utils.c
 
 

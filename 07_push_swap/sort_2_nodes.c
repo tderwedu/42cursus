@@ -1,43 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rotate.c                                           :+:      :+:    :+:   */
+/*   sort_2_nodes.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/31 15:34:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 17:58:54 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/06/01 15:27:27 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/06/01 18:26:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static inline void	stk_rotate(t_link **stk)
+
+void	sort_2_nodes_stk_a(t_stk *stk)
 {
-	*stk = (*stk)->next;
+	int	first;
+	int	second;
+
+	first = stk->stk_a->val;
+	second = stk->stk_a->next->val;
+	if (first > second)
+		stk_swap_a(stk);
+	stk_rotate_ra(stk);
+	stk_rotate_ra(stk);
 }
 
-void	stk_rotate_ra(t_stk *stk)
+void	sort_2_nodes_stk_b(t_stk *stk)
 {
-	stk_rotate(&stk->stk_a);
-	if (!DEBUG)
-		write(1, "ra\n", 3);
-	stk->count++;
-}
+	int	first;
+	int	second;
 
-void	stk_rotate_rb(t_stk *stk)
-{
-	stk_rotate(&stk->stk_b);
-	if (!DEBUG)
-		write(1, "rb\n", 3);
-	stk->count++;
-}
-
-void	stk_rotate_rr(t_stk *stk)
-{
-	stk_rotate(&stk->stk_a);
-	stk_rotate(&stk->stk_b);
-	if (!DEBUG)
-		write(1, "rr\n", 3);
-	stk->count++;
+	first = stk->stk_b->val;
+	second = stk->stk_b->next->val;
+	if (first < second)
+		stk_swap_b(stk);
 }

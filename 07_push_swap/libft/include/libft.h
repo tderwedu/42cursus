@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/04 14:07:15 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/17 15:59:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/01 16:22:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,12 +55,6 @@ typedef unsigned int		t_ui;
 typedef unsigned long		t_ul;
 typedef unsigned long long	t_ull;
 typedef uintptr_t			t_ptr;
-
-typedef struct s_list
-{
-	void			*content;
-	struct s_list	*next;
-}				t_list;
 
 typedef struct s_vec
 {
@@ -127,21 +121,6 @@ void			ft_putstr_fd(char *s, int fd);
 void			ft_putendl_fd(char *s, int fd);
 void			ft_putnbr_fd(int n, int fd);
 int				get_next_line(int fd, char **line);
-
-/*
-**	LINKED_LIST
-*/
-
-void			ft_lstadd_back(t_list **lst, t_list *newlst);
-void			ft_lstadd_front(t_list **lst, t_list *newlst);
-void			ft_lstclear(t_list **lst, void (*del)(void *));
-void			ft_lstdelone(t_list *lst, void (*del)(void *));
-void			ft_lstiter(t_list *lst, void (*f)(void *));
-t_list			*ft_lst_pop(t_list *lst, void (*del)(void *));
-t_list			*ft_lstlast(t_list *lst);
-t_list			*ft_lstmap(t_list *lst, void *(*f)(void *), void (*d)(void *));
-t_list			*ft_lstnew(void *content);
-int				ft_lstsize(t_list *lst);
 
 /*
 **	BUFFER (vector)

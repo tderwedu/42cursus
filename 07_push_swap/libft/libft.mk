@@ -5,16 +5,6 @@ SRC		= 	./src/ctype/ft_isprint.c\
 			./src/ctype/ft_isdigit.c\
 			./src/ctype/ft_isalpha.c\
 			./src/ctype/ft_isalnum.c\
-			./src/linked_list/ft_lstiter.c\
-			./src/linked_list/ft_lstdelone.c\
-			./src/linked_list/ft_lst_pop.c\
-			./src/linked_list/ft_lstlast.c\
-			./src/linked_list/ft_lstsize.c\
-			./src/linked_list/ft_lstmap.c\
-			./src/linked_list/ft_lstnew.c\
-			./src/linked_list/ft_lstadd_back.c\
-			./src/linked_list/ft_lstclear.c\
-			./src/linked_list/ft_lstadd_front.c\
 			./src/memory/ft_bzero.c\
 			./src/memory/ft_memchr.c\
 			./src/memory/ft_memset.c\

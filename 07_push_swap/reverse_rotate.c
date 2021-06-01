@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:03:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/31 16:16:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/01 17:58:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,24 @@ static inline void	stk_reverse_rotate(t_link **stk)
 void	stk_reverse_rotate_rra(t_stk *stk)
 {
 	stk_reverse_rotate(&stk->stk_a);
-	write(1, "rra\n", 3);
+	if (!DEBUG)
+		write(1, "rra\n", 3);
+	stk->count++;
 }
 
 void	stk_reverse_rotate_rrb(t_stk *stk)
 {
 	stk_reverse_rotate(&stk->stk_b);
-	write(1, "rrb\n", 3);
+	if (!DEBUG)
+		write(1, "rrb\n", 3);
+	stk->count++;
 }
 
 void	stk_reverse_rotate_rrr(t_stk *stk)
 {
 	stk_reverse_rotate(&stk->stk_a);
 	stk_reverse_rotate(&stk->stk_b);
-	write(1, "rrr\n", 3);
+	if (!DEBUG)
+		write(1, "rrr\n", 3);
+	stk->count++;
 }
