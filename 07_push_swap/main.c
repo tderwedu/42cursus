@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:37:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 15:55:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/02 09:09:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int	main(int argc, char **argv)
 		if (!check_is_sorted(&stk))
 		{
 			sort_quick_sort(&stk);
+			check_is_sorted(&stk);
 		}
 	}
 }

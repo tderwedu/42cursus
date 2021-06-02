@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 16:41:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/02 09:17:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libft.h"
 # include <stdio.h> //TODO:remove
 
-# define	DEBUG		1
+# define	DEBUG		0
 
 typedef struct	s_list
 {
