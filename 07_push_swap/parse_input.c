@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 10:22:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/05/31 21:12:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/05 10:09:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	parse_str(t_stk *stk, char *str)
 			// printf("    chr: '%c'\n", *str);
 			if (check_new_val(stk, new_val))
 				return (1);
-			// printf("   len_a: %i\n", stk->len_a);
+			// printf("   size_a: %i\n", stk->size_a);
 			if (add_new_val(stk, new_val))
 				return (1);
 		}
@@ -89,12 +89,12 @@ int	check_new_val(t_stk *stk, int new_val)
 
 	if (!stk->stk_a)
 	{
-		stk->len_a++;
+		stk->size_a++;
 		return (0);
 	}
 	i = 0;
 	node = stk->stk_a;
-	while (++i < stk->len_a)
+	while (++i < stk->size_a)
 	{
 		if (new_val == node->val)
 			return (1);
@@ -102,7 +102,7 @@ int	check_new_val(t_stk *stk, int new_val)
 	}
 	if (new_val == node->val)
 		return (1);
-	stk->len_a++;
+	stk->size_a++;
 	return (0);
 }
 
@@ -188,7 +188,7 @@ int	add_new_val(t_stk *stk, int new_val)
 // 			// printf("    chr: '%c'\n", *str);
 // 			if (check_new_val(stk, new_val))
 // 				return (1);
-// 			// printf("   len_a: %i\n", stk->len_a);
+// 			// printf("   size_a: %i\n", stk->size_a);
 // 			if (add_new_val(stk, new_val))
 // 				return (1);
 // 			if (*str != 0)

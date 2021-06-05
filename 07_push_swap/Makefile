@@ -11,16 +11,14 @@ INCL_DIR	+= -I ${LIBFT_DIR}include
 
 SRC			=	./main.c \
 				./parse_input.c \
-				./swap.c \
-				./push_a.c \
-				./push_b.c \
-				./reverse_rotate.c \
-				./rotate.c \
-				./sort_2_nodes.c \
-				./sort_3_nodes.c \
+				./moves/swap.c \
+				./moves/push_a.c \
+				./moves/push_b.c \
+				./moves/reverse_rotate.c \
+				./moves/rotate.c \
 				./sort_find_median_value.c \
 				./sort_quick_sort.c \
-				./t_list.c\
+				./t_part.c\
 				./utils.c
 
 
@@ -35,7 +33,7 @@ $(NAME):	${LIBFT} ${OBJ}
 			${CC} ${CFLAGS} ${OBJ} ${LIBFT_FLAGS} -o ${NAME}
 
 ${LIBFT}:
-			${MAKE} -s -c ${LIBFT_DIR}
+			${MAKE} -s -C ${LIBFT_DIR}
 
 clean:
 			rm -rf ${OBJ}

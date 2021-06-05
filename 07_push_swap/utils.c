@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 17:43:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/05 12:20:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,16 @@
 
 void	init_stacks(t_stk *stk)
 {
-	stk->len_a = 0;
+	stk->size_a = 0;
 	stk->stk_a = NULL;
-	stk->len_b = 0;
+	stk->size_b = 0;
 	stk->stk_b = NULL;
-	stk->last = NULL;
-	stk->count = 0;
+	stk->sorted = NULL;
+	stk->part_a = NULL;
+	stk->part_b = NULL;
+	stk->nbr_moves = 0;
+	stk->nbr_push = 0;
+	stk->nbr_rot = 0;
 }
 
 int	exit_error(t_stk *stk)
@@ -31,7 +35,7 @@ int	exit_error(t_stk *stk)
 	i = -1;
 	node = stk->stk_a;
 	next = stk->stk_a;
-	while (++i < stk->len_a)
+	while (++i < stk->size_a)
 	{
 		next = next->next;
 		free(node);
@@ -50,24 +54,34 @@ void	print_stk(t_stk *stk)//TODO:remove/refactor
 	i = 0;
 	stk_a = stk->stk_a;
 	stk_b = stk->stk_b;
+	printf("\n\n");
 	printf("\t  STK A |  STK B \n");
-	printf("\t % 6i | %-6i \n", stk->len_a, stk->len_b);
+	printf("\t % 6i | %-6i \n", stk->size_a, stk->size_b);
 	printf("\t  -------------  \n");
-	while (i < stk->len_a || i < stk->len_b)
+	while (i < stk->size_a || i < stk->size_b)
 	{
-		if (i < stk->len_a && i < stk->len_b)
+		if (i < stk->size_a && i < stk->size_b)
 			printf("\t % 6i | % 6i \n", stk_a->val, stk_b->val);
-		else if (i < stk->len_a)
+		else if (i < stk->size_a)
 			printf("\t % 6i |\n", stk_a->val);
 		else
 			printf("\t       | % 6i \n", stk_b->val);
-		if (i < stk->len_a)
+		if (i < stk->size_a)
 			stk_a = stk_a->next;
-		if (i < stk->len_b)
+		if (i < stk->size_b)
 			stk_b = stk_b->next;
 		i++;
 	}
-	printf("\t Count: %i \n", stk->count);
+}
+
+void	print_moves(t_stk *stk)
+{
+	printf("===============\n");
+	printf("Nbr moves: % 4i\n", stk->nbr_moves);
+	printf("Nbr push : % 4i\n", stk->nbr_push);
+	printf("Nbr rot  : % 4i\n", stk->nbr_rot);
+	printf("Nbr sorted: % 3i\n", stk->sorted->size);
+	printf("===============\n");
 }
 
 int	check_is_sorted(t_stk *stk)
@@ -76,25 +90,26 @@ int	check_is_sorted(t_stk *stk)
 	t_link	*node;
 	t_link	*next;
 
-	if (stk->len_b != 0)
+	if (stk->size_b != 0)
 		return (0);
 	i = 0;
 	node = stk->stk_a;
-	while (++i < stk->len_a)
+	while (++i < stk->size_a)
 	{
 		next = node->next;
 		if (node->val > next->val)
 		{
 			if (DEBUG)
+			{
 				print_stk(stk);
+				printf("WRONG: %i | %i\n", node->val,next->val);
+			}
 			return (0);
 		}
 		node = next;
 	}
 	if (DEBUG)
-	{
 		print_stk(stk);
-		write(1, "OK\n", 3);
-	}
+	write(1, "OK\n", 3);
 	return (1);
 }

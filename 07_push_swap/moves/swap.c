@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:34:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 17:59:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/05 10:15:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,25 +42,25 @@ static inline void	stk_swap(t_link **stk, int len)
 
 void	stk_swap_a(t_stk *stk)
 {
-	stk_swap(&stk->stk_a, stk->len_a);
-	if (!DEBUG)
+	stk_swap(&stk->stk_a, stk->size_a);
+	if (SHOW_MOVES)
 		write(1, "sa\n", 3);
-	stk->count++;
+	stk->nbr_moves++;
 }
 
 void	stk_swap_b(t_stk *stk)
 {
-	stk_swap(&stk->stk_b, stk->len_b);
-	if (!DEBUG)
+	stk_swap(&stk->stk_b, stk->size_b);
+	if (SHOW_MOVES)
 		write(1, "sb\n", 3);
-	stk->count++;
+	stk->nbr_moves++;
 }
 
 void	stk_swap_ss(t_stk *stk)
 {
-	stk_swap(&stk->stk_a, stk->len_a);
-	stk_swap(&stk->stk_b, stk->len_b);
-	if (!DEBUG)
+	stk_swap(&stk->stk_a, stk->size_a);
+	stk_swap(&stk->stk_b, stk->size_b);
+	if (SHOW_MOVES)
 		write(1, "ss\n", 3);
-	stk->count++;
+	stk->nbr_moves++;
 }

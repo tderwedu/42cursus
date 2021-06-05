@@ -6,32 +6,37 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:58:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/01 18:09:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/05 17:24:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	sort_find_median_value(t_link *stk, int len)
+int	sort_find_median_value(t_link *stk, int size)
 {
 	int	i;
 	int *tab;
 	int	median;
 
-	tab = malloc(sizeof(int) * len);
+	tab = malloc(sizeof(int) * size);
 	if (!tab)
 		return (0); //TODO: create a proper exit function
 	i = -1;
-	while (++i < len)
+	while (++i < size)
 	{
 		tab[i] = stk->val;
 		stk = stk->next;
 	}
-	tab_quick_sort(tab, 0, len - 1);
-	if (!(len % 2))
-		median = tab[len / 2];
-	else
-		median = tab[len / 2 + 1];
+	tab_quick_sort(tab, 0, size - 1);
+	median = tab[size / 2];
+	//===================
+	int j = -1;
+	printf("  tab: ");
+	while (++j < size)
+		printf("%i ", tab[j]);
+	printf("\n");
+	printf("median: %i\n", median);
+	//====================
 	free(tab);
 	return (median);
 }

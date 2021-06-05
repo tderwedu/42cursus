@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/02 09:17:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/05 11:04:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,14 @@
 # include "libft.h"
 # include <stdio.h> //TODO:remove
 
-# define	DEBUG		0
+# define	DEBUG		1
+# define	SHOW_MOVES	0
 
-typedef struct	s_list
+typedef struct	s_part
 {
-	int				val;
-	struct s_list	*prev;
-}				t_list;
+	int				size;
+	struct s_part	*prev;
+}				t_part;
 
 typedef struct s_link
 {
@@ -37,12 +38,16 @@ typedef struct s_link
 
 typedef struct	s_stk
 {
-	int		len_a;
+	int		size_a;
 	t_link	*stk_a;
-	int		len_b;
+	int		size_b;
 	t_link	*stk_b;
-	t_list	*last;
-	int		count;
+	t_part	*sorted;
+	t_part	*part_a;
+	t_part	*part_b;
+	int		nbr_moves;
+	int		nbr_push;
+	int		nbr_rot;
 }				t_stk;
 
 /*
@@ -111,12 +116,12 @@ void	tab_quick_sort(int *tab, int start, int end);
 int		sort_quick_sort(t_stk *stk);
 
 /*
-**	t_list.c
+**	t_part.c
 */
 
-int		ft_lst_add(t_stk *stk, int new_val);
-int		ft_lst_pop(t_stk *stk);
-void	ft_lst_del(t_stk *stk);
+int		ft_lst_add(t_stk *stk, t_part **part, int size);
+int		ft_lst_pop(t_part **stk);
+void	ft_lst_del(t_part **stk);
 
 /*
 **	utils.c
@@ -126,5 +131,6 @@ void	init_stacks(t_stk *stk);
 int		exit_error(t_stk *stk);
 int		check_is_sorted(t_stk *stk);
 void	print_stk(t_stk *stk);
+void	print_moves(t_stk *stk);
 
 #endif
