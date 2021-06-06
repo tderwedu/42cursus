@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 15:35:53 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/05 12:07:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/06 11:44:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,6 @@ int	ft_lst_add(t_stk *stk, t_part **part, int size)
 	else
 		new->prev = last;
 	*part = new;
-	if (DEBUG)
-	{
-		printf("NEW Partition:\n");
-		printf("\t Size: %i\n", size);
-	}
 	return (0);
 }
 
@@ -49,11 +44,6 @@ int	ft_lst_pop(t_part **part)
 	size = last->size;
 	prev = last->prev;
 	*part = prev;
-	if (DEBUG)
-	{
-		printf("POP Partition:\n");
-		printf("\t Size: %i\n", last->size);
-	}
 	free(last);
 	return (size);
 }

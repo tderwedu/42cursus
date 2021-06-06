@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/05 12:20:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/06 10:58:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	init_stacks(t_stk *stk)
 	stk->nbr_moves = 0;
 	stk->nbr_push = 0;
 	stk->nbr_rot = 0;
+	stk->tmp = 0;
 }
 
 int	exit_error(t_stk *stk)
@@ -80,6 +81,7 @@ void	print_moves(t_stk *stk)
 	printf("Nbr moves: % 4i\n", stk->nbr_moves);
 	printf("Nbr push : % 4i\n", stk->nbr_push);
 	printf("Nbr rot  : % 4i\n", stk->nbr_rot);
+	printf("Nbr tmp  : % 4i\n", stk->tmp);
 	printf("Nbr sorted: % 3i\n", stk->sorted->size);
 	printf("===============\n");
 }

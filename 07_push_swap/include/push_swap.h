@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/05 11:04:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/06 12:43:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libft.h"
 # include <stdio.h> //TODO:remove
 
-# define	DEBUG		1
+# define	DEBUG		0
 # define	SHOW_MOVES	0
 
 typedef struct	s_part
@@ -48,6 +48,7 @@ typedef struct	s_stk
 	int		nbr_moves;
 	int		nbr_push;
 	int		nbr_rot;
+	int		tmp;
 }				t_stk;
 
 /*
