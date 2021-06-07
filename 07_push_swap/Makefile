@@ -10,16 +10,17 @@ LIBFT_FLAGS	= -L ${LIBFT_DIR} -lft
 INCL_DIR	+= -I ${LIBFT_DIR}include
 
 SRC			=	./main.c \
-				./parse_input.c \
 				./moves/swap.c \
 				./moves/push_a.c \
 				./moves/push_b.c \
 				./moves/reverse_rotate.c \
 				./moves/rotate.c \
-				./sort_find_median_value.c \
-				./sort_quick_sort.c \
-				./t_part.c\
-				./utils.c
+				./src_push_swap/parse_input.c \
+				./src_push_swap/array_sorted.c \
+				./src_push_swap/sort_quick_sort.c \
+				./src_push_swap/sort_insertion_sort.c \
+				./utils/t_part.c\
+				./utils/utils.c
 
 
 OBJ			= ${SRC:.c=.o}

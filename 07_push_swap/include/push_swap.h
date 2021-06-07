@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/06 12:43:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 12:46:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 
 # define	DEBUG		0
 # define	SHOW_MOVES	0
+# define	SWITCH_INSERTION	13
 
 typedef struct	s_part
 {
@@ -36,19 +37,28 @@ typedef struct s_link
 	struct s_link	*prev;
 }				t_link;
 
+typedef struct	s_ins
+{
+	int	size;
+	int	push;
+	int	val;
+	int	next;
+	int	swap;
+	int	*tab;
+	int	empty;
+}				t_ins;
+
 typedef struct	s_stk
 {
 	int		size_a;
 	t_link	*stk_a;
 	int		size_b;
 	t_link	*stk_b;
-	t_part	*sorted;
-	t_part	*part_a;
-	t_part	*part_b;
+	int		sorted;
 	int		nbr_moves;
 	int		nbr_push;
 	int		nbr_rot;
-	int		tmp;
+	t_part	*part_b;
 }				t_stk;
 
 /*
@@ -104,11 +114,18 @@ void	sort_3_nodes_stk_a(t_stk *stk);
 void	sort_3_nodes_stk_b(t_stk *stk);
 
 /*
-**	sort_find_median_value.c
+**	array_sorted.c
 */
 
-int		sort_find_median_value(t_link *stk, int len);
-void	tab_quick_sort(int *tab, int start, int end);
+int		*sorted_array(t_link *stk, int size);
+int		array_get_median(t_link *stk, int len);
+void	array_quick_sort(int *tab, int start, int end);
+
+/*
+**	sort_insertion_sort.c
+*/
+
+void	sort_insertion_sort(t_stk *stk, int	size);
 
 /*
 **	sort_quick_sort.c
