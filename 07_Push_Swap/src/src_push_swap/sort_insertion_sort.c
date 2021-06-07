@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 09:44:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:22:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:52:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h> // TODO:remove
 
-int		get_pos(t_link *first, int val)
+int	get_pos(t_link *first, int val)
 {
 	int		i;
 	t_link	*ptr;
@@ -43,7 +43,7 @@ static inline void	ins_fwd_rotate(t_stk *stk, t_ins *ins)
 		else if (ins->swap && stk->stk_b->val == ins->next)
 			stk_swap_b(stk, SHOW_MOVES);
 		else
-		stk_rotate_rb(stk, SHOW_MOVES);
+			stk_rotate_rb(stk, SHOW_MOVES);
 	}
 	stk_push_a(stk, SHOW_MOVES);
 	if (ins->swap)
@@ -85,7 +85,7 @@ void	sort_insertion_sort(t_stk *stk, int	size)
 	ins.full_size = (size == stk->size_b);
 	ins.last = stk->stk_b->prev;
 	ins.size = size;
-	ins.tab = sorted_array(stk->stk_b, size);
+	ins.tab = sorted_array(stk, stk->stk_b, size);
 	while ((size - ins.push) > 0)
 	{
 		ins.swap = 0;

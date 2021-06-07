@@ -6,12 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:21:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 23:20:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
-# define PUSH_SWAP
+# define PUSH_SWAP_H
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -19,16 +19,13 @@
 # include <limits.h>
 # include "libft.h"
 
-# define	DEBUG		0
-# ifndef SHOW_MOVES
-#  define	SHOW_MOVES	1
-# endif
+# define	SHOW_MOVES	1
 # define	SWITCH_INS	13
 
 typedef unsigned int	t_ui;
 typedef unsigned long	t_ul;
 
-typedef struct	s_part
+typedef struct s_part
 {
 	int				size;
 	struct s_part	*prev;
@@ -41,7 +38,15 @@ typedef struct s_link
 	struct s_link	*prev;
 }				t_link;
 
-typedef struct	s_ins
+typedef struct s_loop
+{
+	int	size;
+	int	median;
+	int	nb_rot;
+	int	nb_push;
+}				t_loop;
+
+typedef struct s_ins
 {
 	int		size;
 	int		push;
@@ -56,7 +61,7 @@ typedef struct	s_ins
 	t_link	*first;
 }				t_ins;
 
-typedef struct	s_stk
+typedef struct s_stk
 {
 	int		size_a;
 	t_link	*stk_a;
@@ -140,8 +145,8 @@ int		push_swap_exit(t_stk *stk);
 **	array_sorted.c
 */
 
-int		*sorted_array(t_link *stk, int size);
-int		array_get_median(t_link *stk, int len);
+int		*sorted_array(t_stk *stk, t_link *stack, int size);
+int		array_get_median(t_stk *stk, t_link *stack, int len);
 void	array_quick_sort(int *tab, int start, int end);
 
 /*
@@ -154,7 +159,9 @@ void	sort_insertion_sort(t_stk *stk, int	size);
 **	sort_quick_sort.c
 */
 
-int		sort_quick_sort(t_stk *stk);
+void	init_push_to_stk_b(t_stk *stk);
+void	push_to_stk_a(t_stk *stk);
+void	push_to_stk_b(t_stk *stk, int size);
 
 /*
 **	sort_utils.c
@@ -178,12 +185,7 @@ int		checker_error(t_stk *stk);
 
 int		read_instructions(t_stk *stk);
 
-/*
-**	not_submitted.c 	//TODO:remove
-*/
-
-void	print_stk(t_stk *stk);		//TODO:remove
-void	print_moves(t_stk *stk);	//TODO:remove
-void	print_malloc(t_stk *stk);	//TODO:remove
+void	print_moves(t_stk *stk); //TODO:remove
+void	print_stk(t_stk *stk); //TODO:remove
 
 #endif

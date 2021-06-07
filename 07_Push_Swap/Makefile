@@ -23,7 +23,7 @@ SRC_M		=	./src/moves/swap.c \
 				./src/src_push_swap/sort_quick_sort.c \
 				./src/src_push_swap/sort_insertion_sort.c \
 				./src/src_push_swap/sort_utils.c \
-				./src/not_submitted.c
+				./src/not_sub.c #TODO:remove
 
 SRC_B		=	./src/moves/swap.c \
 				./src/moves/push_a.c \
@@ -34,6 +34,7 @@ SRC_B		=	./src/moves/swap.c \
 				./src/utils/parse_input.c \
 				./src/src_checker/read_instructions.c \
 				./src/src_checker/checker.c \
+				./src/not_sub.c #TODO:remove
 
 OBJ_M		= ${SRC_M:.c=.o}
 

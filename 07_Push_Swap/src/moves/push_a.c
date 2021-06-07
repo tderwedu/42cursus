@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:34:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:19:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 23:45:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static inline void	stk_push_a_stk_b(t_stk *stk)
 	t_link	*first;
 	t_link	*second;
 	t_link	*last;
-	
+
 	first = stk->stk_b;
 	stk->size_b--;
 	if (stk->size_b)
@@ -38,6 +38,12 @@ static inline void	stk_push_a_stk_b(t_stk *stk)
 	}
 	else
 		stk->stk_b = NULL;
+}
+
+static inline void	first_item(t_link *first)
+{
+	first->next = NULL;
+	first->prev = NULL;
 }
 
 static inline void	stk_push_a_stk_a(t_stk *stk, t_link *first)
@@ -63,12 +69,8 @@ static inline void	stk_push_a_stk_a(t_stk *stk, t_link *first)
 		second->prev = first;
 	}
 	else
-	{
-		first->next = NULL;
-		first->prev = NULL;
-	}
+		first_item(first);
 	stk->stk_a = first;
-	stk->size_a++;
 }
 
 void	stk_push_a(t_stk *stk, int show)
@@ -78,9 +80,10 @@ void	stk_push_a(t_stk *stk, int show)
 	first = stk->stk_b;
 	stk_push_a_stk_b(stk);
 	stk_push_a_stk_a(stk, first);
+	stk->size_a++;
 	if (show)
 		write(1, "pa\n", 3);
+	// print_stk(stk);
 	stk->nbr_moves++;
 	stk->nbr_push++;
 }
-

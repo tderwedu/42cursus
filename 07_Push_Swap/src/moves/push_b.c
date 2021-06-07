@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:34:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:19:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 23:45:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ static inline void	stk_push_b_stk_a(t_stk *stk)
 		stk->stk_a = NULL;
 }
 
+static inline void	first_item(t_link *first)
+{
+	first->next = NULL;
+	first->prev = NULL;
+}
+
 static inline void	stk_push_b_stk_b(t_stk *stk, t_link *first)
 {
 	t_link	*second;
@@ -63,10 +69,7 @@ static inline void	stk_push_b_stk_b(t_stk *stk, t_link *first)
 		second->prev = first;
 	}
 	else
-	{
-		first->next = NULL;
-		first->prev = NULL;
-	}
+		first_item(first);
 	stk->stk_b = first;
 	stk->size_b++;
 }
@@ -80,7 +83,7 @@ void	stk_push_b(t_stk *stk, int show)
 	stk_push_b_stk_b(stk, first);
 	if (show)
 		write(1, "pb\n", 3);
+	// print_stk(stk);
 	stk->nbr_moves++;
 	stk->nbr_push++;
 }
-

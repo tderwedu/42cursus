@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:08:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 18:09:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 23:46:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ int	checker_error(t_stk *stk)
 {
 	ft_link_del(stk);
 	write(1, "Error\n", 6);
-	if (DEBUG)
-		print_malloc(stk);
 	return (1);
 }
 
@@ -38,6 +36,7 @@ int	main(int argc, char **argv)
 			write(1, "OK\n", 3);
 		else
 			write(1, "KO\n", 3);
+		// print_stk(&stk);
 		ft_link_del(&stk);
 	}
 }

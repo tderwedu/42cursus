@@ -9,3 +9,4 @@ LIST=$(perl -e "use List::Util 'shuffle'; my @out = (shuffle 0..$1)[0..$1]; prin
 echo "LIST=\""${LIST[@]}"\""
 set -v
 ./push_swap ${LIST[@]}
+./push_swap ${LIST[@]} | ./checker ${LIST[@]}

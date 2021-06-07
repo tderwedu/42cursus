@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 09:44:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:23:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:44:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,128 +14,121 @@
 
 void	init_push_to_stk_b(t_stk *stk)
 {
-	int	size;
-	int	nb_push;
-	int	median;
+	t_loop	box;
 
-	size = stk->size_a;
-	while (size > 3)
+	box.size = stk->size_a;
+	while (box.size > 3)
 	{
-		nb_push = 0;
-		median = array_get_median(stk->stk_a, size);
-		while (still_to_push_to_stk_b(stk, size--, median))
+		box.nb_push = 0;
+		box.median = array_get_median(stk, stk->stk_a, box.size);
+		while (still_to_push_to_stk_b(stk, box.size--, box.median))
 		{
-			if (stk->stk_a->val < median)
+			if (stk->stk_a->val < box.median)
 			{
 				stk_push_b(stk, SHOW_MOVES);
-				nb_push++;
+				box.nb_push++;
 			}
 			else
 				stk_rotate_ra(stk, SHOW_MOVES);
 		}
-		ft_lst_add(stk, nb_push);
-		size = stk->size_a;
+		ft_lst_add(stk, box.nb_push);
+		box.size = stk->size_a;
 	}
-	if (size == 3)
+	if (box.size == 3)
 		sort_stk_a_first_3_nodes(stk);
 	else
-		sort_stk_a(stk, size);
-	stk->sorted = size;
+		sort_stk_a(stk, box.size);
+	stk->sorted = box.size;
+}
+
+static inline void	stk_a_loop(t_stk *stk, t_loop *box, int size)
+{
+	box->nb_rot = 0;
+	box->nb_push = 0;
+	box->median = array_get_median(stk, stk->stk_a, box->size);
+	while (still_to_push_to_stk_b(stk, size--, box->median))
+	{
+		if (stk->stk_a->val < box->median)
+		{
+			stk_push_b(stk, SHOW_MOVES);
+			box->nb_push++;
+		}
+		else if (size == 1 && stk->stk_a->next->val < box->median)
+		{
+			stk_swap_a(stk, SHOW_MOVES);
+			stk_push_b(stk, SHOW_MOVES);
+			box->nb_push++;
+		}
+		else
+		{
+			stk_rotate_ra(stk, SHOW_MOVES);
+			box->nb_rot++;
+		}
+	}
 }
 
 void	push_to_stk_b(t_stk *stk, int size)
 {
-	int	median;
-	int	nb_rot;
-	int	nb_push;
-	int max_rot;
+	t_loop	box;
 
-	while (size > 3)
+	box.size = size;
+	while (box.size > 3)
 	{
-		nb_rot = 0;
-		nb_push = 0;
-		median = array_get_median(stk->stk_a, size);
-		max_rot = size;
-		while (still_to_push_to_stk_b(stk, max_rot--, median))
-		{
-			if (stk->stk_a->val < median)
-			{
-				stk_push_b(stk, SHOW_MOVES);
-				nb_push++;
-			}
-			else if (max_rot == 1 && stk->stk_a->next->val < median)
-			{
-				stk_swap_a(stk, SHOW_MOVES);
-				stk_push_b(stk, SHOW_MOVES);
-				nb_push++;
-			}
-			else
-			{
-				stk_rotate_ra(stk, SHOW_MOVES);
-				nb_rot++;
-			}
-		}
-		size -= nb_push;
-		ft_lst_add(stk, nb_push);
-		while (nb_rot--)
+		stk_a_loop(stk, &box, box.size);
+		box.size -= box.nb_push;
+		ft_lst_add(stk, box.nb_push);
+		while (box.nb_rot--)
 			stk_reverse_rotate_rra(stk, SHOW_MOVES);
 	}
-	sort_stk_a(stk, size);
+	sort_stk_a(stk, box.size);
+}
+
+static inline void	stk_b_loop(t_stk *stk, t_loop *box, int size)
+{
+	box->nb_rot = 0;
+	box->nb_push = 0;
+	box->median = array_get_median(stk, stk->stk_b, box->size);
+	while (still_to_push_to_stk_a(stk, size--, box->median))
+	{
+		if (stk->stk_b->val >= box->median)
+		{
+			stk_push_a(stk, SHOW_MOVES);
+			box->nb_push++;
+		}
+		else if (size == 1 && stk->stk_b->next->val >= box->median)
+		{
+			stk_swap_b(stk, SHOW_MOVES);
+			stk_push_a(stk, SHOW_MOVES);
+			box->nb_push++;
+		}
+		else
+		{
+			stk_rotate_rb(stk, SHOW_MOVES);
+			box->nb_rot++;
+		}
+	}
 }
 
 void	push_to_stk_a(t_stk *stk)
 {
-	int	nodes;
-	int	size;
-	int	median;
-	int	nb_rot;
-	int	nb_push;
+	t_loop	box;
 
-	size = ft_lst_pop(stk);
-	while (size)
+	box.size = ft_lst_pop(stk);
+	while (box.size)
 	{
-		if (size <= SWITCH_INS)
-			sort_insertion_sort(stk, size);
+		if (box.size <= SWITCH_INS)
+			sort_insertion_sort(stk, box.size);
 		else
 		{
-			nb_rot = 0;
-			nb_push = 0;
-			median = array_get_median(stk->stk_b, size);
-			nodes = size;
-			while (still_to_push_to_stk_a(stk, nodes--, median))
+			stk_b_loop(stk, &box, box.size);
+			if ((box.size - box.nb_push) != stk->size_b)
 			{
-				if (stk->stk_b->val >= median)
-				{
-					stk_push_a(stk, SHOW_MOVES);
-					nb_push++;
-				}
-				else if (nodes == 1 && stk->stk_b->next->val >= median)
-				{
-					stk_swap_b(stk, SHOW_MOVES);
-					stk_push_a(stk, SHOW_MOVES);
-					nb_push++;
-				}
-				else
-				{
-					stk_rotate_rb(stk, SHOW_MOVES);
-					nb_rot++;
-				}
-			}
-			if ((size - nb_push) != stk->size_b)
-			{
-				while (nb_rot--)
+				while (box.nb_rot--)
 					stk_reverse_rotate_rrb(stk, SHOW_MOVES);
 			}
-			ft_lst_add(stk, size - nb_push);
-			push_to_stk_b(stk, nb_push);
+			ft_lst_add(stk, box.size - box.nb_push);
+			push_to_stk_b(stk, box.nb_push);
 		}
-		size = ft_lst_pop(stk);
+		box.size = ft_lst_pop(stk);
 	}
-}
-
-int	sort_quick_sort(t_stk *stk)
-{
-	init_push_to_stk_b(stk);
-	push_to_stk_a(stk);
-	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 16:01:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:29:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:44:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	sort_stk_a_3_nodes(t_stk *stk)
 	first = stk->stk_a->val;
 	second = stk->stk_a->next->val;
 	third = stk->stk_a->next->next->val;
-
 	if (first < second && second < third)
 		return ;
 	else if (second < first && first < third)
@@ -58,7 +57,7 @@ void	sort_stk_a_3_nodes(t_stk *stk)
 		stk_rotate_ra(stk, SHOW_MOVES);
 		stk_swap_a(stk, SHOW_MOVES);
 		stk_reverse_rotate_rra(stk, SHOW_MOVES);
-		if  (third < first && third < second)
+		if (third < first && third < second)
 			stk_swap_a(stk, SHOW_MOVES);
 	}
 }

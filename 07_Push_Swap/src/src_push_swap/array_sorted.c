@@ -6,44 +6,44 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 20:58:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 12:46:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:53:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	*sorted_array(t_link *stk, int size)
+int	*sorted_array(t_stk *stk, t_link *stack, int size)
 {
 	int	i;
-	int *tab;
+	int	*tab;
 
 	tab = malloc(sizeof(int) * size);
 	if (!tab)
-		return (0); //TODO: create a proper exit function
+		push_swap_error(stk);
 	i = -1;
 	while (++i < size)
 	{
-		tab[i] = stk->val;
-		stk = stk->next;
+		tab[i] = stack->val;
+		stack = stack->next;
 	}
 	array_quick_sort(tab, 0, size - 1);
 	return (tab);
 }
 
-int	array_get_median(t_link *stk, int size)
+int	array_get_median(t_stk *stk, t_link *stack, int size)
 {
 	int	i;
-	int *tab;
+	int	*tab;
 	int	median;
 
 	tab = malloc(sizeof(int) * size);
 	if (!tab)
-		return (0); //TODO: create a proper exit function
+		push_swap_error(stk);
 	i = -1;
 	while (++i < size)
 	{
-		tab[i] = stk->val;
-		stk = stk->next;
+		tab[i] = stack->val;
+		stack = stack->next;
 	}
 	array_quick_sort(tab, 0, size - 1);
 	median = tab[size / 2];
@@ -83,4 +83,3 @@ void	array_quick_sort(int *tab, int start, int end)
 	array_quick_sort(tab, start, pivot - 1);
 	array_quick_sort(tab, pivot + 1, end);
 }
-

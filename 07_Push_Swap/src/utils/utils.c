@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 17:26:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 22:47:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ void	ft_link_del(t_stk *stk)
 	}
 }
 
+#include <stdio.h>
 int	check_is_sorted(t_stk *stk)
 {
 	int		i;

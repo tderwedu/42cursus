@@ -6,18 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 15:35:53 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 17:25:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:51:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-
-
 int	ft_lst_add(t_stk *stk, int size)
 {
-	t_part *new;
-	t_part *last;
+	t_part	*new;
+	t_part	*last;
 
 	last = stk->parts;
 	new = malloc(sizeof(t_part));

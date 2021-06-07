@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 10:22:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 16:14:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:51:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,12 @@
 int	parse_str(t_stk *stk, char *str)
 {
 	int			new_val;
-	
+
 	while (*str)
 	{
 		while ((t_ui)(*str == ' ' || *str - 9U < 4U))
 			str++;
-		if ((t_ui)(*str - '0') < 10|| *str == '+' || *str == '-')
+		if ((t_ui)(*str - '0') < 10 || *str == '+' || *str == '-')
 		{
 			if (get_new_val(&str, &new_val))
 				return (1);

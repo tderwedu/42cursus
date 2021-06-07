@@ -1,48 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   not_sub.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 12:23:41 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/06/07 22:18:11 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/06/07 22:20:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-
-void	init_stacks(t_stk *stk)
-{
-	stk->size_a = 0;
-	stk->stk_a = NULL;
-	stk->size_b = 0;
-	stk->stk_b = NULL;
-	stk->sorted = 0;
-	stk->nbr_moves = 0;
-	stk->nbr_push = 0;
-	stk->nbr_rot = 0;
-	stk->part_b = NULL;
-}
-
-int	exit_error(t_stk *stk)
-{
-	int		i;
-	t_link	*node;
-	t_link	*next;
-
-	i = -1;
-	node = stk->stk_a;
-	next = stk->stk_a;
-	while (++i < stk->size_a)
-	{
-		next = next->next;
-		free(node);
-		node = next;
-	}
-	write(1, "Error\n", 6);
-	return (1);
-}
+#include <stdio.h>
 
 void	print_stk(t_stk *stk)//TODO:remove/refactor
 {
@@ -81,34 +50,4 @@ void	print_moves(t_stk *stk)
 	printf("Nbr rot  : % 4i\n", stk->nbr_rot);
 	printf("Nbr sorted: % 3i\n", stk->sorted);
 	printf("===============\n");
-}
-
-int	check_is_sorted(t_stk *stk)
-{
-	int		i;
-	t_link	*node;
-	t_link	*next;
-
-	if (stk->size_b != 0)
-		return (0);
-	i = 0;
-	node = stk->stk_a;
-	while (++i < stk->size_a)
-	{
-		next = node->next;
-		if (node->val > next->val)
-		{
-			if (DEBUG)
-			{
-				print_stk(stk);
-				printf("WRONG: %i | %i\n", node->val,next->val);
-			}
-			return (0);
-		}
-		node = next;
-	}
-	if (DEBUG)
-		print_stk(stk);
-	write(1, "OK\n", 3);
-	return (1);
 }
