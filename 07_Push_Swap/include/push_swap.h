@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 12:46:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/07 21:21:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,15 @@
 # include <fcntl.h>
 # include <limits.h>
 # include "libft.h"
-# include <stdio.h> //TODO:remove
 
 # define	DEBUG		0
-# define	SHOW_MOVES	0
-# define	SWITCH_INSERTION	13
+# ifndef SHOW_MOVES
+#  define	SHOW_MOVES	1
+# endif
+# define	SWITCH_INS	13
+
+typedef unsigned int	t_ui;
+typedef unsigned long	t_ul;
 
 typedef struct	s_part
 {
@@ -39,13 +43,17 @@ typedef struct s_link
 
 typedef struct	s_ins
 {
-	int	size;
-	int	push;
-	int	val;
-	int	next;
-	int	swap;
-	int	*tab;
-	int	empty;
+	int		size;
+	int		push;
+	int		val;
+	int		next;
+	int		swap;
+	int		*tab;
+	int		empty;
+	int		rot;
+	int		full_size;
+	t_link	*last;
+	t_link	*first;
 }				t_ins;
 
 typedef struct	s_stk
@@ -54,11 +62,13 @@ typedef struct	s_stk
 	t_link	*stk_a;
 	int		size_b;
 	t_link	*stk_b;
+	t_part	*parts;
 	int		sorted;
 	int		nbr_moves;
 	int		nbr_push;
 	int		nbr_rot;
-	t_part	*part_b;
+	int		nbr_links;
+	int		nbr_parts;
 }				t_stk;
 
 /*
@@ -75,43 +85,56 @@ int		add_new_val(t_stk *stk, int new_val);
 **	swap.c
 */
 
-void	stk_swap_a(t_stk *stk);
-void	stk_swap_b(t_stk *stk);
-void	stk_swap_ss(t_stk *stk);
+void	stk_swap_a(t_stk *stk, int show);
+void	stk_swap_b(t_stk *stk, int show);
+void	stk_swap_ss(t_stk *stk, int show);
 
 /*
 **	push_a.c
 **	push_b.c
 */
 
-void	stk_push_a(t_stk *stk);
-void	stk_push_b(t_stk *stk);
+void	stk_push_a(t_stk *stk, int show);
+void	stk_push_b(t_stk *stk, int show);
 
 /*
 **	rotate.c
 */
 
-void	stk_rotate_ra(t_stk *stk);
-void	stk_rotate_rb(t_stk *stk);
-void	stk_rotate_rr(t_stk *stk);
+void	stk_rotate_ra(t_stk *stk, int show);
+void	stk_rotate_rb(t_stk *stk, int show);
+void	stk_rotate_rr(t_stk *stk, int show);
 
 /*
-**	retverse_rotate.c
+**	reverse_rotate.c
 */
 
-void	stk_reverse_rotate_rra(t_stk *stk);
-void	stk_reverse_rotate_rrb(t_stk *stk);
-void	stk_reverse_rotate_rrr(t_stk *stk);
+void	stk_reverse_rotate_rra(t_stk *stk, int show);
+void	stk_reverse_rotate_rrb(t_stk *stk, int show);
+void	stk_reverse_rotate_rrr(t_stk *stk, int show);
 
 /*
-**	sort_2_nbr.c
-**	sort_3_nbr.c
+**	t_part.c
 */
 
-void	sort_2_nodes_stk_a(t_stk *stk);
-void	sort_2_nodes_stk_b(t_stk *stk);
-void	sort_3_nodes_stk_a(t_stk *stk);
-void	sort_3_nodes_stk_b(t_stk *stk);
+int		ft_lst_add(t_stk *stk, int size);
+int		ft_lst_pop(t_stk *stk);
+void	ft_lst_del(t_stk *stk);
+
+/*
+**	utils.c
+*/
+
+void	init_stacks(t_stk *stk);
+void	ft_link_del(t_stk *stk);
+int		check_is_sorted(t_stk *stk);
+
+/*
+**	push_swap.c
+*/
+
+int		push_swap_error(t_stk *stk);
+int		push_swap_exit(t_stk *stk);
 
 /*
 **	array_sorted.c
@@ -134,21 +157,33 @@ void	sort_insertion_sort(t_stk *stk, int	size);
 int		sort_quick_sort(t_stk *stk);
 
 /*
-**	t_part.c
+**	sort_utils.c
 */
 
-int		ft_lst_add(t_stk *stk, t_part **part, int size);
-int		ft_lst_pop(t_part **stk);
-void	ft_lst_del(t_part **stk);
+void	sort_stk_a_first_3_nodes(t_stk *stk);
+void	sort_stk_a_3_nodes(t_stk *stk);
+void	sort_stk_a(t_stk *stk, int size);
+int		still_to_push_to_stk_b(t_stk *stk, int size, int median);
+int		still_to_push_to_stk_a(t_stk *stk, int size, int median);
 
 /*
-**	utils.c
+**	checker.c
 */
 
-void	init_stacks(t_stk *stk);
-int		exit_error(t_stk *stk);
-int		check_is_sorted(t_stk *stk);
-void	print_stk(t_stk *stk);
-void	print_moves(t_stk *stk);
+int		checker_error(t_stk *stk);
+
+/*
+**	read_instructions.c
+*/
+
+int		read_instructions(t_stk *stk);
+
+/*
+**	not_submitted.c 	//TODO:remove
+*/
+
+void	print_stk(t_stk *stk);		//TODO:remove
+void	print_moves(t_stk *stk);	//TODO:remove
+void	print_malloc(t_stk *stk);	//TODO:remove
 
 #endif
