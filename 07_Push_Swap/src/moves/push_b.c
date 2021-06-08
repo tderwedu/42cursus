@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 15:34:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 23:45:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 09:39:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,12 +78,13 @@ void	stk_push_b(t_stk *stk, int show)
 {
 	t_link	*first;
 
+	if (!stk->size_a)
+		return ;
 	first = stk->stk_a;
 	stk_push_b_stk_a(stk);
 	stk_push_b_stk_b(stk, first);
 	if (show)
 		write(1, "pb\n", 3);
-	// print_stk(stk);
 	stk->nbr_moves++;
 	stk->nbr_push++;
 }

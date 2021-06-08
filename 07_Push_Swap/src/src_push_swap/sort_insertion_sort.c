@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 09:44:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 21:52:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:42:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-#include <stdio.h> // TODO:remove
 
 int	get_pos(t_link *first, int val)
 {

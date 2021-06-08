@@ -6,11 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 09:44:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 22:44:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 11:36:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void	init_push_to_stk_b(t_stk *stk)
 {
@@ -117,6 +118,8 @@ void	push_to_stk_a(t_stk *stk)
 	while (box.size)
 	{
 		if (box.size <= SWITCH_INS)
+			sort_insertion_sort(stk, box.size);
+		else if (box.size <= 25 && check_ordered(stk, box.size))
 			sort_insertion_sort(stk, box.size);
 		else
 		{

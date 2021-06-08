@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:17:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 23:46:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 09:46:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,27 @@
 
 static inline int	apply_instruction(t_stk *stk, char *str)
 {
-	if (!ft_strncmp("sa", str, 2))
+	if (!ft_strncmp("sa", str, 3))
 		stk_swap_a(stk, 0);
-	else if (!ft_strncmp("sb", str, 2))
+	else if (!ft_strncmp("sb", str, 3))
 		stk_swap_b(stk, 0);
-	else if (!ft_strncmp("ss", str, 2))
+	else if (!ft_strncmp("ss", str, 3))
 		stk_swap_ss(stk, 0);
-	else if (!ft_strncmp("pa", str, 2))
+	else if (!ft_strncmp("pa", str, 3))
 		stk_push_a(stk, 0);
-	else if (!ft_strncmp("pb", str, 2))
+	else if (!ft_strncmp("pb", str, 3))
 		stk_push_b(stk, 0);
-	else if (!ft_strncmp("rra", str, 3))
+	else if (!ft_strncmp("rra", str, 4))
 		stk_reverse_rotate_rra(stk, 0);
-	else if (!ft_strncmp("rrb", str, 3))
+	else if (!ft_strncmp("rrb", str, 4))
 		stk_reverse_rotate_rrb(stk, 0);
-	else if (!ft_strncmp("rrr", str, 3))
+	else if (!ft_strncmp("rrr", str, 4))
 		stk_reverse_rotate_rrr(stk, 0);
-	else if (!ft_strncmp("ra", str, 2))
+	else if (!ft_strncmp("ra", str, 3))
 		stk_rotate_ra(stk, 0);
-	else if (!ft_strncmp("rb", str, 2))
+	else if (!ft_strncmp("rb", str, 3))
 		stk_rotate_rb(stk, 0);
-	else if (!ft_strncmp("rr", str, 2))
+	else if (!ft_strncmp("rr", str, 3))
 		stk_rotate_rr(stk, 0);
 	else
 		return (1);
