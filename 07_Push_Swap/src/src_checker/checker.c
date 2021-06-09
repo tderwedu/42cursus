@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/07 17:08:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/08 09:28:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 15:36:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,8 @@ int	main(int argc, char **argv)
 	{
 		if (parse_input(argc, argv, &stk))
 			return (checker_error(&stk));
-		if (!check_is_sorted(&stk))
-		{
-			if (read_instructions(&stk))
-				return (1);
-		}
+		if (read_instructions(&stk))
+			return (1);
 		if (check_is_sorted(&stk))
 			write(1, "OK\n", 3);
 		else

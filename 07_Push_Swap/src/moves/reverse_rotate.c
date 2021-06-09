@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/31 16:03:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/08 09:40:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/08 15:37:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline void	stk_reverse_rotate(t_link **stk)
 
 void	stk_reverse_rotate_rra(t_stk *stk, int show)
 {
-	if (stk->size_a > 2)
+	if (stk->size_a > 1)
 		stk_reverse_rotate(&stk->stk_a);
 	if (show)
 		write(1, "rra\n", 4);
@@ -29,7 +29,7 @@ void	stk_reverse_rotate_rra(t_stk *stk, int show)
 
 void	stk_reverse_rotate_rrb(t_stk *stk, int show)
 {
-	if (stk->size_b > 2)
+	if (stk->size_b > 1)
 		stk_reverse_rotate(&stk->stk_b);
 	if (show)
 		write(1, "rrb\n", 4);
@@ -39,9 +39,9 @@ void	stk_reverse_rotate_rrb(t_stk *stk, int show)
 
 void	stk_reverse_rotate_rrr(t_stk *stk, int show)
 {
-	if (stk->size_a > 2)
+	if (stk->size_a > 1)
 		stk_reverse_rotate(&stk->stk_a);
-	if (stk->size_b > 2)
+	if (stk->size_b > 1)
 		stk_reverse_rotate(&stk->stk_b);
 	if (show)
 		write(1, "rrr\n", 4);
