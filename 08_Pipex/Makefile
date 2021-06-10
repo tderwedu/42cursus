@@ -11,7 +11,12 @@ INCLUDES	+= -I ${LIBFT_DIR}/include
 CC			= gcc
 CFLAGS		= -Wall -Wextra -Werror
 
-SRC			= ./pipex.c
+SRC			=	./src/pipex.c \
+				./src/pipex_run_prog.c \
+				./src/pipex_error.c \
+				./src/pipex_utils.c \
+				./src/utils/ft_path_join.c \
+				./src/utils/free_array.c
 
 OBJ			= ${SRC:.c=.o}
 
@@ -24,7 +29,7 @@ ${LIBFT}:
 			$(MAKE) -s -C ${LIBFT_DIR}
 
 $(NAME):	${LIBFT} ${OBJ}
-			${CC} ${CFLAGS} ${OBJ} ${LIBS} -o ${NAME}
+			${CC} ${CFLAGS} -fsanitize=address ${OBJ} ${LIBS} -o ${NAME}
 
 clean:
 			rm -rf ${OBJ}
