@@ -14,6 +14,23 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 3. [ft_printf](https://github.com/tderwedu/42cursus/tree/main/03_Printf)
 4. [Netwhat](https://github.com/tderwedu/42cursus/tree/main/04_netwhat)
 5. [cub3D](https://github.com/tderwedu/42cursus/tree/main/05_cub3D)
+6. [ft_server](https://github.com/tderwedu/42cursus/tree/main/06_ft_server)
+7. [07_Push_Swap](https://github.com/tderwedu/42cursus/tree/main/07_Push_Swap)
+8. [08_Pipex](https://github.com/tderwedu/42cursus/tree/main/08_Pipex)
+
+## How to use it
+> Note:  
+> Everything has been developped on `Ubuntu 20.04 (Focal Fossa)` on `WSL 2` and may not work properly in other environments.
+
+Since most project come with a `makefile`, clone this repository and go into the projetc's folder:
+```bash
+make
+```
+or 
+```
+make bonus
+```
+to get try the full version.
 
 ## The Norm
 

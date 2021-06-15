@@ -20,7 +20,7 @@ This project’s objectives is to use ray-casting to make a dynamic representati
 ## Acknowledgements
 
 - Lode Vandevenne's [Raycasting tutorials](https://lodev.org/cgtutor/raycasting.html#Introduction)
-- 42Docs' [MiniLibX docs](https://harm-smits.github.io/42docs/libs/minilibx)
+- 42docs' [MiniLibX docs](https://harm-smits.github.io/42docs/libs/minilibx)
 - [Fdf cook book](https://stackoverflow.com/c/42network/questions/164)
 - Mason D Young's [cud3D](https://github.com/qst0/ft_libgfx)
 - Amy Plant's ascii art [cud3D](https://github.com/iciamyplant/Cub3d-Linux)
