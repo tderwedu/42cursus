@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/30 12:29:56 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/08 09:30:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:26:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,20 @@ int	check_is_sorted(t_stk *stk)
 		if (node->val > next->val)
 			return (0);
 		node = next;
+	}
+	return (1);
+}
+
+int	check_is_reversed(t_stk *stk, int size)
+{
+	t_link	*ptr;
+
+	ptr = stk->stk_b;
+	while (--size)
+	{
+		if (ptr->val > ptr->next->val)
+			return (0);
+		ptr = ptr->next;
 	}
 	return (1);
 }

@@ -1,7 +1,7 @@
 # ```ft_server```
 *a 19 Coding School project*
 
-This project is an introduction to system administration. Docker is used to install a complete web server running on Nginx which runs multpiples services: Wordpress, phpMyAdmin, and a SQL database.
+This project is an introduction to system administration. Docker is used to install a complete web server running on NGINX which runs multpiple services: WordPPress, phpMyAdmin, and a SQL database.
 
 ## Acknowledgements
 

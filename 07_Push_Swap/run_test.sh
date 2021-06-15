@@ -15,6 +15,13 @@ echo "LIST=\""${LIST[@]}"\""
 
 ./push_swap ${LIST[@]} 
 
+if [ -f "./checker_linux" ]; then
+	echo "checker_linux:"
+	printf "\033[32m"
+	./push_swap ${LIST[@]} | ./checker_linux ${LIST[@]}
+	printf "\033[0m"
+fi
+
 if [ -f "./checker" ]; then
 	echo "Checker:"
 	printf "\033[32m"

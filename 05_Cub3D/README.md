@@ -21,7 +21,7 @@ This project’s objectives is to use ray-casting to make a dynamic representati
 
 ## How to use it
 
-### Set the mapping configuration is the `makefile`:
+### Set the mapping configuration in the `makefile`:
 ```
 # MAPPING:
 # 1 : Linux QWERTY
@@ -39,8 +39,7 @@ In both case, the arrow keys can also be used.
 ```
 make bonus
 ```
-### Play or save a image
-
+w
 To play, a map's path need to be specified:
 ```
 ./cub3D maps/bonus.cub 

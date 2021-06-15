@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/01 09:44:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/08 11:36:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:26:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void	push_to_stk_a(t_stk *stk)
 	{
 		if (box.size <= SWITCH_INS)
 			sort_insertion_sort(stk, box.size);
-		else if (box.size <= 25 && check_ordered(stk, box.size))
+		else if (box.size <= 25 && check_is_reversed(stk, box.size))
 			sort_insertion_sort(stk, box.size);
 		else
 		{

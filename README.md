@@ -26,7 +26,7 @@ Since most project come with a `makefile`, clone this repository and go into the
 ```
 make
 ```
-or 
+or (if any addings)
 ```
 make bonus
 ```
@@ -38,9 +38,8 @@ The norm is a programming standard defining a set of rules to follow when writin
 Most notably:
  - ```For```, ```do ... while``` and ```case``` are forbidden,
  - Each function must have a maximum of _25_ lines,
+ - Each Lines mustmust be at most _80_ cloumns wide,
  - No more than _5_ variables per bloc can be declared.
- 
-If you are interested in learning more about the norm, feel free to take a look at the PDF included at the root of this repository called ```en.norm.pdf```.
 
 ## License
 

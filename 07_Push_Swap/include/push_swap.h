@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/05/29 10:36:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/06/07 23:20:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/06/14 12:31:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 
 # define	SHOW_MOVES	1
 # define	SWITCH_INS	13
+# define	BASH_ONLY	0
 
 typedef unsigned int	t_ui;
 typedef unsigned long	t_ul;
@@ -133,6 +134,7 @@ void	ft_lst_del(t_stk *stk);
 void	init_stacks(t_stk *stk);
 void	ft_link_del(t_stk *stk);
 int		check_is_sorted(t_stk *stk);
+int		check_is_reversed(t_stk *stk, int size);
 
 /*
 **	push_swap.c
@@ -184,8 +186,5 @@ int		checker_error(t_stk *stk);
 */
 
 int		read_instructions(t_stk *stk);
-
-void	print_moves(t_stk *stk); //TODO:remove
-void	print_stk(t_stk *stk); //TODO:remove
 
 #endif
