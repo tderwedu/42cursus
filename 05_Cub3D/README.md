@@ -3,6 +3,8 @@
 
 This project’s objectives is to use ray-casting to make a dynamic representation of the inside of a maze from a first person perspective. This project is inspired by the world-famous Wolfenstein 3D game, which was the first FPS ever.
 
+![](cub3D.gif)
+
 ## Addings
 
 - Walls/object collision.
@@ -16,6 +18,37 @@ This project’s objectives is to use ray-casting to make a dynamic representati
 - Secret doors.
 - Moving enemies.
 - A pickable knife.
+
+## How to use it
+
+### Set the mapping configuration is the `makefile`:
+```
+# MAPPING:
+# 1 : Linux QWERTY
+# 2 : Linux AZERTY
+MAPPING         =       1
+```
+1. QWERTY : `WASD` keys to move through the maze.
+2. AZERTY : `ZQSD` keys to move through the maze.
+
+In both case, the arrow keys can also be used.
+- `ctrl` to crouch,
+- `space` to jump.
+
+### Compile the files with the addings:
+```
+make bonus
+```
+### Play or save a image
+
+To play, a map's path need to be specified:
+```
+./cub3D maps/bonus.cub 
+```
+To save a screenshot of the first in-game image:
+```
+./cub3D maps/bonus.cub --save
+```
 
 ## Acknowledgements
 

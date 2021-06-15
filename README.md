@@ -23,7 +23,7 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 > Everything has been developped on `Ubuntu 20.04 (Focal Fossa)` on `WSL 2` and may not work properly in other environments.
 
 Since most project come with a `makefile`, clone this repository and go into the projetc's folder:
-```bash
+```
 make
 ```
 or 
