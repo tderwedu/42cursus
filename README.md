@@ -15,8 +15,8 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 4. [Netwhat](https://github.com/tderwedu/42cursus/tree/main/04_netwhat)
 5. [cub3D](https://github.com/tderwedu/42cursus/tree/main/05_cub3D)
 6. [ft_server](https://github.com/tderwedu/42cursus/tree/main/06_ft_server)
-7. [07_Push_Swap](https://github.com/tderwedu/42cursus/tree/main/07_Push_Swap)
-8. [08_Pipex](https://github.com/tderwedu/42cursus/tree/main/08_Pipex)
+7. [Push Swap](https://github.com/tderwedu/42cursus/tree/main/07_Push_Swap)
+8. [Pipex](https://github.com/tderwedu/42cursus/tree/main/08_Pipex)
 
 ## How to use it
 > Note:  

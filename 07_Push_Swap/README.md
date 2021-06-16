@@ -7,20 +7,19 @@ This project goal is to sort data on a stack, with a limited set of instructions
 
 Code	| Instruction			| Action
 --------|-----------------------|----------------------------------------------
-`sa`	| swap a				| swaps the 2 top elements of stack a
-`sb`	| swap b				| swaps the 2 top elements of stack b
+`sa`	| swap a				| swaps the 2 top elements of stack _a_
+`sb`	| swap b				| swaps the 2 top elements of stack _b_
 `ss`	| swap a & b			| both `sa` and `sb`
-`pa`	| push a				| moves the top element of stack b at the top of stack a
-`pb`	| push b				| moves the top element of stack a at the top of stack b
-`ra`	| rotate a				| shifts all elements of stack a from bottom to top
-`rb`	| rotate b				| shifts all elements of stack b from bottom to top
+`pa`	| push a				| moves the top element of stack _b_ at the top of stack _a_
+`pb`	| push b				| moves the top element of stack _a_ at the top of stack _b_
+`ra`	| rotate a				| shifts all elements of stack _a_ from bottom to top
+`rb`	| rotate b				| shifts all elements of stack _b_ from bottom to top
 `rr`	| rotate a &  b			| both `ra` and `rb`
-`rra`	| reverse rotate a		| shifts all elements of stack a from top to bottom
+`rra`	| reverse rotate a		| shifts all elements of stack _a_ from top to bottom
 `rrb`	| reverse rotate b		| shifts all elements of stack b from top to bottom
 `rrr`	| reverse rotate a & b	| both `rra` and `rrb`
 
 ## How to use it
-
 
 ### Get the instructions to sort a given list:
 ```
@@ -57,9 +56,9 @@ or
 Where a list from _0_ to _X_ is shuffled and then passed as an argument to both `push_swap` and `checker`. 
 
 ## Results
-- 5 items list: ~8 moves,
-- 100 items list: ~650 moves,
-- 500 items list: ~5000 moves.
+- 5 items: ~8 moves,
+- 100 items: ~650 moves,
+- 500 items: ~5020 moves.
 
 ## Acknowledgements
 - Stackoverflow's questions [Merge sort vs Quick sort](https://stackoverflow.com/questions/5222730/why-is-merge-sort-preferred-over-quick-sort-for-sorting-linked-lists)
