@@ -29,7 +29,7 @@ ${LIBFT}:
 			$(MAKE) -s -C ${LIBFT_DIR}
 
 $(NAME):	${LIBFT} ${OBJ}
-			${CC} ${CFLAGS} -fsanitize=address ${OBJ} ${LIBS} -o ${NAME}
+			${CC} ${CFLAGS} ${OBJ} ${LIBS} -o ${NAME}
 
 clean:
 			rm -rf ${OBJ}
