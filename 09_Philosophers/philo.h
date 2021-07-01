@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/01 14:22:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:30:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,15 @@
 #include <pthread.h>
 #include <limits.h>
 #include <sys/time.h>
+
+enum e_status
+{
+	TOOK_FORK,
+	EATING,
+	SLEEPING,
+	THINKING,
+	DIED
+};
 
 typedef unsigned char	t_uc;
 typedef unsigned int	t_ui;
@@ -69,6 +78,10 @@ int			philo_poor_lonely_philo(t_table *table);
 ** philo_utils.c
 */
 
+int			check_all_alive(t_table *table);
+int			check_nbr_meals(t_philo *philo);
+void		philo_print_status(t_philo *philo, int status);
+void		philo_sleep(t_philo *philo, uint64_t msec);
 int			philo_get_val(t_uc *nbr);
 uint64_t	get_time(void);
 

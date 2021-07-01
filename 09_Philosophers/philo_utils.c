@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/01 15:56:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:47:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,37 @@ int	check_all_alive(t_table *table)
 {
 	int	ret;
 
-	pthread_mutex_lock(table->m_all_alive);
+	pthread_mutex_lock(&table->m_all_alive);
 	ret = table->all_alive;
-	pthread_mutex_unlock(table->m_all_alive);
+	pthread_mutex_unlock(&table->m_all_alive);
 	return (ret);
+}
+
+int	check_nbr_meals(t_philo *philo)
+{
+	int	ret;
+
+	pthread_mutex_lock(philo->m_philo);
+	ret = (philo->nbr_of_meals != table->must_eat_count);
+	pthread_mutex_unlock(philo->m_philo);
+	return (ret);
+}
+
+void	philo_print_status(t_philo *philo, int status)
+{
+	uint64_t	time_stamp;
+
+	if (!check_all_alive(philo->table))
+		return ;
+	time_stamp = get_time() - table->start_time;
+	if (e_action == THINKING)
+		printf("%.8i %lu is thinking\n", time_stamp, philo->number);
+	else if (e_action == TOOK_FORK)
+		printf("%.8i %lu has taken a fork\n", time_stamp, philo->number);
+	else if (e_action == EATING)
+		printf("%.8i %lu is eating\n", time_stamp, philo->number);
+	else if (e_action == SLEEPING)
+		printf("%.8i %lu is sleeping\n", time_stamp, philo->number);
 }
 
 void	philo_sleep(t_philo *philo, uint64_t msec)
