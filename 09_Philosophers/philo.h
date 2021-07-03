@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/01 18:30:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/01 19:01:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,17 @@ typedef unsigned int	t_ui;
 
 typedef struct s_table
 {
-	int					nbr_philo;
+	int					nbr_philos;
 	int					time_to_die;
 	int					time_to_eat;
 	int					time_to_sleep;
 	int					must_eat_count;
+	int					sated_philos;
 	int					all_alive;
 	uint64_t			start_time;
-	pthread_mutex_t		m_all_alive;
-	pthread_mutex_t		*m_forks;
-	t_philo				*philos;
+	pthread_mutex_t		m_table;
+	pthread_mutex_t		**m_forks;
+	t_philo				**philos;
 }						t_table;
 
 typedef struct s_philo
@@ -80,6 +81,7 @@ int			philo_poor_lonely_philo(t_table *table);
 
 int			check_all_alive(t_table *table);
 int			check_nbr_meals(t_philo *philo);
+int			check_sated_philos(t_table *table);
 void		philo_print_status(t_philo *philo, int status);
 void		philo_sleep(t_philo *philo, uint64_t msec);
 int			philo_get_val(t_uc *nbr);

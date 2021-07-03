@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/01 14:22:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:58:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,19 +19,19 @@ int	philo_clear_all(t_table *table)
 	if (table->m_forks)
 	{
 		i = -1;
-		while (++i < table->nbr_philo)
+		while (++i < table->nbr_philos)
 			pthread_mutex_destroy(&table->m_forks[i]);
 		free(table->m_forks);
 	}
 	if (table->philos)
 	{
 		i = -1;
-		while (++i < table->nbr_philo)
+		while (++i < table->nbr_philos)
 			pthread_mutex_destroy(&table->philos[i].m_philo);
 		free(table->philos);
 	}
 	// pthread_mutex_destroy(&table->m_write);
-	pthread_mutex_destroy(&table->m_all_alive);
+	pthread_mutex_destroy(&table->m_table);
 	return (1);
 }
 

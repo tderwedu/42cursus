@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/01 18:47:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/01 18:58:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ int	check_all_alive(t_table *table)
 {
 	int	ret;
 
-	pthread_mutex_lock(&table->m_all_alive);
+	pthread_mutex_lock(&table->m_table);
 	ret = table->all_alive;
-	pthread_mutex_unlock(&table->m_all_alive);
+	pthread_mutex_unlock(&table->m_table);
 	return (ret);
 }
 
@@ -48,6 +48,16 @@ int	check_nbr_meals(t_philo *philo)
 	pthread_mutex_lock(philo->m_philo);
 	ret = (philo->nbr_of_meals != table->must_eat_count);
 	pthread_mutex_unlock(philo->m_philo);
+	return (ret);
+}
+
+int	check_sated_philos(t_table *table)
+{
+	int	ret;
+
+	pthread_mutex_lock(&table->m_table);
+	ret = (table->sated_philos == table->nbr_philos);
+	pthread_mutex_unlock(&table->m_table);
 	return (ret);
 }
 
