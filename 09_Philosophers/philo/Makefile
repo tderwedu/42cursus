@@ -4,11 +4,11 @@ NAME		=	philo
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -pthread
 
-SRC			=	./philo/philo_utils.c\
-				./philo/philo_checks.c\
-				./philo/philo_init.c\
-				./philo/philo_exit.c\
-				./philo/philo.c
+SRC			=	./philo_utils.c\
+				./philo_checks.c\
+				./philo_init.c\
+				./philo_exit.c\
+				./philo.c
 
 OBJ			=	${SRC:.c=.o}
 
