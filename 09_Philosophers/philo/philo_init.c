@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/06 12:23:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/07 22:55:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,41 +47,47 @@ int	philo_get_args(int argc, char **argv, t_table *table)
 		return(philo_exit_error(table, "Bad argument."));
 	if (argc == 6)
 	{
-		table->must_eat_count = philo_get_val((t_uc*)argv[5]);
-		if (table->must_eat_count == -1)
+		table->meals = philo_get_val((t_uc*)argv[5]);
+		if (table->meals == -1)
 			return(philo_exit_error(table, "Bad argument."));
 	}
 	else
-		table->must_eat_count = -1;
+		table->meals = -1;
 	table->philos = NULL;
 	table->m_forks = NULL;
+	table->death = 0;
+	table->tid = malloc(sizeof(pthread_t) * table->nbr_philos);
+	if (!table->tid)
+		return(philo_exit_error(table, "Malloc error."));
 	return (0);
 }
 
 int	philo_init_philo(t_table *table)
 {
-	int	i;
+	int		i;
+	t_philo	*philo;
 
-	table->philos = malloc(sizeof(table->philos) * table->nbr_philos);
+	table->philos = malloc(sizeof(*table->philos) * table->nbr_philos);
 	if (!(table->philos))
 		return(philo_exit_error(table, "Malloc error."));
 	i = -1;
 	while (++i < table->nbr_philos)
 	{
-		table->philos[i].table = table;
-		table->philos[i].number = i + 1;
-		table->philos[i].nbr_of_meals = 0;
+		philo = &table->philos[i];
+		philo->table = table;
+		philo->id = i + 1;
+		philo->meals = 0;
 		if ((i % 2) == 0)
 		{
-			table->philos[i].m_fork_1 = &table->m_forks[i];
-			table->philos[i].m_fork_2 = &table->m_forks[(i + 1) % table->nbr_philos];
+			philo->m_fork_1 = &table->m_forks[i];
+			philo->m_fork_2 = &table->m_forks[(i + 1) % table->nbr_philos];
 		}
 		else
 		{
-			table->philos[i].m_fork_1 = &table->m_forks[(i + 1) % table->nbr_philos];
-			table->philos[i].m_fork_2 = &table->m_forks[i];
+			philo->m_fork_1 = &table->m_forks[(i + 1) % table->nbr_philos];
+			philo->m_fork_2 = &table->m_forks[i];
 		}
-		pthread_mutex_init(&table->philos[i].m_philo, NULL);
+		pthread_mutex_init(&philo->m_philo, NULL);
 	}
 	return (0);
 }
@@ -90,13 +96,13 @@ int	philo_init_mutex(t_table *table)
 {
 	int	i;
 
-	table->m_forks = malloc(sizeof(table->m_forks) * table->nbr_philos);
+	table->m_forks = malloc(sizeof(*table->m_forks) * table->nbr_philos);
 	if (!(table->m_forks))
 		return (philo_exit_error(table, "Malloc error."));
 	pthread_mutex_init(&table->m_table, NULL);
 	i = -1;
 	while (++i < table->nbr_philos)
-		pthread_mutex_init(table->m_forks + i, NULL);
+		pthread_mutex_init(&table->m_forks[i], NULL);
 	return (0);
 }
 
@@ -104,11 +110,9 @@ int	philo_init(int argc, char **argv, t_table *table)
 {
 	if (philo_get_args(argc, argv, table))
 		return (1);
-	if (table->nbr_philos == 1)
-		return (philo_poor_lonely_philo(table));
-	if (philo_init_philo(table))
-		return (1);
 	if (philo_init_mutex(table))
+		return (1);
+	if (philo_init_philo(table))
 		return (1);
 	return (0);
 }

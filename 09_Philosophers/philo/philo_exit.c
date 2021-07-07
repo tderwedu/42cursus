@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/06 12:24:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/07 23:22:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ int	philo_clear_all(t_table *table)
 			pthread_mutex_destroy(&table->philos[i].m_philo);
 		free(table->philos);
 	}
-	// pthread_mutex_destroy(&table->m_write);
+	if (table->tid)
+		free(table->tid);
 	pthread_mutex_destroy(&table->m_table);
 	return (1);
 }
@@ -38,8 +39,9 @@ int	philo_clear_all(t_table *table)
 int	philo_poor_lonely_philo(t_table *table)
 {
 	table->start_time = get_time();
-	usleep(table->time_to_die);
-	printf("%lu 1 died\n", get_time() - table->start_time);
+	printf("%.8llu 1 is thinking\n", get_time() - table->start_time);
+	usleep(1000 * table->time_to_die);
+	printf("%.8llu 1 died\n", get_time() - table->start_time);
 	philo_clear_all(table);
 	return (0);
 }

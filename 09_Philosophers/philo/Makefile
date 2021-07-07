@@ -2,7 +2,7 @@
 NAME		=	philo
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -pthread
+CFLAGS		=	-Wall -Wextra -Werror -pthread -fsanitize=address
 
 SRC			=	./philo_utils.c\
 				./philo_checks.c\

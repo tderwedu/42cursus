@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/06 12:33:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/07 22:54:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,9 @@ typedef struct s_table
 	int64_t				time_to_die;
 	int64_t				time_to_eat;
 	int64_t				time_to_sleep;
-	int					must_eat_count;
-	int					sated_philos;
-	int					all_alive;
+	int					meals;
+	int					death;
+	pthread_t			*tid;
 	uint64_t			start_time;
 	pthread_mutex_t		m_table;
 	pthread_mutex_t		*m_forks;
@@ -57,13 +57,13 @@ typedef struct s_table
 
 typedef struct s_philo
 {
-	int					number;
-	int					nbr_of_meals;
+	int					id;
+	int					meals;
 	uint64_t			last_meal;
-	t_table				*table;
 	pthread_mutex_t		m_philo;
 	pthread_mutex_t		*m_fork_1;
 	pthread_mutex_t		*m_fork_2;
+	t_table				*table;
 }						t_philo;
 
 /*
@@ -88,9 +88,8 @@ int			philo_exit_error(t_table *table, char *str);
 ** philo_chekcs.c
 */
 
-int			check_all_alive(t_table *table);
-int			check_nbr_meals(t_philo *philo);
-int			check_sated_philos(t_table *table);
+int			check_death(t_table *table);
+int			check_meals(t_philo *philo);
 
 /*
 ** philo_utils.c
@@ -105,7 +104,7 @@ uint64_t	get_time(void);
 */
 
 void		*philo_routine(void *args);
-void		waiter_routine(t_table *table);
+void		*waiter_routine(void *args);
 int 		start_threads(t_table *table);
 int			main(int argc, char **argv);
 
