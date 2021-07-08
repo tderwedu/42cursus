@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/07 22:55:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/08 10:06:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,9 @@ int	philo_get_args(int argc, char **argv, t_table *table)
 	table->tid = malloc(sizeof(pthread_t) * table->nbr_philos);
 	if (!table->tid)
 		return(philo_exit_error(table, "Malloc error."));
+	table->ph_meals = malloc(sizeof(int) * table->nbr_philos); // TODO:remove
+	if (!table->ph_meals) // TODO:remove
+		return(philo_exit_error(table, "Malloc error.")); // TODO:remove
 	return (0);
 }
 
@@ -102,7 +105,10 @@ int	philo_init_mutex(t_table *table)
 	pthread_mutex_init(&table->m_table, NULL);
 	i = -1;
 	while (++i < table->nbr_philos)
+	{
 		pthread_mutex_init(&table->m_forks[i], NULL);
+ 		table->ph_meals[i] = 0; // TODO:remove
+	}
 	return (0);
 }
 

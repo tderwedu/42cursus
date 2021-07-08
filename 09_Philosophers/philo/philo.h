@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/07 22:54:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/08 10:04:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ typedef struct s_table
 	int64_t				time_to_sleep;
 	int					meals;
 	int					death;
+	int					*ph_meals;
 	pthread_t			*tid;
 	uint64_t			start_time;
 	pthread_mutex_t		m_table;

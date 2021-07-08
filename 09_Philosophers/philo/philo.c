@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/07 23:22:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/08 14:51:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,13 @@ void	*philo_routine(void *args)
 		philo_exit_error(table, "pthread_create fail.");
 		return (NULL);
 	}
+	if (philo->id % 2 == 0)
+		philo_sleep(philo, table->time_to_eat - 10);
 	while (check_death(table) && check_meals(philo))
 	{
 		philo_print_status(philo, THINKING);
+		if (table->nbr_philos % 2 != 0)
+			philo_sleep(philo, 5);
 		pthread_mutex_lock(philo->m_fork_1);
 		philo_print_status(philo, FORK_TAKEN);
 		pthread_mutex_lock(philo->m_fork_2);
@@ -59,6 +63,7 @@ void	*philo_routine(void *args)
 		philo_sleep(philo, table->time_to_sleep);
 	}
 	pthread_join(waiter, NULL);
+	table->ph_meals[philo->id - 1] = philo->meals; // TODO:remove
 	return (NULL);
 }
 
@@ -131,6 +136,9 @@ int	main(int argc, char **argv)
 		i = -1;
 		while (++i < table.nbr_philos)
 			pthread_join(table.tid[i], NULL);
+		i = -1;	// TODO:remove
+		while (++i < table.nbr_philos)	// TODO:remove
+			printf("%.3i | meals: %i\n", i, table.ph_meals[i]);	// TODO:remove
 		philo_clear_all(&table);
 	}
 }
