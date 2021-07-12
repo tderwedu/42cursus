@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 15:01:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:52:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 	pthread_t	sated;
 	pthread_t	waiter;
 
-	get_sem_nam(philo->sem_name, philo->id);
+	get_sem_name(philo->sem_name, philo->id);
 	sem_unlink(philo->sem_name);
 	sem_open(philo->sem_name, O_CREAT, 0660, 1);
 	philo->last_meal = philo_get_time();
@@ -47,7 +47,7 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 		philo_print_status(philo, EATING);
 		philo->last_meal = philo_get_time();
 		sem_post(philo->sem_philo);
-		philo_usleep(philo, table->time_to_eat);
+		philo_usleep(table->time_to_eat);
 		sem_wait(philo->sem_philo);
 		if (table->meals > 0)
 			philo->meals++;
@@ -58,6 +58,6 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 		sem_post(table->sem_forks);
 		sem_post(table->sem_seats);
 		philo_print_status(philo, SLEEPING);
-		philo_usleep(philo, table->time_to_sleep);
+		philo_usleep(table->time_to_sleep);
 	}
 }

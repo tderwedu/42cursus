@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 13:40:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:51:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,12 @@ void	get_sem_name(char *name, int id)
 	name[++i] = '\0';
 }
 
-void	philo_usleep(t_philo *philo, uint64_t msec)
+void	philo_usleep(uint64_t msec)
 {
 	uint64_t	start;
 
 	start = philo_get_time();
-	while (((philo_get_time() - start) < msec) && check_death(philo->table))
+	while (((philo_get_time() - start) < msec))
 		usleep(100);
 }
 

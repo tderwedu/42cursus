@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/12 13:50:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 14:47:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:54:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	*dead_routine_bonus(void *args)
 	table = philo->table;
 	sem_wait(table->sem_dead);
 	sem_post(table->sem_dead);
-	sem_close(philo->sem_name);
 	exit(EXIT_SUCCESS);
 	return (NULL);
 }

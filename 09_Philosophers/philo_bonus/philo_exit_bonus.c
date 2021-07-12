@@ -6,19 +6,23 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 15:20:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/12 18:54:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-void	philo_clear_all(t_table *table)
+void	philo_clear_all(t_table *table, t_philo *philo)
 {
 	int	i;
 
 	i = 0;
 	while (table->pid[++i])
+	{
 		kill(table->pid[i], SIGKILL);
+		get_sem_name(philo->sem_name, philo->id);
+		sem_unlink(philo->sem_name);
+	}
 	if (table->pid)
 		free(table->pid);
 	if (table->sem_seats)
@@ -41,7 +45,7 @@ int	poor_lonely_philo(t_table *table)
 	printf("%.8lu 1 is thinking\n", philo_get_time() - table->time_t0);
 	usleep(1000 * table->time_to_die);
 	printf("%.8lu 1 died\n", philo_get_time() - table->time_t0);
-	philo_clear_all(table);
+	philo_clear_all(table, table->philo);
 	return (EXIT_SUCCESS);
 }
 
@@ -49,6 +53,6 @@ int	philo_exit_error(t_table *table, char *str)
 {
 	dprintf(1, "Error:\n");
 	dprintf(1, "%s\n", str);
-	philo_clear_all(table);
+	philo_clear_all(table, table->philo);
 	return (EXIT_FAILURE);
 }
