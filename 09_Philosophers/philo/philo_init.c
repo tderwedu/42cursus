@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/08 19:21:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:35:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ static int	get_arg(t_uc *nbr)
 
 static int	send_invitation(int argc, char **argv, t_table *table)
 {
-	table->guest = get_arg((t_uc *)argv[1]);
-	if (table->guest == -1)
+	table->guests = get_arg((t_uc *)argv[1]);
+	if (table->guests == -1)
 		return (philo_exit_error(table, "Bad argument."));
 	table->time_to_die = get_arg((t_uc *)argv[2]);
 	if (table->time_to_die == -1)
@@ -61,21 +61,21 @@ static int	lay_the_table(t_table *table)
 	int		i;
 	t_philo	*philo;
 
-	table->philo = malloc(sizeof(*table->philo) * table->guest);
+	table->philo = malloc(sizeof(*table->philo) * table->guests);
 	if (!(table->philo))
 		return (philo_exit_error(table, "Malloc error."));
 	i = -1;
-	while (++i < table->guest)
+	while (++i < table->guests)
 	{
 		philo = &table->philo[i];
 		philo->table = table;
 		philo->id = i + 1;
 		philo->meals = 0;
 		philo->m_fork_1 = &table->m_forks[i];
-		philo->m_fork_2 = &table->m_forks[(i + 1) % table->guest];
+		philo->m_fork_2 = &table->m_forks[(i + 1) % table->guests];
 		if ((i % 2) != 0)
 		{
-			philo->m_fork_1 = &table->m_forks[(i + 1) % table->guest];
+			philo->m_fork_1 = &table->m_forks[(i + 1) % table->guests];
 			philo->m_fork_2 = &table->m_forks[i];
 		}
 		pthread_mutex_init(&philo->m_philo, NULL);
@@ -89,15 +89,15 @@ int	set_the_table(int argc, char **argv, t_table *table)
 
 	if (send_invitation(argc, argv, table))
 		return (1);
-	table->tid = malloc(sizeof(pthread_t) * table->guest);
+	table->tid = malloc(sizeof(pthread_t) * table->guests);
 	if (!table->tid)
 		return (philo_exit_error(table, "Malloc error."));
-	table->m_forks = malloc(sizeof(*table->m_forks) * table->guest);
+	table->m_forks = malloc(sizeof(*table->m_forks) * table->guests);
 	if (!(table->m_forks))
 		return (philo_exit_error(table, "Malloc error."));
 	pthread_mutex_init(&table->m_table, NULL);
 	i = -1;
-	while (++i < table->guest)
+	while (++i < table->guests)
 		pthread_mutex_init(&table->m_forks[i], NULL);
 	if (lay_the_table(table))
 		return (1);

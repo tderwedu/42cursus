@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/08 19:21:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:35:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static inline int	sit_philo(t_philo *philo, t_table *table, pthread_t *pid)
 static inline void	philo_think(t_philo *philo, t_table *table)
 {
 	philo_print_status(philo, THINKING);
-	if (table->guest % 2 != 0)
+	if (table->guests % 2 != 0)
 		philo_usleep(philo, 5);
 	pthread_mutex_lock(philo->m_fork_1);
 	philo_print_status(philo, FORK_TAKEN);

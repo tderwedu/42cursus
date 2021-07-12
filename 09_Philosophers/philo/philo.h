@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/08 19:21:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/09 17:54:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ struct					s_philo;
 
 typedef struct s_table
 {
-	int					guest;
+	int					guests;
 	int					meals;
 	int					death;
 	int					sated;
@@ -71,7 +71,7 @@ typedef struct s_philo
 }						t_philo;
 
 /*
-** set_the_table.c
+** philo_init.c
 */
 
 int			set_the_table(int argc, char **argv, t_table *table);

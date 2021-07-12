@@ -2,12 +2,14 @@
 NAME		=	philo
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -pthread -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -pthread
 
-SRC			=	./philo_utils.c\
+SRC			=	./waiter_routine.c\
+				./philo_routine.c\
+				./philo_utils.c\
 				./philo_checks.c\
-				./philo_init.c\
 				./philo_exit.c\
+				./philo_init.c\
 				./philo.c
 
 OBJ			=	${SRC:.c=.o}

@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo_exit.c                                       :+:      :+:    :+:   */
+/*   philo_exit_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/09 17:35:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/12 15:20:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "philo_bonus.h"
 
-int	philo_clear_all(t_table *table)
+void	philo_clear_all(t_table *table)
 {
 	int	i;
 
-	if (table->m_forks)
-	{
-		i = -1;
-		while (++i < table->guests)
-			pthread_mutex_destroy(&table->m_forks[i]);
-		free(table->m_forks);
-	}
-	if (table->philo)
-	{
-		i = -1;
-		while (++i < table->guests)
-			pthread_mutex_destroy(&table->philo[i].m_philo);
-		free(table->philo);
-	}
-	if (table->tid)
-		free(table->tid);
-	pthread_mutex_destroy(&table->m_table);
-	return (1);
+	i = 0;
+	while (table->pid[++i])
+		kill(table->pid[i], SIGKILL);
+	if (table->pid)
+		free(table->pid);
+	if (table->sem_seats)
+		sem_close(table->sem_seats);
+	if (table->sem_forks)
+		sem_close(table->sem_forks);
+	if (table->sem_sated)
+		sem_close(table->sem_sated);
+	if (table->sem_dead)
+		sem_close(table->sem_dead);
+	sem_unlink(SEM_SEATS);
+	sem_unlink(SEM_FORKS);
+	sem_unlink(SEM_SATED);
+	sem_unlink(SEM_DEAD);
 }
 
 int	poor_lonely_philo(t_table *table)
@@ -43,7 +42,7 @@ int	poor_lonely_philo(t_table *table)
 	usleep(1000 * table->time_to_die);
 	printf("%.8lu 1 died\n", philo_get_time() - table->time_t0);
 	philo_clear_all(table);
-	return (0);
+	return (EXIT_SUCCESS);
 }
 
 int	philo_exit_error(t_table *table, char *str)
@@ -51,5 +50,5 @@ int	philo_exit_error(t_table *table, char *str)
 	dprintf(1, "Error:\n");
 	dprintf(1, "%s\n", str);
 	philo_clear_all(table);
-	return (1);
+	return (EXIT_FAILURE);
 }
