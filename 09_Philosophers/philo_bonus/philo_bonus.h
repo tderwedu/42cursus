@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 15:08:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 09:50:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_table
 {
 	int					guests;
 	int					meals;
+	int					sated;
 	pid_t				*pid;
 	int64_t				time_to_die;
 	int64_t				time_to_eat;
@@ -83,7 +84,7 @@ int			set_table(int argc, char **argv, t_table *table, t_philo *philo);
 ** philo_exit.c
 */
 
-void		philo_clear_all(t_table *table);
+void		philo_clear_all(t_table *table, t_philo *philo);
 int			poor_lonely_philo(t_table *table);
 int			philo_exit_error(t_table *table, char *str);
 
@@ -93,7 +94,7 @@ int			philo_exit_error(t_table *table, char *str);
 
 void		philo_print_status(t_philo *philo, int status);
 void		get_sem_name(char *name, int id);
-void		philo_usleep(t_philo *philo, uint64_t msec);
+void		philo_usleep(uint64_t msec);
 uint64_t	philo_get_time(void);
 
 /*

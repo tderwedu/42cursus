@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 18:50:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 10:45:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,26 +33,23 @@ static int	get_arg(t_uc *nbr)
 
 static int	lay_the_table(t_table *table, t_philo *philo)
 {
-	table->pid = NULL;
-	table->sem_forks = NULL;
-	table->sem_seats = NULL;
-	table->sem_dead = NULL;
-	philo->sem_philo = NULL;
+	philo->id = 0;
 	philo->meals = 0;
+	table->sated = 0;
 	sem_unlink(SEM_SEATS);
 	sem_unlink(SEM_FORKS);
 	sem_unlink(SEM_SATED);
 	sem_unlink(SEM_DEAD);
-	table->pid = malloc(sizeof(pthread_t) * table->guests);
+	table->pid = malloc(sizeof(pid_t) * table->guests);
 	if (!table->pid)
 		return (philo_exit_error(table, "Malloc error."));
-	memset(table->pid, 0, sizeof(pthread_t) * table->guests);
+	memset(table->pid, 0, sizeof(pid_t) * table->guests);
 	table->sem_seats = sem_open(SEM_SEATS, O_CREAT, 0660, table->guests / 2);
 	table->sem_forks = sem_open(SEM_FORKS, O_CREAT, 0660, table->guests);
-	table->sem_sated = sem_open(SEM_SATED, O_CREAT, 0660, -table->guests);
+	table->sem_sated = sem_open(SEM_SATED, O_CREAT, 0660, 1);
 	table->sem_dead = sem_open(SEM_DEAD, O_CREAT, 0660, 0);
-	if (table->sem_seats  || table->sem_forks || table->sem_sated ||
-		table->sem_dead)
+	if (!table->sem_seats || !table->sem_forks || !table->sem_sated ||
+		!table->sem_dead)
 		return (philo_exit_error(table, "sem_open error."));
 	return (0);
 }

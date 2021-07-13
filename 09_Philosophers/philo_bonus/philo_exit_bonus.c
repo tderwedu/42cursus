@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 18:54:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 10:20:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ void	philo_clear_all(t_table *table, t_philo *philo)
 	int	i;
 
 	i = 0;
-	while (table->pid[++i])
+	while (i < table->guests && table->pid[i])
 	{
-		kill(table->pid[i], SIGKILL);
+		kill(table->pid[i++], SIGKILL);
 		get_sem_name(philo->sem_name, philo->id);
 		sem_unlink(philo->sem_name);
 	}

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 18:52:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 10:17:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 	pthread_t	sated;
 	pthread_t	waiter;
 
+	table->sem_seats = sem_open(SEM_SEATS, O_CREAT);
+	table->sem_forks = sem_open(SEM_FORKS, O_CREAT);
+	table->sem_sated = sem_open(SEM_SATED, O_CREAT);
+	table->sem_dead = sem_open(SEM_DEAD, O_CREAT);
 	get_sem_name(philo->sem_name, philo->id);
 	sem_unlink(philo->sem_name);
-	sem_open(philo->sem_name, O_CREAT, 0660, 1);
+	philo->sem_philo = sem_open(philo->sem_name, O_CREAT, 0660, 1);
 	philo->last_meal = philo_get_time();
 	if (pthread_create(&dead, NULL, &dead_routine_bonus, table))
 		exit_process(table);
@@ -52,7 +56,11 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 		if (table->meals > 0)
 			philo->meals++;
 		if (philo->meals == table->meals)
+		{
+			sem_wait(table->sem_sated);
+			table->sated++;
 			sem_post(table->sem_sated);
+		}
 		sem_post(philo->sem_philo);
 		sem_post(table->sem_forks);
 		sem_post(table->sem_forks);
