@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 10:34:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 13:05:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static int	sit_philosophers(t_table *table, t_philo *philo)
 {
-	int		i;
+	int	i;
 
 	table->time_t0 = philo_get_time();
 	i = -1;
@@ -35,9 +35,9 @@ static int	sit_philosophers(t_table *table, t_philo *philo)
 
 static int	dinner_time(t_table *table)
 {
-	int		i;
-	int		wstatus;
-	int		ret;
+	int	i;
+	int	wstatus;
+	int	ret;
 
 	ret = 0;
 	i = -1;
@@ -45,8 +45,8 @@ static int	dinner_time(t_table *table)
 	{
 		waitpid(table->pid[i], &wstatus, 0);
 		wstatus = WEXITSTATUS(wstatus);
-			if (wstatus != 0)
-		ret = wstatus;
+		if (wstatus != 0)
+			ret = wstatus;
 	}
 	return (ret);
 }
@@ -62,10 +62,10 @@ int	main(int argc, char **argv)
 	table.pid = NULL;
 	table.sem_forks = NULL;
 	table.sem_seats = NULL;
-	table.sem_dead = NULL;
+	table.sem_exit = NULL;
 	philo.sem_philo = NULL;
 	if (argc < 5 || argc > 6)
-		return (philo_exit_error(&table, "Wrong number of argument."));
+		return (philo_exit_error(&table, ERR_NBR_ARG));
 	if (set_table(argc, argv, &table, &philo))
 		return (1);
 	if (table.guests == 1)

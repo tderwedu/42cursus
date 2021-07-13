@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 10:45:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 12:14:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,40 +39,35 @@ static int	lay_the_table(t_table *table, t_philo *philo)
 	sem_unlink(SEM_SEATS);
 	sem_unlink(SEM_FORKS);
 	sem_unlink(SEM_SATED);
-	sem_unlink(SEM_DEAD);
+	sem_unlink(SEM_EXIT);
 	table->pid = malloc(sizeof(pid_t) * table->guests);
 	if (!table->pid)
-		return (philo_exit_error(table, "Malloc error."));
+		return (philo_exit_error(table, ERR_MALLOC));
 	memset(table->pid, 0, sizeof(pid_t) * table->guests);
 	table->sem_seats = sem_open(SEM_SEATS, O_CREAT, 0660, table->guests / 2);
 	table->sem_forks = sem_open(SEM_FORKS, O_CREAT, 0660, table->guests);
 	table->sem_sated = sem_open(SEM_SATED, O_CREAT, 0660, 1);
-	table->sem_dead = sem_open(SEM_DEAD, O_CREAT, 0660, 0);
-	if (!table->sem_seats || !table->sem_forks || !table->sem_sated ||
-		!table->sem_dead)
-		return (philo_exit_error(table, "sem_open error."));
+	table->sem_exit = sem_open(SEM_EXIT, O_CREAT, 0660, 0);
+	if (!table->sem_seats || !table->sem_forks || !table->sem_sated
+		|| !table->sem_exit)
+		return (philo_exit_error(table, ERR_SEM_OPEN));
 	return (0);
 }
 
 int	set_table(int argc, char **argv, t_table *table, t_philo *philo)
 {
 	table->guests = get_arg((t_uc *)argv[1]);
-	if (table->guests == -1)
-		return (philo_exit_error(table, "Bad argument."));
 	table->time_to_die = get_arg((t_uc *)argv[2]);
-	if (table->time_to_die == -1)
-		return (philo_exit_error(table, "Bad argument."));
 	table->time_to_eat = get_arg((t_uc *)argv[3]);
-	if (table->time_to_eat == -1)
-		return (philo_exit_error(table, "Bad argument."));
 	table->time_to_sleep = get_arg((t_uc *)argv[4]);
-	if (table->time_to_sleep == -1)
-		return (philo_exit_error(table, "Bad argument."));
+	if (table->guests == -1 || table->time_to_die == -1
+		|| table->time_to_eat == -1 || table->time_to_sleep == -1)
+		return (philo_exit_error(table, ERR_BAD_ARG));
 	if (argc == 6)
 	{
 		table->meals = get_arg((t_uc *)argv[5]);
 		if (table->meals == -1)
-			return (philo_exit_error(table, "Bad argument."));
+			return (philo_exit_error(table, ERR_BAD_ARG));
 	}
 	else
 		table->meals = -1;

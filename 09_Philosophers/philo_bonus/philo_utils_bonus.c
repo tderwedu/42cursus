@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/12 18:51:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 12:28:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	philo_print_status(t_philo *philo, int status)
 		printf("%8lu %i died\n", time_stamp, philo->id);
 }
 
-void	get_sem_name(char *name, int id)
+void	philo_sem_name(char *name, int id)
 {
 	int		i;
 	char	*prefix;

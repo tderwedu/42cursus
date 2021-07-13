@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 09:50:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 12:10:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,17 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
-
 # define SEM_SEATS	"/sem_seats"
 # define SEM_FORKS	"/sem_forks"
-# define SEM_DEAD	"/sem_dead"
+# define SEM_EXIT	"/sem_exit"
 # define SEM_SATED	"/sem_sated"
 # define SEM_PHILO	"/sem_philo_"
+
+# define ERR_NBR_ARG	"Wrong number of argument."
+# define ERR_BAD_ARG	"pthread_create error."
+# define ERR_MALLOC		"Malloc error."
+# define ERR_SEM_OPEN	"sem_open error."
+# define ERR_PTHREAD	"pthread_create error."
 
 enum e_status
 {
@@ -60,7 +65,7 @@ typedef struct s_table
 	sem_t				*sem_seats;
 	sem_t				*sem_forks;
 	sem_t				*sem_sated;
-	sem_t				*sem_dead;
+	sem_t				*sem_exit;
 	struct s_philo		*philo;
 }						t_table;
 
@@ -92,8 +97,8 @@ int			philo_exit_error(t_table *table, char *str);
 ** philo_utils.c
 */
 
+void		philo_sem_name(char *name, int id);
 void		philo_print_status(t_philo *philo, int status);
-void		get_sem_name(char *name, int id);
 void		philo_usleep(uint64_t msec);
 uint64_t	philo_get_time(void);
 
@@ -101,8 +106,12 @@ uint64_t	philo_get_time(void);
 ** philo.c
 */
 
-int			start_threads(t_table *table);
+void		exit_process_error(t_table *table, char *str);
 int			main(int argc, char **argv);
+
+/*
+** *_routine_bonus.c
+*/
 
 void		philo_routine_bonus(t_table *table, t_philo *philo);
 void		*dead_routine_bonus(void *args);

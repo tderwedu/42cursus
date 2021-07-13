@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 10:20:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 12:28:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	philo_clear_all(t_table *table, t_philo *philo)
 	while (i < table->guests && table->pid[i])
 	{
 		kill(table->pid[i++], SIGKILL);
-		get_sem_name(philo->sem_name, philo->id);
+		philo_sem_name(philo->sem_name, philo->id);
 		sem_unlink(philo->sem_name);
 	}
 	if (table->pid)
@@ -31,28 +31,28 @@ void	philo_clear_all(t_table *table, t_philo *philo)
 		sem_close(table->sem_forks);
 	if (table->sem_sated)
 		sem_close(table->sem_sated);
-	if (table->sem_dead)
-		sem_close(table->sem_dead);
+	if (table->sem_exit)
+		sem_close(table->sem_exit);
 	sem_unlink(SEM_SEATS);
 	sem_unlink(SEM_FORKS);
 	sem_unlink(SEM_SATED);
-	sem_unlink(SEM_DEAD);
+	sem_unlink(SEM_EXIT);
 }
 
 int	poor_lonely_philo(t_table *table)
 {
 	table->time_t0 = philo_get_time();
-	printf("%.8lu 1 is thinking\n", philo_get_time() - table->time_t0);
+	printf("%8lu 1 is thinking\n", philo_get_time() - table->time_t0);
 	usleep(1000 * table->time_to_die);
-	printf("%.8lu 1 died\n", philo_get_time() - table->time_t0);
+	printf("%8lu 1 died\n", philo_get_time() - table->time_t0);
 	philo_clear_all(table, table->philo);
 	return (EXIT_SUCCESS);
 }
 
 int	philo_exit_error(t_table *table, char *str)
 {
-	dprintf(1, "Error:\n");
-	dprintf(1, "%s\n", str);
+	printf("Error:\n");
+	printf("%s\n", str);
 	philo_clear_all(table, table->philo);
 	return (EXIT_FAILURE);
 }

@@ -2,15 +2,15 @@
 NAME		=	philo_bonus
 
 CC			=	gcc
-CFLAGS		=	-Wall -Wextra -Werror -pthread -fsanitize=address
+CFLAGS		=	-Wall -Wextra -Werror -pthread
 
 SRC			=	./philo_init_bonus.c\
 				./philo_utils_bonus.c\
-				./philo_routine_bonus.c\
-				./waiter_routine_bonus.c\
-				./sated_routine_bonus.c\
-				./dead_routine_bonus.c\
 				./philo_exit_bonus.c\
+				./routine_philo_bonus.c\
+				./routine_waiter_bonus.c\
+				./routine_sated_bonus.c\
+				./routine_dead_bonus.c\
 				./philo_bonus.c\
 
 OBJ			=	${SRC:.c=.o}
