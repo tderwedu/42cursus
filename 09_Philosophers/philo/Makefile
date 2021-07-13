@@ -4,8 +4,8 @@ NAME		=	philo
 CC			=	gcc
 CFLAGS		=	-Wall -Wextra -Werror -pthread
 
-SRC			=	./waiter_routine.c\
-				./philo_routine.c\
+SRC			=	./routine_reaper.c\
+				./routine_philo.c\
 				./philo_utils.c\
 				./philo_checks.c\
 				./philo_exit.c\

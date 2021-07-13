@@ -8,9 +8,8 @@ SRC			=	./philo_init_bonus.c\
 				./philo_utils_bonus.c\
 				./philo_exit_bonus.c\
 				./routine_philo_bonus.c\
-				./routine_waiter_bonus.c\
-				./routine_sated_bonus.c\
-				./routine_dead_bonus.c\
+				./routine_death_bonus.c\
+				./routine_reaper_bonus.c\
 				./philo_bonus.c\
 
 OBJ			=	${SRC:.c=.o}

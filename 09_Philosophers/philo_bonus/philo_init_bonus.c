@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 12:14:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 15:41:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	get_arg(t_uc *nbr)
 	return (val);
 }
 
-static int	lay_the_table(t_table *table, t_philo *philo)
+static int	lTOBEFIND(t_table *table, t_philo *philo)
 {
 	philo->id = 0;
 	philo->meals = 0;
@@ -71,7 +71,7 @@ int	set_table(int argc, char **argv, t_table *table, t_philo *philo)
 	}
 	else
 		table->meals = -1;
-	if (lay_the_table(table, philo))
+	if (lTOBEFIND(table, philo))
 		return (1);
 	return (0);
 }

@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/09 17:35:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 15:44:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	start_threads(t_table *table)
+int	dinner_time(t_table *table)
 {
 	int			i;
 	t_philo		*philo;
@@ -47,7 +47,7 @@ int	main(int argc, char **argv)
 		return (poor_lonely_philo(&table));
 	else
 	{
-		if (start_threads(&table))
+		if (dinner_time(&table))
 			return (1);
 		i = -1;
 		while (++i < table.guests)

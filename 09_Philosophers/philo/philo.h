@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/09 17:54:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 15:44:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@
 # include <limits.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define ERR_NBR_ARG	"Wrong number of argument."
+# define ERR_BAD_ARG	"pthread_create error."
+# define ERR_MALLOC		"Malloc error."
+# define ERR_MUTEX		"Mutex error."
+# define ERR_PTHREAD	"pthread_create error."
 
 enum e_status
 {
@@ -103,9 +109,14 @@ uint64_t	philo_get_time(void);
 ** philo.c
 */
 
-void		*philo_routine(void *args);
-void		*waiter_routine(void *args);
-int			start_threads(t_table *table);
+int			dinner_time(t_table *table);
 int			main(int argc, char **argv);
+
+/*
+** routine_*_bonus.c
+*/
+
+void		*philo_routine(void *args);
+void		*reaper_routine(void *args);
 
 #endif
