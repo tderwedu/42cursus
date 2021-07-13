@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:29:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 19:00:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,12 @@ static inline void	philo_routine_init(t_table *table, t_philo *philo)
 
 static inline void	philo_eat(t_table *table, t_philo *philo)
 {
+	int64_t		starving_time;
+
 	sem_wait(philo->sem_philo);
+	starving_time = philo_get_time() - philo->last_meal;
+	if (starving_time >= table->time_to_die)
+		dying_philo(table, philo);
 	philo_print_status(philo, EATING);
 	philo->last_meal = philo_get_time();
 	sem_post(philo->sem_philo);
@@ -61,6 +66,8 @@ void	philo_routine_bonus(t_table *table, t_philo *philo)
 	pthread_t	exit;
 	pthread_t	death;
 
+	exit = 0;
+	death = 0;
 	philo_routine_init(table, philo);
 	if (pthread_create(&exit, NULL, &reaper_routine_bonus, table)
 		|| pthread_create(&death, NULL, &death_routine_bonus, philo))

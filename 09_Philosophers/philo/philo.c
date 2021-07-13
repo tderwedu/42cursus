@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:44:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 17:25:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	dinner_time(t_table *table)
 	{
 		philo = &table->philo[i];
 		if (pthread_create(&(table->tid[i]), NULL, &philo_routine, philo))
-			return (philo_exit_error(table, "pthread_create fail."));
+			return (philo_exit_error(table, ERR_PTHREAD));
 		i++;
 	}
 	return (0);
@@ -40,13 +40,15 @@ int	main(int argc, char **argv)
 	table.death = 0;
 	table.sated = 0;
 	if (argc < 5 || argc > 6)
-		return (philo_exit_error(&table, "Wrong number of argument."));
+		return (philo_exit_error(&table, ERR_NBR_ARG));
 	if (set_the_table(argc, argv, &table))
 		return (1);
-	if (table.guests == 1)
+	if (table.guests == 1 && table.meals != 0)
 		return (poor_lonely_philo(&table));
 	else
 	{
+		if (table.meals == 0)
+			return (0);
 		if (dinner_time(&table))
 			return (1);
 		i = -1;

@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 13:05:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 19:00:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo_bonus.h"
 
-static int	sit_philosophers(t_table *table, t_philo *philo)
+static int	sit_philo(t_table *table, t_philo *philo)
 {
 	int	i;
 
@@ -23,7 +23,7 @@ static int	sit_philosophers(t_table *table, t_philo *philo)
 		philo->id++;
 		table->pid[i] = fork();
 		if (table->pid[i] < 0)
-			return (philo_exit_error(table, "Fork() error."));
+			return (philo_exit_error(table, ERR_FORK));
 		else if (!table->pid[i])
 		{
 			philo_routine_bonus(table, philo);
@@ -57,22 +57,20 @@ int	main(int argc, char **argv)
 	t_philo	philo;
 	int		ret;
 
-	table.philo = &philo;
-	philo.table = &table;
-	table.pid = NULL;
-	table.sem_forks = NULL;
-	table.sem_seats = NULL;
-	table.sem_exit = NULL;
-	philo.sem_philo = NULL;
+	table = (t_table){0, 0, 0, NULL, 0, 0, 0, 0, NULL,
+		NULL, NULL, NULL, &philo};
+	philo.table= &table;
 	if (argc < 5 || argc > 6)
 		return (philo_exit_error(&table, ERR_NBR_ARG));
 	if (set_table(argc, argv, &table, &philo))
 		return (1);
-	if (table.guests == 1)
+	if (table.guests == 1 && table.meals != 0)
 		return (poor_lonely_philo(&table));
 	else
 	{
-		if (sit_philosophers(&table, &philo))
+		if (table.meals == 0)
+			return (0);
+		if (sit_philo(&table, &philo))
 			return (1);
 		ret = dinner_time(&table);
 		philo_clear_all(&table, &philo);

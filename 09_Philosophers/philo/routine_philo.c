@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:34:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 17:29:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static inline int	sit_philo(t_philo *philo, t_table *table, pthread_t *pid)
 	pthread_mutex_unlock(&philo->m_philo);
 	if (pthread_create(pid, NULL, &reaper_routine, philo))
 	{
-		philo_exit_error(table, "pthread_create fail.");
+		philo_exit_error(table, ERR_PTHREAD);
 		pthread_mutex_lock(&table->m_table);
 		table->death = 1;
 		pthread_mutex_unlock(&table->m_table);

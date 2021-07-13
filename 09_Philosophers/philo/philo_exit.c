@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:13:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:44:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 19:00:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ int	poor_lonely_philo(t_table *table)
 {
 	table->time_t0 = philo_get_time();
 	printf("%8llu 1 is thinking\n", philo_get_time() - table->time_t0);
+	printf("%8llu 1 has taken a fork\n", philo_get_time() - table->time_t0);
 	usleep(1000 * table->time_to_die);
 	printf("%8llu 1 died\n", philo_get_time() - table->time_t0);
 	philo_clear_all(table);
@@ -48,8 +49,8 @@ int	poor_lonely_philo(t_table *table)
 
 int	philo_exit_error(t_table *table, char *str)
 {
-	dprintf(1, "Error:\n");
-	dprintf(1, "%s\n", str);
+	printf("Error:\n");
+	printf("%s\n", str);
 	philo_clear_all(table);
 	return (1);
 }

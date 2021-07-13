@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:41:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 16:49:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ static int	get_arg(t_uc *nbr)
 		return (-1);
 	while ((*nbr - 48U) < 10U)
 		val = val * 10 + (*nbr++ - '0');
-	if (*nbr != '\0' || val == 0)
+	if (*nbr != '\0')
 		return (-1);
 	return (val);
 }
 
-static int	lTOBEFIND(t_table *table, t_philo *philo)
+static int	lay_the_table(t_table *table, t_philo *philo)
 {
 	philo->id = 0;
 	philo->meals = 0;
@@ -60,7 +60,7 @@ int	set_table(int argc, char **argv, t_table *table, t_philo *philo)
 	table->time_to_die = get_arg((t_uc *)argv[2]);
 	table->time_to_eat = get_arg((t_uc *)argv[3]);
 	table->time_to_sleep = get_arg((t_uc *)argv[4]);
-	if (table->guests == -1 || table->time_to_die == -1
+	if (table->guests < 1 || table->time_to_die == -1
 		|| table->time_to_eat == -1 || table->time_to_sleep == -1)
 		return (philo_exit_error(table, ERR_BAD_ARG));
 	if (argc == 6)
@@ -71,7 +71,7 @@ int	set_table(int argc, char **argv, t_table *table, t_philo *philo)
 	}
 	else
 		table->meals = -1;
-	if (lTOBEFIND(table, philo))
+	if (lay_the_table(table, philo))
 		return (1);
 	return (0);
 }

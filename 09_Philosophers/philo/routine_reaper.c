@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:34:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 18:16:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@ static inline void	waiter_sleep(t_philo *philo, t_table *table)
 	starving_time = philo->last_meal;
 	pthread_mutex_unlock(&philo->m_philo);
 	starving_time += table->time_to_die - philo_get_time();
-	philo_usleep(philo, starving_time);
+	if (starving_time > 0)
+		philo_usleep(philo, starving_time);
 }
 
 static inline void	philo_died(t_philo *philo, t_table *table)
 {
 	pthread_mutex_unlock(&philo->m_philo);
-	pthread_mutex_lock(&table->m_table);
-	if (!table->death)
+	if (check_death(table))
 		philo_print_status(philo, DIED);
+	pthread_mutex_lock(&table->m_table);
 	table->death = 1;
 	pthread_mutex_unlock(&table->m_table);
 }

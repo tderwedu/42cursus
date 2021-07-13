@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 15:44:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/13 16:38:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # include <sys/time.h>
 
 # define ERR_NBR_ARG	"Wrong number of argument."
-# define ERR_BAD_ARG	"pthread_create error."
+# define ERR_BAD_ARG	"Bad argument."
 # define ERR_MALLOC		"Malloc error."
 # define ERR_MUTEX		"Mutex error."
 # define ERR_PTHREAD	"pthread_create error."
