@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 16:39:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:51:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ static int	lay_the_table(int argc, char **argv, t_table *table)
 	table->philo = malloc(sizeof(*table->philo) * table->guests);
 	if (!(table->m_forks) || !table->tid || !(table->philo))
 		return (philo_exit_error(table, ERR_MALLOC));
-	pthread_mutex_init(&table->m_table, NULL);
 	return (0);
 }
 
@@ -64,6 +63,7 @@ int	set_the_table(int argc, char **argv, t_table *table)
 
 	if (lay_the_table(argc, argv, table))
 		return (1);
+	pthread_mutex_init(&table->m_table, NULL);
 	i = -1;
 	while (++i < table->guests)
 	{

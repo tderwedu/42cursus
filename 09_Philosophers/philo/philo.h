@@ -6,20 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 16:38:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:52:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
-
-/*
-** # pragma GCC diagnostic push 
-** # pragma GCC diagnostic ignored "-Wcpp"
-** # define _BSD_SOURCE
-** # include <unistd.h>
-** # pragma GCC diagnostic pop
-*/
 
 # include <unistd.h>
 # include <stdlib.h>

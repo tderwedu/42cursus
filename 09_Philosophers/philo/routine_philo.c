@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:38:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 17:29:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/20 16:34:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 static inline int	sit_philo(t_philo *philo, t_table *table, pthread_t *pid)
 {
+	int64_t	time_stamp;
+
 	pthread_mutex_lock(&philo->m_philo);
 	philo->last_meal = philo_get_time();
 	pthread_mutex_unlock(&philo->m_philo);
@@ -25,6 +27,9 @@ static inline int	sit_philo(t_philo *philo, t_table *table, pthread_t *pid)
 		pthread_mutex_unlock(&table->m_table);
 		return (1);
 	}
+	time_stamp = table->time_to_eat - (philo_get_time() - table->time_t0);
+	if (table->guests % 2 == 0 && philo->id % 2 != 0 && time_stamp > 0)
+		philo_usleep(philo, time_stamp);
 	return (0);
 }
 

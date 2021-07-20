@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 19:00:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/15 11:02:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
 
 	table = (t_table){0, 0, 0, NULL, 0, 0, 0, 0, NULL,
 		NULL, NULL, NULL, &philo};
-	philo.table= &table;
+	philo.table = &table;
 	if (argc < 5 || argc > 6)
 		return (philo_exit_error(&table, ERR_NBR_ARG));
 	if (set_table(argc, argv, &table, &philo))

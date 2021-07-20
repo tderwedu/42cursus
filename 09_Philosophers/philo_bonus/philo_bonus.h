@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 17:08:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/15 10:55:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,18 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 
+# define ERR_NBR_ARG	"Wrong number of argument."
+# define ERR_BAD_ARG	"Bad argument."
+# define ERR_MALLOC		"Malloc error."
+# define ERR_SEM_OPEN	"sem_open error."
+# define ERR_FORK		"Fork error."
+# define ERR_PTHREAD	"pthread_create error."
+
 # define SEM_SEATS	"/sem_seats"
 # define SEM_FORKS	"/sem_forks"
 # define SEM_EXIT	"/sem_exit"
 # define SEM_SATED	"/sem_sated"
 # define SEM_PHILO	"/sem_philo_"
-
-# define ERR_NBR_ARG	"Wrong number of argument."
-# define ERR_BAD_ARG	"Bad argument."
-# define ERR_MALLOC		"Malloc error."
-# define ERR_SEM_OPEN	"sem_open error."
-# define ERR_FORK		"Fork() error."
-# define ERR_PTHREAD	"pthread_create error."
 
 enum e_status
 {
