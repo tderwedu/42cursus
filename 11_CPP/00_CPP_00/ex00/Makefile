@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/26 16:27:21 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/07/27 14:58:29 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,7 @@ $(NAME):	${OBJ}
 			${CC} ${CFLAGS} ${OBJ} -o ${NAME}
 
 clean:
-			rm -f {$OBJ}
+			rm -f ${OBJ}
 
 fclean:		clean
 			rm -f ${NAME}

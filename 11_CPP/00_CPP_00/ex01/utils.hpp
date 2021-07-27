@@ -1,34 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   megaphone.cpp                                      :+:      :+:    :+:   */
+/*   utils.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/07/26 15:15:16 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/27 16:35:33 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/07/27 15:24:01 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/07/27 16:02:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <string>
-#include <iostream>
-#include <iomanip>
+#ifndef UTILS_HPP
+# define UTILS_HPP
 
-int	main(int argc, char **argv)
-{
-	std::string	str;
+# define BOLD	"\e[1;37m"
+# define RST	"\e[0m"
+# define RED	"\e[31m"
+# define GRN	"\e[32m"
+# define BLU	"\e[34m"
+# define CYA	"\e[36m"
 
-	if (argc == 1)
-		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
-	{
-		for (int i = 1; i < argc; i++)
-		{
-			str = argv[i];
-			for (auto &c: str)
-				c = std::toupper(c);
-			std::cout << str;
-		}
-		std::cout << std::endl;
-	}
-}
+# define CLEAR	"\e[0m" << std::endl
+
+#endif

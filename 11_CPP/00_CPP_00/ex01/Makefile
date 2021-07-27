@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 16:46:02 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/26 16:51:36 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/07/27 14:58:23 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,9 +14,9 @@
 
 NAME	= phonebook
 
-SRC		= ./Contact.cpp\
-		  ./Contact.hpp\
-		  ./phonebook.cpp
+SRC		= ./main.cpp\
+		  ./Contact.cpp\
+		  ./PhoneBook.cpp\
 
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror
@@ -38,7 +38,8 @@ clean:
 
 fclean:		clean
 			rm -f ${NAME}
-re:			fclean all
 
-.phony: all clean fclean re
+re:			fclean	all
+
+.phony:		all clean fclean re
 
