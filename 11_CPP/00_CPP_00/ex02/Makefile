@@ -5,18 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2021/07/26 16:46:02 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/27 19:00:56 by tderwedu         ###   ########.fr        #
+#    Created: 2021/07/27 17:09:30 by tderwedu          #+#    #+#              #
+#    Updated: 2021/07/27 18:55:12 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	= phonebook
+NAME	:= account
 
-SRC		= ./main.cpp\
-		  ./Contact.class.cpp\
-		  ./PhoneBook.class.cpp\
+SRC		:= ./Account.cpp\
+		   ./tests.cpp
 
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror
@@ -33,13 +32,15 @@ all:		$(NAME)
 $(NAME):	${OBJ}
 			${CC} ${CFLAGS} ${OBJ} -o ${NAME}
 
+run:		$(NAME)
+			./${NAME} > my.log
+
 clean:
 			rm -f ${OBJ}
 
 fclean:		clean
-			rm -f ${NAME}
+			rm -f ${NAME} my.log
 
-re:			fclean	all
+re:			fclean all
 
-.phony:		all clean fclean re
-
+.phony:		all run clean fclean re
