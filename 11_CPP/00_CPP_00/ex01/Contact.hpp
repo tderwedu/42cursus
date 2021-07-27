@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:51:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/26 19:07:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/27 12:14:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,9 @@
 # include <iostream>
 # include <iomanip>
 # include <string>
+# include <limits>
 
-typedef std::string	string;
+typedef std::string	String;
 
 class	Contact
 {
@@ -25,23 +26,20 @@ class	Contact
 		Contact(void);
 		~Contact(void);
 
-		void	add(int index);
-		void	preview(void) const;
-		void	show_all(void) const;
+		void			preview(void) const;
+		void			show_all(void) const;
+		void			update_all(int const index);
 	private:
-		string	_phone_number;
-		string	_first_name;
-		string	_last_name;
-		string	_nickname;
-		string	_secret;
-		int		index;
+		String			_phone_number;
+		String			_first_name;
+		String			_last_name;
+		String			_nickname;
+		String			_secret;
+		int				index;
 
-		void	set_phone_number(void);
-		void	set_first_name(void);
-		void	set_last_name(void);
-		void	set_nickname(void);
-		void	set_secret(void);
-		string	trime_attr(string attr);
+		static String	trime_str(String const str);
+		void			get_input_str(String const msg, String &dst);
+		void			get_input_phone(String const msg, String &dst);
 };
 
 #endif
