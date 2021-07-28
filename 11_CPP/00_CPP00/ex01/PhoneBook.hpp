@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.hpp                                :+:      :+:    :+:   */
+/*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 12:22:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/27 19:00:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/28 09:15:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <iostream>
 # include <iomanip>
-# include "Contact.class.hpp"
+# include "Contact.hpp"
 # include "utils.hpp"
 
 # define CONTACTS_SIZE 8

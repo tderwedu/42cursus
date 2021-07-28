@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   PhoneBook.class.cpp                                :+:      :+:    :+:   */
+/*   PhoneBook.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/26 16:51:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/27 19:00:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/28 09:15:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.class.hpp"
+#include "PhoneBook.hpp"
 
 PhoneBook::PhoneBook(void) : size(0), next(0)
 {

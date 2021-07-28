@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 16:46:02 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/27 19:00:56 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/07/28 09:15:35 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@
 NAME	= phonebook
 
 SRC		= ./main.cpp\
-		  ./Contact.class.cpp\
-		  ./PhoneBook.class.cpp\
+		  ./Contact.cpp\
+		  ./PhoneBook.cpp\
 
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror

@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:29:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/27 19:00:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/28 09:15:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "PhoneBook.class.hpp"
+#include "PhoneBook.hpp"
 #include "utils.hpp"
 
 int	main(void)
