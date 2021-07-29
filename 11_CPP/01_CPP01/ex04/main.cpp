@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/29 18:53:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/29 19:00:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,11 @@ int	main(int argc, char **argv)
 		std::cerr << "Error: " << std::endl;
 		std::cerr << "Failed to open " << fname << "!" << std::endl;
 		return 1;
+	}
+	if (ifs.peek() == std::ifstream::traits_type::eof())
+	{
+		ifs.close();
+		return 0;
 	}
 	ofs.open(fname + ".replace", std::fstream::trunc);
 	if(!ofs.is_open())

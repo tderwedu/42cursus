@@ -24,6 +24,8 @@ replace_test open.txt "open" "close"
 
 echo '\e[32m ========> TEST: Simple \e[0m'
 replace_test open.txt "open()" "close()"
+echo '\e[32m ========> TEST: empty file \e[0m'
+replace_test empty.txt "A" "a"
 echo '\e[32m ========> TEST: Whole Sentence \e[0m'
 replace_test open.txt "open()" "A call to open() creates a new open file description,"
 echo '\e[32m ========> TEST: Newlinesest  \e[0m'
