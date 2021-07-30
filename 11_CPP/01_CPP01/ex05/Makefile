@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/28 09:22:15 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/30 10:43:44 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/07/30 12:20:45 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,12 +38,9 @@ run:		$(NAME)
 clean:
 			rm -f ${OBJ}
 
-rclean:
-			rm -f $(wildcard *.replace)
-
-fclean:		clean rclean
+fclean:		clean
 			rm -f $(NAME)
 
 re:			fclean $(NAME)
 
-.phony:		all run clean rclean fclean re
+.phony:		all run clean fclean re
