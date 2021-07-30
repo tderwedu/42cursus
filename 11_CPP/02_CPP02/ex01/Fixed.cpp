@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 14:25:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/30 17:00:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/30 18:24:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	Fixed::setRawBits(int const raw)
 
 float	Fixed::toFloat(void) const
 {
-	return (float)_fpv / (float) (1 << Fixed::_bits);
+	return (float)_fpv / (float)(1 << Fixed::_bits);
 }
 
 int		Fixed::toInt(void) const
@@ -63,7 +63,7 @@ int		Fixed::toInt(void) const
 	return (_fpv >> Fixed::_bits);
 }
 
-/* ======================= OPERATOR OVERLOAD FUNCTIONS ======================= */
+/* =========================== OPERATOR OVERLOADS =========================== */
 
 Fixed&	Fixed::operator=(Fixed const &rhs)
 {
@@ -72,8 +72,8 @@ Fixed&	Fixed::operator=(Fixed const &rhs)
 	return *this;
 }
 
-std::ostream&	operator<<(std::ostream &o, Fixed const& rhs)
+std::ostream&	operator<<(std::ostream &os, Fixed const& rhs)
 {
-	o << rhs.toFloat();
-	return o;
+	os << rhs.toFloat();
+	return os;
 }
