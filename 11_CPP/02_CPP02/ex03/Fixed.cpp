@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 14:25:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 10:44:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/31 16:35:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,12 +105,18 @@ Fixed&	Fixed::operator=(Fixed const &rhs)
 
 Fixed	Fixed::operator+(Fixed const &rhs) const
 {
-	return (Fixed(this->_fpv + rhs.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->_fpv + rhs._fpv);
+	return (res);
 }
 
 Fixed	Fixed::operator-(Fixed const &rhs) const
 {
-	return (Fixed(this->_fpv - rhs.getRawBits()));
+	Fixed res;
+
+	res.setRawBits(this->_fpv - rhs._fpv);
+	return (res);
 }
 
 Fixed	Fixed::operator*(Fixed const &rhs) const

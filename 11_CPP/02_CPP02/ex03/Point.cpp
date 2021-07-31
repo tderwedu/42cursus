@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 11:59:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 12:56:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/31 16:20:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ Fixed const	&Point::getY(void) const
 
 Point&	Point::operator=(Point const& rhs)
 {
+	(void)rhs;
 	return *this;
 }
 
