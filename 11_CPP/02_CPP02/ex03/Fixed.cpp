@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 14:25:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 11:30:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/31 10:44:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,30 @@
 
 /* ======================== CONSTRUCTORS / DESTRUCTORS ======================== */
 
-Fixed::Fixed() : _fpv(0) {}
+Fixed::Fixed() : _fpv(0)
+{
+	return ;
+}
 
 Fixed::Fixed(Fixed const& src)
 {
 	*this = src;
 }
 
-Fixed::~Fixed() {}
+Fixed::~Fixed()
+{
+	return ;
+}
 
-Fixed::Fixed(int const val) : _fpv(val << Fixed::_bits) {}
+Fixed::Fixed(int const val) : _fpv(val << Fixed::_bits)
+{
+	return ;
+}
 
-Fixed::Fixed(float const val) : _fpv(roundf(val * (1 << Fixed::_bits))) {}
+Fixed::Fixed(float const val) : _fpv(roundf(val * (1 << Fixed::_bits)))
+{
+	return ;
+}
 
 /* ============================ MEMBER FUNCTIONS ============================ */
 
