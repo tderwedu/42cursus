@@ -1,12 +1,13 @@
 # ```Philosophers```
 *a 19 Coding School project*
 
-This project is about learning the basics of threading a process and discover the mutex.
+This project is about learning the basics of Multithreading and Multiprocessing using the well known [Dining philosophers problem](https://en.wikipedia.org/wiki/Dining_philosophers_problem).
 
 ## Acknowledgements
 
--  Principles of Computer Systems - CS110 [slides](http://web.stanford.edu/class/cs110/)
+- Stanford University's [CS110: Principles of Computer Systems](http://web.stanford.edu/class/cs110/)
 - Stackoverflow's question [What is a “thread” (really)?](https://stackoverflow.com/questions/5201852/what-is-a-thread-really)
+- Stackoverflow's question [How to share semaphores (...)](https://stackoverflow.com/questions/8359322/how-to-share-semaphores-between-processes-using-shared-memory)
 
 ## License
 

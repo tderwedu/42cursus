@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 15:40:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/20 16:50:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/25 10:37:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static inline void	philo_died(t_philo *philo, t_table *table)
 	pthread_mutex_lock(&table->m_table);
 	time_stamp = philo_get_time() - philo->table->time_t0;
 	if (!table->death)
-		printf("%8lu %i died\n", time_stamp, philo->id);
+		printf("%8llu %i died\n", time_stamp, philo->id);
 	table->death = 1;
 	pthread_mutex_unlock(&table->m_table);
 }

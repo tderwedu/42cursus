@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/15 11:02:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/25 14:19:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static int	sit_philo(t_table *table, t_philo *philo)
 		philo->id++;
 		table->pid[i] = fork();
 		if (table->pid[i] < 0)
-			return (philo_exit_error(table, ERR_FORK));
+			return (philo_free_error(table, ERR_FORK));
 		else if (!table->pid[i])
 		{
 			philo_routine_bonus(table, philo);
@@ -61,7 +61,7 @@ int	main(int argc, char **argv)
 		NULL, NULL, NULL, &philo};
 	philo.table = &table;
 	if (argc < 5 || argc > 6)
-		return (philo_exit_error(&table, ERR_NBR_ARG));
+		return (philo_exit_error(ERR_NBR_ARG));
 	if (set_table(argc, argv, &table, &philo))
 		return (1);
 	if (table.guests == 1 && table.meals != 0)

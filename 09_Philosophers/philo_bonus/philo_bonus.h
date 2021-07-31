@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/30 09:55:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/15 10:55:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/25 14:19:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,8 @@ int			set_table(int argc, char **argv, t_table *table, t_philo *philo);
 
 void		philo_clear_all(t_table *table, t_philo *philo);
 int			poor_lonely_philo(t_table *table);
-int			philo_exit_error(t_table *table, char *str);
+int			philo_free_error(t_table *table, char *str);
+int			philo_exit_error(char *str);
 
 /*
 ** philo_utils.c

@@ -56,7 +56,7 @@ or
 Where a list from _0_ to _X_ is shuffled and then passed as an argument to both `push_swap` and `checker`. 
 
 ## Results
-- 5 items: ~8 moves,
+- 5 items: ~7 moves,
 - 100 items: ~650 moves,
 - 500 items: ~5020 moves.
 

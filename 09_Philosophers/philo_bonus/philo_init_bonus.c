@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/13 16:49:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/25 14:17:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	lay_the_table(t_table *table, t_philo *philo)
 	sem_unlink(SEM_EXIT);
 	table->pid = malloc(sizeof(pid_t) * table->guests);
 	if (!table->pid)
-		return (philo_exit_error(table, ERR_MALLOC));
+		return (philo_free_error(table, ERR_MALLOC));
 	memset(table->pid, 0, sizeof(pid_t) * table->guests);
 	table->sem_seats = sem_open(SEM_SEATS, O_CREAT, 0660, table->guests / 2);
 	table->sem_forks = sem_open(SEM_FORKS, O_CREAT, 0660, table->guests);
@@ -50,7 +50,7 @@ static int	lay_the_table(t_table *table, t_philo *philo)
 	table->sem_exit = sem_open(SEM_EXIT, O_CREAT, 0660, 0);
 	if (!table->sem_seats || !table->sem_forks || !table->sem_sated
 		|| !table->sem_exit)
-		return (philo_exit_error(table, ERR_SEM_OPEN));
+		return (philo_free_error(table, ERR_SEM_OPEN));
 	return (0);
 }
 
@@ -62,12 +62,12 @@ int	set_table(int argc, char **argv, t_table *table, t_philo *philo)
 	table->time_to_sleep = get_arg((t_uc *)argv[4]);
 	if (table->guests < 1 || table->time_to_die == -1
 		|| table->time_to_eat == -1 || table->time_to_sleep == -1)
-		return (philo_exit_error(table, ERR_BAD_ARG));
+		return (philo_free_error(table, ERR_BAD_ARG));
 	if (argc == 6)
 	{
 		table->meals = get_arg((t_uc *)argv[5]);
 		if (table->meals == -1)
-			return (philo_exit_error(table, ERR_BAD_ARG));
+			return (philo_free_error(table, ERR_BAD_ARG));
 	}
 	else
 		table->meals = -1;

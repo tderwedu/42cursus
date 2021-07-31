@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/01 11:12:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/20 16:51:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/25 14:17:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ static int	lay_the_table(int argc, char **argv, t_table *table)
 	table->time_to_sleep = get_arg((t_uc *)argv[4]);
 	if (table->guests < 1 || table->time_to_die == -1
 		|| table->time_to_eat == -1 || table->time_to_sleep == -1)
-		return (philo_exit_error(table, ERR_BAD_ARG));
+		return (philo_free_error(table, ERR_BAD_ARG));
 	if (argc == 6)
 	{
 		table->meals = get_arg((t_uc *)argv[5]);
 		if (table->meals == -1)
-			return (philo_exit_error(table, ERR_BAD_ARG));
+			return (philo_free_error(table, ERR_BAD_ARG));
 	}
 	else
 		table->meals = -1;
@@ -52,7 +52,7 @@ static int	lay_the_table(int argc, char **argv, t_table *table)
 	table->m_forks = malloc(sizeof(*table->m_forks) * table->guests);
 	table->philo = malloc(sizeof(*table->philo) * table->guests);
 	if (!(table->m_forks) || !table->tid || !(table->philo))
-		return (philo_exit_error(table, ERR_MALLOC));
+		return (philo_free_error(table, ERR_MALLOC));
 	return (0);
 }
 
@@ -61,9 +61,9 @@ int	set_the_table(int argc, char **argv, t_table *table)
 	int		i;
 	t_philo	*philo;
 
+	pthread_mutex_init(&table->m_table, NULL);
 	if (lay_the_table(argc, argv, table))
 		return (1);
-	pthread_mutex_init(&table->m_table, NULL);
 	i = -1;
 	while (++i < table->guests)
 	{
