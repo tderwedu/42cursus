@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 14:24:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 17:02:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/07/31 17:11:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(void)
 	std::cout << "c, a, b : " << bsp(c, a, b, Point(0.0f, 0.01f)) << std::endl;
 	std::cout << "a, c, b : " << bsp(a, c, b, Point(0.0f, 0.01f)) << std::endl;
 
-	std::cout << BOLD << "\t [ Point OUTSIE but close to Edge ]"  << CLEAR;
+	std::cout << BOLD << "\t [ Point OUTSIDE but close to Edge ]"  << CLEAR;
 	std::cout << " Point close to Edge ab"  << std::endl;
 	std::cout << "a, b, c : " << bsp(a, b, c, Point(-0.51f, 0.51f)) << std::endl;
 	std::cout << "b, c, a : " << bsp(b, c, a, Point(-0.51f, 0.51f)) << std::endl;
