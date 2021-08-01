@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.cpp                                           :+:      :+:    :+:   */
+/*   my_colors.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/01 10:15:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 15:32:31 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/08/01 15:22:41 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/08/01 15:25:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ClapTrap.hpp"
-# include "my_colors.hpp"
+#ifndef MY_COLORS_HPP
+# define MY_COLORS_HPP
 
-int	main(void)
-{
-	ClapTrap	cl4p("CL4P");
-	ClapTrap	mini(cl4p);
+# define BOLD	"\e[1;37m"
+# define RED	"\e[1;31m"
+# define GRN	"\e[1;32m"	
+# define YLW	"\e[1;33m"
+# define BLU	"\e[1;34m"
+# define CYA	"\e[1;36m"
+# define RST	"\e[0m"
+# define CLEAR	"\e[0m" << std::endl
 
-	std::cout << CYA << "\t ***A skag is approaching***" << CLEAR;
-	mini.takeDamage(15);
-	cl4p.attack("Skag");
-	cl4p.takeDamage(5);
-	cl4p.beRepaired(3);
-	cl4p.attack("Skag");
-	cl4p.takeDamage(15);
-	std::cout << CYA << "\t ***Crap happens...***" << CLEAR;
-}
+#endif
