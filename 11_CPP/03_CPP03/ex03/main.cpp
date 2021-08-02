@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:15:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 16:52:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/02 17:05:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,5 @@ int	main(void)
 	Di4m.highFivesGuys();
 	Di4m.whoAmI();
 
-	std::cout << CYA << "\t *** END***" << CLEAR;
+	std::cout << CYA << "\t *** END ***" << CLEAR;
 }

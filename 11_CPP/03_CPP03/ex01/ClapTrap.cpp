@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 16:38:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:58:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ ClapTrap::~ClapTrap()
 void		ClapTrap::attack(std::string const& target)
 {
 	ClapTrap::putName(*this);
-	std::cout << "Hey " << YLW << target << RST << " I have " << YLW;
-	std::cout << this->_attackDamage << RST << " freedom for you!" << std::endl;
+	std::cout	<< "Hey " << YLW << target << RST << " I have " << YLW
+				<< this->_attackDamage << RST << " freedom for you!" << std::endl;
 }
 
 void		ClapTrap::takeDamage(unsigned int amount)
@@ -59,8 +59,8 @@ void		ClapTrap::takeDamage(unsigned int amount)
 	}
 	else
 	{
-		std::cout << YLW << amount << RST << " damages taken. ";
-		std::cout << "Ow hohoho, that hurts! Yipes! " << std::endl;
+		std::cout	<< YLW << amount << RST << " damages taken. "
+					<< "Ow hohoho, that hurts! Yipes! " << std::endl;
 	}
 }
 
@@ -68,9 +68,9 @@ void		ClapTrap::beRepaired(unsigned int amount)
 {
 	this->_hitPoints += amount;
 	ClapTrap::putName(*this);
-	std::cout << YLW << amount << RST;
-	std::cout << " sweet life juice. You're the wub to my dub!";
-	std::cout << std::endl;
+	std::cout	<< YLW << amount << RST
+				<< " sweet life juice. You're the wub to my dub!"
+				<< std::endl;
 }
 
 int			ClapTrap::get_hitPoints(void) const
@@ -106,8 +106,8 @@ void		ClapTrap::set_attackDamage(unsigned int val)
 void	ClapTrap::putName(ClapTrap const& src)
 {
 	std::string	name = std::string("[" + src._Name + "]");
-	std::cout << BOLD << std::setw(10) << std::setiosflags(std::ios::left) << name << RST;
-	std::cout << ": ";
+	std::cout	<< BOLD << std::setw(10) << std::setiosflags(std::ios::left)
+				<< name << RST << ": ";
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */

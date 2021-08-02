@@ -6,12 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:16:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 17:09:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/01 17:39:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef FragTrap_HPP
-# define FragTrap_HPP
+#ifndef FRAGTRAP_HPP
+# define FRAGTRAP_HPP
 
 # include <iostream>
 # include <string>

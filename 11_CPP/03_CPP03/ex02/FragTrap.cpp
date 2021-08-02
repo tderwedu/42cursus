@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 17:29:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:56:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,10 +50,9 @@ void		FragTrap::attack(std::string const& target)
 {
 	ClapTrap::putName(*this);
 
-	std::cout << YLW << this->_attackDamage << RST;
-	std::cout << " Hey " << YLW << target << RST << ", I brought you a present. ";
-	std::cout << "A free " << YLW << this->_attackDamage << RST;
-	std::cout << " hits giveaway!" << std::endl;
+	std::cout	<< "Hey " << YLW << target << RST << ", I brought you a present. "
+				<< "A free " << YLW << this->_attackDamage << RST
+				<< " hits giveaway!" << std::endl;
 }
 
 void		FragTrap::takeDamage(unsigned int amount)
@@ -67,8 +66,8 @@ void		FragTrap::takeDamage(unsigned int amount)
 	}
 	else
 	{
-		std::cout << "Only " << YLW << amount << RST << " damages taken. ";
-		std::cout << "Let's get this party started!" << std::endl;
+		std::cout	<< "Only " << YLW << amount << RST << " damages taken. "
+					<< "Let's get this party started!" << std::endl;
 	}
 }
 

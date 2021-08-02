@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 16:56:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/02 16:56:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 
 ScavTrap::ScavTrap() : ClapTrap()
 {
-	std::cout << YLW << "I am the best robot. Yeah, yeah, yeah, I am the best robot.";
-	std::cout << YLW << "Ooh, ooh, here we go!" << CLEAR;
+	std::cout	<< YLW << "I am the best robot. Yeah, yeah, yeah, I am the best robot."
+				<< "Ooh, ooh, here we go!" << CLEAR;
 	this->_hitPoints = 100;
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
@@ -29,11 +29,10 @@ ScavTrap::ScavTrap(std::string const& Name) : ClapTrap(Name)
 	this->_energyPoints = 50;
 	this->_attackDamage = 20;
 	ClapTrap::putName(*this);
-	std::cout << YLW << "Directive one  : Protect humanity!" << std::endl;
-	std::cout << "            ";
-	std::cout << YLW << "Directive two  : Obey Jack at all costs." << std::endl;
-	std::cout << "            "; 
-	std::cout << YLW << "Directive three: Dance!" << CLEAR;
+	std::cout	<< YLW << "Directive one  : Protect humanity!" << std::endl
+				<< "            "
+				<< "Directive two  : Obey Jack at all costs." << std::endl
+				<< "            " << "Directive three: Dance!" << CLEAR;
 }
 
 ScavTrap::ScavTrap(ScavTrap const& src) : ClapTrap("cpy" + src._Name)
@@ -57,9 +56,9 @@ ScavTrap::~ScavTrap()
 void		ScavTrap::attack(std::string const& target)
 {
 	ClapTrap::putName(*this);
-	std::cout << "Look out " << YLW << target << RST << "! ";
-	std::cout << "I have " << YLW  << this->_attackDamage << RST;
-	std::cout << " more freedom for you!" << std::endl;
+	std::cout	<< "Look out " << YLW << target << RST << "! "
+				<< "I have " << YLW  << this->_attackDamage << RST
+				<< " more freedom for you!" << std::endl;
 }
 
 void		ScavTrap::takeDamage(unsigned int amount)
@@ -73,8 +72,8 @@ void		ScavTrap::takeDamage(unsigned int amount)
 	}
 	else
 	{
-		std::cout << YLW << amount << RST << " damages taken. ";
-		std::cout << "Oh darn, oh boy, oh crap, oh boy, oh darn." << std::endl;
+		std::cout	<< YLW << amount << RST << " damages taken. "
+					<< "Oh darn, oh boy, oh crap, oh boy, oh darn." << std::endl;
 	}
 }
 
