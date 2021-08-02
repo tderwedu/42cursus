@@ -8,6 +8,7 @@ These project is about learning `C++` language.
 - [CPP 00](https://github.com/tderwedu/42cursus/tree/main/11_CPP/00_CPP00) : Namespace, class, member functions, stdio stream, initialization lists, static, const, ..
 - [CPP 01](https://github.com/tderwedu/42cursus/tree/main/11_CPP/01_CPP01) : Memory allocation, references, pointers to members, switch
 - [CPP 02](https://github.com/tderwedu/42cursus/tree/main/11_CPP/02_CPP02) : Ad-hoc polymorphism, operators overload and orthodox canonical classes
+- [CPP 03](https://github.com/tderwedu/42cursus/tree/main/11_CPP/03_CPP03) : Inheritance, diamond problem
 
 ## Acknowledgements
 
