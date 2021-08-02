@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 16:50:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/02 18:24:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,7 @@ void		FragTrap::highFivesGuys(void) const
 	ClapTrap::putName(*this);
 	std::cout << "Gimme five!" << std::endl;
 }
+
 /* =========================== OPERATOR OVERLOADS =========================== */
 
 FragTrap&	FragTrap::operator=(FragTrap const& src)

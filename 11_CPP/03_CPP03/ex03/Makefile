@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/01 10:17:28 by tderwedu          #+#    #+#              #
-#    Updated: 2021/08/02 15:07:33 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/08/02 18:26:47 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ NAME	= claptrap
 SRC		= ./ClapTrap.cpp\
 		  ./ScavTrap.cpp\
 		  ./FragTrap.cpp\
+		  ./DiamondTrap.cpp\
 		  ./main.cpp
 
 CC		= clang++
