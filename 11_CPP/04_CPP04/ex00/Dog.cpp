@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 11:48:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/03 13:58:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	Dog::makeSound(void) const
 
 Dog&	Dog::operator=(Dog const &src)
 {
-	this->type = src.getType();
+	this->Animal::operator=(src);
 	return *this;
 }

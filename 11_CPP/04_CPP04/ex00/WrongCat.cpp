@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 11:08:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 11:55:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/03 13:58:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,6 @@ void	WrongCat::makeSound(void) const
 
 WrongCat&	WrongCat::operator=(WrongCat const &src)
 {
-	this->type = src.getType();
+	this->WrongAnimal::operator=(src);
 	return *this;
 }

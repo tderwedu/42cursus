@@ -1,49 +1,67 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Cat.cpp                                            :+:      :+:    :+:   */
+/*   Dog.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 13:58:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/03 17:32:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Cat.hpp"
+#include "Dog.hpp"
 
 /* ======================= CONSTRUCTORS / DESTRUCTORS ======================= */
 
-Cat::Cat() : Animal("Cat")
+Dog::Dog() : Animal("Dog")
 {
-	std::cout	<< "Cat        : A new " << YLW << this->getType() << RST 
+	this->_Brain = new Brain();
+	std::cout	<< "Dog        : A new " << YLW << this->getType() << RST
 				<< " is born." << std::endl;
 }
 
-Cat::Cat(Cat const &src)
+Dog::Dog(Dog const &src)
 {
 	*this = src;
-	std::cout	<< "Cat        : A new " << YLW << this->getType() << RST
+	std::cout	<< "Dog        : A new " << YLW << this->getType() << RST
 				<< " is born." << std::endl;
 }
 
-Cat::~Cat()
+Dog::~Dog()
 {
-	std::cout	<< "Cat        : A " << YLW << this->getType() << RST
+	delete this->_Brain;
+	std::cout	<< "Dog        : A " << YLW << this->getType() << RST
 				<< " Died." << std::endl;
 }
 
 /* ============================ MEMBER FUNCTIONS ============================ */
 
-void	Cat::makeSound(void) const
+Brain&	Dog::getBrain(void) const
 {
-	std::cout << CYA << "*** Meow ***" << CLEAR;
+	return *this->_Brain;
+}
+
+void	Dog::makeSound(void) const
+{
+	std::cout << CYA << "*** Growl ***" << CLEAR;
+}
+
+void	Dog::printIdeas(void) const
+{
+	this->_Brain->printIdeas();
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */
 
-Cat&	Cat::operator=(Cat const &src)
+Dog&	Dog::operator=(Dog const &src)
 {
-	this->Animal::operator=(src);
+	std::cout << "Dog        : Cloning" << std::endl;
+	if (this != &src)
+	{
+		delete this->_Brain;
+		this->Animal::operator=(src);
+		this->_Brain = new Brain(src.getBrain());
+	}
 	return *this;
 }
