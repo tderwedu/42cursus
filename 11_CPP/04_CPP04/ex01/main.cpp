@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 18:32:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 18:35:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/05 14:37:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int main()
 {
 	srand(time(0));
 	
-	std::cout << BOLD << "\t ### Start Of Constructors ###" << CLEAR;
+	std::cout << GRN << "\t\n ### Start Of Constructors ###\n" << CLEAR;
 	Animal *Animals[10];
 	for (int i = 0; i < 10; ++i)
 	{
@@ -32,11 +32,11 @@ int main()
 			Animals[i] = new Cat();
 	}
 
-	std::cout << BOLD << "\t ### Start Of Destructors ###" << CLEAR;
+	std::cout << GRN << "\t\n ### Start Of Destructors ###\n" << CLEAR;
 	for (int i = 0; i < 10; ++i)
 		delete Animals[i];
 	
-	std::cout << BOLD << "\t ### Start Of COPY [1] ###" << CLEAR;
+	std::cout << GRN << "\t\n ### Start Of COPY : CAT ###\n" << CLEAR;
 
 	Cat *cat;
 	Cat *copycat;
@@ -46,29 +46,31 @@ int main()
 	std::cout << YLW << "cat's Ideas:" << CLEAR;
 	cat->printIdeas();
 	std::cout << YLW << "copycat's Ideas:" << CLEAR;
-	cat->printIdeas();
+	copycat->printIdeas();
 	std::cout << YLW << "copycat = cat" << CLEAR;
 	*copycat = *cat;
+	std::cout << YLW << "Deleting cat" << CLEAR;
 	delete cat;
 	std::cout << YLW << "copycat's Ideas:" << CLEAR;
 	copycat->printIdeas();
 	delete copycat;
 
-	std::cout << BOLD << "\t ### Start Of COPY [2] ###" << CLEAR;
+	std::cout << GRN << "\t\n ### Start Of COPY : DOG ###\n" << CLEAR;
 
-	Animal *cat2;
-	Animal *copycat2;
+	Dog *dog;
+	Dog *copydog;
 
-	cat2 = new Cat();
-	copycat2 = new Cat();
-	std::cout << YLW << "cat's Ideas:" << CLEAR;
-	cat2->printIdeas();
-	std::cout << YLW << "copycat's Ideas:" << CLEAR;
-	cat2->printIdeas();
-	std::cout << YLW << "copycat = cat" << CLEAR;
-	*copycat = *(Cat*)cat2;
-	delete cat2;
-	std::cout << YLW << "copycat's Ideas:" << CLEAR;
-	copycat2->printIdeas();
-	delete copycat2;
+	dog = new Dog();
+	copydog = new Dog();
+	std::cout << YLW << "dog's Ideas:" << CLEAR;
+	dog->printIdeas();
+	std::cout << YLW << "copydog's Ideas:" << CLEAR;
+	copydog->printIdeas();
+	std::cout << YLW << "copydog = dog" << CLEAR;
+	*copydog = *dog;
+	std::cout << YLW << "Deleting dog" << CLEAR;
+	delete dog;
+	std::cout << YLW << "copydog's Ideas:" << CLEAR;
+	copydog->printIdeas();
+	delete copydog;
 }

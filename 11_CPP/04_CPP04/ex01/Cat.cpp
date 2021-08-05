@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 17:32:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/05 14:47:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	Cat::makeSound(void) const
 
 void	Cat::printIdeas(void) const
 {
+	std::cout << "Let's see inside a " << YLW << this->type << RST << " brain:";
 	this->_Brain->printIdeas();
 }
 
@@ -60,7 +61,6 @@ Cat&	Cat::operator=(Cat const &src)
 	if (this != &src)
 	{
 		delete this->_Brain;
-		// this->~Cat();
 		this->Animal::operator=(src);
 		this->_Brain = new Brain(src.getBrain());
 	}

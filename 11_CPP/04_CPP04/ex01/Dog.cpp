@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 17:32:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/05 14:47:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void	Dog::makeSound(void) const
 
 void	Dog::printIdeas(void) const
 {
+	std::cout << "Let's see inside a " << YLW << this->type << RST << " brain:";
 	this->_Brain->printIdeas();
 }
 

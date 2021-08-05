@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:22:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 17:30:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/05 14:32:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ Brain::Brain()
 Brain::Brain(Brain const &src)
 {
 	*this = src;
+	std::cout	<< "\t*** Brain Cloned ***" << std::endl;
 }
 
 Brain::~Brain()
