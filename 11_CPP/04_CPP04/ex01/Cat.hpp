@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:53:19 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 18:36:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 12:20:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <iostream>
 # include <string>
+# include <cassert>
 # include "Animal.hpp"
 # include "Brain.hpp"
 # include "my_colors.hpp"
@@ -33,6 +34,7 @@ class Cat : public Animal
 		virtual void	printIdeas(void) const;
 
 		Cat&			operator=(Cat const &src);
+		virtual Animal&	operator=(Animal const &src);
 };
 
 #endif

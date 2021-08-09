@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 18:32:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/05 14:37:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 12:50:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int main()
 	Animal *Animals[10];
 	for (int i = 0; i < 10; ++i)
 	{
+		std::cout << BOLD << " Animal[" << i << "]:" << CLEAR;
 		if (i % 2 == 0)
 			Animals[i] = new Dog();
 		else
@@ -33,9 +34,11 @@ int main()
 	}
 
 	std::cout << GRN << "\t\n ### Start Of Destructors ###\n" << CLEAR;
-	for (int i = 0; i < 10; ++i)
+	for (int i = 1; i < 10; ++i)
+	{
+		std::cout << BOLD << " Animal[" << i << "]:" << CLEAR;
 		delete Animals[i];
-	
+	}
 	std::cout << GRN << "\t\n ### Start Of COPY : CAT ###\n" << CLEAR;
 
 	Cat *cat;
@@ -73,4 +76,22 @@ int main()
 	std::cout << YLW << "copydog's Ideas:" << CLEAR;
 	copydog->printIdeas();
 	delete copydog;
+
+	std::cout << GRN << "\t\n ### Start Of COPY : DYNAMIC CASTING ###\n" << CLEAR;
+
+	Dog *newdog;
+
+	newdog = new Dog();
+	std::cout << YLW << "Animals[0]'s Ideas:" << CLEAR;
+	Animals[0]->printIdeas();
+	std::cout << YLW << "newdog's Ideas:" << CLEAR;
+	newdog->printIdeas();
+	std::cout << YLW << "newdog = Animals[0]" << CLEAR;
+	*newdog = *Animals[0];
+	std::cout << YLW << "Deleting Animals[0]" << CLEAR;
+	delete Animals[0];
+	std::cout << YLW << "newdog's Ideas:" << CLEAR;
+	newdog->printIdeas();
+	delete newdog;
+	
 }

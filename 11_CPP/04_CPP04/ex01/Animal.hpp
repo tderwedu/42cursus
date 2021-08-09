@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:37:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 18:36:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 12:47:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Animal
 		virtual void		makeSound(void) const;
 		virtual void		printIdeas(void) const;
 
-		Animal&	operator=(Animal const &src);
+		virtual Animal&	operator=(Animal const &src);
 };
 
 #endif

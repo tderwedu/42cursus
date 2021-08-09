@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 12:22:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/05 14:32:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 12:48:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	Brain::printIdeas(void) const
 
 Brain&	Brain::operator=(Brain const &src)
 {
+	std::cout << "*** Inception ***" << std::endl;
 	if (this != &src)
 	{
 		for (int i = 0; i < IDEAS_SIZE; i++)
