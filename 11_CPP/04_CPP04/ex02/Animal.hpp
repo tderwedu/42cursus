@@ -1,38 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.hpp                                            :+:      :+:    :+:   */
+/*   Animal.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/03 10:53:19 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 14:43:17 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/08/03 10:37:44 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/08/09 15:07:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DOG_HPP
-# define DOG_HPP
+#ifndef ANIMAL_HPP
+# define ANIMAL_HPP
 
 # include <iostream>
 # include <string>
-# include "Animal.hpp"
-# include "Brain.hpp"
 # include "my_colors.hpp"
 
-class Dog : public Animal
+class Animal
 {
 	private:
-		Brain	*_Brain;
+		Animal();
+	protected:
+		std::string	type;
 	public:
-		Dog();
-		Dog(Dog const &src);
-		virtual ~Dog();
+		Animal(std::string const& type);
+		Animal(Animal const &src);
+		virtual ~Animal();
 
-		Brain&			getBrain(void) const;
-		virtual void	makeSound(void) const;
-		virtual void	printIdeas(void) const;
+		std::string const&	getType(void) const;
+		virtual void		makeSound(void) const = 0;
+		virtual void		printIdeas(void) const = 0;
 
-		Dog&			operator=(Dog const &src);
 		virtual Animal&	operator=(Animal const &src);
 };
 

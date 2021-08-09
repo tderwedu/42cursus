@@ -1,54 +1,54 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   Dog.cpp                                            :+:      :+:    :+:   */
+/*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:10:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:09:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "Dog.hpp"
+#include "Cat.hpp"
 
 /* ======================= CONSTRUCTORS / DESTRUCTORS ======================= */
 
-Dog::Dog() : Animal("Dog")
+Cat::Cat() : Animal("Cat")
 {
 	this->_Brain = new Brain();
-	std::cout	<< "Dog        : A new " << YLW << this->getType() << RST
+	std::cout	<< "Cat        : A new " << YLW << this->getType() << RST 
 				<< " is born." << std::endl;
 }
 
-Dog::Dog(Dog const &src) : Animal(src)
+Cat::Cat(Cat const &src) : Animal(src)
 {
 	this->_Brain = nullptr;
 	*this = src;
-	std::cout	<< "Dog        : A new " << YLW << this->getType() << RST
+	std::cout	<< "Cat        : A new " << YLW << this->getType() << RST
 				<< " is born." << std::endl;
 }
 
-Dog::~Dog()
+Cat::~Cat()
 {
 	delete this->_Brain;
-	std::cout	<< "Dog        : A " << YLW << this->getType() << RST
+	std::cout	<< "Cat        : A " << YLW << this->getType() << RST
 				<< " Died." << std::endl;
 }
 
 /* ============================ MEMBER FUNCTIONS ============================ */
 
-Brain&	Dog::getBrain(void) const
+Brain&	Cat::getBrain(void) const
 {
 	return *this->_Brain;
 }
 
-void	Dog::makeSound(void) const
+void	Cat::makeSound(void) const
 {
-	std::cout << CYA << "*** Growl ***" << CLEAR;
+	std::cout << CYA << "*** Meow ***" << CLEAR;
 }
 
-void	Dog::printIdeas(void) const
+void	Cat::printIdeas(void) const
 {
 	std::cout << "Let's see inside a " << YLW << this->type << RST << " brain:";
 	this->_Brain->printIdeas();
@@ -56,9 +56,9 @@ void	Dog::printIdeas(void) const
 
 /* =========================== OPERATOR OVERLOADS =========================== */
 
-Dog&	Dog::operator=(Dog const &src)
+Cat&	Cat::operator=(Cat const &src)
 {
-	std::cout << "Dog        : Cloning" << std::endl;
+	std::cout << "Cat        : Cloning" << std::endl;
 	if (this != &src)
 	{
 		this->Animal::operator=(src);
@@ -67,9 +67,9 @@ Dog&	Dog::operator=(Dog const &src)
 	return *this;
 }
 
-Animal&	Dog::operator=(Animal const &src)
+Animal&	Cat::operator=(Animal const &src)
 {
-	this->operator=(dynamic_cast<Dog const&>(src));
+	this->operator=(dynamic_cast<Cat const&>(src));
 	return *this;
 }
 

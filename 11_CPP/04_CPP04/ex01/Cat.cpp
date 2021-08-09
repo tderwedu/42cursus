@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 12:33:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:10:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ Cat::Cat() : Animal("Cat")
 				<< " is born." << std::endl;
 }
 
-Cat::Cat(Cat const &src)
+Cat::Cat(Cat const &src) : Animal(src)
 {
 	this->_Brain = nullptr;
 	*this = src;
@@ -69,7 +69,6 @@ Cat&	Cat::operator=(Cat const &src)
 
 Animal&	Cat::operator=(Animal const &src)
 {
-	assert(typeid(src) == typeid(*this));
 	this->operator=(dynamic_cast<Cat const&>(src));
 	return *this;
 }

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:37:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 12:47:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:10:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,11 @@
 
 class Animal
 {
+	private:
+		Animal();
 	protected:
 		std::string	type;
 	public:
-		Animal();
 		Animal(std::string const& type);
 		Animal(Animal const &src);
 		virtual ~Animal();

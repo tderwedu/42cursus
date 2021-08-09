@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:10:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/09 15:07:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,6 @@ Animal::~Animal()
 std::string const&	Animal::getType(void) const
 {
 	return this->type;
-}
-
-void				Animal::makeSound(void) const
-{
-	std::cout << CYA << "*** Some Animal noise ***" << CLEAR;
-}
-
-void				Animal::printIdeas(void) const
-{
-	std::cout	<< "\t*** No Brain = No Ideas ***" << std::endl;
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */
