@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:24:33 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 15:15:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:42:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,12 @@ class Form
 
 		Form&				operator=(Form const& cob);
 	private:
-		Form();
-
-		std::string const&	_name;
+		std::string const	_name;
 		int const			_gradeSign;
 		int const			_gradeExec;
 		bool				_signed;
+
+		Form();
 
 		class GradeTooHighException : public std::exception
 		{

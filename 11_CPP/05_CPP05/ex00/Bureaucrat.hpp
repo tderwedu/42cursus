@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:41:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 13:05:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:40:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ class Bureaucrat
 	private:
 		Bureaucrat();
 
-		std::string const&	_name;
+		std::string const	_name;
 		int					_grade;
 
 		class GradeTooHighException : public std::exception

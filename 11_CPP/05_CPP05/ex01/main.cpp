@@ -6,13 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 15:07:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 16:52:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include <string>
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 #include "my_colors.hpp"
 
 int main()

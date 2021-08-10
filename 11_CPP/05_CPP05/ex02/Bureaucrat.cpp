@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 12:24:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 18:07:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 18:07:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ Bureaucrat::~Bureaucrat() {}
 
 std::string const&	Bureaucrat::getName() const
 {
-	return this->_name;
+	return _name;
 }
 
 int		Bureaucrat::getGrade() const
 {
-	return this->_grade;
+	return _grade;
 }
 
 void	Bureaucrat::incGrade()
@@ -54,19 +54,39 @@ void	Bureaucrat::signForm(Form& form)
 {
 	if (form.getSigned())
 	{
-		std::cout << form.getName() << " already signed." << std::endl;
+		std::cout	<< YLW << form.getName() << RST
+					<< " already signed." << std::endl;
 		return ;
 	}
 	try
 	{
 		form.beSigned(*this);
-		std::cout << this->_name << " signs " << form.getName() << std::endl;
+		std::cout	<< YLW << this->_name << GRN << " signs "
+					<< YLW << form.getName() << CLEAR;
 	}
 	catch(const std::exception& e)
 	{
-		std::cerr	<< this->_name << " cannot sign " << form.getName()
-					<< " because "<< e.what() << std::endl;
+		std::cerr	<< YLW << this->_name << RED << " cannot sign "
+					<< YLW << form.getName() << RST << " because "
+					<< e.what() << std::endl;
 	}
+}
+
+void	Bureaucrat::executeForm(Form const& form)
+{
+	try
+	{
+		form.execute(*this);
+		std::cout	<< YLW << this->_name << GRN << " has executed " << YLW
+					<< form.getName() << CLEAR;
+	}
+	catch(const std::exception& e)
+	{
+		std::cerr	<< YLW << this->_name << RED << " cannot exectute "
+					<< YLW << form.getName() << RST << " because "
+					<< e.what() << std::endl;
+	}
+	
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */
@@ -80,7 +100,8 @@ Bureaucrat&		Bureaucrat::operator=(Bureaucrat const& src)
 
 std::ostream&	operator<<(std::ostream &os, Bureaucrat const& rhs)
 {
-	os << rhs.getName() << ", bureaucrat grade " << rhs.getGrade();
+	os	<< YLW << rhs.getName() << RST << ", bureaucrat grade "
+		<< YLW << rhs.getGrade() << RST;
 	return os;
 }
 

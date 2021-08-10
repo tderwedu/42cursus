@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 12:24:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 13:07:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:39:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,12 @@ Bureaucrat::~Bureaucrat() {}
 
 std::string const&	Bureaucrat::getName() const
 {
-	return _name;
+	return this->_name;
 }
 
 int		Bureaucrat::getGrade() const
 {
-	return _grade;
+	return this->_grade;
 }
 
 void	Bureaucrat::incGrade()

@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 18:37:14 by tderwedu          #+#    #+#              #
-#    Updated: 2021/08/10 13:07:23 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/08/10 17:39:57 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SRC		= ./Bureaucrat.cpp\
 		  ./main.cpp
 
 CC		= clang++
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
 
 OBJ		= ${SRC:.cpp=.o}
 

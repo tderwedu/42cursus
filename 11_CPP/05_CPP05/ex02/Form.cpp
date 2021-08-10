@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:24:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 17:55:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 18:03:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ void	Form::beSigned(Bureaucrat const& cob)
 	this->_signed = true;
 }
 
+void	Form::execute(Bureaucrat const& executor) const
+{
+	if (!this->_signed)
+		throw UnsignedFormException();
+	if (this->_gradeExec < executor.getGrade())
+		throw GradeTooLowException();
+	this->action();
+}
+
 /* =========================== OPERATOR OVERLOADS =========================== */
 
 Form&		Form::operator=(Form const& src)
@@ -70,8 +79,9 @@ Form&		Form::operator=(Form const& src)
 
 std::ostream&	operator<<(std::ostream &os, Form const& rhs)
 {
-	os	<< rhs.getName() << ", grade to signe " << rhs.getGradeSign()
-		<< ", grade to execute " << rhs.getGradeExec();
+	os	<< YLW << rhs.getName() << RST << ", grade to signe "
+		<< YLW << rhs.getGradeSign() << RST << ", grade to execute "
+		<< YLW<< rhs.getGradeExec() << RST;
 	if (rhs.getSigned())
 		os << ", signed.";
 	else
@@ -89,4 +99,9 @@ char const* Form::GradeTooHighException::what() const throw()
 char const* Form::GradeTooLowException::what() const throw()
 {
 	return "Form's grade too low"; 
+}
+
+char const* Form::UnsignedFormException::what() const throw()
+{
+	return "Form is not signed"; 
 }

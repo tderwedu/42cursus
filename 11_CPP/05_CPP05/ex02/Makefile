@@ -6,16 +6,19 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 18:37:14 by tderwedu          #+#    #+#              #
-#    Updated: 2021/08/10 17:41:04 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/08/10 17:42:27 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	= ex01
+NAME	= ex02
 
 SRC		= ./Bureaucrat.cpp\
 		  ./Form.cpp\
+		  ./ShrubberyCreationForm.cpp\
+		  ./RobotomyRequestForm.cpp\
+		  ./PresidentialPardonForm.cpp\
 		  ./main.cpp
 
 CC		= clang++

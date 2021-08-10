@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:41:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 17:42:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 17:46:28 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <string>
 # include <exception>
 # include "Form.hpp"
+# include "my_colors.hpp"
 
 # define GRADE_MIN	150
 # define GRADE_MAX	1
@@ -36,13 +37,14 @@ class Bureaucrat
 		void				incGrade();
 		void				decGrade();
 		void				signForm(Form& form);
+		void				executeForm(Form const& form);
 
 		Bureaucrat&			operator=(Bureaucrat const& src);
 	private:
+		Bureaucrat();
+
 		std::string const	_name;
 		int					_grade;
-
-		Bureaucrat();
 
 		class GradeTooHighException : public std::exception
 		{
