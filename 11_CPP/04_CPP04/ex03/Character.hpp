@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:38:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 17:26:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 09:31:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ class Character : public ICharacter
 	public:
 		Character(std::string const& name);
 		Character(Character const& src);
-		virtual ~Character() {}
+		virtual ~Character();
 
 		virtual std::string const & getName() const;
-		virtual void equip(AMateria* m) = 0;
-		virtual void unequip(int idx) = 0;
-		virtual void use(int idx, ICharacter& target) = 0;
+		virtual void equip(AMateria* m);
+		virtual void unequip(int idx);
+		virtual void use(int idx, ICharacter& target);
 
 		Character const& operator=(Character const& src);
 };

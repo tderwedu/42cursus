@@ -6,12 +6,12 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:35:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:37:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 09:22:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef IMATERIASOURCE_HPP
-# define INATERIASOURCE_HPP
+# define IMATERIASOURCE_HPP
 
 # include <iostream>
 # include <string>

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:33:59 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:35:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/10 09:26:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # include <iostream>
 # include <string>
+# include "AMateria.hpp"
+
+class AMateria;
 
 class ICharacter
 {
