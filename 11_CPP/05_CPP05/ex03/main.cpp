@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 10:58:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/11 11:12:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 #include "ShrubberyCreationForm.hpp"
 #include "RobotomyRequestForm.hpp"
 #include "PresidentialPardonForm.hpp"
+#include "Intern.hpp"
 #include "my_colors.hpp"
 
 void test_form(Form &form, Bureaucrat &boss, Bureaucrat &peasant)
@@ -37,15 +38,23 @@ int main()
 {
 	srand(time(0));
 
+	Intern		sRI;
 	Bureaucrat	boss("Big Boss", 1);
 	Bureaucrat	peasant("Smallest Cob", 150);
 
-	ShrubberyCreationForm	form_1("Target");
-	RobotomyRequestForm		form_2("Target");
-	PresidentialPardonForm	form_3("Target");
+	std::cout << BOLD << "\n\t FORMS CREATION" << CLEAR;
+	Form*	form_1 = sRI.makeForm("shrubbery creation", "Blender");
+	Form*	form_2 = sRI.makeForm("presidential pardon", "Big Boss");
+	Form*	form_3 = sRI.makeForm("robotomy request", "Bender");
+	Form*	form_4 = sRI.makeForm("intern CDI", "Manager");
 
-	test_form(form_1, boss, peasant);
-	test_form(form_2, boss, peasant);
-	test_form(form_2, boss, peasant);
-	test_form(form_3, boss, peasant);
+	std::cout << BOLD << "\n\t OLD TESTS" << CLEAR;
+	test_form(*form_1, boss, peasant);
+	test_form(*form_2, boss, peasant);
+	test_form(*form_3, boss, peasant);
+
+	delete form_1;
+	delete form_2;
+	delete form_3;
+	delete form_4;
 }

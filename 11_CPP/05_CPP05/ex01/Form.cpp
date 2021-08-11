@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:24:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 17:55:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/08/11 11:07:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,12 +70,12 @@ Form&		Form::operator=(Form const& src)
 
 std::ostream&	operator<<(std::ostream &os, Form const& rhs)
 {
-	os	<< rhs.getName() << ", grade to signe " << rhs.getGradeSign()
+	os	<< rhs.getName() << ", grade to sign " << rhs.getGradeSign()
 		<< ", grade to execute " << rhs.getGradeExec();
 	if (rhs.getSigned())
-		os << ", signed.";
+		os << ", signed." << std::endl;
 	else
-		os << ", not signed.";
+		os << ", not signed." << std::endl;
 	return os;
 }
 
