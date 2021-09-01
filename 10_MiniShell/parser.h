@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/31 17:41:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/01 10:26:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,10 @@ typedef struct s_parser
 {
 	t_tok	*first;
 	t_tok	*node;
-	t_cst	*root;
 	t_cst	*tmp;
 }			t_parser;
 
-int		msh_parse(t_tok *tokens, t_cst **cst);
+t_cst*	msh_parser(t_tok *tokens);
 void	error_parser(t_parser *vars);
 
 #endif
