@@ -6,11 +6,28 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/01 10:29:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/01 10:46:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
+
+void	cst_print_tree(t_cst *tree)
+{
+	if (!tree)
+		return ;
+	char **type = {"CST_PIPE_SEQ", "CST_CMD_LIST", "CST_IO_REDIR",	"CST_IO_NBR",
+					"CST_IO_FILE", "CST_IO_HERE", "CST_WORD"};
+	printf("  type: %s", type[tree->type]);
+	if (tree->lexeme)
+		printf("lexeme: %s", tree->lexeme);
+	else
+		printf("lexeme: -");
+	printf("LEFT BRANCH");
+	cst_print_tree(tree->left);
+	printf("RIGHT BRANCH");
+	cst_print_tree(tree->right);
+}
 
 void	cst_delete_tree(t_cst *tree)
 {
