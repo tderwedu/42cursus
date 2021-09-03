@@ -6,14 +6,17 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/31 17:35:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/03 10:29:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LEXER_H
 # define LEXER_H
 
-# include "libft.h"
+# include <stdio.h>
+// # include "libft.h"
+# include "../includes/libft/libft.h"
+
 
 # define PIPE 10
 # define GREAT 11
@@ -27,15 +30,12 @@ typedef struct	s_tok t_tok;
 
 enum	e_separators
 {
-	CHR_PIPE = '|',
-	CHR_QOUTE = '\'',
-	CHR_DQUOTE = '\"',
-	CHR_ESCAPE = '\\',
-	CHR_TAB = '\t',
-	CHR_GREAT = '>',
+	CHR_BLANK = ' ',
 	CHR_LESS = '<',
-	CHR_NULL = 0,
-	CHR_OTHER = -1,
+	CHR_DQUOTE = '\"',
+	CHR_QOUTE = '\'',
+	CHR_GREAT = '>',
+	CHR_PIPE = '|'
 };
 
 struct	s_tok
@@ -45,5 +45,16 @@ struct	s_tok
 	t_tok	*next;
 };
 
+typedef struct	s_lexer
+{
+	int		i;
+	int		i_p;
+	t_tok	*first;
+	t_tok	*last;
+	char	*line;
+}				t_lexer;
+
+t_tok*	lexer(char *line);
+void	lexer_print_tokens(t_tok *token);
 
 #endif
