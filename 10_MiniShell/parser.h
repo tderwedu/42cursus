@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/01 10:26:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/02 19:01:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ typedef struct s_parser
 }			t_parser;
 
 t_cst*	msh_parser(t_tok *tokens);
+void	cst_print_tree(t_cst *tree);
 void	error_parser(t_parser *vars);
 
 #endif
