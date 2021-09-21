@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/03 10:33:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/21 14:21:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	lexer_handle_quote(t_lexer *lex)
 	lex->i++;
 	while (lex->line[lex->i] && lex->line[lex->i] != quote)
 		lex->i++;
+	if (lex->line[lex->i] != quote)
+		exit(1);
 	lex->i++;
 }
 
@@ -127,7 +129,7 @@ void	lexer_handle_pipe(t_lexer *lex)
 	lexer_new_token(lex, PIPE);
 }
 
-t_tok*	lexer(char *line)
+t_tok*	msh_lexer(char *line)
 {
 	t_lexer	lex;
 

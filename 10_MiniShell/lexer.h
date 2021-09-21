@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/03 10:29:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/20 15:09:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 // # include "libft.h"
-# include "../includes/libft/libft.h"
+# include "libft/libft.h"
 
 
 # define PIPE 10
@@ -54,7 +54,7 @@ typedef struct	s_lexer
 	char	*line;
 }				t_lexer;
 
-t_tok*	lexer(char *line);
+t_tok*	msh_lexer(char *line);
 void	lexer_print_tokens(t_tok *token);
 
 #endif

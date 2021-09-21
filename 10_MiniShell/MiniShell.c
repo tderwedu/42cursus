@@ -20,6 +20,9 @@
 #include <signal.h>
 #include <sys/types.h>
 
+#include "lexer.h"
+#include "parser.h"
+
 void	handle_sigint(int sig)
 {
 	(void)sig;
@@ -32,9 +35,14 @@ void	handle_sigint(int sig)
 
 }
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
+	(void)argc;
+	(void)argv;
+	(void)env;
 	char	*buff;
+	t_tok	*tokens;
+	t_cst	*cst;
 
 	signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
@@ -43,7 +51,14 @@ int	main(void)
 	{
 		if (*buff)					// ADD to history if not empty
 			add_history(buff);
-		printf("|%s|\n", buff);
+		tokens = msh_lexer(buff);
+		if (!tokens)
+			return (1);
+		lexer_print_tokens(tokens);
+		cst = msh_parser(tokens);
+		if (!cst)
+			return (1);
+		cst_print_tree(cst);
 		free(buff);
 	}
 }
