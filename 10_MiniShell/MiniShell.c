@@ -22,6 +22,7 @@
 
 #include "lexer.h"
 #include "parser.h"
+#include "word_expansion.h"
 
 void	handle_sigint(int sig)
 {
@@ -44,7 +45,7 @@ int	main(int argc, char **argv, char **env)
 	t_tok	*tokens;
 	t_cst	*cst;
 
-	signal(SIGINT, handle_sigint);
+	// signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
 	while((buff = readline(">")) != NULL)
@@ -58,6 +59,9 @@ int	main(int argc, char **argv, char **env)
 		cst = msh_parser(tokens);
 		if (!cst)
 			return (1);
+		cst_print_tree(cst);
+		msh_word_expansion(env, cst);
+		printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
 		cst_print_tree(cst);
 		free(buff);
 	}

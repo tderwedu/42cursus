@@ -3,94 +3,169 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/21 17:12:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/22 17:02:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "word_expansion.h"
 
-char	*msh_get_param_name(char *str)	//TODO: proper ERROR handling!!
-{
-	char	*chr_s;
-	char	*name;
+# define ERR_MALLOC		"Malloc error."
 
-	if (!str)
-		return (NULL);
-	chr_s = str;
-	if ((*str >= 'A' && *str <= 'Z') || (*str >= 'a' && *str <= 'z')
-		|| *str == '_')
-		str++;
-	else
-		return (NULL);
-	while (*str && ((*str >= 'A' && *str <= 'Z')
-			|| (*str >= 'a' && *str <= 'z') || *str == '_'))
-		str++;
-	name = ft_substr(chr_s, chr_s, str - chr_s);
-	if (!name)
-		exit(1);
-	return (name);
+void	msh_error(t_cst *root, char *msg)
+{
+	(void)root;
+	(void)msg;
 }
 
-char	*get_env_value(char **env, char *var)	//TODO: proper ERROR handling!!
+int	get_param_name(char *str, char **name)
 {
-	char	*entry;
+	char	*ptr;
+
+	*name = NULL;
+	ptr = str;
+	if ((*ptr >= 'A' && *str <= 'Z') || (*ptr >= 'a' && *ptr <= 'z')
+		|| *ptr == '_')
+		ptr++;
+	else
+		return (0);
+	while (*ptr && ((*ptr >= 'A' && *ptr <= 'Z')
+			|| (*ptr >= 'a' && *ptr <= 'z') || *ptr == '_'))
+		ptr++;
+	*name = ft_substr(str, 0, ptr - str);
+	if (!name)
+		return (1);
+	return (0);
+}
+
+char	*get_env_value(char **env, char *name)
+{
 	int		len;
 
-	if (!env || !var)
+	if (!env || !name)
 		return (NULL);
-	len = ft_strlen(var);
-	if (!len)
-		return (NULL);
-	entry = *env++;
-	while (entry)
+	len = ft_strlen(name);
+	while (*env)
 	{
-		if (!ft_strncmp(entry, var, len))
-			return (entry + len + 1);
+		if (!ft_strncmp(*env, name, len) && (*env)[len] == '=')
+			return (*env + len + 1);
+		env++;
 	}
 	return (NULL);
 }
 
-void	msh_param_expansion(char **env, t_cst *cst)
+void	msh_get_param_value(t_we *we, t_pe *pe)
 {
-	char	*ptr;
+	char	*name;
 
-	ptr = cst->lexeme;
-	while (*ptr)
+	pe->len_lex = ft_strlen(pe->lex);
+	if (get_param_name(pe->ptr_1 + 1, &name))
+		msh_error(we->root, ERR_MALLOC);
+	if (name)
 	{
-		
-		if (*ptr == '$')
+		pe->param = get_env_value(we->env, name);
+		pe->ptr_2 = pe->ptr_1 + ft_strlen(name) + 1;
+		free(name);
+		pe->len_param = 0;
+		if (pe->param)
+			pe->len_param = ft_strlen(pe->param);
+	}
+	else
+	{
+		if (*(pe->ptr_1 + 1) == '"' || *(pe->ptr_1 + 1) == '\'')
+			pe->ptr_2 = pe->ptr_1 + 1;
+		else
 		{
-			msh_get_param_name(++ptr);
-
+			pe->ptr_1++;
+			pe->ptr_2 = pe->ptr_1;
 		}
 	}
 }
 
-void	msh_field_splitting(char **env, t_cst *cst)
+char	*msh_substitute_param(t_we *we, char *ptr)
 {
-	const char	*ifs;
+	t_pe	pe;
+	char	*new;
+	char	*new_ptr;
 
-	ifs = get_env_value(env, "IFS");
-	if (!ifs)
-		ifs = " \t\n";
-	
+	pe = (t_pe){we->node->lexeme, ptr, NULL, NULL, 0, 0};
+	msh_get_param_value(we, &pe);
+	new = malloc(sizeof(*new) * (pe.len_lex + pe.len_param));
+	if (!new)
+		msh_error(we->root, ERR_MALLOC);
+	new_ptr = new;
+	ft_memcpy(new, pe.lex, pe.ptr_1 - pe.lex);
+	new_ptr += (pe.ptr_1 - pe.lex);
+	if (pe.param)
+	{
+		ft_memcpy(new_ptr, pe.param, pe.len_param);
+		new_ptr += pe.len_param;
+	}
+	ft_memcpy(new_ptr, pe.ptr_2, pe.len_lex - (pe.ptr_2 - pe.lex));
+	*(new_ptr + pe.len_lex - (pe.ptr_2 - pe.lex))= '\0';
+	free(we->node->lexeme);
+	we->node->lexeme = new;
+	return (new_ptr - 1);
 }
 
-void	msh_word_expansion(char **env, t_cst *cst)
+void	msh_param_expansion(t_we *we)
+{
+	char	*ptr;
+	int		quoted;
+
+	quoted = 0;
+	ptr = we->node->lexeme;
+	while (*ptr)
+	{
+		if (*ptr == '$' && !quoted)
+			ptr = msh_substitute_param(we, ptr);
+		else if (*ptr == '\'')
+			quoted = !quoted;
+		ptr++;
+	}
+}
+
+// void	msh_field_splitting(char **env, t_cst *cst)
+// {
+// 	const char	*ifs;
+
+// 	ifs = get_env_value(env, "IFS");
+// 	if (!ifs)
+// 		ifs = " \t\n";
+	
+// }
+
+void	msh_cst_traversal(t_we *we)
 {
 	t_cst	*right_branch;
 	t_cst	*left_branch;
 
-	right_branch = cst->right;
-	left_branch = cst->left;
-	if (cst->lexeme)
+	left_branch = we->node->left;
+	right_branch = we->node->right;
+	if (we->node->lexeme)
 	{
-		msh_param_expansion(env, cst);
-		msh_quote_removal(cst);
+		msh_param_expansion(we);
+		// msh_quote_removal(cst);
 	}
-	msh_word_expansion(env, right_branch);
-	msh_word_expansion(env, left_branch);
+	if (left_branch)
+	{
+		we->node = left_branch;
+		msh_cst_traversal(we);
+	}
+	if (right_branch)
+	{
+		we->node = right_branch;
+		msh_cst_traversal(we);
+	}
+}
+
+void	msh_word_expansion(char **env, t_cst *cst)
+{
+	t_we	we;
+	if (!cst)
+		return ;
+	we = (t_we){env, cst, cst, 0};
+	msh_cst_traversal(&we);
 }
