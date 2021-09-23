@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/23 17:09:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/23 17:36:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*msh_get_ifs(char **env)
 	char	*ifs;
 
 	ifs = get_env_value(env, "IFS");
-	printf("ENV : IFS: >%s< \n", ifs);
+	printf("\t\t\t\tENV : IFS: >%s< \n", ifs);
 	if (!ifs)
 		ifs = " \t\n";
 	return (ifs);
@@ -90,11 +90,11 @@ void	msh_add_word(t_we *we, t_vec *vec)
 		new->left = we->node->left;
 		we->node->left = new;
 		we->node = new;
-		*vec->str = '\0';
-		vec->ptr = vec->str;
 	}
 	else
 		we->node->lex = lex;
+	*vec->str = '\0';
+	vec->ptr = vec->str;
 }
 
 void	msh_param_substitution(t_we *we, char *param, t_vec *vec, int state)
@@ -112,11 +112,10 @@ void	msh_param_substitution(t_we *we, char *param, t_vec *vec, int state)
 	{
 		if (splitting && ft_strchr(ifs, *param))
 		{
-			if (*vec->str != '\0')
+			if (*vec->str)
 				msh_add_word(we, vec);
-			else
-				param++;
-			}
+			param++;
+		}
 		else
 			*vec->ptr++ = *param++;
 	}
@@ -174,14 +173,7 @@ void	msh_lexeme_formating(t_we *we)
 	}
 	free(old);
 	if (*vec->str)
-	{
-		ptr = ft_strdup(vec->str);
-		ft_free_vec(vec);
-		if (!ptr)
-			msh_error(we->root, ERR_MALLOC);
-		we->node->lex = ptr;
-	}
-	else
+		msh_add_word(we, vec);
 	ft_free_vec(vec);
 }
 
