@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/20 15:09:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/23 11:56:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ enum	e_separators
 
 struct	s_tok
 {
-	char	*lexeme;
+	char	*lex;
 	int		type;
 	t_tok	*next;
 };

@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/21 14:22:15 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/23 15:44:51 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,11 @@ LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./lexer.c \
-			./parser_cst.c \
+			./parser.c \
+			./word_expansion.c \
+			./vector/ft_new_vec.c \
+			./vector/ft_grow_vec.c \
+			./vector/ft_free_vec.c \
 			./MiniShell.c
 
 CC		= gcc
@@ -27,7 +31,7 @@ CFLAGS	= -Wall -Wextra -Werror
 
 OBJ		= ${SRC:.c=.o}
 
-INCL	= -I ${LIBFT} -I ${RDLINE}/include
+INCL	= -I ${LIBFT} -I ${RDLINE}/include -I ./vector
 
 LIBS	= -L ${LIBFT} -lft -L ${RDLINE}/lib -lreadline
 

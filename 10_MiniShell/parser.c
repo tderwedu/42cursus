@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:03:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/03 12:39:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/23 11:56:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	cst_print_tree2(t_cst *tree, int tab)
 	if (tab > 9)
 		tab = 9;
 	printf("%s\033[36m%s\033[0m ", spaces[tab], type[tree->type]);
-	if (tree->lexeme)
-		printf("\033[33m>\033[0m%s\033[33m<\033[0m", tree->lexeme);
+	if (tree->lex)
+		printf("\033[33m>\033[0m%s\033[33m<\033[0m", tree->lex);
 	printf("\n");
 	if (tree->left)
 	{
@@ -59,7 +59,7 @@ void	cst_print_node(t_cst *tree)
 	if (!tree)
 		return ;
 	printf("  type: %s\n", arr_type[tree->type]);
-	printf("lexeme: \033[33m>\033[0m%s\033[33m<\033[0m\n", tree->lexeme);
+	printf("lexeme: \033[33m>\033[0m%s\033[33m<\033[0m\n", tree->lex);
 }
 
 void	cst_delete_tree(t_cst *tree)
@@ -68,8 +68,8 @@ void	cst_delete_tree(t_cst *tree)
 		return ;
 	// printf(" =====> \033[31m cst_delete_tree\033[0m\n"); // RM
 	// cst_print_node(tree); // RM
-	if (tree->lexeme)
-		free(tree->lexeme);
+	if (tree->lex)
+		free(tree->lex);
 	cst_delete_tree(tree->left);
 	cst_delete_tree(tree->right);
 	free(tree);
@@ -86,11 +86,11 @@ t_cst*	parse_new_node(t_parser *vars, int type, t_tok *node)
 	new->type = type;
 	if (node)
 	{
-		new->lexeme = ft_strdup(node->lexeme);
+		new->lex = ft_strdup(node->lex);
 		vars->node = vars->node->next;
 	}
 	else
-		new->lexeme = NULL;
+		new->lex = NULL;
 	new->left = NULL;
 	new->right = NULL;
 	// cst_print_node(new); // RM
@@ -103,6 +103,7 @@ t_cst*	parse_io_file(t_parser *vars)
 	t_cst	*filename;
 
 	// printf(" =====> \033[33m parse_io_file\033[0m\n"); // RM
+	io_file = NULL;
 	if (vars->tmp->type != CST_IO_REDIR)
 		error_parser(vars);
 	if (!vars->node)
@@ -128,6 +129,7 @@ t_cst*	parse_io_here(t_parser *vars)
 	t_cst	*filename;
 
 	// printf(" =====> \033[33m parse_io_here\033[0m\n"); // RM
+	io_here = NULL;
 	if (vars->tmp->type != CST_IO_REDIR)
 		error_parser(vars);
 	if (!vars->node)
@@ -239,7 +241,7 @@ t_cst*	msh_parser(t_tok *tokens)
 	cst = parse_pipe_seq(&vars);
 	if (!cst || vars.node)
     {
-		printf("Syntax Error near: %s\n", vars.node->lexeme);
+		printf("Syntax Error near: %s\n", vars.node->lex);
 		return NULL;
     }
 	return cst;

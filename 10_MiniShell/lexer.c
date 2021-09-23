@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/21 14:21:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/23 11:50:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	lexer_print_tokens(t_tok *token)
 	{
 		printf(" /----------------------\\ \n");
 		printf("   type : %s \n", arr_type[token->type - 10]);
-		printf(" lexeme : \033[33m>\033[0m%s\033[33m<\033[0m \n", token->lexeme);
+		printf(" lexeme : \033[33m>\033[0m%s\033[33m<\033[0m \n", token->lex);
 		printf(" \\----------------------/ \n");
 		token = token->next;
 	}

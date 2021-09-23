@@ -48,21 +48,24 @@ int	main(int argc, char **argv, char **env)
 	// signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	printf("Welcome! Exit by pressing CTRL-D.\n");
-	while((buff = readline(">")) != NULL)
+	while(1)
 	{
+		buff = readline(">");
 		if (*buff)					// ADD to history if not empty
+		{
 			add_history(buff);
-		tokens = msh_lexer(buff);
-		if (!tokens)
-			return (1);
-		lexer_print_tokens(tokens);
-		cst = msh_parser(tokens);
-		if (!cst)
-			return (1);
-		cst_print_tree(cst);
-		msh_word_expansion(env, cst);
-		printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-		cst_print_tree(cst);
-		free(buff);
+			tokens = msh_lexer(buff);
+			if (!tokens)
+				return (1);
+			lexer_print_tokens(tokens);
+			cst = msh_parser(tokens);
+			if (!cst)
+				return (1);
+			cst_print_tree(cst);
+			msh_word_expansion(env, cst);
+			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
+			cst_print_tree(cst);
+			free(buff);
+		}
 	}
 }
