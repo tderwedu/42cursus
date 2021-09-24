@@ -1,33 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 13:53:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 13:51:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/24 15:56:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H  // TODO: Add to libft
-# define VECTOR_H
+#ifndef UTILS_H
+# define UTILS_H
 
-#include <stdlib.h>
-#include "libft.h"
+# include "libft.h"
+# include "vector.h" // TODO: Add to libft
+# include "lexer.h"
+# include "parser.h"
+# include "word_expansion.h"
 
-# define DFLT_VEC_SIZE	256
 
-typedef struct	s_vec
-{
-	char	*str;
-	char	*ptr;
-	char	*end;
-}				t_vec;
+/*
+** FILE: utils.c
+*/
 
-int				ft_free_vec(t_vec *vec);
-t_vec			*ft_grow_vec(t_vec *vec);
-t_vec			*ft_new_vec(size_t size);
-int				ft_check_vec(t_vec *vec, char *str);
+void	msh_error(t_msh *msh, char *msg);
+
+/*
+** FILE: utils_env.c
+*/
+
+char	*utils_env_get_ifs(char **env);
+char	*utils_env_check_name(char *str);
+char	*utils_env_get_param(char **env, char *var, int len);
 
 #endif

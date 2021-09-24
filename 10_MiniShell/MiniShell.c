@@ -43,7 +43,8 @@ int	main(int argc, char **argv, char **env)
 	(void)env;
 	char	*buff;
 	t_tok	*tokens;
-	t_cst	*cst;
+	t_cst	*root;
+	t_msh	msh;
 
 	// signal(SIGINT, handle_sigint);
 	signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
@@ -58,13 +59,15 @@ int	main(int argc, char **argv, char **env)
 			if (!tokens)
 				return (1);
 			lexer_print_tokens(tokens);
-			cst = msh_parser(tokens);
-			if (!cst)
+			root = msh_parser(tokens);
+			if (!root)
 				return (1);
-			cst_print_tree(cst);
-			msh_word_expansion(env, cst);
+			cst_print_tree(root);
+			msh = (t_msh){env, buff, tokens, root, "123"};
+			we_word_expansion(&msh);
 			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
-			cst_print_tree(cst);
+			cst_print_tree(root);
+			launcher(&msh);
 			free(buff);
 		}
 	}

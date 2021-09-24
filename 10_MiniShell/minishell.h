@@ -1,33 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector.h                                           :+:      :+:    :+:   */
+/*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/23 13:53:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 13:51:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/24 17:04:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef VECTOR_H  // TODO: Add to libft
-# define VECTOR_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
-#include <stdlib.h>
-#include "libft.h"
+typedef struct s_msh	t_msh;
 
-# define DFLT_VEC_SIZE	256
+# include "lexer.h"
+# include "parser.h"
+# include "word_expansion.h"
+# include "launcher.h"
 
-typedef struct	s_vec
+typedef struct s_msh
 {
-	char	*str;
-	char	*ptr;
-	char	*end;
-}				t_vec;
-
-int				ft_free_vec(t_vec *vec);
-t_vec			*ft_grow_vec(t_vec *vec);
-t_vec			*ft_new_vec(size_t size);
-int				ft_check_vec(t_vec *vec, char *str);
+	char	**env;
+	char	*line;
+	t_tok	*tokens;
+	t_cst	*root;
+	char	*ret;
+}				t_msh;
 
 #endif

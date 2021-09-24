@@ -1,35 +1,40 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_grow_vec.c                                      :+:      :+:    :+:   */
+/*   ft_check_vec.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 12:17:23 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/09/24 12:09:17 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/24 12:23:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "vector.h"
 
-t_vec	*ft_grow_vec(t_vec *vec)
+int	ft_check_vec(t_vec *vec, char *str)
 {
-	size_t	len;
-	size_t	size;
+	int		len;
+	int		size;
 	char	*new;
 
-	size = (vec->end - vec->str);
-	new = malloc(size * 2);
+	len = ft_strlen(str);
+	if ((vec->end - vec->ptr) < len)
+		return (0);
+	size = vec->end - vec->str;
+	while ((size - (vec->ptr - vec->str)) < len)
+		size *= 2;
+	new = malloc(size);
 	if (!new)
 	{
 		ft_free_vec(vec);
-		return (NULL);
+		return (1);
 	}
 	len = vec->ptr - vec->str;
 	ft_memcpy(new, vec->str, len);
 	free(vec->str);
 	vec->str = new;
 	vec->ptr = new + len;
-	vec->end = new + size * 2;
-	return (vec);
+	vec->end = new + len;
+	return (0);
 }
