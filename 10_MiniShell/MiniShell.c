@@ -67,10 +67,6 @@ int	main(int argc, char **argv, char **env)
 			we_word_expansion(&msh);
 			printf("\t \033[32mAFTER WORD EXPANSION:\033[0m\n");
 			cst_print_tree(root);
-<<<<<<< HEAD
-=======
-			launcher(&msh);
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 			free(buff);
 		}
 	}

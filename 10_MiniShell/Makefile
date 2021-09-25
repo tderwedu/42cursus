@@ -3,14 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-<<<<<<< HEAD
-#    Updated: 2021/09/24 15:52:01 by tderwedu         ###   ########.fr        #
-=======
-#    Updated: 2021/09/24 17:04:10 by tderwedu         ###   ########.fr        #
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
+#    Updated: 2021/09/25 13:09:09 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,14 +17,11 @@ NAME	= minishell
 LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
-SRC		=	./lexer.c \
+SRC		=	./lexer1.c \
+			./lexer2.c \
 			./parser.c \
 			./word_expansion1.c \
 			./word_expansion2.c \
-<<<<<<< HEAD
-=======
-			./launcher.c \
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 			./utils.c \
 			./utils_cst.c \
 			./utils_env.c \
