@@ -1,20 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser_ast.c                                       :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/21 11:51:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/21 12:59:08 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/24 15:56:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "parser_ast.h"
+#ifndef UTILS_H
+# define UTILS_H
 
-void	msh_parser_ast(char **env, t_cst *cst)
-{
-	t_parset_ast	vars;
-	
-	vars = (t_parset_ast){}
-}
+# include "libft.h"
+# include "vector.h" // TODO: Add to libft
+# include "lexer.h"
+# include "parser.h"
+# include "word_expansion.h"
+
+
+/*
+** FILE: utils.c
+*/
+
+void	msh_error(t_msh *msh, char *msg);
+
+/*
+** FILE: utils_env.c
+*/
+
+char	*utils_env_get_ifs(char **env);
+char	*utils_env_check_name(char *str);
+char	*utils_env_get_param(char **env, char *var, int len);
+
+#endif

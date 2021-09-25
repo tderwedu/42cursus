@@ -1,26 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_env.c                                         :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/08/19 17:25:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/19 17:29:42 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/24 15:56:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
+#include "utils.h"
 
-int	main(int argc, char **argv, char **env)
+void	msh_error(t_msh *msh, char *msg)
 {
-	(void)argc;
-	(void)argv;
-	while (*env)
-	{
-		printf("%s\n", *env);
-		env++;
-	}
-	printf("IFS=%s\n", getenv("IFS"));
+	(void)msh;
+	(void)msg;
 }
