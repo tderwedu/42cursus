@@ -6,7 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:33:45 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/09/24 15:53:24 by tderwedu         ###   ########.fr       */
+=======
+/*   Updated: 2021/09/24 17:23:19 by tderwedu         ###   ########.fr       */
+>>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +25,11 @@
 # include "utils.h"
 // # include "msh_error.h"
 
+<<<<<<< HEAD
 # define ERR_MALLOC		"Malloc error."
+=======
+# define ERR_MALLOC		"Malloc error." // TODO: One Header for all msg
+>>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 
 # define TYPE_IO	0
 # define TYPE_CMD	1

@@ -6,7 +6,11 @@
 #    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/09/24 15:52:01 by tderwedu         ###   ########.fr        #
+=======
+#    Updated: 2021/09/24 17:04:10 by tderwedu         ###   ########.fr        #
+>>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +25,10 @@ SRC		=	./lexer.c \
 			./parser.c \
 			./word_expansion1.c \
 			./word_expansion2.c \
+<<<<<<< HEAD
+=======
+			./launcher.c \
+>>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 			./utils.c \
 			./utils_cst.c \
 			./utils_env.c \

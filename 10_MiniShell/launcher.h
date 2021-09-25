@@ -1,20 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-<<<<<<< HEAD
 <<<<<<< HEAD:10_MiniShell/minishell.h
-=======
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2021/09/24 16:00:37 by tderwedu         ###   ########.fr       */
-=======
-/*   Updated: 2021/09/24 17:04:32 by tderwedu         ###   ########.fr       */
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +19,6 @@ typedef struct s_msh	t_msh;
 # include "lexer.h"
 # include "parser.h"
 # include "word_expansion.h"
-<<<<<<< HEAD
-=======
-# include "launcher.h"
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 
 typedef struct s_msh
 {
@@ -39,7 +28,6 @@ typedef struct s_msh
 	t_cst	*root;
 	char	*ret;
 }				t_msh;
-<<<<<<< HEAD
 =======
 /*   launcher.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
@@ -82,7 +70,5 @@ typedef struct s_io
 
 void	launcher(t_msh *msh);
 >>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7:10_MiniShell/launcher.h
-=======
->>>>>>> c0441df5d3962ebfb1ec197f5bbd1ccbbc6dead7
 
 #endif
