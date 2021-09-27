@@ -6,13 +6,13 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/25 13:09:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:30:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "lexer.h"
 
-void	msh_lexer(t_msh *msh)
+void	lexer(t_msh *msh)
 {
 	char	*line;
 	t_lexer	lex;

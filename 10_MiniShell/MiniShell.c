@@ -58,7 +58,7 @@ int	main(int argc, char **argv, char **env)
 			tokens = msh_lexer(buff);
 			if (!tokens)
 				return (1);
-			lexer_print_tokens(tokens);
+			lexer_print(tokens);
 			root = msh_parser(tokens);
 			if (!root)
 				return (1);

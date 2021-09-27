@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:08 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/25 13:08:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:29:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # include "libft.h"
 # include "minishell.h"
 
-// TODO: one definition
+// TODO: all ERR in ine header
 # define ERR_MALLOC		"Malloc error."
 # define ERR_QUOTES_ODD	"msh: error odd number of quotes."
 
@@ -62,7 +62,7 @@ typedef struct s_lexer
 ** FILE: lexer1.c
 */
 
-void	msh_lexer(t_msh *msh);
+void	lexer(t_msh *msh);
 void	lexer_handle_blank(t_lexer *lex);
 void	lexer_handle_quote(t_lexer *lex);
 int		lexer_check_io_nbr(t_lexer *lex);
@@ -76,6 +76,6 @@ void	lexer_handle_pipe(t_lexer *lex);
 void	lexer_new_token(t_lexer *lex, int type);
 void	lexer_free(t_lexer *lex);
 void	lexer_error(t_lexer *lex, char *msg);
-void	lexer_print_tokens(t_tok *token);
+void	lexer_print(t_tok *token);
 
 #endif

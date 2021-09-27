@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:33:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/24 15:53:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 09:13:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include "utils.h"
 // # include "msh_error.h"
 
+// TODO: all ERR in ine header
 # define ERR_MALLOC		"Malloc error."
 
 # define TYPE_IO	0

@@ -3,17 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/23 11:56:07 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:37:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
+# include "minishell.h"
 # include "lexer.h"
+
+// TODO: all ERR in ine header
+# define ERR_SYNTAX	"Syntax Error near: %s\n"
 
 enum	e_cst
 {
@@ -26,7 +30,7 @@ enum	e_cst
 	CST_WORD
 };
 
-typedef struct	s_cst t_cst;
+typedef struct s_cst	t_cst;
 
 struct s_cst
 {
@@ -38,13 +42,35 @@ struct s_cst
 
 typedef struct s_parser
 {
-	t_tok	*first;
+	t_msh	*msh;
+	t_tok	*head;
 	t_tok	*node;
 	t_cst	*tmp;
 }			t_parser;
 
-t_cst*	msh_parser(t_tok *tokens);
-void	cst_print_tree(t_cst *tree);
-void	error_parser(t_parser *vars);
+/*
+** FILE: parser1.c
+*/
+
+void	parser(t_msh *msh);
+t_cst	*parser_new_node(t_parser *vars, int type, t_tok *node);
+
+/*
+** FILE: parser1.c
+*/
+
+t_cst	*parser_pipe_seq(t_parser *vars);
+t_cst	*parser_cmd_list(t_parser *vars);
+t_cst	*parser_io_redir(t_parser *vars);
+t_cst	*parser_io_file(t_parser *vars);
+t_cst	*parser_io_here(t_parser *vars);
+
+/*
+** FILE: parser1.c
+*/
+
+void	parser_free(t_cst *tree);
+void	parser_error(t_parser *vars, char *msg, char *opt);
+void	parser_print(t_cst *tree);
 
 #endif
