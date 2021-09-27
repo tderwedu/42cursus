@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/25 13:09:09 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/27 10:41:59 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,9 @@ RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./lexer1.c \
 			./lexer2.c \
-			./parser.c \
+			./parser1.c \
+			./parser2.c \
+			./parser3.c \
 			./word_expansion1.c \
 			./word_expansion2.c \
 			./utils.c \

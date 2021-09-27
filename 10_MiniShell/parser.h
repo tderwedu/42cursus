@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:37:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:40:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ enum	e_cst
 	CST_CMD_LIST,
 	CST_IO_REDIR,
 	CST_IO_NBR,
-	CST_IO_FILE,
-	CST_IO_HERE,
 	CST_WORD
 };
 

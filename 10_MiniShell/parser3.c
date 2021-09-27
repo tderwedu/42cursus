@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:37:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 10:40:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	cst_print(t_cst *tree)
 	types[1] = "CST_CMD_LIST";
 	types[2] = "CST_IO_REDIR";
 	types[3] = "CST_IO_NBR";
-	types[4] = "constant";
+	types[4] = "CST_WORD";
 	tabs[0] = " ";
 	tabs[1] = "\t";
 	tabs[2] = "\t\t";
