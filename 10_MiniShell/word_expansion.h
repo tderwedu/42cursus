@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_expansion.h                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:33:45 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 09:13:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:41:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 # define WORD_EXPANSION_H
 
 # include "libft.h"
-# include "vector.h"  // TODO: Add to libft
 
+// TODO: Add 'vector.h' to libft
+# include "vector.h"
 # include "minishell.h"
 # include "parser.h"
 # include "utils.h"
+
 // # include "msh_error.h"
 
 // TODO: all ERR in ine header
@@ -26,6 +28,10 @@
 
 # define TYPE_IO	0
 # define TYPE_CMD	1
+
+typedef struct s_tok	t_tok;
+typedef struct s_cst	t_cst;
+typedef struct s_msh	t_msh;
 
 enum	e_we_st
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:40:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 15:06:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	parser_free(t_cst *tree)
 		free(tree->lex);
 	free(tree);
 	if (left)
-		cst_delete_tree(tree->left);
+		parser_free(tree->left);
 	if (right)
-		cst_delete_tree(tree->right);
+		parser_free(tree->right);
 }
 
 void	parser_error(t_parser *vars, char *msg, char *opt)
@@ -57,21 +57,21 @@ static void	parser_print_2(t_cst *tree, char **types, char **tabs, int tab)
 	if (tree->left)
 	{
 		printf("%sLEFT BRANCH\n", tabs[tab]);
-		parser_print_2(tree->left, types, tab, tab + 1);
+		parser_print_2(tree->left, types, tabs, tab + 1);
 	}
 	if (tree->right)
 	{
 		printf("%sRIGHT BRANCH\n", tabs[tab]);
-		parser_print_2(tree->right, types, tab, tab + 1);
+		parser_print_2(tree->right, types, tabs, tab + 1);
 	}
 }
 
-void	cst_print(t_cst *tree)
+void	parser_print(t_cst *tree)
 {
 	char	*types[5];
 	char	*tabs[10];
 
-	types[0] = "CST_PIPE_SEQ";
+	types[0] = "CST_PIPE";
 	types[1] = "CST_CMD_LIST";
 	types[2] = "CST_IO_REDIR";
 	types[3] = "CST_IO_NBR";

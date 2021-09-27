@@ -3,32 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:40:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 15:06:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSER_H
 # define PARSER_H
 
-# include "minishell.h"
 # include "lexer.h"
+# include "minishell.h"
 
-// TODO: all ERR in ine header
+/* TODO: all ERR in ine header */
 # define ERR_SYNTAX	"Syntax Error near: %s\n"
+
+typedef struct s_tok	t_tok;
+typedef struct s_cst	t_cst;
+typedef struct s_msh	t_msh;
 
 enum	e_cst
 {
-	CST_PIPE_SEQ,
+	CST_PIPE,
 	CST_CMD_LIST,
 	CST_IO_REDIR,
 	CST_IO_NBR,
 	CST_WORD
 };
-
-typedef struct s_cst	t_cst;
 
 struct s_cst
 {

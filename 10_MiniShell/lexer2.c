@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 12:28:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:29:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:20:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,40 +40,38 @@ void	lexer_new_token(t_lexer *lex, int type)
 	if (!lex->head)
 	{
 		lex->head = new;
-		lex->last = new;
+		lex->tail = new;
 		return ;
 	}
-	lex->last->next = new;
-	lex->last = new;
+	lex->tail->next = new;
+	lex->tail = new;
 }
 
-void	lexer_free(t_lexer *lex)
+void	lexer_free(t_tok *head)
 {
-	t_tok	*node;
 	t_tok	*next;
 
-	node = lex->head;
-	next = lex->head->next;
-	free(node->lex);
-	free(node);
+	next = head->next;
+	free(head->lex);
+	free(head);
 	while (next)
 	{
-		node = next;
-		next = node->next;
-		free(node->lex);
-		free(node);
+		head = next;
+		next = head->next;
+		free(head->lex);
+		free(head);
 	}
 }
 
 void	lexer_error(t_lexer *lex, char *msg)
 {
-	lexer_free(lex);
+	lexer_free(lex->head);
 	msh_error(lex->msh, msg);
 }
 
 void	lexer_print(t_tok *token)
 {
-	char	**arr_type;
+	char	*arr_type[7];
 
 	arr_type[0] = "PIPE";
 	arr_type[1] = "GREAT";

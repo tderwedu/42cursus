@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/27 10:41:59 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/09/27 14:09:11 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,6 @@ SRC		=	./lexer1.c \
 			./word_expansion1.c \
 			./word_expansion2.c \
 			./utils.c \
-			./utils_cst.c \
 			./utils_env.c \
 			./vector/ft_new_vec.c \
 			./vector/ft_grow_vec.c \

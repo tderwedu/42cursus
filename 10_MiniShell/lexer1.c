@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 10:30:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/27 14:13:07 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	lexer(t_msh *msh)
 
 	line = msh->line;
 	if (!line || !*line)
-		return (NULL);
+		return ;
 	lex = (t_lexer){msh, 0, 0, NULL, NULL, line};
 	while (line[lex.i])
 	{
