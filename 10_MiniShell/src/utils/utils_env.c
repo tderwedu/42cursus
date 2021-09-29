@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 11:09:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ void	utils_env_sort(char **env)
 		utils_env_quicksort(lo, env);
 }
 
-void	utils_env_free(char **env)
+void	utils_free_tab(char **env)
 {
 	if (!env)
 		return ;
@@ -94,6 +94,14 @@ size_t	utils_env_size(char **env)
 		env++;
 	}
 	return (size);
+}
+
+void utils_env_print(char **tab)
+{
+	printf("### Start Of Tab ###\n");
+	while (*tab)
+		printf("\t%s\n", *tab++);
+	printf("### End Of Tab ###\n");
 }
 
 char	**utils_env_copy(char **env, size_t size)
