@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 11:10:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 14:33:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 15:56:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	main(void)
 	// dirp = opendir(".");
 	// errno = 0;
 	// info = readdir(dirp);
+	
 	pwd = getenv("PWD");
 	getcwd(cwd, MAXPATHLEN);
 	printf("\n");
@@ -48,12 +49,13 @@ int	main(void)
 		perror("stat CWD ");
 	if (stat(".", &stat_cur))
 		perror("stat CWD ");
+	S_ISLNK(stat_cur.st_mode); // TO know if symlink!!
 	printf("\n");
 	printf("GETCWD:inode: %llu\n", stat_cwd.st_ino);
 	printf("PWD   :inode: %llu\n", stat_pwd.st_ino);
 	printf("PWD   :inode: %llu\n", stat_cur.st_ino);
-
-	char	*test = "/Users/tderwedu/goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/a/b/c/d/e/bask_2_goinfre/";
+	printf("=====================\n");
+	char	*test = "/new";
 	if (stat(test, &stat_cur))
 		perror("stat CWD ");
 	if (chdir(test))

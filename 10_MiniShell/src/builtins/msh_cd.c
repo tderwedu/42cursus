@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 10:05:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 15:23:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/30 15:57:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	msh_cd(t_msh *msh, int argc, char **argv, char **env)
 			return (EXIT_FAILURE);
 		}
 	}
-	else if (!ft_strcmp(argv[1], "-"))
+	else if (argv[1][0]== '-' && argv[1][1] == '\0')
 	{
 		dst = utils_env_get_param(env, "OLDPWD", 4);
 		if (!dst)
@@ -58,12 +58,13 @@ int	msh_cd(t_msh *msh, int argc, char **argv, char **env)
 		write(2, ": invalid option\ncd: usage: cd [dir]\n", 37);
 		return (EXIT_FAILURE);
 	}
-	
-	if (argv[1][0] == '~')
+	else if (ft_strlen(argv[1]) > MAXPATHLEN)
 	{
-		len_a = ft_strlen
 		write(2, "msh: cd: ", 9);
 		write(2, argv[1], ft_strlen(argv[1]));
 		write(2, ": File name too long\n", 21);
 	}
+
+	
+	
 }
