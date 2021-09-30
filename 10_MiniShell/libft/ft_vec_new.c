@@ -1,20 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_free_vec.c                                      :+:      :+:    :+:   */
+/*   ft_vec_new.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/02/22 10:35:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/27 14:27:32 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:41 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/29 15:49:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector.h"
+#include "libft.h"
 
-int	ft_free_vec(t_vec *vec)
+t_vec	*ft_vec_new(size_t size)
 {
-	free(vec->str);
-	free(vec);
-	return (1);
+	t_vec	*vec;
+
+	vec = malloc(sizeof(t_vec));
+	if (!vec)
+		return (NULL);
+	vec->str = malloc(size);
+	if (!vec->str)
+	{
+		free(vec);
+		return (NULL);
+	}
+	*vec->str = '\0';
+	vec->ptr = vec->str;
+	vec->end = vec->str + size;
+	return (vec);
 }

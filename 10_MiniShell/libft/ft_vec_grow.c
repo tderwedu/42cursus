@@ -1,28 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env.c                                          :+:      :+:    :+:   */
+/*   ft_vec_grow.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/28 15:53:54 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/02/22 10:36:30 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/09/29 15:51:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void msh_env(t_msh *msh, char **argv, char **env)
+t_vec	*ft_vec_grow(t_vec *vec)
 {
-	if (argv[1])
+	char	*new;
+	size_t	len;
+	size_t	size;
+
+	size = (vec->end - vec->str);
+	new = malloc(size * 2);
+	if (!new)
 	{
-		write(2, "env: illegal option or argument\n", 32);
-		return (EXIT_FAILURE);
+		ft_vec_free(vec);
+		return (NULL);
 	}
-	while (*env)
-	{
-		write(1, *env, ft_strlen(*env));
-		env++;
-	}
-	return (EXIT_SUCCESS);
+	len = vec->ptr - vec->str;
+	ft_memcpy(new, vec->str, len);
+	free(vec->str);
+	vec->str = new;
+	vec->ptr = new + len;
+	vec->end = new + size * 2;
+	return (vec);
 }
