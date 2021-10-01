@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/09/30 15:08:24 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/01 16:34:46 by namenega         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
 SRC		=	./src/builtins/msh_cd.c \
+			./src/builtins/msh_echo.c \
 			./src/builtins/msh_env.c \
 			./src/builtins/msh_exit.c \
 			./src/builtins/msh_export.c \
@@ -26,6 +27,8 @@ SRC		=	./src/builtins/msh_cd.c \
 			./src/builtins/unset.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
+			./src/exec/command3.c \
+			./src/exec/heredoc.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser1.c \

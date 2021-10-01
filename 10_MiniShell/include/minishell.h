@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:20:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/01 17:52:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,10 @@ struct s_msh
 	char	ret[4];
 	size_t	env_size;
 	size_t	env_left;
+	char	*cwd;
 };
+
+void	msh_free(t_msh *msh);
 
 void	set_path(t_msh *msh);
 char	*get_bin(t_msh *msh, char *name);
