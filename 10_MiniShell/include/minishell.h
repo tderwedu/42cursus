@@ -6,11 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-<<<<<<< HEAD
 /*   Updated: 2021/10/05 16:53:26 by tderwedu         ###   ########.fr       */
-=======
-/*   Updated: 2021/10/01 17:52:03 by tderwedu         ###   ########.fr       */
->>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,11 +49,5 @@ struct s_msh
 };
 
 void	msh_free(t_msh *msh);
-<<<<<<< HEAD
-=======
-
-void	set_path(t_msh *msh);
-char	*get_bin(t_msh *msh, char *name);
->>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 
 #endif

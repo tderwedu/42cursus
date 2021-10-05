@@ -5,13 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-<<<<<<< HEAD
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
 /*   Updated: 2021/10/05 17:11:08 by tderwedu         ###   ########.fr       */
-=======
-/*   Created: 2021/09/30 09:56:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/01 16:34:30 by namenega         ###   ########.fr       */
->>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +76,6 @@ void	cmd_print(t_exec *exec);
 
 /* FILE: src/exec/command3.c */
 
-<<<<<<< HEAD
 // void	simple_redirection(t_msh *msh, t_exec *ex);
 // void	list_redirection(t_exec *exec, int entry_file);
 
@@ -109,16 +103,5 @@ int		msh_export(t_exec *exec);
 
 int		msh_export_var(t_msh *msh, char *exp);
 void	exec_error(t_exec *exec, char *msg);
-=======
-void	simple_redirection(t_io *io, t_exec *exec);
-
-/* FILE: src/exec/heredoc.c */
-
-void	heredoc(t_exec *exec);
-
-/* ================================= Builtins =============================== */
-
-void	msh_echo(t_exec *exec);
->>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 
 #endif
