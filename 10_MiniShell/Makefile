@@ -3,10 +3,14 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
+#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
+<<<<<<< HEAD
 #    Updated: 2021/10/05 17:14:33 by tderwedu         ###   ########.fr        #
+=======
+#    Updated: 2021/10/01 16:34:46 by namenega         ###   ########.fr        #
+>>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,18 +21,26 @@ NAME	= minishell
 LIBFT	= ./libft
 RDLINE	= /Users/$(USER)/.brew/opt/readline
 
+<<<<<<< HEAD
 SRC		=	./src/builtins/msh_echo.c \
 			./src/builtins/msh_cd.c \
 			./src/builtins/msh_unset.c \
 			./src/builtins/msh_pwd.c \
+=======
+SRC		=	./src/builtins/msh_cd.c \
+			./src/builtins/msh_echo.c \
+>>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 			./src/builtins/msh_env.c \
 			./src/builtins/msh_export.c \
 			./src/exec/command1.c \
 			./src/exec/command2.c \
 			./src/exec/command3.c \
 			./src/exec/heredoc.c \
+<<<<<<< HEAD
 			./src/exec/launch_builtin.c \
 			./src/exec/get_bin.c \
+=======
+>>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser1.c \

@@ -6,7 +6,11 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/05 17:10:27 by tderwedu         ###   ########.fr       */
+=======
+/*   Updated: 2021/09/30 14:04:00 by tderwedu         ###   ########.fr       */
+>>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +25,11 @@ void	handle_sigint(int sig)
 		// TODO:set RET to 130
 	rl_replace_line("", 0);		// Clear the previous text
 	rl_redisplay();				// Discplay the new buffer
+}
+
+void	msh_free(t_msh *msh)
+{
+	(void)msh;
 }
 
 void	msh_free(t_msh *msh)

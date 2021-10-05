@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   command1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/10/05 16:11:23 by tderwedu         ###   ########.fr       */
+=======
+/*   Updated: 2021/10/01 16:29:26 by namenega         ###   ########.fr       */
+>>>>>>> 7fba0d37e81594fe3547fdcd7d0ff558dac266a7
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +80,8 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 		new->fd = ft_atoi(ast->left->lex);
 	else if (!ft_strcmp(ast->lex, ">") || !ft_strcmp(ast->lex, ">>"))
 		new->fd = 1;
+	else if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
+		heredoc(cmd->exec);
 	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
 		new->fd = 0;
 	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
