@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 17:51:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 15:13:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ size_t	utils_env_size(char **env)
 	return (size);
 }
 
-void utils_env_print(char **tab)
+void	utils_env_print(char **tab)
 {
 	printf("### Start Of Tab ###\n");
 	while (*tab)
@@ -106,7 +106,6 @@ void utils_env_print(char **tab)
 
 char	**utils_env_copy(char **env, size_t size)
 {
-	
 	char	**new_env;
 	char	**entry;
 
@@ -172,4 +171,46 @@ char	*utils_env_get_param(char **env, char *var, int len)
 		env++;
 	}
 	return (NULL);
+}
+
+char	**utils_env_param(char **env, char *var, int len)
+{
+	if (!env || !var || !len)
+		return (NULL);
+	while (*env)
+	{
+		if (!ft_strncmp(*env, var, len)
+			&& ((*env)[len] == '=' || (*env)[len] == '\0'))
+			return (env);
+		env++;
+	}
+	return (NULL);
+}
+
+char	*utils_env_go_2_val(char *var)
+{
+	if (!var)
+		return (NULL);
+	while (*var && *var != '=')
+		var++;
+	return (var + (*var == '='));
+}
+char	**utils_env_next_addr(t_msh *msh)
+{
+	char **addr;
+
+	if (msh->env_left)
+	{
+		addr = msh->env + msh->env_size  - msh->env_left--;
+		addr[1] = NULL;
+		return (addr);
+	}
+	msh->env_left = 5;
+	msh->env_size += 5;
+	msh->env  = utils_env_copy(msh->env, msh->env_size);
+	if (!msh->env)
+		return (NULL);
+	addr = msh->env + msh->env_size  - msh->env_left--;
+	addr[1] = NULL;
+	return (addr);
 }

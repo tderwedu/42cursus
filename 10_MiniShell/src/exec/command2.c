@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:43:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:15:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 static void	cmd_word_count_sub(t_ast *ast, int *count)
 {
+	if (ast->type == AST_IO_REDIR)
+		return ;
 	if (ast->type == AST_WORD)
 		(*count)++;
-	if (ast->left && ast->left->type != AST_IO_REDIR)
+	if (ast->left)
 		cmd_word_count_sub(ast->left, count);
-	if (ast->right && ast->right->type != AST_IO_REDIR)
+	if (ast->right)
 		cmd_word_count_sub(ast->right, count);
 }
 
@@ -77,9 +79,11 @@ void	cmd_print(t_exec *exec)
 	{
 		printf("\033[36m IO\033[0m\n");
 		printf("\t\033[35m fd   \033[0m %i\n", io->fd);
+		if (io->heredoc_fd >= 0)
+			printf("\t\033[35m heredoc\033[0m %i\n", io->heredoc_fd);
 		printf("\t\033[35m oflag\033[0m %i\n", io->oflag);
 		printf("\t\033[35m file \033[0m %s\n", io->filename);
-		io= io->next;
+		io = io->next;
 	}
 	printf("\033[33m \t ### END ###\033[0m\n");
 }

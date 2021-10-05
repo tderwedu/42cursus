@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 11:10:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 15:56:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/01 20:01:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,19 +51,20 @@ int	main(void)
 		perror("stat CWD ");
 	S_ISLNK(stat_cur.st_mode); // TO know if symlink!!
 	printf("\n");
-	printf("GETCWD:inode: %llu\n", stat_cwd.st_ino);
-	printf("PWD   :inode: %llu\n", stat_pwd.st_ino);
-	printf("PWD   :inode: %llu\n", stat_cur.st_ino);
+	printf("GETCWD:inode: %lu\n", stat_cwd.st_ino);
+	printf("PWD   :inode: %lu\n", stat_pwd.st_ino);
+	printf("PWD   :inode: %lu\n", stat_cur.st_ino);
 	printf("=====================\n");
-	char	*test = "/new";
+	char	*test = "./new/..\0";
 	if (stat(test, &stat_cur))
 		perror("stat CWD ");
 	if (chdir(test))
 	{
-		printf("errno: %i\n", errno);
+		printf("ERRNOo: %i\n", errno);
 		perror("chdir");
 	}
 	getcwd(cwd, MAXPATHLEN);
 	printf("\n");
 	printf("GETCWD:%s\n", cwd);
+	printf("test:%s\n", test);
 }

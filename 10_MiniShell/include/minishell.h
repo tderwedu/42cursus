@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:20:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:53:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,10 @@
 
 # include "parser.h"
 # include "exec.h"
+# include "error_messages.h"
 
 /* TODO: all ERR in ine header */
-# define ERR_NO_CMD	"msh: %s: command not found\n"
+/*# define ERR_NO_CMD	"msh: %s: command not found\n"*/
 
 typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;
@@ -44,9 +45,9 @@ struct s_msh
 	char	ret[4];
 	size_t	env_size;
 	size_t	env_left;
+	char	*cwd;
 };
 
-void	set_path(t_msh *msh);
-char	*get_bin(t_msh *msh, char *name);
+void	msh_free(t_msh *msh);
 
 #endif

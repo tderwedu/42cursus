@@ -6,20 +6,16 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:30:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/05 16:11:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast)
+t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
-	t_exec	*exec;
 
-	exec = malloc(sizeof(*exec));
-	if (!exec)
-		return (NULL);
 	exec->size = cmd_word_count(ast);
 	exec->tab = malloc(sizeof(char *) * (exec->size + 1));
 	if (!exec->tab)
@@ -28,12 +24,13 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast)
 	exec->env = msh->env;
 	exec->io = NULL;
 	exec->cmdpath = NULL;
+	exec->msh = msh;
 	cmd.msh = msh;
 	cmd.exec = exec;
 	cmd.tail = NULL;
 	cmd.i = 0;
 	if (ast)
-		cmd_ast_traversal(&cmd, ast);
+		cmd_ast_traversal(msh, &cmd, ast);
 	return (exec);
 }
 
@@ -43,14 +40,16 @@ void	cmd_add_word(t_cmd *cmd, t_ast *ast)
 	ast->lex = NULL;
 }
 
-void	cmd_ast_traversal(t_cmd *cmd, t_ast *ast)
+void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
-	if (ast->left && ast->left->type == AST_WORD)
-		cmd_add_word(cmd, ast->left);
-	else if (ast->left && ast->left->type == AST_IO_REDIR)
-		cmd_add_io(cmd, ast->left);
+	if (ast->type == AST_WORD)
+		cmd_add_word(cmd, ast);
+	else if (ast->type == AST_IO_REDIR)
+		cmd_add_io(msh, cmd, ast);
+	if (ast->left)
+		cmd_ast_traversal(msh, cmd, ast->left);
 	if (ast->right)
-		cmd_ast_traversal(cmd, ast->right);
+		cmd_ast_traversal(msh, cmd, ast->right);
 }
 
 static inline int	cmd_io_oflag(char *type)
@@ -65,9 +64,10 @@ static inline int	cmd_io_oflag(char *type)
 		return (0);
 }
 
-void	cmd_add_io(t_cmd *cmd, t_ast *ast)
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	t_io	*new;
+	// int		err_d;
 
 	new = malloc(sizeof(*new));
 	if (!new)
@@ -78,6 +78,13 @@ void	cmd_add_io(t_cmd *cmd, t_ast *ast)
 		new->fd = 1;
 	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
 		new->fd = 0;
+	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
+	{
+		new->heredoc_fd = heredoc(msh, ast);
+		// close(new->heredoc_fd);
+	}
+	else
+		new->heredoc_fd = -1;
 	if (ast->right && ast->right->type == AST_WORD)
 	{
 		new->filename = ast->right->lex;
