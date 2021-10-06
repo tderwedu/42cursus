@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:34:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:22:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	found = 0;
 	dirp = opendir(path);
 	if (!dirp)
-		msh_error(msh, strerror(errno));
+		return (0); // msh_error(msh, strerror(errno));
 	errno = 0;
 	info = readdir(dirp);
 	while (info && !found)
@@ -41,7 +41,10 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	}
 	closedir(dirp);
 	if (errno)
+	{
+		printf("closedir\n");
 		msh_error(msh, strerror(errno));
+	}
 	return (found);
 }
 

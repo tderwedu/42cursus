@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:23:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 18:53:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 22:28:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,12 +95,6 @@ void	msh_launch_pipe(t_exec *exec)
 		fct = is_builtin(exec->tab[0]);
 		if (!fct)
 			exec->cmdpath = get_bin(exec->msh, exec->tab[0]);
-		if (!exec->cmdpath)
-		{
-			msh_print_error(MSG_BASH, exec->tab[0], MSG_NOTFOUND, 0);
-			ret_itoa(exec->msh, EXIT_FAILURE);
-			return ;
-		}
 		// PIPE Handling - 1
 		if (pipe(exec->pipe_out) == -1)
 			return ; // TODO: ERROR HANDLING
@@ -111,6 +105,12 @@ void	msh_launch_pipe(t_exec *exec)
 		if (pid == 0)
 		{
 			do_redir(exec);
+			if (!exec->cmdpath)
+			{
+				msh_print_error(MSG_BASH, exec->tab[0], MSG_NOTFOUND, 0);
+				ret_itoa(exec->msh, EXIT_FAILURE);
+				exit(EXIT_FAILURE) ; //TODO: Error Handling
+			}
 			exec->msh->env = NULL;
 			msh_free(exec->msh);
 			if (fct)
