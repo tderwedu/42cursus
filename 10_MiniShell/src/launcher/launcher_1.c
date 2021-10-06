@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command3.c                                         :+:      :+:    :+:   */
+/*   launcher_1.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 13:55:18 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 15:34:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 10:59:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <sys/errno.h>
-#include "../../include/exec.h"
+#include "exec.h"
 
 void	list_redirection(t_exec *exec, int entry_file)
 {
@@ -21,7 +21,7 @@ void	list_redirection(t_exec *exec, int entry_file)
 	io = exec->io;
 	while (io)
 	{
-		if (io->heredoc_fd <= 0)
+		if (io->fd_h <= 0)
 		{
 			entry_file = open(io->filename, io->oflag, 0644);
 			if (entry_file == -1)
@@ -32,7 +32,7 @@ void	list_redirection(t_exec *exec, int entry_file)
 		}
 		else
 		{
-			err_d = dup2(io->heredoc_fd, io->fd);
+			err_d = dup2(io->fd_h, io->fd);
 			if (err_d == -1)
 				return ;				//! Error msg need a change.
 		}

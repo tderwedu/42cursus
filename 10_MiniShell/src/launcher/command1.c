@@ -3,23 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   command1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 17:35:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:47:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
+void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
 
 	exec->size = cmd_word_count(ast);
 	exec->tab = malloc(sizeof(char *) * (exec->size + 1));
 	if (!exec->tab)
-		return (NULL);
+		return ;
 	exec->tab[exec->size] = NULL;
 	exec->env = msh->env;
 	exec->io = NULL;
@@ -31,19 +31,15 @@ t_exec	*cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 	cmd.i = 0;
 	if (ast)
 		cmd_ast_traversal(msh, &cmd, ast);
-	return (exec);
-}
-
-void	cmd_add_word(t_cmd *cmd, t_ast *ast)
-{
-	cmd->exec->tab[cmd->i++] = ast->lex;
-	ast->lex = NULL;
 }
 
 void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
 	if (ast->type == AST_WORD)
-		cmd_add_word(cmd, ast);
+	{
+		cmd->exec->tab[cmd->i++] = ast->lex;
+		ast->lex = NULL;
+	}
 	else if (ast->type == AST_IO_REDIR)
 		cmd_add_io(msh, cmd, ast);
 	if (ast->left)
@@ -52,47 +48,46 @@ void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 		cmd_ast_traversal(msh, cmd, ast->right);
 }
 
-static inline int	cmd_io_oflag(char *type)
+static inline void	cmd_add_io_fd(t_msh *msh, t_ast *io_redir, t_io *new)
 {
-	if (type[0] == '<' && type[1] == '\0')
-		return (O_RDONLY);
-	else if (type[0] == '>' && type[1] == '\0')
-		return (O_WRONLY | O_CREAT | O_TRUNC);
-	else if (type[0] == '>' && type[1] == '>')
-		return (O_WRONLY | O_CREAT | O_APPEND);
+	if (io_redir->left && io_redir->left->type == AST_IO_NBR)
+		new->fd = ft_atoi(io_redir->left->lex);
+	else if (io_redir->lex[0] == '>')
+		new->fd = 1;
 	else
-		return (0);
+		new->fd = 0;
+	// TODO: HEREDOC
+	if (io_redir->lex[0] == '>' && io_redir->lex[1] == '>')
+	{
+		new->fd_h = heredoc(msh, io_redir);
+	}
+	else
+		new->fd_h = -1;
 }
 
-void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast)
+static inline void	cmd_add_io_flag(t_ast *io_redir, t_io *new)
+{
+	if (io_redir->lex[0] == '<' && io_redir->lex[1] == '\0')
+		new->oflag = (O_RDONLY);
+	else if (io_redir->lex[0] == '>' && io_redir->lex[1] == '\0')
+		new->oflag = (O_WRONLY | O_CREAT | O_TRUNC);
+	else if (io_redir->lex[0] == '>' && io_redir->lex[1] == '>')
+		new->oflag = (O_WRONLY | O_CREAT | O_APPEND);
+	else
+		new->oflag = -1;
+}
+
+void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *io_redir)
 {
 	t_io	*new;
-	// int		err_d;
 
 	new = malloc(sizeof(*new));
 	if (!new)
 		cmd_error(cmd, ERR_MALLOC);
-	if (ast->left && ast->left->type == AST_IO_NBR)
-		new->fd = ft_atoi(ast->left->lex);
-	else if (!ft_strcmp(ast->lex, ">") || !ft_strcmp(ast->lex, ">>"))
-		new->fd = 1;
-	else if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
-		heredoc(cmd->exec);
-	else // if (!ft_strcmp(ast->lex, "<") || !ft_strcmp(ast->lex, "<<"))
-		new->fd = 0;
-	if (!ft_strcmp(ast->lex, "<<"))				//!Ajout du else if
-	{
-		new->heredoc_fd = heredoc(msh, ast);
-		// close(new->heredoc_fd);
-	}
-	else
-		new->heredoc_fd = -1;
-	if (ast->right && ast->right->type == AST_WORD)
-	{
-		new->filename = ast->right->lex;
-		ast->right->lex = NULL;
-	}
-	new->oflag = cmd_io_oflag(ast->lex);
+	new->filename = io_redir->right->lex;
+	io_redir->right->lex = NULL;
+	cmd_add_io_fd(msh, io_redir, new);
+	cmd_add_io_flag(io_redir, new);
 	new->next = NULL;
 	if (!cmd->tail)
 		cmd->exec->io = new;

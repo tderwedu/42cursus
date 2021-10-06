@@ -3,20 +3,19 @@
 /*                                                        :::      ::::::::   */
 /*   msh_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 11:31:08 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:15:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	msh_env(t_msh *msh, t_exec *exec)
+int	msh_env(t_exec *exec)
 {
 	char	**env;
 
-	(void)msh;
 	env = exec->env;
 	if (exec->tab[1]) //TODO: test on MAc (no msg on WSL)
 	{

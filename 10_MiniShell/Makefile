@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: namenega <namenega@student.42.fr>          +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/05 17:14:33 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/06 13:00:59 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,15 +20,17 @@ RDLINE	= /Users/$(USER)/.brew/opt/readline
 SRC		=	./src/builtins/msh_echo.c \
 			./src/builtins/msh_cd.c \
 			./src/builtins/msh_unset.c \
+			./src/builtins/msh_exit.c \
 			./src/builtins/msh_pwd.c \
 			./src/builtins/msh_env.c \
 			./src/builtins/msh_export.c \
-			./src/exec/command1.c \
-			./src/exec/command2.c \
-			./src/exec/command3.c \
-			./src/exec/heredoc.c \
-			./src/exec/launch_builtin.c \
-			./src/exec/get_bin.c \
+			./src/launcher/command1.c \
+			./src/launcher/command2.c \
+			./src/launcher/launch.c \
+			./src/launcher/redirection.c \
+			./src/launcher/heredoc.c \
+			./src/launcher/get_bin.c \
+			./src/launcher/is_builtin.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
 			./src/parsing/parser1.c \
@@ -36,6 +38,7 @@ SRC		=	./src/builtins/msh_echo.c \
 			./src/parsing/parser3.c \
 			./src/parsing/word_expansion1.c \
 			./src/parsing/word_expansion2.c \
+			./src/signals/signals.c \
 			./src/utils/utils.c \
 			./src/utils/set_path.c \
 			./src/utils/msh_canonpath.c \

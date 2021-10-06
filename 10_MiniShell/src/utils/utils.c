@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:02:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:33:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	ret_str_2_int(t_msh *msh)
 	return (val);
 }
 
-void	ret_int_2_str(t_msh *msh, int ret)
+void	ret_itoa(t_msh *msh, int ret)
 {
 	int		i;
 

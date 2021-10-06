@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 17:11:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 13:04:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ typedef struct s_msh	t_msh;
 struct s_io
 {
 	int		fd;
-	int		heredoc_fd;
+	int		fd_h;
+	int		fd_d;
 	int		oflag;
 	char	*filename;
 	t_io	*next;
@@ -62,7 +63,7 @@ typedef struct s_cmd
 
 /* FILE: src/exec/command1.c */
 
-void	md_get(t_msh *msh, t_ast *ast, t_exec *exec);
+void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
 void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
 void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
@@ -74,11 +75,6 @@ void	cmd_free(t_exec *exec);
 void	cmd_error(t_cmd *cmd, char *msg);
 void	cmd_print(t_exec *exec);
 
-/* FILE: src/exec/command3.c */
-
-// void	simple_redirection(t_msh *msh, t_exec *ex);
-// void	list_redirection(t_exec *exec, int entry_file);
-
 /* FILE: src/exec/heredoc.c */
 
 int		heredoc(t_msh *msh, t_ast *ast);
@@ -87,21 +83,35 @@ int		heredoc(t_msh *msh, t_ast *ast);
 
 void	set_path(t_msh *msh);
 char	*get_bin(t_msh *msh, char *name);
-void	msh_launch_all(t_msh *msh);
-void	msh_launch_one(t_msh *msh, t_exec *exec);
-void	handle_redirection(t_exec *exec);
 
 /* ================================= Builtins =============================== */
 
-int		launch_builtin(t_msh *msh, t_exec *exe);
-int		msh_echo(t_msh *msh, t_exec *exec);
-int		msh_cd(t_msh *msh, t_exec *exec);
-int		msh_unset(t_msh *msh, t_exec *exe);
-int		msh_pwd(t_msh *msh, t_exec *exe);
-int		msh_env(t_msh *msh, t_exec *exe);
+/* FILES: src/builtins/ */
+
+int		msh_cd(t_exec *exec);
+int		msh_pwd(t_exec *exec);
+int		msh_env(t_exec *exec);
+int		msh_exit(t_exec *exec);
+int		msh_echo(t_exec *exec);
+int		msh_unset(t_exec *exec);
 int		msh_export(t_exec *exec);
 
-int		msh_export_var(t_msh *msh, char *exp);
-void	exec_error(t_exec *exec, char *msg);
+/* ================================= tmp =============================== */
+
+
+typedef int (*t_fct)(t_exec *exec);
+typedef struct s_builtin
+{
+	char	*name;
+	t_fct	fct;
+}					t_builtin;
+
+t_fct	is_builtin(char *name);
+
+void	msh_launch(t_msh *msh);
+
+void	do_redir(t_exec *exec);
+void	undo_redir(t_exec *exec);
+void	redir_io_lst(t_exec *exec);
 
 #endif

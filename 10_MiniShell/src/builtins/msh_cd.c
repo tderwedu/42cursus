@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   msh_cd.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/06 09:33:38 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 09:38:00 by tderwedu         ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::	*/
+/*	MSG_CD.c											:+:	  :+:	:+:	*/
+/*													+:+ +:+		 +:+	 */
+/*	By: tderwedu <tderwedu@student.s19.be>		 +#+  +:+		+#+		*/
+/*												+#+#+#+#+#+	+#+			*/
+/*	Created: 2021/09/28 10:05:51 by tderwedu		  #+#	#+#			 */
+/*	Updated: 2021/10/01 14:25:24 by tderwedu		 ###	########.fr		*/
+/*																			*/
 /* ************************************************************************** */
 
 #include <stdio.h>
@@ -157,7 +157,7 @@ int	msh_set_path(t_msh *msh, char *dst)
 	return (msh_chdir(msh, path, update));
 }
 
-int	msh_cd(t_msh *msh, t_exec *exec)
+int	msh_cd(t_exec *exec)
 {
 	char	*path;
 
@@ -166,17 +166,17 @@ int	msh_cd(t_msh *msh, t_exec *exec)
 		path = utils_env_get_param(exec->env, "HOME", 4);
 		if (!path)
 			return (msh_print_error(MSG_CD, MSG_HOME, NULL, EXIT_FAILURE));
-		return (msh_set_path(msh, path));
+		return (msh_set_path(exec->msh, path));
 	}
 	else if (exec->tab[1][0] == '-' && exec->tab[1][1] == '\0')
 	{
 		path = utils_env_get_param(exec->env, "OLDPWD", 4);
 		if (!path)
 			return (msh_print_error(MSG_CD, MSG_OLDPWD, NULL, EXIT_FAILURE));
-		return (msh_set_path(msh, path));
+		return (msh_set_path(exec->msh, path));
 	}
 	else if (exec->tab[1][0] == '-')
 		return (msh_print_error(MSG_CD, exec->tab[1], MSG_CD_USE, EXIT_FAILURE));
 	else
-		return (msh_set_path(msh, exec->tab[1]));
+		return (msh_set_path(exec->msh, exec->tab[1]));
 }

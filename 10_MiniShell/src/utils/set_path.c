@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 10:02:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 16:20:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/09/29 15:33:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,9 @@ static inline void	fill_path(t_msh *msh, char *path)
 
 void	set_path(t_msh *msh)
 {
-	char	*path;
 
+	char	*path;
+	
 	if (msh->path)
 		free(msh->path);
 	path = utils_env_get_param(msh->env, "PATH", 4);
@@ -66,4 +67,7 @@ void	set_path(t_msh *msh)
 	if (!msh->path)
 		msh_error(msh, ERR_MALLOC);
 	fill_path(msh, path);
+	// size_t	i = 0;	// TODO: remove
+	// while (msh->path[i])
+	// 	printf("\t%s\n", msh->path[i++]);
 }

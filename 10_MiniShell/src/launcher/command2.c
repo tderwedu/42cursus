@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   command2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 16:15:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 10:59:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	cmd_word_count(t_ast *ast)
 	return (count);
 }
 
-void	cmd_free(t_exec *exec)
+void	ft_free_exec(t_exec *exec)
 {
 	t_io	*io;
 	t_io	*next;
@@ -41,9 +41,9 @@ void	cmd_free(t_exec *exec)
 	if (exec->cmdpath)
 		free(exec->cmdpath);
 	if (exec->tab)
-		utils_free_tab(exec->tab);
+		ft_free_tab(exec->tab);
 	if (exec->env)
-		utils_free_tab(exec->env);
+		ft_free_tab(exec->env);
 	io = exec->io;
 	next = exec->io;
 	while (io)
@@ -56,7 +56,7 @@ void	cmd_free(t_exec *exec)
 
 void	cmd_error(t_cmd *cmd, char *msg)
 {
-	cmd_free(cmd->exec);
+	ft_free_exec(cmd->exec);
 	msh_error(cmd->msh, msg);
 }
 
@@ -79,8 +79,8 @@ void	cmd_print(t_exec *exec)
 	{
 		printf("\033[36m IO\033[0m\n");
 		printf("\t\033[35m fd   \033[0m %i\n", io->fd);
-		if (io->heredoc_fd >= 0)
-			printf("\t\033[35m heredoc\033[0m %i\n", io->heredoc_fd);
+		if (io->fd_h >= 0)
+			printf("\t\033[35m heredoc\033[0m %i\n", io->fd_h);
 		printf("\t\033[35m oflag\033[0m %i\n", io->oflag);
 		printf("\t\033[35m file \033[0m %s\n", io->filename);
 		io = io->next;

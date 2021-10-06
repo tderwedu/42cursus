@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_bin.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:05:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:34:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,6 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	t_dirent	*info;
 
 	found = 0;
-	// printf("\033[33mDIR:%s\033[0m\n", path); 		// TODO:remove
 	dirp = opendir(path);
 	if (!dirp)
 		msh_error(msh, strerror(errno));
@@ -36,7 +35,6 @@ static inline int	search_dir(t_msh *msh, char *file, char *path)
 	info = readdir(dirp);
 	while (info && !found)
 	{
-		// printf("\033[35mFILE\033[0m:%s\n", info->d_name);	// TODO:remove
 		if (ft_strcmp(file, info->d_name) == 0)
 			found = 1;
 		info = readdir(dirp);

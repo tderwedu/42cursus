@@ -6,11 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 09:38:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 12:15:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../include/exec.h"
+#include "exec.h"
 
 //! CHECK RETURN/EXIT VALUES
 
@@ -87,12 +87,11 @@ static int	if_echo_n(char **tab, int i)
 	return (i);
 }
 
-int	msh_echo(t_msh *msh, t_exec *exec) //TODO: add return
+int	msh_echo(t_exec *exec) //TODO: add return
 {
 	char	**tab;
 	int		i;
 
-	(void)msh;
 	i = 1;
 	if (!exec->tab)
 		return (EXIT_FAILURE);
