@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 10:59:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	cmd_word_count(t_ast *ast)
 	return (count);
 }
 
-void	ft_free_exec(t_exec *exec)
+void	free_exec(t_exec *exec)
 {
 	t_io	*io;
 	t_io	*next;
@@ -41,14 +41,13 @@ void	ft_free_exec(t_exec *exec)
 	if (exec->cmdpath)
 		free(exec->cmdpath);
 	if (exec->tab)
-		ft_free_tab(exec->tab);
-	if (exec->env)
-		ft_free_tab(exec->env);
+		free_tab(exec->tab);
 	io = exec->io;
 	next = exec->io;
 	while (io)
 	{
 		next = io->next;
+		free(io->filename);
 		free(io);
 		io = next;
 	}
@@ -56,11 +55,11 @@ void	ft_free_exec(t_exec *exec)
 
 void	cmd_error(t_cmd *cmd, char *msg)
 {
-	ft_free_exec(cmd->exec);
+	free_exec(cmd->exec);
 	msh_error(cmd->msh, msg);
 }
 
-void	cmd_print(t_exec *exec)
+void	print_exec(t_exec *exec)
 {
 	char	**tab;
 	t_io	*io;
@@ -69,21 +68,21 @@ void	cmd_print(t_exec *exec)
 		return ;
 	tab = exec->tab;
 	io = exec->io;
-	printf("\033[33m \t ### NEXT EXEC ###\033[0m\n");
-	printf("\033[36m CMD \033[0m %s\n", exec->tab[0]);
-	printf("\033[36m PATH\033[0m %s\n", exec->cmdpath);
-	printf("\033[36m ARGS\033[0m\n");
+	printf("\e[33m \t ### NEXT EXEC ###\e[0m\n");
+	printf("\e[36m CMD \e[0m %s\n", exec->tab[0]);
+	printf("\e[36m PATH\e[0m %s\n", exec->cmdpath);
+	printf("\e[36m ARGS\e[0m\n");
 	while (*tab)
 		printf("\t%s\n", *tab++);
 	while (io)
 	{
-		printf("\033[36m IO\033[0m\n");
-		printf("\t\033[35m fd   \033[0m %i\n", io->fd);
+		printf("\e[36m IO\e[0m\n");
+		printf("\t\e[35m fd   \e[0m %i\n", io->fd);
 		if (io->fd_h >= 0)
-			printf("\t\033[35m heredoc\033[0m %i\n", io->fd_h);
-		printf("\t\033[35m oflag\033[0m %i\n", io->oflag);
-		printf("\t\033[35m file \033[0m %s\n", io->filename);
+			printf("\t\e[35m heredoc\e[0m %i\n", io->fd_h);
+		printf("\t\e[35m oflag\e[0m %i\n", io->oflag);
+		printf("\t\e[35m file \e[0m %s\n", io->filename);
 		io = io->next;
 	}
-	printf("\033[33m \t ### END ###\033[0m\n");
+	printf("\e[33m \t ### END ###\e[0m\n");
 }

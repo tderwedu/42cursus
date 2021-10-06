@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:32:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 13:01:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:08:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	msh_exit(t_exec *exec)
 	// char	*ptr;
 
 	// write(1, "exit\n", 5);
-	// ret = ret_str_2_int(msh);
+	// ret = ret_atoi(msh);
 	// if (exec->tab[1])
 	// {
 	// 	val = exec->tab[1];

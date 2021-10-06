@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signals.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:02:42 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/05 18:51:57 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ pid_t	g_sig = 0;
 void	handle_sigint(int sig)
 {
 	// (void)sig;
-	// printf("\033[32m Handling CTRL-C\033[0m\n");
+	// printf("\e[32m Handling CTRL-C\e[0m\n");
 	printf("\n");
 	if (sig == SIGINT && g_sig == 0)
 	{

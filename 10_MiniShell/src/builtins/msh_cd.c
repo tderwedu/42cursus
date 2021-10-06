@@ -163,14 +163,14 @@ int	msh_cd(t_exec *exec)
 
 	if (!exec->tab[1])
 	{
-		path = utils_env_get_param(exec->env, "HOME", 4);
+		path = utils_env_get_param(exec->msh->env, "HOME", 4);
 		if (!path)
 			return (msh_print_error(MSG_CD, MSG_HOME, NULL, EXIT_FAILURE));
 		return (msh_set_path(exec->msh, path));
 	}
 	else if (exec->tab[1][0] == '-' && exec->tab[1][1] == '\0')
 	{
-		path = utils_env_get_param(exec->env, "OLDPWD", 4);
+		path = utils_env_get_param(exec->msh->env, "OLDPWD", 4);
 		if (!path)
 			return (msh_print_error(MSG_CD, MSG_OLDPWD, NULL, EXIT_FAILURE));
 		return (msh_set_path(exec->msh, path));

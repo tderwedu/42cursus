@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 13:12:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:55:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ int	msh_export_print(t_exec *exec)
 	char	*value;
 	char	**argv;
 
-	argv = exec->env;
+	argv = exec->msh->env;
 	while (*argv)
 		argv++;
-	argv = utils_env_copy(exec->env, argv - exec->env);
+	argv = utils_env_copy(exec->msh->env, argv - exec->msh->env);
 	utils_env_sort(argv);
 	while (*argv)
 	{

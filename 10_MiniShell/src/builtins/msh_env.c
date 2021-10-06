@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:15:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:55:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	msh_env(t_exec *exec)
 {
 	char	**env;
 
-	env = exec->env;
+	env = exec->msh->env;
 	if (exec->tab[1]) //TODO: test on MAc (no msg on WSL)
 	{
 		write(2, "env: illegal option or argument\n", 32);

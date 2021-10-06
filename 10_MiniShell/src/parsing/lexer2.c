@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer2.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/25 12:28:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:10:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,14 +80,14 @@ void	lexer_print(t_tok *token)
 	arr_type[4] = "DLESS";
 	arr_type[5] = "WORD";
 	arr_type[6] = "IO_NUMBER";
-	printf("\033[33m\t### TOKEN LIST ### \033[0m \n");
+	printf("\e[33m\t### TOKEN LIST ### \e[0m \n");
 	while (token)
 	{
 		printf(" /----------------------\\ \n");
 		printf("   type : %s \n", arr_type[token->type - 10]);
-		printf(" lexeme : \033[33m>\033[0m%s\033[33m<\033[0m \n", token->lex);
+		printf(" lexeme : \e[33m>\e[0m%s\e[33m<\e[0m \n", token->lex);
 		printf(" \\----------------------/ \n");
 		token = token->next;
 	}
-	printf("\033[33m\t### END ### \033[0m \n");
+	printf("\e[33m\t### END ### \e[0m \n");
 }

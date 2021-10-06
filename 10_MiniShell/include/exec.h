@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 13:04:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:56:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,9 +71,9 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
 /* FILE: src/exec/command2.c */
 
 int		cmd_word_count(t_ast *ast);
-void	cmd_free(t_exec *exec);
+void	free_exec(t_exec *exec);
 void	cmd_error(t_cmd *cmd, char *msg);
-void	cmd_print(t_exec *exec);
+void	print_exec(t_exec *exec);
 
 /* FILE: src/exec/heredoc.c */
 

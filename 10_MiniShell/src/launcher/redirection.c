@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:42:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:51:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:44:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,17 +63,21 @@ void	do_redir(t_exec *exec)
 {
 	int		err_d;
 
+	printf("\e[31m pipe in :[% i|% i]\e[0m\n",exec->pipe_in[0], exec->pipe_in[1]);	// TODO:remove
+	printf("\e[31m pipe out:[% i|% i]\e[0m\n",exec->pipe_out[0], exec->pipe_out[1]);	// TODO:remove
 	if (exec->pipe_in[0] >= 0)
 	{
+		printf("\e[34m PIPE IN:[% i|% i]\e[0m\n",exec->pipe_in[0], exec->pipe_in[1]);	// TODO:remove
 		close(exec->pipe_in[1]);
-		err_d = dup2(0, exec->pipe_in[0]);
+		err_d = dup2(exec->pipe_in[0], 0);
 		if (err_d == -1)
 			return ;				// TODO: Handle IO Error
 	}
 	if (exec->pipe_out[1] >= 0)
 	{
+		printf("\e[34m PIPE OUT:[% i|% i]\e[0m\n",exec->pipe_out[0], exec->pipe_out[1]);	// TODO:remove
 		close(exec->pipe_out[0]);
-		err_d = dup2(1, exec->pipe_out[1]);
+		err_d = dup2(exec->pipe_out[1], 1);
 		if (err_d == -1)
 			return ;				// TODO: Handle IO Error
 	}

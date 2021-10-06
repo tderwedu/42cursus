@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:33:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:11:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,21 @@
 // 	(void)msg;
 // }
 
-int	ret_str_2_int(t_msh *msh)
+int	ret_atoi(t_msh *msh)
 {
+	int	i;
 	int	val;
 
-	val = (msh->ret[0] - '0') * 100 + (msh->ret[1] - '0') * 10;
-	val += (msh->ret[2] - '0');
+	i = 0;
+	val = 0;
+	while (msh->ret[i])
+		val += msh->ret[i++] - '0';
 	return (val);
 }
 
 void	ret_itoa(t_msh *msh, int ret)
 {
-	int		i;
+	int	i;
 
 	i = 1 + (ret >= 10) + (ret >= 100);
 	msh->ret[i] = '\0';

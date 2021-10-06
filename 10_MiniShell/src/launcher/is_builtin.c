@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:55:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 13:06:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 15:02:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ t_fct	is_builtin(char *name)
 {
 	int					i;
 	static t_builtin	lst[] = {
-    {"cd", &msh_cd},
-    {"pwd", &msh_pwd},
-    {"env", &msh_env},
-    {"exit", &msh_exit},
-    {"echo", &msh_echo},
-    {"unset", &msh_unset},
-    {"export", &msh_export},
+	{"cd", &msh_cd},
+	{"pwd", &msh_pwd},
+	{"env", &msh_env},
+	{"exit", &msh_exit},
+	{"echo", &msh_echo},
+	{"unset", &msh_unset},
+	{"export", &msh_export}
 	};
 	static int			max = sizeof(lst) / sizeof(t_builtin);
 
@@ -41,13 +41,12 @@ t_fct	is_builtin(char *name)
 	while (++i < max)
 	{
 		if (!ft_strcmp(lst[i].name, name))
-			break;
+			break ;
 	}
 	if (i < max)
 		return (lst[i].fct);
 	return (NULL);
 }
-
 
 // int	launch_builtin(t_msh *msh, t_exec *exec)
 // {

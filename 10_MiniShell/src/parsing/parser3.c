@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:29:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,9 @@ static void	parser_print_2(t_ast *tree, char **types, char **tabs, int tab)
 		return ;
 	if (tab > 9)
 		tab = 9;
-	printf("%s\033[36m%s\033[0m ", tabs[tab], types[tree->type]);
+	printf("%s\e[36m%s\e[0m ", tabs[tab], types[tree->type]);
 	if (tree->lex)
-		printf("\033[33m>\033[0m%s\033[33m<\033[0m", tree->lex);
+		printf("\e[33m>\e[0m%s\e[33m<\e[0m", tree->lex);
 	printf("\n");
 	if (tree->left)
 	{

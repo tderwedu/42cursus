@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:47:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:58:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,14 +17,11 @@ void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 	t_cmd	cmd;
 
 	exec->size = cmd_word_count(ast);
-	exec->tab = malloc(sizeof(char *) * (exec->size + 1));
+	exec->tab = malloc(sizeof(char**) * (exec->size + 1));
 	if (!exec->tab)
 		return ;
 	exec->tab[exec->size] = NULL;
-	exec->env = msh->env;
 	exec->io = NULL;
-	exec->cmdpath = NULL;
-	exec->msh = msh;
 	cmd.msh = msh;
 	cmd.exec = exec;
 	cmd.tail = NULL;

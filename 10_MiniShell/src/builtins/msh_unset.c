@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 09:46:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:44:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/06 17:55:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	msh_unset(t_exec *exec) //TODO: correct return
 
 	i = 1;
 	len = 0;
-	if (!exec->env)
+	if (!exec->msh->env)
 		return (EXIT_FAILURE);				//!Error need a change
 	while (exec->tab[i])
 	{
 		len = ft_strlen(exec->tab[i]);
-		if (find_env(exec->tab[i], exec->env, len))
+		if (find_env(exec->tab[i], exec->msh->env, len))
 			exec->msh->env_left++;
 		i++;
 	}
