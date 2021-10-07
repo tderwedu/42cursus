@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 17:58:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 11:07:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,25 +16,30 @@ void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
 
-	exec->size = cmd_word_count(ast);
-	exec->tab = malloc(sizeof(char**) * (exec->size + 1));
-	if (!exec->tab)
+	exec->argc = cmd_word_count(ast);
+	exec->argv = malloc(sizeof(char**) * (exec->argc + 1));
+	if (!exec->argv)
 		return ;
-	exec->tab[exec->size] = NULL;
+	exec->argv[exec->argc] = NULL;
 	exec->io = NULL;
 	cmd.msh = msh;
 	cmd.exec = exec;
 	cmd.tail = NULL;
 	cmd.i = 0;
 	if (ast)
+	{
 		cmd_ast_traversal(msh, &cmd, ast);
+		exec->fct = is_builtin(exec->argv[0]);
+		if (!exec->fct)
+			exec->cmdpath = get_cmd_path(exec, exec->argv[0]);
+	}
 }
 
 void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 {
-	if (ast->type == AST_WORD)
+	if (ast->type == AST_WORD && ast->lex)
 	{
-		cmd->exec->tab[cmd->i++] = ast->lex;
+		cmd->exec->argv[cmd->i++] = ast->lex;
 		ast->lex = NULL;
 	}
 	else if (ast->type == AST_IO_REDIR)

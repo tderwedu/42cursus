@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 14:13:56 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 12:15:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,9 @@ int	msh_echo(t_exec *exec) //TODO: add return
 	int		i;
 
 	i = 1;
-	if (!exec->tab)
+	if (!exec->argv)
 		return (EXIT_FAILURE);
-	tab = exec->tab;
+	tab = exec->argv;
 	if (!tab[i])
 	{
 		write(1, "\n", 1);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:02:36 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 17:59:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:30:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ char	*utils_env_get_ifs(char **env)
 {
 	char	*ifs;
 
-	ifs = utils_env_get_param(env, "IFS", 3);
+	ifs = msh_getenv(env, "IFS", 3);
 	if (!ifs)
 		ifs = ft_strdup(" \t\n");
 	if (!ifs)
@@ -160,14 +160,15 @@ char	*utils_env_check_name(char *str)
 	return (ptr);
 }
 
-char	*utils_env_get_param(char **env, char *var, int len)
+char	*msh_getenv(char **env, char *var, int len)
 {
 	if (!env || !var || !len)
 		return (NULL);
 	while (*env)
 	{
-		if (!ft_strncmp(*env, var, len) && (*env)[len] == '=')
-			return (*env + len + 1);
+		if (!ft_strncmp(*env, var, len)
+			&& ((*env)[len] == '=' || (*env)[len] == '\0'))
+			return (*env + len + ((*env)[len] == '='));
 		env++;
 	}
 	return (NULL);
@@ -195,6 +196,7 @@ char	*utils_env_go_2_val(char *var)
 		var++;
 	return (var + (*var == '='));
 }
+
 char	**utils_env_next_addr(t_msh *msh)
 {
 	char **addr;

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/21 11:32:26 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 12:53:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:30:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ char	*we_param_expansion(t_we *we, char *lex, int state)
 	ptr = utils_env_check_name(lex + 1);
 	if (ptr)
 	{
-		param = utils_env_get_param(we->msh->env, lex + 1, ptr - (lex + 1));
+		param = msh_getenv(we->msh->env, lex + 1, ptr - (lex + 1));
 		lex = ptr - 1;
 		if (param)
 			we_param_substitution(we, param, state);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 14:45:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 18:52:13 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:59:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,10 @@ struct s_msh
 	char	*cwd;
 };
 
-void	msh_free(t_msh *msh);
+void	msh_error(t_msh *msh, char *msg);
+void	free_msh(t_msh *msh);
 
-void	set_path(t_msh *msh);
-char	*get_bin(t_msh *msh, char *name);
-
+// TODO: Check with NATHAN
 void	signal_handling(void);
 void	handle_sigint(int sig);
 void	handle_sigusr1(int sig);

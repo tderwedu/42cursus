@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:55:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 15:02:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,18 +52,18 @@ t_fct	is_builtin(char *name)
 // {
 // 	int	ret;
 
-// 	set_lowercase(exec->tab[0]);
-// 	if (!ft_strncmp(exec->tab[0], "echo", 5))
+// 	set_lowercase(exec->argv[0]);
+// 	if (!ft_strncmp(exec->argv[0], "echo", 5))
 // 		ret = msh_echo(msh, exec);
-// 	else if (!ft_strncmp(exec->tab[0], "cd", 3))
+// 	else if (!ft_strncmp(exec->argv[0], "cd", 3))
 // 		ret = msh_cd(msh, exec);
-// 	else if (!ft_strncmp(exec->tab[0], "unset", 6))
+// 	else if (!ft_strncmp(exec->argv[0], "unset", 6))
 // 		ret = msh_unset(msh, exec);
-// 	else if (!ft_strncmp(exec->tab[0], "env", 4))
+// 	else if (!ft_strncmp(exec->argv[0], "env", 4))
 // 		ret = msh_env(msh, exec);
-// 	else if (!ft_strncmp(exec->tab[0], "pwd", 4))
+// 	else if (!ft_strncmp(exec->argv[0], "pwd", 4))
 // 		ret = msh_pwd(msh, exec);
-// 	else if (!ft_strncmp(exec->tab[0], "export", 4))
+// 	else if (!ft_strncmp(exec->argv[0], "export", 4))
 // 		ret = msh_export(exec);
 // 	else
 // 		ret = -1;

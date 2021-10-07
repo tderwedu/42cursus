@@ -6,12 +6,11 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:42:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 18:44:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:51:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
-#include "minishell.h"
 
 //	TODO: remove
 //	int dup(int oldfd);
@@ -33,7 +32,7 @@ void	undo_redir(t_exec *exec)
 	}
 }
 
-void	redir_io_lst(t_exec *exec)
+void	redir_io_lst(t_exec *exec, int save)
 {
 	int		err_d;
 	t_io	*io;
@@ -49,9 +48,12 @@ void	redir_io_lst(t_exec *exec)
 			free(io->filename);
 			io->filename = NULL;
 		}
-		io->fd_d = dup(io->fd);
-		if (err_d == -1)
-			return ;				// TODO: Handle IO Error
+		if (save)
+		{
+			io->fd_d = dup(io->fd);
+			if (err_d == -1)
+				return ;				// TODO: Handle IO Error
+		}
 		err_d = dup2(io->fd_h, io->fd);
 		if (err_d == -1)
 			return ;				// TODO: Handle IO Error
@@ -59,7 +61,7 @@ void	redir_io_lst(t_exec *exec)
 	}
 }
 
-void	do_redir(t_exec *exec)
+void	do_redir(t_exec *exec, int save)
 {
 	int		err_d;
 
@@ -81,5 +83,5 @@ void	do_redir(t_exec *exec)
 		if (err_d == -1)
 			return ;				// TODO: Handle IO Error
 	}
-	redir_io_lst(exec);
+	redir_io_lst(exec, save);
 }

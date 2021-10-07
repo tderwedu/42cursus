@@ -6,12 +6,9 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/01 15:24:00 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/06 12:52:08 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:40:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include <sys/wait.h>
-#include <sys/types.h>
 
 #include "exec.h"
 

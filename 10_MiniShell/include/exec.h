@@ -6,14 +6,20 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 17:56:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 11:02:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef EXEC_H
 # define EXEC_H
 
+# include <stdio.h>
 # include <fcntl.h>
+# include <string.h>
+# include <dirent.h>
+# include <sys/wait.h>
+# include <sys/types.h>
+# include <sys/errno.h>
 # include "utils.h"
 # include "parser.h"
 # include "minishell.h"
@@ -27,6 +33,15 @@ typedef struct s_exec	t_exec;
 typedef struct s_tok	t_tok;
 typedef struct s_ast	t_ast;
 typedef struct s_msh	t_msh;
+
+typedef struct dirent t_dirent;
+
+typedef int (*t_fct)(t_exec *exec);
+typedef struct s_builtin
+{
+	char	*name;
+	t_fct	fct;
+}					t_builtin;
 
 struct s_io
 {
@@ -45,10 +60,10 @@ struct s_exec
 	int		pipe_in[2];
 	int		pipe_out[2];
 	t_io	*io;
+	t_fct	fct;
 	char	*cmdpath;
-	int		size;
-	char	**tab;
-	char	**env;
+	int		argc;
+	char	**argv;
 };
 
 typedef struct s_cmd
@@ -79,11 +94,6 @@ void	print_exec(t_exec *exec);
 
 int		heredoc(t_msh *msh, t_ast *ast);
 
-// TODO: reORGANIZE
-
-void	set_path(t_msh *msh);
-char	*get_bin(t_msh *msh, char *name);
-
 /* ================================= Builtins =============================== */
 
 /* FILES: src/builtins/ */
@@ -98,20 +108,15 @@ int		msh_export(t_exec *exec);
 
 /* ================================= tmp =============================== */
 
-
-typedef int (*t_fct)(t_exec *exec);
-typedef struct s_builtin
-{
-	char	*name;
-	t_fct	fct;
-}					t_builtin;
-
 t_fct	is_builtin(char *name);
 
+char	*get_cmd_path(t_exec *exec, char *cmd);
 void	msh_launch(t_msh *msh);
 
-void	do_redir(t_exec *exec);
+void	error_exec(t_exec *exec);
+
+void	do_redir(t_exec *exec, int save);
 void	undo_redir(t_exec *exec);
-void	redir_io_lst(t_exec *exec);
+void	redir_io_lst(t_exec *exec, int save);
 
 #endif

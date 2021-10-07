@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_path.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 10:02:44 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/29 15:33:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 10:30:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void	set_path(t_msh *msh)
 	
 	if (msh->path)
 		free(msh->path);
-	path = utils_env_get_param(msh->env, "PATH", 4);
+	path = msh_getenv(msh->env, "PATH", 4);
 	msh->path = malloc(sizeof(*msh->path) * (get_size(path)));
 	if (!msh->path)
 		msh_error(msh, ERR_MALLOC);

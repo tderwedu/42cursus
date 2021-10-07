@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 22:19:26 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 11:06:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ extern pid_t	g_sig;
 // 	rl_redisplay();				// Discplay the new buffer
 // }
 
-void	msh_free(t_msh *msh)
+void	free_msh(t_msh *msh)
 {
 	(void)msh;
 }
@@ -66,8 +66,8 @@ int	main(int argc, char **argv, char **env)
 	// signal(SIGQUIT, SIG_IGN);		// Ignore SIGQUIT
 	signal_handling();
 	printf("Welcome! Exit by pressing CTRL-D.\n");
-	set_path(&msh);
-	msh.cwd = ft_strdup(utils_env_get_param(env, "PWD", 3));
+	// set_path(&msh);
+	msh.cwd = ft_strdup(msh_getenv(env, "PWD", 3));
 	printf("\e[36mCWD\e[0m:%s\n", msh.cwd);
 	while(1)
 	{

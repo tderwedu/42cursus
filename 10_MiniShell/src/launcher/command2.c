@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:56:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	cmd_word_count_sub(t_ast *ast, int *count)
 {
 	if (ast->type == AST_IO_REDIR)
 		return ;
-	if (ast->type == AST_WORD)
+	if (ast->type == AST_WORD && ast->lex)
 		(*count)++;
 	if (ast->left)
 		cmd_word_count_sub(ast->left, count);
@@ -40,8 +40,8 @@ void	free_exec(t_exec *exec)
 
 	if (exec->cmdpath)
 		free(exec->cmdpath);
-	if (exec->tab)
-		free_tab(exec->tab);
+	if (exec->argv)
+		free_tab(exec->argv);
 	io = exec->io;
 	next = exec->io;
 	while (io)
@@ -66,10 +66,10 @@ void	print_exec(t_exec *exec)
 
 	if (!exec)
 		return ;
-	tab = exec->tab;
+	tab = exec->argv;
 	io = exec->io;
 	printf("\e[33m \t ### NEXT EXEC ###\e[0m\n");
-	printf("\e[36m CMD \e[0m %s\n", exec->tab[0]);
+	printf("\e[36m CMD \e[0m %s\n", exec->argv[0]);
 	printf("\e[36m PATH\e[0m %s\n", exec->cmdpath);
 	printf("\e[36m ARGS\e[0m\n");
 	while (*tab)

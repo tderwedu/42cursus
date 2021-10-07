@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/06 13:00:59 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/07 11:08:32 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,10 +26,10 @@ SRC		=	./src/builtins/msh_echo.c \
 			./src/builtins/msh_export.c \
 			./src/launcher/command1.c \
 			./src/launcher/command2.c \
-			./src/launcher/launch.c \
+			./src/launcher/launcher.c \
 			./src/launcher/redirection.c \
 			./src/launcher/heredoc.c \
-			./src/launcher/get_bin.c \
+			./src/launcher/get_cmd_path.c \
 			./src/launcher/is_builtin.c \
 			./src/parsing/lexer1.c \
 			./src/parsing/lexer2.c \
@@ -40,7 +40,7 @@ SRC		=	./src/builtins/msh_echo.c \
 			./src/parsing/word_expansion2.c \
 			./src/signals/signals.c \
 			./src/utils/utils.c \
-			./src/utils/set_path.c \
+			./src/utils/path_join.c \
 			./src/utils/msh_canonpath.c \
 			./src/utils/msh_print_error.c \
 			./src/utils/utils_cst.c \

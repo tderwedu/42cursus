@@ -1,32 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_env.c                                          :+:      :+:    :+:   */
+/*   path_join.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:41:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/10/07 10:18:03 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/07 10:18:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "utils.h"
 
-int	msh_env(t_exec *exec)
+char	*path_join(char *dir, char *file)
 {
-	char	**env;
-
-	env = exec->msh->env;
-	if (exec->argv[1]) //TODO: test on MAc (no msg on WSL)
-	{
-		write(2, "env: illegal option or argument\n", 32);
-		return (EXIT_FAILURE);
-	}
-	while (*env)
-	{
-		write(1, *env, ft_strlen(*env));
-		write(1, "\n", 1);
-		env++;
-	}
-	return (EXIT_SUCCESS);
+	int		len_dir;
+	int		len_file;
+	char	*path;
+	
+	len_dir = ft_strlen(dir);
+	len_file = ft_strlen(file);
+	path = malloc(sizeof(*path) * (len_dir + len_file + 2));
+	if (!path)
+		return (NULL);
+	ft_memcpy(path, dir, len_dir);
+	path[len_dir] = '/';
+	ft_memcpy(path + len_dir + 1, file, len_file);
+	path[len_dir + 1 + len_file] = '\0';
+	return (path);
 }

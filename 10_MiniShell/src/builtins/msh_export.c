@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 17:55:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,11 @@ int	msh_export(t_exec *exec)
 	i = 1;
 	r = 0;
 	ret = 0;
-	if (!exec->tab[i])
+	if (!exec->argv[i])
 		return (msh_export_print(exec));
-	while (exec->tab[i])
+	while (exec->argv[i])
 	{
-		r = msh_export_var(exec->msh, exec->tab[i]);
+		r = msh_export_var(exec->msh, exec->argv[i]);
 		if (r)
 			ret = r;
 		i++;
