@@ -6,41 +6,42 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 18:19:27 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:37:41 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "parser.h"
 
-void	parser_free(t_ast *tree)
+t_ast	*free_ast(t_ast *tree)
 {
 	t_ast	*left;
 	t_ast	*right;
 
 	if (!tree)
-		return ;
+		return (NULL);
 	left = tree->left;
 	right = tree->right;
 	if (tree->lex)
 		free(tree->lex);
 	free(tree);
 	if (left)
-		parser_free(tree->left);
+		free_ast(tree->left);
 	if (right)
-		parser_free(tree->right);
+		free_ast(tree->right);
+	return (NULL);
 }
 
 void	parser_error(t_parser *vars, char *msg, char *opt)
 {
 	if (vars->tmp)
-		parser_free(vars->tmp);
+		free_ast(vars->tmp);
 	if (opt)
 	{
 		printf("Syntax Error near: %s\n", opt);
-		lexer_free(vars->head);
+		free_tok(vars->head);
 		msh_error(vars->msh, NULL);
 	}
-	lexer_free(vars->head);
+	free_tok(vars->head);
 	msh_error(vars->msh, msg);
 }
 

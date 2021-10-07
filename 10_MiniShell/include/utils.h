@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 13:01:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 10:30:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:55:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	**utils_env_next_addr(t_msh *msh);
 
 /* FILE = function  name */
 
-int		msh_print_error(char *s1, char *s2, char *s3, int ret);
+int		print_error(char *s1, char *s2, char *s3, int ret);
 char	*msh_canonpath(char *path);
 
 char	*path_join(char *dir, char *file);

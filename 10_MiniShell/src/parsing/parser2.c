@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:57:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/06 10:43:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:29:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_ast	*parser_pipe(t_parser *vars)
 		return (cmd_list);
 	if (vars->node->type != PIPE)
 	{
-		parser_free(cmd_list);
+		free_ast(cmd_list);
 		return (NULL);
 	}
 	vars->tmp = cmd_list;
@@ -32,7 +32,7 @@ t_ast	*parser_pipe(t_parser *vars)
 	pipe_seq->right = parser_pipe(vars);
 	if (!pipe_seq->right)
 	{
-		parser_free(pipe_seq);
+		free_ast(pipe_seq);
 		return (NULL);
 	}
 	return (pipe_seq);
@@ -72,7 +72,7 @@ t_ast	*parser_io_redir(t_parser *vars)
 		vars->tmp = parser_new(vars, AST_IO_NBR, vars->node);
 	if (!vars->node)
 	{
-		parser_free(vars->tmp);
+		free_ast(vars->tmp);
 		vars->tmp = NULL;
 		return (NULL);
 	}
@@ -81,7 +81,7 @@ t_ast	*parser_io_redir(t_parser *vars)
 	else if (vars->node->type == DLESS)
 		io_redir = parser_io_here(vars);
 	else
-		parser_free(vars->tmp);
+		free_ast(vars->tmp);
 	vars->tmp = NULL;
 	if (!io_redir)
 		vars->node = node;
@@ -100,7 +100,7 @@ t_ast	*parser_io_file(t_parser *vars)
 	vars->tmp = NULL;
 	if (!vars->node || vars->node->type != WORD)
 	{
-		parser_free(io_file);
+		free_ast(io_file);
 		return (NULL);
 	}
 	filename = parser_new(vars, AST_WORD, vars->node);
@@ -120,7 +120,7 @@ t_ast	*parser_io_here(t_parser *vars)
 	vars->tmp = NULL;
 	if (!vars->node || vars->node->type != WORD)
 	{
-		parser_free(io_here);
+		free_ast(io_here);
 		return (NULL);
 	}
 	filename = parser_new(vars, AST_WORD, vars->node);

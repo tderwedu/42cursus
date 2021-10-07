@@ -6,22 +6,29 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:25:07 by namenega          #+#    #+#             */
-/*   Updated: 2021/10/07 09:39:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:08:05 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_MESSAGES_H
 # define ERROR_MESSAGES_H
 
+# define ERRNO_NOT_FOUND	127
+
 // Choose between ERR and MSG
 # define MSG_MSH		"msh: "
 # define MSG_CD			"msh: cd: "
+# define MSG_DUP		"msh: dup: "
+# define MSG_DUP2		"msh: dup2: "
+# define MSG_FORK		"msh: fork: "
+# define MSG_OPEN		"msh: open: "
+# define MSG_PIPE		"msh: pipe: "
 # define MSG_EXECVE		"msh: execve: "
 # define MSG_EXPORT		"msh: export: `"
 # define ERR_MALLOC		"Malloc error."
-# define ERR_NO_CMD		"msh: %s: command not found\n"		// TODO: replace with msh_print_error
+# define ERR_NO_CMD		"msh: %s: command not found\n"		// TODO: replace with print_error
 # define ERR_QUOTES		"msh: error odd number of quotes."
-# define ERR_SYNTAX		"Syntax Error near: %s\n"			// TODO: replace with msh_print_error
+# define ERR_SYNTAX		"Syntax Error near: %s\n"			// TODO: replace with print_error
 # define MSG_CD_USE		": invalid option\ncd: usage: cd [dir]\n"
 # define MSG_ELOOP		": Too many levels of symbolic links\n"
 # define MSG_ENAME2LONG	": File name too long\n"

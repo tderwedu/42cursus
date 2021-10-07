@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 11:46:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 11:48:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 16:32:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ static inline char	*try_path_join(t_exec *exec, char *dir, char *cmd)
 	file = path_join(dir, cmd);
 	if (!file)
 	{
-		msh_print_error(MSG_MSH, ERR_MALLOC, NULL, EXIT_FAILURE);
-		error_exec(exec);
+		print_error(MSG_MSH, ERR_MALLOC, NULL, EXIT_FAILURE);
+		error_exec(exec, EXIT_FAILURE);
 	}
 	return (file);
 }

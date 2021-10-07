@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   command1.c                                         :+:      :+:    :+:   */
+/*   prep_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 11:07:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:20:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "exec.h"
 
-void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec)
+void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
 
@@ -85,7 +85,7 @@ void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *io_redir)
 
 	new = malloc(sizeof(*new));
 	if (!new)
-		cmd_error(cmd, ERR_MALLOC);
+		error_cmd(cmd, ERR_MALLOC);
 	new->filename = io_redir->right->lex;
 	io_redir->right->lex = NULL;
 	cmd_add_io_fd(msh, io_redir, new);

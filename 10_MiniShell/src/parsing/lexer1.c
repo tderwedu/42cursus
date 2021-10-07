@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/30 12:29:05 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/09/30 10:10:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:35:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	lexer(t_msh *msh)
 	}
 	lexer_new(&lex, WORD);
 	msh->tok = lex.head;
+	free(msh->line);
+	msh->line = NULL;
 }
 
 void	lexer_handle_blank(t_lexer *lex)

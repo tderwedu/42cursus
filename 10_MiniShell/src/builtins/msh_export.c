@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 12:55:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	msh_export_var(t_msh *msh, char *exp)
 
 	value = utils_env_check_name(exp);
 	if (!value && !(*value != '=' || *value == '\0'))
-		return (msh_print_error(MSG_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
+		return (print_error(MSG_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
 	param = utils_env_param(msh->env, exp, value - exp);
 	if (param)
 		free(*param);

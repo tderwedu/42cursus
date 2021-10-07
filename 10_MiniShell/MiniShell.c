@@ -6,28 +6,20 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/30 10:05:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 11:06:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:17:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "include/minishell.h"
 
-extern pid_t	g_sig;
+/* Global for Signals */
 
-// void	handle_sigint(int sig)
-// {
-// 	(void)sig;
-// 	printf("\e[32m Handling CTRL-C\e[0m\n");
-// 	rl_on_new_line();			// Regenerate the prompt on a newline
-// 	// if (*rl_line_buffer)			// Buffer empty
-// 		// TODO:set RET to 130
-// 	rl_replace_line("", 0);		// Clear the previous text
-// 	rl_redisplay();				// Discplay the new buffer
-// }
+pid_t	g_pid;
 
-void	free_msh(t_msh *msh)
+t_msh	*free_msh(t_msh *msh)
 {
 	(void)msh;
+	return (NULL);
 }
 
 void	msh_error(t_msh *msh, char *msg)
@@ -50,10 +42,10 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	t_msh	msh;
 
+	g_pid = 0;
 	msh.env_left = 5;
 	msh.env_size = utils_env_size(env) + msh.env_left;
 	msh.env = utils_env_copy(env, msh.env_size);
-	msh.path = NULL;
 	msh.line = NULL;
 	msh.tok = NULL;
 	msh.ast = NULL;
@@ -76,15 +68,12 @@ int	main(int argc, char **argv, char **env)
 			break;
 		else if (*msh.line)					// ADD to history if not empty
 		{
-			g_sig = 1;
 			add_history(msh.line);
 			lexer(&msh);
 			parser(&msh);
 			we_word_expansion(&msh);
-			// parser_print(msh.ast); // TODO:remove
-			msh_launch(&msh);
+			launcher(&msh);
 		}
-		g_sig = 0;
 	}
 	printf("\e[31m \nBye Bye!\e[0m\n");
 }

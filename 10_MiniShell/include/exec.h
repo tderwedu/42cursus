@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 14:13:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 11:02:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:01:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,6 @@ struct s_io
 struct s_exec
 {
 	t_msh	*msh;
-	pid_t	pid;
 	int		pipe_in[2];
 	int		pipe_out[2];
 	t_io	*io;
@@ -74,25 +73,47 @@ typedef struct s_cmd
 	int		i;
 }				t_cmd;
 
-/* ================================= Command =============================== */
+/* ================================= Launcher =============================== */
 
-/* FILE: src/exec/command1.c */
+/* FILE: src/exec/launcher.c */
 
-void	cmd_get(t_msh *msh, t_ast *ast, t_exec *exec);
+void	launcher(t_msh *msh);
+void	error_exec(t_exec *exec, int ret);
+void	error_exec_errno(t_exec *exec, char *msg);
+
+/* FILE: src/exec/launch_simple.c */
+
+void	launch_simple_cmd(t_exec *exec);
+
+/* FILE: src/exec/launch_pipe.c */
+
+void	launch_pipe_seq(t_exec *exec);
+void	no_pipe(int	pipe[2]);
+void	close_pipe(int pipe[2]);
+void	switch_pipe(int pipe_in[2], int pipe_out[2]);
+
+/* FILE: src/exec/redirection.c */
+
+void	apply_redir(t_exec *exec, int save);
+void	redir_io_lst(t_exec *exec, t_io *io, int save);
+void	reverse_redir(t_exec *exec);
+
+/* ================================= Launcher =============================== */
+
+/* FILE: src/exec/prep_cmd.c */
+
+void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec);
 void	cmd_add_word(t_cmd *cmd, t_ast *ast);
 void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast);
 void	cmd_add_io(t_msh *msh, t_cmd *cmd, t_ast *ast);
 
-/* FILE: src/exec/command2.c */
+/* FILE: src/exec/prep_cmd_utils.c */
 
 int		cmd_word_count(t_ast *ast);
-void	free_exec(t_exec *exec);
-void	cmd_error(t_cmd *cmd, char *msg);
+t_io	*free_io(t_io *node);
+t_exec	*free_exec(t_exec *exec);
+void	error_cmd(t_cmd *cmd, char *msg);
 void	print_exec(t_exec *exec);
-
-/* FILE: src/exec/heredoc.c */
-
-int		heredoc(t_msh *msh, t_ast *ast);
 
 /* ================================= Builtins =============================== */
 
@@ -106,17 +127,12 @@ int		msh_echo(t_exec *exec);
 int		msh_unset(t_exec *exec);
 int		msh_export(t_exec *exec);
 
-/* ================================= tmp =============================== */
+/* ================================= Utils ================================= */
+
+/* FILES: src/launcher/ */
 
 t_fct	is_builtin(char *name);
-
 char	*get_cmd_path(t_exec *exec, char *cmd);
-void	msh_launch(t_msh *msh);
-
-void	error_exec(t_exec *exec);
-
-void	do_redir(t_exec *exec, int save);
-void	undo_redir(t_exec *exec);
-void	redir_io_lst(t_exec *exec, int save);
+int		heredoc(t_msh *msh, t_ast *ast);
 
 #endif

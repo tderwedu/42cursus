@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: namenega <namenega@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/31 16:02:27 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/05 14:53:12 by namenega         ###   ########.fr       */
+/*   Updated: 2021/10/07 17:33:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,9 +122,9 @@ void	lexer_handle_io(t_lexer *lex);
 
 void	lexer_handle_pipe(t_lexer *lex);
 void	lexer_new(t_lexer *lex, int type);
-void	lexer_free(t_tok *head);
+t_tok	*free_tok(t_tok *lst);
 void	lexer_error(t_lexer *lex, char *msg);
-void	lexer_print(t_tok *token);
+void	print_tok(t_tok *token);
 
 /* ================================== PARSER ================================ */
 
@@ -143,7 +143,7 @@ t_ast	*parser_io_here(t_parser *vars);
 
 /* FILE: src/parser/parser3.c */
 
-void	parser_free(t_ast *tree);
+t_ast	*free_ast(t_ast *tree);
 void	parser_error(t_parser *vars, char *msg, char *opt);
 void	parser_print(t_ast *tree);
 

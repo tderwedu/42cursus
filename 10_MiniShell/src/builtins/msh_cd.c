@@ -63,7 +63,7 @@ int	msh_chdir(t_msh *msh, char *path, int update)
 {
 	errno = 0;
 	if (chdir(path))
-		return (msh_print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
+		return (print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
 	if (MSG_CD_export(msh, "OLDPWD", msh->cwd))
 		return (EXIT_FAILURE);
 	if (MSG_CD_export(msh, "PWD", path))
@@ -122,14 +122,14 @@ int	msh_check_path(char *dst, char *path)
 		if (errno == ENOENT || errno == ELOOP)
 			return (0);
 		else if (errno == ENAMETOOLONG)
-			return (msh_print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
+			return (print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 		else if (!S_ISDIR (st.st_mode))
-			return (msh_print_error(MSG_CD, dst, MSG_ENOTDIR, EXIT_FAILURE));
+			return (print_error(MSG_CD, dst, MSG_ENOTDIR, EXIT_FAILURE));
 		else
-			return (msh_print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
+			return (print_error(MSG_CD, strerror(errno), NULL, EXIT_FAILURE));
 	}
 	if (ft_strlen(dst) > MAXPATHLEN)
-		return (msh_print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
+		return (print_error(MSG_CD, dst, MSG_ENAME2LONG, EXIT_FAILURE));
 	return (0);
 }
 
@@ -150,9 +150,9 @@ int	msh_set_path(t_msh *msh, char *dst)
 		if (msh_check_path(dst, path))
 			return (EXIT_FAILURE);
 		if (errno == ENOENT)
-			return (msh_print_error(MSG_CD, dst, MSG_ENOENT, EXIT_FAILURE));
+			return (print_error(MSG_CD, dst, MSG_ENOENT, EXIT_FAILURE));
 		else if (errno == ELOOP)
-			return (msh_print_error(MSG_CD, dst, MSG_ELOOP, EXIT_FAILURE));
+			return (print_error(MSG_CD, dst, MSG_ELOOP, EXIT_FAILURE));
 	}
 	return (msh_chdir(msh, path, update));
 }
@@ -165,18 +165,18 @@ int	msh_cd(t_exec *exec)
 	{
 		path = msh_getenv(exec->msh->env, "HOME", 4);
 		if (!path)
-			return (msh_print_error(MSG_CD, MSG_HOME, NULL, EXIT_FAILURE));
+			return (print_error(MSG_CD, MSG_HOME, NULL, EXIT_FAILURE));
 		return (msh_set_path(exec->msh, path));
 	}
 	else if (exec->argv[1][0] == '-' && exec->argv[1][1] == '\0')
 	{
 		path = msh_getenv(exec->msh->env, "OLDPWD", 4);
 		if (!path)
-			return (msh_print_error(MSG_CD, MSG_OLDPWD, NULL, EXIT_FAILURE));
+			return (print_error(MSG_CD, MSG_OLDPWD, NULL, EXIT_FAILURE));
 		return (msh_set_path(exec->msh, path));
 	}
 	else if (exec->argv[1][0] == '-')
-		return (msh_print_error(MSG_CD, exec->argv[1], MSG_CD_USE, EXIT_FAILURE));
+		return (print_error(MSG_CD, exec->argv[1], MSG_CD_USE, EXIT_FAILURE));
 	else
 		return (msh_set_path(exec->msh, exec->argv[1]));
 }
