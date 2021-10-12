@@ -152,12 +152,12 @@ When a DNS server is non-authoritative and ask a query to an external DNS and fo
 They are 13 IP addresses for special DNS server around the world which are called *Root Servers*. They are authoritative for root namespace. They know how to find DNS servers for each Top-Level Domains (TLD).
 So, when our DNS server does not know the domain, it can an Iterative Query.
 - Asking a Root Server for the IP for the proper Top Level DNS authoritative server,
-- Asking the TLD DNS server for the IP of the Second Level DNS server,
+- Asking the TLD DNS server for the IP of the Second Level DNS authoritative server,
 - ...
 
 ## Access Control List (ACL)
-An Access Control List (ACL) is list or rules. Each rule is Access Control Entry (ACE) and is used to permit or deny traffic. The list is evaluated from top to bottom. Each rule contains information such as src/dst IP address, src/dst port numbers, protocol used, ...
-If the incoming traffic does not match any rule, there is an invisible rule at the end of the list called *the implicit deny* ('deny any any').
+An Access Control List (ACL) is list or rules. Each rule is Access Control Entry (ACE) and is used to permit or deny traffic. The list is evaluated from top to bottom. Each rule contains information such as src/dst IP address, src/dst port numbers, transport protocol used, ...
+If the incoming traffic does not match any rule, there is an invisible rule at the end of the list called *the implicit deny* ('deny any').
 
 ACLs can use wildcards which are bits mask. The part that needs to match is made up of zeros and the free part is made of ones! There is also no restriction on the wildcard values like subnet masks.
 
@@ -199,12 +199,13 @@ Pros
 Cons
 - Packets can arrives at their destination out of order.
 
+# W.I.P.
 
-# The Internet [quite dull ...]
+## The Internet [quite dull ...]
 LAN -> WAN -> wider WAN -> Wider and Wider WAN -> Widest Wan -> WAN -> LAN
 Router run by an Internet Service Provider (ISP).
 
-# The world Wide Web
+## The World Wide Web
 
 The web is made of pages. A page is a document containing contents which can include links to other pages (Hyperlinks). The hyperlinks form a huge web of interconnected information.
 

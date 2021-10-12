@@ -11,20 +11,20 @@ Developed by the ISO (International Organization for Standardization). Unlike th
 >**1** - Physical  
 
 ### `Application`
-FTP, web browsing, email, network management session (like SSH), ...
+*FTP, web browsing, email, network management session (like SSH), ...*
 ### `Presentation`
 Data formatting (data formats) and conversion (encryption, compression).
 ### `Session`
 Application processes, request to remote services (Session Control Services - SCP)
 ### `Transport`
 Responsible for data transport between two endpoints. Breaks data into segments (TCP) or datagram (UDP). Each flow of data has two port numbers. One is associated to the source and one the destination.  
-TCP, UDP, ...  
-Port number *80* for web server, ...
+*TCP, UDP, ...  *  
+*Port number 80 for web server, ...*
 ### `Network`
-Network (IP) addresses and routing. After adding the IP addresses the pieces of data are called data segments.
+Network addresses, IPs, and routing. After adding the IP addresses the pieces of data are called data packets.
 ### `Data Link`
 Getting data between two devices which are not necessarily the two endpoints. Creates a logical link between devices which are not directly connected.  
-Ethernet.
+*Ethernet Protocol*
 ### `Physical`
 Encodes data into physical signals.
 
@@ -62,7 +62,7 @@ Converts data segment or datagram into packets by adding a header with the sourc
 ### `Data Link`
 Responsible of delivering traffic on a single network segment, LAN or subnet.  
 If Ethernet protocol is used:  
-1. If the 2 hosts are in the same subnet then delivery is achieved using MAC. addresses.
-2. If the 2 hosts are in different subnets routers are needed and the destination (dst) MAC. is the router. The router looks at the dst IP and set the MAC. address accordingly. The source (src) MAC. address becomes the one of the routers.
+1. If the 2 hosts are in the same subnet then delivery is achieved using MAC addresses.
+2. If the 2 hosts are in different subnets routers are needed and the destination (dst) MAC is the router's one. The router looks at the dst IP and set the MAC address accordingly. The source (src) MAC address becomes the one of the routers.
 ### `Physical`
 Encodes data into physical signals.

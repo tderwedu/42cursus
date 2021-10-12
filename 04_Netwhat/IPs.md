@@ -1,6 +1,6 @@
 # IP addresses
 
-IP addresses consist of two groups of bits in the address: the most significant bits are the network prefix, which identifies a whole network or subnet, and the least significant set forms the host identifier, which specifies a particular interface of a host on that network.
+IP addresses consist of two groups of bits: the most significant bits are the network prefix, which identifies a whole network or subnet, and the least significant set forms the host identifier, which specifies a particular interface on that network.
 
 **functions**
 - network identification
@@ -12,25 +12,25 @@ IP addresses consist of two groups of bits in the address: the most significant 
 - **IPv4** (32 bits)  
 	This is the first version of IP. It was deployed for production in the ARPANET in 1983.  Is still the most used IP version today. 
 - **IPv6** (128 bits)  
-	It is the most recent version of the Internet Protocol. It was initiated it in early 1994.
+	It is the most recent version of the Internet Protocol. It was initiated in early 1994.
 
 > Special purpose addresses :  
 > Network IP : first address of a subnet (all host bits set to 0).  
 > Broadcast IP : last address of a subnet (all host bits set to 1).  
 > The Broadcast IP : 255.255.255.255
 
-This last IP is used when a device is starting up and has not IP address nor information about the local subnet. This IP allow to send traffic everywhere.
+This last IP is used when a device is starting up and has not an IP address nor information about the local subnet. This IP allow to send traffic everywhere.
 
 ### Assigning Addresses
 1. Static addresses (routers and some server)
-2. Dynamic addresses with a Dynamic Host Configuration Protocol (DHCP).  
+2. Dynamic addresses with a Dynamic Host Configuration Protocol (DHCP).
 3. Automatic Private IP addressing (unusual).
 
 ## Evolutions
 
-1. One byte for the network and 3 bytes for the host.
-2. IP addresses classes
-3. Classless IP addresses and subnets
+1. One byte for the network and 3 bytes for the host,
+2. IP addresses classes,
+3. Classless IP addresses and subnets (CIDR).
 
 ## IP addresses classes
 

@@ -41,6 +41,7 @@ Carrier Sense Multiple Access (CSMA) is a Media Access Control protocol used to 
 
 ## HUBS
 *A layer 2 device - Still a BUS like network*
+
 The devices are connected to the HUB instead of chaining all the nodes up. The frames are still sent to every device.
 - Half Duplex : cannot send and receive at the same time
 - Collision Domain = entire network.
@@ -53,11 +54,18 @@ Cons
 
 ## Bridges
 *A layer 2 device - Still a BUS like network*
+
 Bridges have MAC addresses tables which contain all the MAC of the network and to which interface the devices are connected to. Allow to break the network into sub collision domains.
 
 If a frame arrives at an interface of the bridge:
 1. The dst MAC is in the same sub-domain. The bridge does nothing.
 2. The dst MAC is connected to another bridge's interface. The bridge forward the frame out (Filtering).
+
+Pros
+- Less traffic flooding,
+- Smaller Collision Domains,
+- Better performances,
+- Better scalability.
 
 Bridges have 5 functions :
 - Filtering
@@ -66,15 +74,9 @@ Bridges have 5 functions :
 - Forwarding
 - Aging
 
-Pros
-- Less traffic flooding,
-- Smaller Collision Domains,
-- Better performances,
-- Better scalability.
-
 ### How the MAC table is filled
 1. Whenever a frame arrives at an interface the bridge looks for the src MAC address. If the address id not already in the table, the MAC is added with the corresponding interface.
-2. If the src MAC is unknown, the bridge flood the frame out at all interfaces except the one the frame arrived on.
+2. If the dst MAC is unknown, the bridge flood the frame out at all interfaces except the one the frame arrived on.
 3. If the MAC is already in the table but is associated to another interface, the table is updated.
 4. All the entries of the table have an aging timer. The timer is reset at each new incoming frame. If the timer expires, the entry is removed from the table.
 5. If the table is full and a new entry needs to be learned, the oldest entry is discarded.
