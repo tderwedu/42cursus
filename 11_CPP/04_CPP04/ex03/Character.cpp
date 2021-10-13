@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.cpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:57:28 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 10:47:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 Character::Character(std::string const& name) : _name(name), _inv_size(0)
 {
 	for (int i = 0; i < CHAR_INV_SIZE; i++)
-		this->_inv[i] = nullptr;
+		this->_inv[i] = NULL;
 }
 
 Character::Character(Character const& src) : _name(src._name), _inv_size(src._inv_size)
@@ -25,7 +25,7 @@ Character::Character(Character const& src) : _name(src._name), _inv_size(src._in
 	for (int i = 0; i < src._inv_size; i++)
 		this->_inv[i] = src._inv[i]->clone();
 	for (int i = src._inv_size; i < CHAR_INV_SIZE; i++)
-		this->_inv[i] = nullptr;
+		this->_inv[i] = NULL;
 }
 
 Character::~Character()
@@ -43,7 +43,7 @@ std::string const&	Character::getName() const
 
 void	Character::equip(AMateria* m)
 {
-	if (this->_inv_size >= CHAR_INV_SIZE || m == nullptr)
+	if (this->_inv_size >= CHAR_INV_SIZE || m == NULL)
 		return ;
 	this->_inv[this->_inv_size] = m;
 	this->_inv_size++;
@@ -55,7 +55,7 @@ void	Character::unequip(int idx)
 		return ;
 	for (int i = idx; i < (this->_inv_size - 1); i++)
 		this->_inv[i] = this->_inv[i + 1];
-	this->_inv[this->_inv_size - 1] = nullptr;
+	this->_inv[this->_inv_size - 1] = NULL;
 	this->_inv_size--;
 }
 
@@ -79,7 +79,7 @@ Character const& Character::operator=(Character const& src)
 		for (int i = 0; i < this->_inv_size ; i++)
 			this->_inv[i] = src._inv[i]->clone();
 		for (int i = this->_inv_size; i < CHAR_INV_SIZE; i++)
-			this->_inv[i] = nullptr;
+			this->_inv[i] = NULL;
 	}
 	return *this;
 }

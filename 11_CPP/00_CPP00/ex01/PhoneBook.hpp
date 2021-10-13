@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   PhoneBook.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 12:22:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 09:15:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:07:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ class PhoneBook
 		Contact list[CONTACTS_SIZE];
 
 		size_t	get_index(void) const;
-		size_t 	get_size() const;
+		size_t 	get_size(void) const;
 };
 
 #endif

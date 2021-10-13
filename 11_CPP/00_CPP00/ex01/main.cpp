@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/27 14:29:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 09:15:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 14:03:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,10 @@ int	main(void)
 	std::string		input;
     PhoneBook		phone;
 
-	while (true)
+	std::cout << BOLD << "Enter a command (ADD, SEARCH, EXIT):" << CLEAR;
+	while (std::getline(std::cin, input))
 	{
-		std::cout << BOLD << "Enter a command (ADD, SEARCH, EXIT):" << CLEAR;
-		std::getline(std::cin, input);
-		if (!std::cin.fail())
+		if (std::cin && !std::cin.fail())
 		{
 			if (input == "EXIT")
 				break ;
@@ -36,5 +35,6 @@ int	main(void)
 			std::cin.clear();
 			std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 		}
+		std::cout << BOLD << "Enter a command (ADD, SEARCH, EXIT):" << CLEAR;
 	}
 }

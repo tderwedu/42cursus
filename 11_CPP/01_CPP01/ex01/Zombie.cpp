@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Zombie.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:41:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 11:36:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:21:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 Zombie::Zombie(void)
 {
-	std::cout << "Born to be alive. It's good to be alive " << std::endl;
+	std::cout << "*unknown* Born to be alive. It's good to be alive " << std::endl;
 }
 
 Zombie::Zombie(std::string name) : _name(name)
@@ -25,7 +25,7 @@ Zombie::Zombie(std::string name) : _name(name)
 
 Zombie::~Zombie(void)
 {
-	std::cout << _name << " NOOOOOOooooooo.." << std::endl;
+	std::cout << _name << ": " << "NOOOOOOooooooo.." << std::endl;
 }
 
 void	Zombie::set_name(std::string new_name)
@@ -37,11 +37,11 @@ void	Zombie::set_name(std::string new_name)
 
 void	Zombie::announce(void) const
 {
-	std::cout << _name << " BraiiiiiiinnnzzzZ..." << std::endl;
+	std::cout << _name << ": " << "BraiiiiiiinnnzzzZ..." << std::endl;
 }
 
 void	Zombie::eating(void) const
 {
-	std::cout << _name << " *SCHLRP* .. *GLOUP* .. *SLRP* ..." << std::endl;
+	std::cout << _name << ": " << "*SCHLRP* .. *GLOUP* .. *SLRP* ..." << std::endl;
 }
 

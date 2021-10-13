@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.cpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:57:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 11:01:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 MateriaSource::MateriaSource()
 {
 	for (int i = 0; i < SRC_LEARNED_SIZE; i++)
-		this->_learned[i] = nullptr;
+		this->_learned[i] = NULL;
 	this->_learned_size = 0;
 }
 
@@ -26,7 +26,7 @@ MateriaSource::MateriaSource(MateriaSource const& src) : _learned_size(src._lear
 	for (int i = 0; i < this->_learned_size; i++)
 		this->_learned[i] = src._learned[i]->clone();
 	for (int i = src._learned_size; i < SRC_LEARNED_SIZE; i++)
-		this->_learned[i] = nullptr;
+		this->_learned[i] = NULL;
 }
 
 MateriaSource::~MateriaSource()
@@ -39,7 +39,7 @@ MateriaSource::~MateriaSource()
 
 void MateriaSource::learnMateria(AMateria* m)
 {
-	if (this->_learned_size >= SRC_LEARNED_SIZE || m == nullptr)
+	if (this->_learned_size >= SRC_LEARNED_SIZE || m == NULL)
 	{
 		delete m;
 		return ;
@@ -55,7 +55,7 @@ AMateria* MateriaSource::createMateria(std::string const& type)
 		if (this->_learned[i]->getType() == type)
 			return this->_learned[i]->clone();
 	}
-	return nullptr;
+	return NULL;
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */
@@ -67,7 +67,7 @@ MateriaSource const&	MateriaSource::operator=(MateriaSource const& src)
 		for (int i = 0; i < SRC_LEARNED_SIZE; i++)
 		{
 			delete this->_learned[i];
-			this->_learned[i] = nullptr;
+			this->_learned[i] = NULL;
 		}
 		this->_learned_size = src._learned_size;
 		for (int i = 0; i < this->_learned_size; i++)

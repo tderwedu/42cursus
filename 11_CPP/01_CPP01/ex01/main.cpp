@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 11:51:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 17:32:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@ int	main(void)
 
 	std::cout << BOLD << std::endl << ">>> Error Handling:" << CLEAR;
 	horde = zombieHorde(-5, "NegHorde");
+	horde = zombieHorde(0, "ZeroHorde");
 	horde = zombieHorde(5, std::string());
+	horde = zombieHorde(5, "");
 
 	int n = 10;
 	std::cout << BOLD << std::endl << ">>> New Horde:" << CLEAR;

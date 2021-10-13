@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/26 15:59:03 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/27 14:58:29 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/13 13:31:11 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,12 +18,7 @@ SRC		= ./megaphone.cpp
 CC		= clang++
 CFLAGS	= -Wall -Wextra -Werror
 
-# SRC_D	= ./
-# OBJ_D	= obj/
-
 OBJ		= ${SRC:.cpp=.o}
-# SRC_P	= $(addprefix ${SRC_D} ${SRC})
-# OBJ_P	= $(addprefix ${OBJ_D} ${OBJ})
 
 # ================================== RULES =================================== #
 

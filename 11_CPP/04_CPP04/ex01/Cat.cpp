@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Cat.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:10:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Cat::Cat() : Animal("Cat")
 
 Cat::Cat(Cat const &src) : Animal(src)
 {
-	this->_Brain = nullptr;
+	this->_Brain = NULL;
 	*this = src;
 	std::cout	<< "Cat        : A new " << YLW << this->getType() << RST
 				<< " is born." << std::endl;

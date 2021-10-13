@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/28 09:22:15 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/30 12:28:41 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/13 17:10:35 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	=  karenFilter
+NAME	=  filter
 
 SRC		= ./Karen.cpp\
 		  ./main.cpp

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 10:32:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 10:50:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ Form *Intern::makeForm(std::string const& form, std::string const& target)
 	}
     std::cerr	<< YLW << "Intern" << RED <<" cannot create " << RST << form
 				<< ". Form not known." << std::endl;
-    return nullptr;
+    return NULL;
 }
 /* =========================== OPERATOR OVERLOADS =========================== */
 
