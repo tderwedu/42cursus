@@ -14,5 +14,5 @@ This project is an introduction to system administration. Docker is used to inst
 
 ## License
 
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).
 

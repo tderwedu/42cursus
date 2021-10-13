@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   is_builtin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/06 12:55:40 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:02:57 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
-// TODO: move to a better place
 static inline void	set_lowercase(char *s)
 {
 	int		i;
@@ -25,7 +24,7 @@ static inline void	set_lowercase(char *s)
 t_fct	is_builtin(char *name)
 {
 	int					i;
-	static t_builtin	lst[] = {
+	static t_fct_arr	lst[] = {
 	{"cd", &msh_cd},
 	{"pwd", &msh_pwd},
 	{"env", &msh_env},
@@ -34,7 +33,7 @@ t_fct	is_builtin(char *name)
 	{"unset", &msh_unset},
 	{"export", &msh_export}
 	};
-	static int			max = sizeof(lst) / sizeof(t_builtin);
+	static int			max = sizeof(lst) / sizeof(t_fct_arr);
 
 	set_lowercase(name);
 	i = -1;
@@ -47,27 +46,3 @@ t_fct	is_builtin(char *name)
 		return (lst[i].fct);
 	return (NULL);
 }
-
-// int	launch_builtin(t_msh *msh, t_exec *exec)
-// {
-// 	int	ret;
-
-// 	set_lowercase(exec->argv[0]);
-// 	if (!ft_strncmp(exec->argv[0], "echo", 5))
-// 		ret = msh_echo(msh, exec);
-// 	else if (!ft_strncmp(exec->argv[0], "cd", 3))
-// 		ret = msh_cd(msh, exec);
-// 	else if (!ft_strncmp(exec->argv[0], "unset", 6))
-// 		ret = msh_unset(msh, exec);
-// 	else if (!ft_strncmp(exec->argv[0], "env", 4))
-// 		ret = msh_env(msh, exec);
-// 	else if (!ft_strncmp(exec->argv[0], "pwd", 4))
-// 		ret = msh_pwd(msh, exec);
-// 	else if (!ft_strncmp(exec->argv[0], "export", 4))
-// 		ret = msh_export(exec);
-// 	else
-// 		ret = -1;
-// 	if (ret >= 0)
-// 		ret_itoa(msh, ret);
-// 	return (ret);
-// }

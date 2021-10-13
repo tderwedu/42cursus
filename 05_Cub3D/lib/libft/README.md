@@ -26,4 +26,4 @@ Louis Wicket's [libft](https://github.com/oomsveta)
 Matthew Dreemurr's [libft](https://github.com/Matthew-Dreemurr)
 
 ## License
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).

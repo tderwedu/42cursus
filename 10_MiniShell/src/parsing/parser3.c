@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/27 08:54:35 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:37:41 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 18:17:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,27 +25,22 @@ t_ast	*free_ast(t_ast *tree)
 		free(tree->lex);
 	free(tree);
 	if (left)
-		free_ast(tree->left);
+		free_ast(left);
 	if (right)
-		free_ast(tree->right);
+		free_ast(right);
 	return (NULL);
 }
 
-void	parser_error(t_parser *vars, char *msg, char *opt)
+void	parser_error(t_parser *vars, char *msg)
 {
-	if (vars->tmp)
-		free_ast(vars->tmp);
-	if (opt)
-	{
-		printf("Syntax Error near: %s\n", opt);
-		free_tok(vars->head);
-		msh_error(vars->msh, NULL);
-	}
-	free_tok(vars->head);
-	msh_error(vars->msh, msg);
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
+	free_ast(vars->tmp);
+	free_msh(vars->msh);
+	exit(258);
+	exit(EXIT_FAILURE);
 }
 
-static void	parser_print_2(t_ast *tree, char **types, char **tabs, int tab)
+static void	print_ast_2(t_ast *tree, char **types, char **tabs, int tab)
 {
 	if (!tree)
 		return ;
@@ -58,16 +53,16 @@ static void	parser_print_2(t_ast *tree, char **types, char **tabs, int tab)
 	if (tree->left)
 	{
 		printf("%sLEFT BRANCH\n", tabs[tab]);
-		parser_print_2(tree->left, types, tabs, tab + 1);
+		print_ast_2(tree->left, types, tabs, tab + 1);
 	}
 	if (tree->right)
 	{
 		printf("%sRIGHT BRANCH\n", tabs[tab]);
-		parser_print_2(tree->right, types, tabs, tab + 1);
+		print_ast_2(tree->right, types, tabs, tab + 1);
 	}
 }
 
-void	parser_print(t_ast *tree)
+void	print_ast(t_ast *tree)
 {
 	char	*types[5];
 	char	*tabs[10];
@@ -87,5 +82,5 @@ void	parser_print(t_ast *tree)
 	tabs[7] = "\t\t\t\t\t\t\t";
 	tabs[8] = "\t\t\t\t\t\t\t\t";
 	tabs[9] = "\t\t\t\t\t\t\t\t\t";
-	parser_print_2(tree, types, tabs, 0);
+	print_ast_2(tree, types, tabs, 0);
 }

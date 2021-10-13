@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ret_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 15:44:13 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 12:56:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 11:19:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ret_atoi(t_msh *msh)
 	i = 0;
 	val = 0;
 	while (msh->ret[i])
-		val += msh->ret[i++] - '0';
+		val = msh->ret[i++] - '0' + val * 10;
 	return (val);
 }
 

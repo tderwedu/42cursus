@@ -3,21 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmd.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:20:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:23:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec)
 {
 	t_cmd	cmd;
 
 	exec->argc = cmd_word_count(ast);
-	exec->argv = malloc(sizeof(char**) * (exec->argc + 1));
+	exec->argv = malloc(sizeof(char **) * (exec->argc + 1));
 	if (!exec->argv)
 		return ;
 	exec->argv[exec->argc] = NULL;
@@ -29,6 +29,9 @@ void	prep_next_cmd(t_msh *msh, t_ast *ast, t_exec *exec)
 	if (ast)
 	{
 		cmd_ast_traversal(msh, &cmd, ast);
+		exec->fct = NULL;
+		if (!*exec->argv)
+			return ;
 		exec->fct = is_builtin(exec->argv[0]);
 		if (!exec->fct)
 			exec->cmdpath = get_cmd_path(exec, exec->argv[0]);
@@ -52,16 +55,20 @@ void	cmd_ast_traversal(t_msh *msh, t_cmd *cmd, t_ast *ast)
 
 static inline void	cmd_add_io_fd(t_msh *msh, t_ast *io_redir, t_io *new)
 {
+	t_hd	*tmp;
+
 	if (io_redir->left && io_redir->left->type == AST_IO_NBR)
 		new->fd = ft_atoi(io_redir->left->lex);
 	else if (io_redir->lex[0] == '>')
 		new->fd = 1;
 	else
 		new->fd = 0;
-	// TODO: HEREDOC
-	if (io_redir->lex[0] == '>' && io_redir->lex[1] == '>')
+	if (io_redir->lex[0] == '<' && io_redir->lex[1] == '<')
 	{
-		new->fd_h = heredoc(msh, io_redir);
+		tmp = msh->hd_lst;
+		new->fd_h = tmp->fd_h;
+		msh->hd_lst = tmp->next;
+		free(tmp);
 	}
 	else
 		new->fd_h = -1;

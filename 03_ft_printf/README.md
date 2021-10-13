@@ -44,5 +44,5 @@ I learned mostly about floating-point numbers called ```double```.  How they are
 
 ## License
 
-All files, except those in the *grisu* folder, are  released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+All files, except those in the *grisu* folder, are  released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).
 

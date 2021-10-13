@@ -1,20 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_pwd.c                                          :+:      :+:    :+:   */
+/*   msh_getenv.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:41:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 10:07:33 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/10/08 12:30:55 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/08 12:31:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "utils.h"
 
-int	msh_pwd(t_exec *exec)
+char	*msh_getenv(char **env, char *var, int len)
 {
-	ft_putstr_fd(exec->msh->cwd, 1);
-	write(1, "\n", 1);
-	return (EXIT_SUCCESS);
+	if (!env || !var || !len)
+		return (NULL);
+	while (*env)
+	{
+		if (!ft_strncmp(*env, var, len)
+			&& ((*env)[len] == '=' || (*env)[len] == '\0'))
+			return (*env + len + ((*env)[len] == '='));
+		env++;
+	}
+	return (NULL);
 }

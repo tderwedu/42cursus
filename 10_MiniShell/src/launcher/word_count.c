@@ -1,20 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   msh_pwd.c                                          :+:      :+:    :+:   */
+/*   word_count.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/09/28 11:41:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 10:07:33 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/10/08 12:24:21 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "utils.h"
+#include "launcher.h"
 
-int	msh_pwd(t_exec *exec)
+static void	cmd_word_count_sub(t_ast *ast, int *count)
 {
-	ft_putstr_fd(exec->msh->cwd, 1);
-	write(1, "\n", 1);
-	return (EXIT_SUCCESS);
+	if (ast->type == AST_IO_REDIR)
+		return ;
+	if (ast->type == AST_WORD && ast->lex)
+		(*count)++;
+	if (ast->left)
+		cmd_word_count_sub(ast->left, count);
+	if (ast->right)
+		cmd_word_count_sub(ast->right, count);
+}
+
+int	cmd_word_count(t_ast *ast)
+{
+	int	count;
+
+	count = 0;
+	cmd_word_count_sub(ast, &count);
+	return (count);
 }
