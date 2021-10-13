@@ -11,4 +11,4 @@ This project is about learning the basics of Multithreading and Multiprocessing 
 
 ## License
 
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).

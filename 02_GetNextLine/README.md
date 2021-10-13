@@ -14,4 +14,4 @@ No test file is provided but you can try it out with my [GNL_tester](https://git
 I learned how the ```read``` function works, what are ```file descriptors```, how ```static variables``` work as well as how to use ```buffer``` (vector) to minimize memory to memory copying.
 
 ## License
-Everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).

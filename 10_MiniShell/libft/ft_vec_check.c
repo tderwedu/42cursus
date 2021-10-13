@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/24 12:09:17 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/04 16:52:05 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/08 11:44:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_vec_check(t_vec *vec, char *str)
 	}
 	len = vec->ptr - vec->str + 1;
 	ft_memcpy(new, vec->str, len);
-	printf("NEW VWC: %s\n", vec->str);
 	free(vec->str);
 	vec->str = new;
 	vec->ptr = new + len - 1;

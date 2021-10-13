@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   msh_export.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/28 16:29:41 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 12:55:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:05:19 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-
-//TODO: on single HEADER to rule them all
-// #define	msh_export		"msh: export: `"
-// #define	MSG_IDENTIFIER	"': not a valid identifier\n"
+#include "launcher.h"
 
 int	msh_export_print(t_exec *exec)
 {
@@ -24,13 +20,13 @@ int	msh_export_print(t_exec *exec)
 	argv = exec->msh->env;
 	while (*argv)
 		argv++;
-	argv = utils_env_copy(exec->msh->env, argv - exec->msh->env);
-	utils_env_sort(argv);
+	argv = grow_tab(exec->msh->env, argv - exec->msh->env);
+	sort_env(argv);
 	while (*argv)
 	{
-		value = utils_env_go_2_val(*argv);
+		value = env_go_2_val(*argv);
 		write(1, "declare -x ", 11);
-		write(1, *argv, value - (*value != '\0') - *argv );
+		write(1, *argv, value - (*value != '\0') - *argv);
 		if (*value)
 		{
 			write(1, "=\"", 2);
@@ -48,15 +44,15 @@ int	msh_export_var(t_msh *msh, char *exp)
 	char	*value;
 	char	**param;
 
-	value = utils_env_check_name(exp);
-	if (!value && !(*value != '=' || *value == '\0'))
-		return (print_error(MSG_EXPORT, exp, MSG_IDENTIFIER, EXIT_FAILURE));
-	param = utils_env_param(msh->env, exp, value - exp);
+	value = env_check_name(exp);
+	if (!value || (*value != '=' && *value != '\0'))
+		return (print_error(MSG_EXPORT, exp, ERR_IDENTIFIER, EXIT_FAILURE));
+	param = get_env_addr(msh->env, exp, value - exp);
 	if (param)
 		free(*param);
 	else
 	{
-		param = utils_env_next_addr(msh);
+		param = get_env_next_addr(msh);
 		if (!param)
 			return (EXIT_FAILURE);
 	}

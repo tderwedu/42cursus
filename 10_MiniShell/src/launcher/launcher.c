@@ -3,19 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   launcher.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 15:23:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:34:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:07:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
+
+extern pid_t	g_sig;
 
 void	launcher(t_msh *msh)
 {
 	t_exec	exec;
 
+	signal(SIGQUIT, handle_sigquit);
 	if (!msh->ast)
 		return ;
 	exec.msh = msh;
@@ -27,6 +30,8 @@ void	launcher(t_msh *msh)
 	else
 		launch_simple_cmd(&exec);
 	msh->ast = free_ast(msh->ast);
+	g_sig = 0;
+	signal(SIGQUIT, SIG_IGN);
 }
 
 void	error_exec(t_exec *exec, int ret)
@@ -38,7 +43,7 @@ void	error_exec(t_exec *exec, int ret)
 
 void	error_exec_errno(t_exec *exec, char *msg)
 {
-	print_error(msg, strerror(errno), NULL, errno);
+	print_error(msg, strerror(errno), "\n", errno);
 	free_exec(exec);
 	free_msh(exec->msh);
 	exit(errno);

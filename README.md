@@ -43,4 +43,4 @@ Most notably:
 
 ## License
 
-If not specified otherwise, everything in this repository is released under the [Unlicense](https://github.com/maxdesalle/42/blob/main/LICENSE).
+If not specified otherwise, everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).

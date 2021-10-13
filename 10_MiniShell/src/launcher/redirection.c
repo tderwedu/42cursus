@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redirection.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/05 16:42:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 16:39:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
 void	reverse_redir(t_exec *exec)
 {
@@ -45,7 +45,7 @@ void	redir_io_lst(t_exec *exec, t_io *io, int save)
 		if (save)
 		{
 			io->fd_d = dup(io->fd);
-			if (err_d == -1)
+			if (io->fd_d == -1)
 				error_exec_errno(exec, MSG_DUP);
 		}
 		err_d = dup2(io->fd_h, io->fd);

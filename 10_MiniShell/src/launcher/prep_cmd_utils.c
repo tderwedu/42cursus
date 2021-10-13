@@ -3,35 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   prep_cmd_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 16:57:07 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:00:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:10:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-
-static void	cmd_word_count_sub(t_ast *ast, int *count)
-{
-	if (ast->type == AST_IO_REDIR)
-		return ;
-	if (ast->type == AST_WORD && ast->lex)
-		(*count)++;
-	if (ast->left)
-		cmd_word_count_sub(ast->left, count);
-	if (ast->right)
-		cmd_word_count_sub(ast->right, count);
-}
-
-int	cmd_word_count(t_ast *ast)
-{
-	int	count;
-
-	count = 0;
-	cmd_word_count_sub(ast, &count);
-	return (count);
-}
+#include "launcher.h"
 
 t_io	*free_io(t_io *node)
 {
@@ -56,19 +35,21 @@ t_exec	*free_exec(t_exec *exec)
 		return (NULL);
 	if (exec->cmdpath)
 		free(exec->cmdpath);
-	// exec->cmdpath = NULL;
+	exec->cmdpath = NULL;
 	if (exec->argv)
 		free_tab(exec->argv);
-	// exec->argv = NULL;
+	exec->argv = NULL;
 	free_io(exec->io);
-	// exec->io = NULL;
+	exec->io = NULL;
 	return (NULL);
 }
 
 void	error_cmd(t_cmd *cmd, char *msg)
 {
+	print_error(MSG_MSH, msg, NULL, EXIT_FAILURE);
 	free_exec(cmd->exec);
-	msh_error(cmd->msh, msg);
+	free_msh(cmd->msh);
+	exit(EXIT_FAILURE);
 }
 
 void	print_exec(t_exec *exec)

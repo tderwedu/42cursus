@@ -3,32 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   launcher_pipe.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/07 15:57:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 17:22:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/09 12:26:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
+#include "launcher.h"
 
-extern pid_t	g_pid;
+extern pid_t	g_sig;
 
 static inline void	launch_subshell_cmd(t_exec *exec, char **env)
 {
-	g_pid = fork();
-	if (g_pid < 0)
+	g_sig = fork();
+	if (g_sig < 0)
 		error_exec_errno(exec, MSG_FORK);
-	if (g_pid == 0)
+	if (g_sig == 0)
 	{
 		apply_redir(exec, 0);
 		if (exec->fct)
 			exit((*exec->fct)(exec));
 		else
 		{
+			if (!*exec->argv)
+				error_exec(exec, EXIT_SUCCESS);
 			if (!exec->cmdpath)
 			{
-				print_error(MSG_MSH, exec->argv[0], MSG_NOTFOUND, 0);
+				print_error(MSG_MSH, exec->argv[0], ERR_NOTFOUND, 0);
 				error_exec(exec, ERRNO_NOT_FOUND);
 			}
 			exec->msh->env = NULL;
@@ -38,8 +40,7 @@ static inline void	launch_subshell_cmd(t_exec *exec, char **env)
 			error_exec_errno(exec, MSG_EXECVE);
 		}
 	}
-	else
-		close_pipe(exec->pipe_in);
+	close_pipe(exec->pipe_in);
 }
 
 void	launch_pipe_seq(t_exec *exec)
@@ -61,12 +62,17 @@ void	launch_pipe_seq(t_exec *exec)
 	prep_next_cmd(exec->msh, ast_pipe, exec);
 	launch_subshell_cmd(exec, exec->msh->env);
 	free_exec(exec);
-	waitpid(g_pid, &ret, 0);
-	ret_itoa(exec->msh, WEXITSTATUS(ret));
-	waitpid(-1, &ret, 0);
+	waitpid(g_sig, &ret, 0);
+	if (WIFSIGNALED(ret))
+		ret = 128 + WTERMSIG(ret);
+	else
+		ret = WEXITSTATUS(ret);
+	ret_itoa(exec->msh, ret);
+	while ((wait(&ret)) > 0)
+		;
 }
 
-void	no_pipe(int	pipe[2])
+void	no_pipe(int pipe[2])
 {
 	pipe[0] = -1;
 	pipe[1] = -1;

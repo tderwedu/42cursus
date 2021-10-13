@@ -3,18 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   msh_unset.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/09/29 09:46:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/07 09:56:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/13 10:04:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "exec.h"
-
-//TODO: exit(), CTRL-D
-
-//TODO: UPDATE env_left
+#include "launcher.h"
 
 static int	find_env(char *s, char **env, int len)
 {
@@ -42,20 +38,27 @@ static int	find_env(char *s, char **env, int len)
 	return (0);
 }
 
-int	msh_unset(t_exec *exec) //TODO: correct return
+int	msh_unset(t_exec *exec)
 {
-	int	i;
-	int	len;
+	int		i;
+	int		len;
+	char	*ptr;
 
 	i = 1;
 	len = 0;
 	if (!exec->msh->env)
-		return (EXIT_FAILURE);				//!Error need a change
+		return (EXIT_FAILURE);
 	while (exec->argv[i])
 	{
-		len = ft_strlen(exec->argv[i]);
-		if (find_env(exec->argv[i], exec->msh->env, len))
-			exec->msh->env_left++;
+		ptr = env_check_name(exec->argv[i]);
+		if (!ptr || *ptr != '\0')
+			print_error(MSG_UNSET, exec->argv[i], ERR_IDENTIFIER, 0);
+		else
+		{
+			len = ft_strlen(exec->argv[i]);
+			if (find_env(exec->argv[i], exec->msh->env, len))
+				exec->msh->env_left++;
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
