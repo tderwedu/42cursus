@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/28 09:22:15 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/28 12:38:12 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/13 17:47:18 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,7 +20,7 @@ SRC		= ./Weapon.cpp\
 		  ./main.cpp
 
 CC		= clang++
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJ		= ${SRC:.cpp=.o}
 

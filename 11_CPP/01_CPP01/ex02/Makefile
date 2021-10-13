@@ -3,21 +3,21 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/28 09:22:15 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/28 11:42:07 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/13 17:47:19 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	= brainz
+NAME	= ref_ptr
 
 SRC		= ./main.cpp
 
 CC		= clang++
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJ		= ${SRC:.cpp=.o}
 
