@@ -17,6 +17,9 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 6. [ft_server](https://github.com/tderwedu/42cursus/tree/main/06_ft_server)
 7. [Push Swap](https://github.com/tderwedu/42cursus/tree/main/07_Push_Swap)
 8. [Pipex](https://github.com/tderwedu/42cursus/tree/main/08_Pipex)
+9. [Philosophers](https://github.com/tderwedu/42cursus/tree/main/09_Philosophers)
+10. [MiniShell](https://github.com/tderwedu/42cursus/tree/main/10_MiniShell)
+11. [C++](https://github.com/tderwedu/42cursus/tree/main/11_CPP)
 
 ## How to use it
 > Note:  
