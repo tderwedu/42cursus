@@ -5,7 +5,7 @@ The objective of this project is to create a simple bash-like shell.
 
 # Brief Summary
 
-There is a main loop which wait for commands, parse it into token, check the grammar and syntax, get the here-documents if any and either produce an error or an output the resulting command.
+There is a main loop which wait for commands, parse it into token, check the grammar and syntax, get the here-documents if any, apply word expansion,  and either produce an error or an output the resulting command.
 
 ```c
 // Initialize minishell
@@ -30,12 +30,12 @@ while (1)
 // quit properly
 ```
 
-## The Lexical Analyzer
+## The Lexical Analyzer - Lexer
 
 The lexical analysis simply break the input string from the user to a series of tokens. Each tokens can either be a character or a series of characters. It also groups characters that are inside a single or double quotations.
 
 
-## The Syntax Tree Parser
+## The Syntax Tree Parser - Parser
 
 The implementation is based on a recursive parsing technique. After getting the tokens from the lexer, the parser build a binary tree data structure that holds tokens and operations in order of the execution. This is called an [Abstract Syntax Tree](https://en.wikipedia.org/wiki/Abstract_syntax_tree).
 
@@ -65,7 +65,11 @@ The implemented shell language grammar is defined as follows in [Backus–Naur f
 
 For each production, there is one function which validates its corresponding rule. The purpose is to recursively check if the order of tokens belongs to a particular grammar. This reduces down to check for terminal symbols and non-terminals.
 
-## Execution
+## Word Expansion
+
+W.I.P.
+
+## Execution - Launcher
 
 After we build our syntax tree, it is quite easy to traverse through out the abstract syntax tree in order and make executions if necessary.
 
