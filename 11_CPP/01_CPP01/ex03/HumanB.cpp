@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   HumanB.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 11:58:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 12:31:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:06:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "HumanB.hpp"
 
-HumanB::HumanB()
+HumanB::HumanB(void)
 {
 	return ;
 }
@@ -28,7 +28,7 @@ HumanB::~HumanB()
 	return ;
 }
 
-void	HumanB::attack()
+void	HumanB::attack(void)
 {
 	std::cout << this->_name << " attack with his " << this->_weapon->getType();
 	std::cout << std::endl;

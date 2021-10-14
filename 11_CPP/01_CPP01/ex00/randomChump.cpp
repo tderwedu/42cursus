@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   randomChump.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:53:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 10:17:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 09:56:31 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 
-void	randomChump(std::string name)
+void	randomChump( std::string name )
 {
 	Zombie	brainz = Zombie(name);
 	brainz.announce();

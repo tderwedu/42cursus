@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Weapon.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:10:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 12:14:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:03:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ Weapon::~Weapon()
 	return ;
 }
 
-String const&	Weapon::getType() const
+String const&	Weapon::getType(void) const
 {
 	return this->type;
 }

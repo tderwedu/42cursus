@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/30 12:30:29 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:58:30 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ int	main(int argc, char **argv)
 	if (argc == 2)
 	{
 		level = karen.getlevel(argv[1]);
-		std::cout << level << std::endl;
 		switch(level)
 		{
 			case 0:

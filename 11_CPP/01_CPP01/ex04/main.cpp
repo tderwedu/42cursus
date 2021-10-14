@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/29 19:00:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:35:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv)
 	if (argc != 4)
 	{
 		std::cerr << "Error: " << std::endl;
-		std::cerr << argv[0] << " need 3 arguments: filename s1 s2!" << std::endl;
+		std::cerr << "Usage: "<< argv[0] << " filename s1 s2" << std::endl;
 		return 1;
 	}
 	fname = String(argv[1]);

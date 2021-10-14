@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/30 10:50:03 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:54:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,4 +29,6 @@ int	main(void)
 	k.complain("ERROR");
 	std::cout << BOLD << "[Da'IWAOD]" << CLEAR;
 	k.complain("Da'IWAOD");
+	std::cout << BOLD << "[]" << CLEAR;
+	k.complain("");
 }

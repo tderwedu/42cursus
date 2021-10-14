@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Weapon.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 11:58:24 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 12:34:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:50:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ class Weapon
 		Weapon(String type);
 		~Weapon();
 
-		String const&	getType() const;
+		String const&	getType(void) const;
 		void			setType(String const& type);
 	private:
 		String	type;

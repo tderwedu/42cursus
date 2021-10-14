@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   HumanA.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 12:00:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/28 12:32:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:50:29 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,9 @@ class HumanA
 		HumanA(String const& name, Weapon const& Weapon);
 		~HumanA();
 
-		void	attack();
+		void	attack(void);
 	private:
+		HumanA(void);
 		String			_name;
 		Weapon const&	_weapon;
 };

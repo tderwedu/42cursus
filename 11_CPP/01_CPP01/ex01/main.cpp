@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 17:32:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:00:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define BOLD   "\e[1;37m"
 # define CLEAR  "\e[0m" << std::endl
 
-Zombie*	zombieHorde(int N, std::string name);
+Zombie* zombieHorde( int N, std::string name );
 
 int	main(void)
 {

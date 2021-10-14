@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:41:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 17:16:31 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 09:56:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ Zombie::~Zombie(void)
 	std::cout << _name << ": " << "NOOOOOOooooooo.." << std::endl;
 }
 
-void	Zombie::announce(void)
+void	Zombie::announce( void )
 {
 	std::cout << _name << ": " << "BraiiiiiiinnnzzzZ..." << std::endl;
 }

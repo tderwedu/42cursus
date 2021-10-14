@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 09:52:58 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 17:19:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 09:57:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 # define BOLD   "\e[1;37m"
 # define CLEAR  "\e[0m" << std::endl
 
-Zombie*	newZombie(std::string name);
-void	randomChump(std::string name);
+Zombie*	newZombie( std::string name );
+void	randomChump( std::string name );
 
 int	main(void)
 {

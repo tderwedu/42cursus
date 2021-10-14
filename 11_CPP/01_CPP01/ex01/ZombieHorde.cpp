@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/28 10:34:22 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 17:37:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 10:00:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Zombie.hpp"
 #include <cstdlib>
 
-Zombie* zombieHorde(int N, std::string name)
+Zombie* zombieHorde( int N, std::string name )
 {
 	Zombie *horde;
 
