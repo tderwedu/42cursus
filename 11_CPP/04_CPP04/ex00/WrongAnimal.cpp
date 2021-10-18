@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   WrongAnimal.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 14:44:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:14:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* ======================= CONSTRUCTORS / DESTRUCTORS ======================= */
 
-WrongAnimal::WrongAnimal()
+WrongAnimal::WrongAnimal() : type("WrongAnimal")
 {
 	std::cout	<< "WrongAnimal: A new " << YLW << "WrongAnimal" << RST 
 				<< " is born." << std::endl;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ClapTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 17:02:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 11:01:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,36 @@ ClapTrap::~ClapTrap()
 }
 
 /* ============================ MEMBER FUNCTIONS ============================ */
+
+int			ClapTrap::get_hitPoints(void) const
+{
+	return this->_hitPoints;
+}
+
+void		ClapTrap::set_hitPoints(unsigned int val)
+{
+	this->_hitPoints = val;
+}
+
+int			ClapTrap::get_energyPoints(void) const
+{
+	return this->_energyPoints;
+}
+
+void		ClapTrap::set_energyPoints(unsigned int val)
+{
+	this->_energyPoints = val;
+}
+
+int			ClapTrap::get_attackDamage(void) const
+{
+	return this->_attackDamage;
+}
+
+void		ClapTrap::set_attackDamage(unsigned int val)
+{
+	this->_attackDamage = val;
+}
 
 void		ClapTrap::attack(std::string const& target)
 {

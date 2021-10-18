@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ScavTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 16:52:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 11:37:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		ScavTrap::beRepaired(unsigned int amount)
 void		ScavTrap::guardGate(void) const
 {
 	ClapTrap::putName(*this);
-	std::cout << "Uh, should I just wait, or uhh...?" << std::endl;
+	std::cout << BLU << "Uh, should I just wait, or uhh...?" << CLEAR;
 }
 /* =========================== OPERATOR OVERLOADS =========================== */
 

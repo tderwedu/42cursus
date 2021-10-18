@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   bsp.cpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/31 12:15:32 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 16:37:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 13:09:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
 #include "Point.hpp"
-
 
 /*
 ** This algorithm is based on the:

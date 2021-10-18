@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/07/30 14:16:17 by tderwedu          #+#    #+#              #
-#    Updated: 2021/07/30 16:30:21 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/14 12:44:13 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	= run_main
+NAME	= fixed
 
 SRC		= ./Fixed.cpp\
 		  ./main.cpp

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:16:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/01 17:39:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 10:03:58 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,3 @@ class FragTrap : public ClapTrap
 };
 
 #endif
-
-
-
-
-// Take that!"
-// "That looks like it hurts!"
-// "It's about to get magical!"
-// "The robot is dead, long live the robot!"
-// Here we go again

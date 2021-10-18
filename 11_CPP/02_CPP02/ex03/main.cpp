@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/30 14:24:51 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/07/31 17:11:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/14 15:46:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ int	main(void)
 	std::cout << "a : " << a << std::endl;
 	std::cout << "b : " << b << std::endl;
 	std::cout << "c : " << c << std::endl << std::endl;
+	std::cout << BOLD << "Triangle Midpoints:"  << CLEAR;
+	std::cout << "ab : (-0.5, 0.5)" << std::endl;
+	std::cout << "bc : ( 0.5, 0.5)" << std::endl;
+	std::cout << "ca : ( 0.0, 0.0)" << std::endl << std::endl;
 
 	std::cout << BOLD << "\t [ Permutations ]"  << CLEAR;
 	std::cout << " Point INSIDE: (0.0, 0.5)"  << std::endl;

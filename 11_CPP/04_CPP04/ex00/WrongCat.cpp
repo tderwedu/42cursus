@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   WrongCat.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 11:08:09 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 13:58:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:18:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ WrongCat::~WrongCat()
 
 void	WrongCat::makeSound(void) const
 {
-	std::cout << CYA << "*** Meow ***" << CLEAR;
+	std::cout << CYA << "*** Wrong Meow ***" << CLEAR;
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */

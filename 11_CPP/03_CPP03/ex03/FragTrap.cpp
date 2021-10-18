@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   FragTrap.cpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 10:17:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 18:24:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 11:37:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		FragTrap::beRepaired(unsigned int amount)
 void		FragTrap::highFivesGuys(void) const
 {
 	ClapTrap::putName(*this);
-	std::cout << "Gimme five!" << std::endl;
+	std::cout << BLU << "Gimme five!" << CLEAR;
 }
 
 /* =========================== OPERATOR OVERLOADS =========================== */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Animal.cpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/03 14:44:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:14:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 /* ======================= CONSTRUCTORS / DESTRUCTORS ======================= */
 
-Animal::Animal()
+Animal::Animal() : type("Animal")
 {
 	std::cout	<< "Animal     : A new " << YLW << "Animal" << RST 
 				<< " is born." << std::endl;

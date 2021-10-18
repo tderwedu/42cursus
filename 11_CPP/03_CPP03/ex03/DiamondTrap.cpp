@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   DiamondTrap.cpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/01 17:38:49 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/02 18:28:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 11:54:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,17 @@ void	DiamondTrap::attack(std::string const& target)
 {
 	this->ScavTrap::attack(target);
 }
+
+void	DiamondTrap::takeDamage(unsigned int amount)
+{
+	this->ClapTrap::takeDamage(amount);
+}
+
+void	DiamondTrap::beRepaired(unsigned int amount)
+{
+	this->FragTrap::beRepaired(amount);
+}
+
 
 void	DiamondTrap::whoAmI(void) const
 {
