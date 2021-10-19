@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Character.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:38:52 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 09:31:19 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:58:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ class Character : public ICharacter
 	private:
 		Character();
 
-		std::string	_name;
-		int			_inv_size;
-		AMateria*	_inv[CHAR_INV_SIZE];
+		std::string		_name;
+		int				_inv_size;
+		AMateria*		_inv[CHAR_INV_SIZE];
 	public:
 		Character(std::string const& name);
 		Character(Character const& src);

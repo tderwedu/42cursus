@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 18:37:14 by tderwedu          #+#    #+#              #
-#    Updated: 2021/08/10 09:19:33 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/18 15:41:42 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRC		= ./MateriaSource.cpp\
 		  ./main.cpp
 
 CC		= clang++
-CFLAGS	= -Wall -Wextra -Werror -fsanitize=address
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJ		= ${SRC:.cpp=.o}
 

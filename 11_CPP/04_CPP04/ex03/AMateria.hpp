@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   AMateria.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 15:31:57 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 09:29:32 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:55:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,13 @@ class AMateria
 	private:
 		AMateria();
 	protected:
-		std::string	_type;
+		std::string		_type;
 	public:
 		AMateria(AMateria const& src);
 		AMateria(std::string const & type);
 		virtual ~AMateria();
 
-		std::string const & getType() const; //Returns the materia type
+		std::string const & getType() const;
 		virtual AMateria* clone() const = 0;
 		virtual void use(ICharacter& target);
 

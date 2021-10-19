@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/03 10:39:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:34:56 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,29 +72,3 @@ Animal&	Dog::operator=(Animal const &src)
 	this->operator=(dynamic_cast<Dog const&>(src));
 	return *this;
 }
-
-// TFoo&
-// TFoo::operator=(const TFoo& that)
-// {
-//     if (this != &that) {
-//         TBar* bar1 = 0;
-//         TBar* bar2 = 0;
-
-//         try {
-//             bar1 = new TBar(*that.fBar1);
-//             bar2 = new TBar(*that.fBar2);
-//         }
-//         catch (...) {
-//             delete bar1;
-//             delete bar2;
-//             throw;
-//         }
-
-//         TSuperFoo::operator=(that);
-//         delete fBar1;
-//         fBar1 = bar1;
-//         delete fBar2;
-//         fBar2 = bar2;
-//     }
-//     return *this;
-// }

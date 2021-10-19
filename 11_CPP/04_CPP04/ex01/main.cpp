@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 18:32:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/09 15:11:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:44:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,19 +90,5 @@ int main()
 	std::cout << YLW << "newdog's Ideas:" << CLEAR;
 	newdog->printIdeas();
 	delete newdog;
-
-	// std::cout << RED << "\t\n ### Start Of COPY : DYNAMIC CASTING ###\n" << CLEAR;
-
-	// Cat *newcat = new Cat();
-	// std::cout << YLW << "copydog's Ideas:" << CLEAR;
-	// copydog->printIdeas();
-	// std::cout << YLW << "newcat's Ideas:" << CLEAR;
-	// newcat->printIdeas();
-	// std::cout << YLW << "newcat = copydog" << CLEAR;
-	// *newcat = *copydog;
-	// std::cout << YLW << "Deleting copydog" << CLEAR;
 	delete copydog;
-	// std::cout << YLW << "newcat's Ideas:" << CLEAR;
-	// newcat->printIdeas();
-	// delete newcat;
 }

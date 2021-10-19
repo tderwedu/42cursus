@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   MateriaSource.hpp                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/09 17:15:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 09:22:58 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 13:58:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 class MateriaSource : public IMateriaSource
 {
 	private:
-		int			_learned_size;
-		AMateria*	_learned[SRC_LEARNED_SIZE];
+		int				_learned_size;
+		AMateria*		_learned[SRC_LEARNED_SIZE];
 	public:
 		MateriaSource();
 		MateriaSource(MateriaSource const& src);

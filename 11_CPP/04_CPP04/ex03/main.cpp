@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/02 18:32:30 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 11:11:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/18 15:51:34 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,9 +174,9 @@ int main()
 	bobby->equip(src2->createMateria("ice"));
 	bobby->equip(src2->createMateria("cure"));
 	std::cout << BOLD << "Delete MateriaSource" << CLEAR;
+	delete src2;
 	std::cout << BOLD << "Bob : (Try to) USE 2 Materia (Ice, Cure)" << CLEAR;
 	bobby->use(0, *bobby);
 	bobby->use(1, *bobby);
-	delete src2;
 	delete bobby;
 }
