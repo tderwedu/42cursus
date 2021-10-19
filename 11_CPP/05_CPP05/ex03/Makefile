@@ -3,16 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/08/02 18:37:14 by tderwedu          #+#    #+#              #
-#    Updated: 2021/08/11 09:13:30 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/19 11:44:14 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ VARIABLES ================================= #
 
-NAME	= ex02
+NAME	= ex03
 
 SRC		= ./Bureaucrat.cpp\
 		  ./Form.cpp\

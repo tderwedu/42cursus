@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 11:12:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:49:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,13 +42,13 @@ int main()
 	Bureaucrat	boss("Big Boss", 1);
 	Bureaucrat	peasant("Smallest Cob", 150);
 
-	std::cout << BOLD << "\n\t FORMS CREATION" << CLEAR;
+	std::cout << BOLD << "\n\t ### FORMS CREATION ###" << CLEAR;
 	Form*	form_1 = sRI.makeForm("shrubbery creation", "Blender");
 	Form*	form_2 = sRI.makeForm("presidential pardon", "Big Boss");
 	Form*	form_3 = sRI.makeForm("robotomy request", "Bender");
 	Form*	form_4 = sRI.makeForm("intern CDI", "Manager");
 
-	std::cout << BOLD << "\n\t OLD TESTS" << CLEAR;
+	std::cout << BOLD << "\n\t### OLD TESTS ###" << CLEAR;
 	test_form(*form_1, boss, peasant);
 	test_form(*form_2, boss, peasant);
 	test_form(*form_3, boss, peasant);

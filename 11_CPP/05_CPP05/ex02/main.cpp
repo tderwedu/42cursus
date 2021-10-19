@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 11:40:00 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 10:58:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:31:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,12 @@ int main()
 	Bureaucrat	boss("Big Boss", 1);
 	Bureaucrat	peasant("Smallest Cob", 150);
 
-	ShrubberyCreationForm	form_1("Target");
-	RobotomyRequestForm		form_2("Target");
-	PresidentialPardonForm	form_3("Target");
+	ShrubberyCreationForm	form_1("target");
+	RobotomyRequestForm		form_2("target");
+	PresidentialPardonForm	form_3("target");
 
+	std::cout << peasant << std::endl;
+	std::cout << boss << std::endl;
 	test_form(form_1, boss, peasant);
 	test_form(form_2, boss, peasant);
 	test_form(form_2, boss, peasant);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RobotomyRequestForm.cpp                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 16:09:47 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/10 17:59:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:34:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ RobotomyRequestForm::~RobotomyRequestForm() {}
 
 void RobotomyRequestForm::action() const
 {
-	std::cout << "DRRRRRRRRRRRRrrrr" << std::endl;
+	std::cout << "DRRRRRRRRRRRRrrrr Zzzzz DRRRrr" << std::endl;
 	if (rand() % 2)
 		std::cout << this->_target << " has successfully been robotomized" << std::endl;
     else

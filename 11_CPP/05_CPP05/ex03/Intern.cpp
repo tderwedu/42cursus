@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 10:32:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/13 09:48:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:47:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ Form	*Intern::makeRobotomyRequestForm(std::string const& target)
 
 Intern::makeFormEntry	Intern::makeFormList[] =
 {
-    {"shrubbery creation", &Intern::makeShrubberyCreationForm},
-    {"presidential pardon", &Intern::makePresidentialPardonForm},
-    {"robotomy request", &Intern::makeRobotomyRequestForm},
+	{"shrubbery creation", &Intern::makeShrubberyCreationForm},
+	{"presidential pardon", &Intern::makePresidentialPardonForm},
+	{"robotomy request", &Intern::makeRobotomyRequestForm},
 };
 
 Form *Intern::makeForm(std::string const& form, std::string const& target)
@@ -53,13 +53,13 @@ Form *Intern::makeForm(std::string const& form, std::string const& target)
 		if ((this->makeFormList[i]).form == form)
 		{
 			Form *form = (this->*(makeFormList[i].func))(target);
-			std::cout	<< YLW << "Intern" << GRN <<" creates "<< RST << *form;
+			std::cout	<< YLW << "Intern" << GRN <<" creates "<< RST << *form << std::endl;
 			return form;
 		}
 	}
-    std::cerr	<< YLW << "Intern" << RED <<" cannot create " << RST << form
+	std::cerr	<< YLW << "Intern" << RED <<" cannot create " << RST << form
 				<< ". Form not known." << std::endl;
-    return NULL;
+	return NULL;
 }
 /* =========================== OPERATOR OVERLOADS =========================== */
 

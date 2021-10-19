@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Intern.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 09:19:18 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 11:12:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:47:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ class Intern
 		Intern&	operator=(Intern const& src);
 	private:
 		Form*	makeShrubberyCreationForm(std::string const& target);
-    	Form*	makePresidentialPardonForm(std::string const& target);
-    	Form*	makeRobotomyRequestForm(std::string const& target);
+		Form*	makePresidentialPardonForm(std::string const& target);
+		Form*	makeRobotomyRequestForm(std::string const& target);
 
 	typedef Form* (Intern::* makeFormFunc)(std::string const&);
 

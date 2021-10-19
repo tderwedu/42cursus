@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Form.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/10 14:24:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/11 11:07:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/19 11:32:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,9 +83,9 @@ std::ostream&	operator<<(std::ostream &os, Form const& rhs)
 		<< YLW << rhs.getGradeSign() << RST << ", grade to execute "
 		<< YLW<< rhs.getGradeExec() << RST;
 	if (rhs.getSigned())
-		os << ", signed." << std::endl;
+		os << ", signed.";
 	else
-		os << ", not signed." << std::endl;
+		os << ", not signed.";
 	return os;
 }
 
