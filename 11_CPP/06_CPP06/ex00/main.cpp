@@ -12,83 +12,179 @@
 
 #include <iostream>
 #include <iomanip>
+#include <sstream>
 #include <limits>
 #include <cstdlib>
-#include <cerrno>
 #include <cctype>
 #include <cmath>
 
-#define ERR_NOT_VAL		"Error:\nLiteral is not valid."
-#define ERR_EMPTY_LIT	"Error:\nLiteral cannot be empty."
-
+#define ERR_NOT_VAL		"error: literal is not valid."
+#define ERR_EMPTY		"error: empty literal."
 #define CHAR_NON_DISP	"char: Non displayable"
 #define CHAR_IMPOSSIBLE	"char: impossible"
 #define INT_IMPOSSIBLE	"int: impossible"
 
-void	trim_spaces(std::string& arg)
-{
-	size_t	start;
-	size_t	end;
+#define	NOT_VALID	-1
+#define	IS_FUN		0
+#define	IS_CHAR		2
+#define	IS_INT		3
+#define	IS_FLOAT	4
+#define	IS_DOUBLE	5
 
-	start = arg.find_first_not_of(" \t\n\v\f\r");
-	if (start != 0)
-		arg.erase(0, start - 0);
-	end = arg.find_last_not_of(" \t\n\v\f\r");
-	arg.erase(end + 1, std::string::npos);
+typedef std::string			String;
+typedef std::stringstream	SString;
+
+// void	trim_spaces(String& input)
+// {
+// 	size_t	start;
+// 	size_t	end;
+
+// 	start = input.find_first_not_of(" \t\n\v\f\r");
+// 	if (start != 0)
+// 		input.erase(0, start - 0);
+// 	end = input.find_last_not_of(" \t\n\v\f\r");
+// 	input.erase(end + 1, String::npos);
+// }
+
+int	not_valid_literal(void)
+{
+	std::cerr << ERR_NOT_VAL << std::endl;
+	return (1);
+}
+
+int	nan_for_fun(void)
+{
+	std::cout << CHAR_IMPOSSIBLE << std::endl;
+	std::cout << INT_IMPOSSIBLE << std::endl;
+	std::cout << "float: nanf" << std::endl;
+	std::cout << "double: nan" << std::endl;
+	return (IS_FUN);
+}
+
+int	inf_for_fun_p(void)
+{
+	std::cout << CHAR_IMPOSSIBLE << std::endl;
+	std::cout << INT_IMPOSSIBLE << std::endl;
+	std::cout << "float: +inff" << std::endl;
+	std::cout << "double: +inf" << std::endl;
+	return (IS_FUN);
+}
+
+int	inf_for_fun_n(void)
+{
+	std::cout << CHAR_IMPOSSIBLE << std::endl;
+	std::cout << INT_IMPOSSIBLE << std::endl;
+	std::cout << "float: -inff" << std::endl;
+	std::cout << "double: -inf" << std::endl;
+	return (IS_FUN);
+}
+
+int	get_type(String input)
+{
+	int		has_f;
+	int		has_dot;
+	size_t	start;
+
+	start = 0;
+	has_f = 0;
+	has_dot = 0;
+	if (input.length() == 3 && input[0] == '\'' && input[2] == '\'')
+		return (IS_CHAR);
+	if (input == "nan" || input == "nanf")
+		return (nan_for_fun());
+	if (input == "+inf" || input == "+inff")
+		return (inf_for_fun_p());
+	if (input == "-inf" || input == "-inff")
+		return (inf_for_fun_n());
+	if (input[0] == '+' || input[0] == '-')
+		start++;
+	for (size_t i = start; i < input.size(); i++)
+	{
+		if (has_f)
+			return (NOT_VALID);
+		else if (isdigit(input[i]))
+			continue ;
+		else if (input[i] == '.' && !has_dot)
+			has_dot = 1;
+		else if (input[i] == 'f' && has_dot)
+			has_f = 1;
+		else
+			return (NOT_VALID);
+	}
+	if (!has_dot && !has_f)
+		return (IS_INT);
+	else if (has_dot && has_f)
+		return (IS_FLOAT);
+	else if (has_dot && !has_f)
+		return (IS_DOUBLE);
+	else
+		return (NOT_VALID);
 }
 
 int	main(int argc, char **argv)
 {
+	int		type;
 	int		i;
 	char	c;
 	float	f;
 	double	d;
-	char	*chr_end;
-	
+	String	input;
+	SString	stream;
+
 	if (argc != 2)
 	{
-	    std::cerr << "Error:\n Usage: '" << argv[0] << " literal'." << std::endl;
+	    std::cerr	<< "Error:\n Usage: '" << argv[0] << " literal'."
+					<< std::endl;
 	    return 1;
 	}
-	std::string arg(argv[1]);
-	trim_spaces(arg);
-	if (arg.empty())
+	input = String(argv[1]);
+	// trim_spaces(input);
+	if (input.empty())
 	{
-		std::cerr << ERR_EMPTY_LIT << std::endl;
+		std::cerr << ERR_EMPTY << std::endl;
 		return 1;
 	}
-	if (arg.length() == 3 && arg[0] == '\'' && arg[2] == '\'')
+	stream = SString(input);
+	type = get_type(input);
+	if (type == NOT_VALID)
+		return (not_valid_literal());
+	else if (type == IS_FUN)
+		return (IS_FUN);
+	else if (type == IS_CHAR)
 	{
-		c = arg[1];
+		c =  static_cast<char>(input[1]);
+		if (!isprint(c) || stream.fail())
+			return (not_valid_literal());
 		d = static_cast<double>(c);
 		i = static_cast<int>(d);
 		f = static_cast<float>(d);
-		if (!isprint(c))
-		{
-			std::cerr << ERR_NOT_VAL << std::endl;
-			return 1;
-		}
+	}
+	else if (type == IS_INT)
+	{
+		stream >> i;
+		if (stream.fail())
+			return (not_valid_literal());
+		c = static_cast<char>(i);
+		d = static_cast<double>(i);
+		f = static_cast<float>(i);
+	}
+	else if (type == IS_FLOAT)
+	{
+		stream >> f;
+		if (stream.fail())
+			return (not_valid_literal());
+		i = static_cast<int>(f);
+		c = static_cast<char>(f);
+		d = static_cast<double>(f);
 	}
 	else
 	{
-		d = strtod(arg.c_str(), &chr_end);
-		if (errno == ERANGE || *chr_end == arg[0] || (*chr_end && *chr_end != 'f'))
-		{
-			std::cerr << ERR_NOT_VAL << std::endl;
-			return 1;
-		}
+		stream >> d;
+		if (stream.fail())
+			return (not_valid_literal());
 		i = static_cast<int>(d);
 		c = static_cast<char>(d);
 		f = static_cast<float>(d);
-		if (*chr_end == 'f')
-		{
-			chr_end++;
-			if ((!std::isfinite(f) && std::isfinite(d)) || *chr_end)
-			{
-				std::cerr << ERR_NOT_VAL << std::endl;
-				return 1;
-			}
-		}
 		if (std::isinf(d))
 		{
 			std::cout << std::setiosflags(std::ios::showpos) << std::fixed;
@@ -105,13 +201,6 @@ int	main(int argc, char **argv)
 			std::cout << "float: nanf" << std::endl;
 			std::cout << "double: nan" << std::endl;
 			return 0;
-		}
-		if (arg.find(".") == std::string::npos && 
-			(d < std::numeric_limits<int>::min() || 
-			d > std::numeric_limits<int>::max()))
-		{
-			std::cerr << ERR_NOT_VAL << std::endl;
-			return 1;
 		}
 	}
 	if (d < std::numeric_limits<char>::min() || 
@@ -130,6 +219,6 @@ int	main(int argc, char **argv)
 	else
 		std::cout << "int: " << i << std::endl;
 	std::cout << std::setprecision(1) << std::fixed;
-	std::cout << "float: " << f << std::endl;
+	std::cout << "float: " << f << "f" << std::endl;
 	std::cout << "double: " << d << std::endl;
 }
