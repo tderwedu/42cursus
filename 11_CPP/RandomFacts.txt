@@ -1,3 +1,7 @@
+######################
+#   Canonical Form   #
+######################
+
 In C++, there are three things every object is expected to be able to do:
  - An object should be able to initialize itself to a default state,
  - It should be able to initialize itself from another instance of the same class,
@@ -14,4 +18,21 @@ The delete operator in C++ automatically performs this null check for you, so it
 
 The default constructor is only defined by the compiler when you don’t create any other constructors.
 
-You can declare the function private and not define it. The declaration will suppress the compiler-generated version of the function. 
+You can declare the function private and not define it. The declaration will suppress the compiler-generated version of the function.
+
+#########################
+#   Memory Alignement   #
+#########################
+
+struct Data
+{
+	char	c;
+	int		i;
+	long	l;	
+} __attribute__((packed, aligned(4)));
+
+ - "packed"    : use the smallest possible space - i.e.no  padding for momory alignement
+ - "aligned(4)": the struct should be aligned to an address that is divisible by 4
+
+ /!\ These are GCC extensions, not part of any C standard.
+ 
