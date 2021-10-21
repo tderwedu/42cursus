@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 09:35:01 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/08/13 16:53:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/21 10:00:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,18 +133,18 @@ int	main(int argc, char **argv)
 
 	if (argc != 2)
 	{
-	    std::cerr	<< "Error:\n Usage: '" << argv[0] << " literal'."
+		std::cerr	<< "Error:\n Usage: '" << argv[0] << " literal'."
 					<< std::endl;
-	    return 1;
+		return 1;
 	}
 	input = String(argv[1]);
+	stream  << input;
 	// trim_spaces(input);
 	if (input.empty())
 	{
 		std::cerr << ERR_EMPTY << std::endl;
 		return 1;
 	}
-	stream = SString(input);
 	type = get_type(input);
 	if (type == NOT_VALID)
 		return (not_valid_literal());
@@ -170,6 +170,9 @@ int	main(int argc, char **argv)
 	}
 	else if (type == IS_FLOAT)
 	{
+		stream.str(std::string());
+		input.resize(input.size() - 1);
+		stream  << input;
 		stream >> f;
 		if (stream.fail())
 			return (not_valid_literal());
@@ -185,23 +188,6 @@ int	main(int argc, char **argv)
 		i = static_cast<int>(d);
 		c = static_cast<char>(d);
 		f = static_cast<float>(d);
-		if (std::isinf(d))
-		{
-			std::cout << std::setiosflags(std::ios::showpos) << std::fixed;
-			std::cout << CHAR_IMPOSSIBLE << std::endl;
-			std::cout << INT_IMPOSSIBLE << std::endl;
-			std::cout << "float: " << f << "f" << std::endl;
-			std::cout << "double: " << d << std::endl;
-			return 0;
-		}
-		if (std::isnan(d))
-		{
-			std::cout << CHAR_IMPOSSIBLE << std::endl;
-			std::cout << INT_IMPOSSIBLE << std::endl;
-			std::cout << "float: nanf" << std::endl;
-			std::cout << "double: nan" << std::endl;
-			return 0;
-		}
 	}
 	if (d < std::numeric_limits<char>::min() || 
 		d > std::numeric_limits<char>::max())
