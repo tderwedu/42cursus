@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   whatever.hpp                                       :+:      :+:    :+:   */
+/*   iter.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/25 10:33:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/25 11:28:03 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/10/25 11:33:04 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/10/25 11:55:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef WHATEVER_HPP
-# define WHATEVER_HPP
+#ifndef ITER_HPP
+# define ITER_HPP
+
+# include <cstdlib>
 
 template<typename T>
-void	swap(T & x, T & y)
+void	iter(T	*tab, size_t size, void	(*fct)(T const& x))
 {
-	T	tmp(x);
-
-	x = y;
-	y = tmp;
+	for (size_t i = 0; i < size; i++)
+		fct(tab[i]);
 }
 
 template<typename T>
-T	min(T const& x, T const& y)
+void	iter(T	*tab, size_t size, void	(*fct)(T x))
 {
-	return (x < y ? x : y);
-}
-
-template<typename T>
-T	max(T const& x, T const& y)
-{
-	return (x > y ? x : y);
+	for (size_t i = 0; i < size; i++)
+		fct(tab[i]);
 }
 
 #endif
