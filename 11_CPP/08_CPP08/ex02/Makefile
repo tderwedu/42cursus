@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
+#    By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:26:02 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/25 18:15:56 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/10/26 15:57:14 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 
 NAME	= run
 
-SRC		=	span.cpp \
+SRC		=	MutantStack.cpp \
 			main.cpp
 
 CC		= clang++
