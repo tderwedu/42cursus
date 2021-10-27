@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   span.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:41:16 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/26 14:07:30 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/27 10:31:27 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,23 +30,16 @@ void	Span::addNumber(int nbr)
 	_vec.push_back(nbr);
 }
 
-void	Span::addNumber(t_it const& begin, t_it const& end)
-{
-	if (static_cast<t_ul>(std::distance(begin, end)) > (_vec.size() + _N))
-		throw Span::OutOfRangeException();
-	_vec.insert(_vec.end(), begin, end);
-}
-
 int		Span::shortestSpan(void) const
 {
-	t_cit	min;
-	int		s_1;
-	int		s_2;
+	std::vector<int>	diff(_vec);
+	std::vector<int>	sorted(_vec);
 
-	min = std::min_element(_vec.begin(), _vec.end());
-	s_1 = *std::min_element(_vec.begin(), min);
-	s_2 = *std::min_element(min + 1, _vec.end());
-	return (std::min(s_1, s_2) - *min);
+	if (_N < 2)
+		throw NotEnoughItemsException();
+	std::sort(sorted.begin(), sorted.end());
+	std::transform(++sorted.begin(), sorted.end(), sorted.begin(), diff.begin(), std::minus<int>());
+	return (*std::min_element(diff.begin(), --diff.end()));
 }
 
 int		Span::longestSpan(void) const
@@ -54,6 +47,8 @@ int		Span::longestSpan(void) const
 	int		min;
 	int		max;
 
+	if (_N < 2)
+		throw NotEnoughItemsException();
 	min = *std::min_element(_vec.begin(), _vec.end());
 	max = *std::max_element(_vec.begin(), _vec.end());
 	return (max - min);
@@ -86,5 +81,5 @@ char const*	Span::OutOfRangeException::what() const throw()
 }
 char const*	Span::NotEnoughItemsException::what() const throw()
 {
-	return "Not Enough items";
+	return "Not Enough Items";
 }

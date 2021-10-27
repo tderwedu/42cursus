@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   span.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tderwedu <tderwedu@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:16:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/26 10:10:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/27 10:10:39 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@
 
 typedef	unsigned int						t_ui;
 typedef	unsigned long						t_ul;
-typedef std::vector<int>::iterator			t_it;
-typedef std::vector<int>::const_iterator	t_cit;
+
 
 class Span
 {
@@ -35,10 +34,26 @@ class Span
 	public:
 		Span(int n);
 		Span(Span const& src);
+		template <typename IT>
+		Span(IT begin, IT end)
+			: _N(static_cast<t_ui>(std::distance(begin, end)))
+		{
+			_vec.insert(_vec.end(), begin, end);
+		}
 		virtual ~Span();
 
 		void				addNumber(int nbr);
-		void				addNumber(t_it const& begin, t_it const& end);
+		template <typename IT>
+		void				addNumber(IT begin, IT end)
+		{
+			t_ui	size;
+
+			size = static_cast<t_ul>(std::distance(begin, end));
+			if ( size > (_vec.size() + _N))
+				throw Span::OutOfRangeException();
+			_vec.insert(_vec.end(), begin, end);
+		}
+
 		int					shortestSpan(void) const;
 		int					longestSpan(void) const;
 
