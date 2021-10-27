@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/25 18:16:04 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/10/27 10:10:39 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/10/27 10:46:53 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,7 @@ class Span
 		template <typename IT>
 		Span(IT begin, IT end)
 			: _N(static_cast<t_ui>(std::distance(begin, end)))
-		{
-			_vec.insert(_vec.end(), begin, end);
-		}
+			{ _vec.insert(_vec.end(), begin, end); }
 		virtual ~Span();
 
 		void				addNumber(int nbr);

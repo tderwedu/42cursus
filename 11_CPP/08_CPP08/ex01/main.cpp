@@ -97,8 +97,6 @@ int	main(void)
 		int		myints[] = {56, 57, 82, 86, 90, 17};
 		int		size = sizeof(myints) / sizeof(int);
 		Span sp(myints, myints + size);
-		std::cout << YLW;
-		std::cout << CLEAR;
 		std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;
 		std::cout << " Longest Span: " << sp.longestSpan() << std::endl;
 	}
@@ -108,8 +106,6 @@ int	main(void)
 		int		size = sizeof(myints) / sizeof(int);
 		Span sp(size);
 		sp.addNumber(myints, myints + size);
-		std::cout << YLW;
-		std::cout << CLEAR;
 		std::cout << "Shortest Span: " << sp.shortestSpan() << std::endl;
 		std::cout << " Longest Span: " << sp.longestSpan() << std::endl;
 	}
