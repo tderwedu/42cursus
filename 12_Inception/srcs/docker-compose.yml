@@ -1,0 +1,73 @@
+version: "3.9"
+services:
+# === NGINX ===
+  nginx:
+    container_name: "nginx"
+    hostname: "nginx"
+    env_file:
+      - .env
+    build:
+      context:  "./nginx"
+      dockerfile: Dockerfile
+    ports:
+      - "443:443"
+    expose:
+      - "9000"
+    networks:
+      - inception_net
+    volume:
+      - "wordpress_vol:###"
+    restart: unless-stopped
+# === WordPress ===
+  wordpress:
+    container_name: "wordpress"
+    hostname: "wordpress"
+    env_file:
+      - .env
+    build:
+      context:  "./wordpress"
+      dockerfile: Dockerfile
+    expose:
+      - "3306"
+      - "9000"
+    networks:
+      - inception_net
+    volume:
+      - "wordpress_vol:###"
+      - "mariadb_vol:###"
+    depends_on:
+      - "mariadb"
+    restart: unless-stopped
+# === MariaDB ===
+  mariadb:
+    container_name: "mariadb"
+    hostname: "mariadb"
+    env_file:
+      - .env
+    build:
+      context:  "./mariadb"
+      dockerfile: Dockerfile
+    expose:
+      - "3306"
+    networks:
+      - inception_net
+    volume:
+      - "mariadb_vol:###"
+    restart: unless-stopped
+# === Volumes ===
+volumes:
+  wordpress_vol:
+    driver: "local"
+    driver_opts:
+        type: "bind"
+        src: "/home/tderwedu/data/wordpress"
+  mariadb_vol:
+    driver: "local"
+    driver_opts:
+        type: "bind"
+        src: "/home/tderwedu/data/mariadb"
+# === Network ===
+networks:
+  inception_net:
+    name: "inception_net"
+    driver: bridge
