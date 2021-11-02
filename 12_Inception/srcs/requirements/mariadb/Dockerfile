@@ -6,3 +6,5 @@ RUN apt-get -yqq install vim
 
 # To install MariaDB (fork of MySQL)
 RUN apt-get -yqq install mariadb-server
+
+

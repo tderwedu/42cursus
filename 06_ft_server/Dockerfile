@@ -38,7 +38,7 @@ WORKDIR /var/www/localhost
 
 # -newkey : creates a new private key with the certificate
 # 	rsa:2048 : RSA encryption with a 2048 bits key
-# -x509   : speicifies self signed certificate
+# -x509   : specifies self signed certificate
 # -nodes  : creates a key without a passphrase.
 # -days   : validity (in days) of the certificate
 # -subj   : to use a string to specify subject information
