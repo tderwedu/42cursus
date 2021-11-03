@@ -19,7 +19,7 @@ RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
 
 # Root directory of our website
 RUN mkdir -p /var/www/localhost/wordpress
-WORKDIR /var/www/localhost
+WORKDIR /var/www/localhost/wordpress
 
 #================================ 3. SSL protocol ==============================
 
