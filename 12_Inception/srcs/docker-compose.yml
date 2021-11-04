@@ -4,8 +4,8 @@ services:
   nginx:
     container_name: "nginx"
     hostname: "nginx"
-    env_file:
-      - .env
+    # env_file: DOES NGINX NEED IT ? SECURITY 
+    #   - .env
     build:
       context:  "./nginx"
       dockerfile: Dockerfile
@@ -16,14 +16,21 @@ services:
     networks:
       - inception_net
     volume:
-      - "wordpress_vol:/var/www/localhost"
+      - "wordpress_vol:/var/www/localhost:ro"
     restart: unless-stopped
 # === WordPress ===
   wordpress:
+    depends_on:
+      - "mariadb"
     container_name: "wordpress"
     hostname: "wordpress"
     env_file:
       - .env
+    environment:
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
+      WORDPRESS_DB_USER: ${MYSQL_USER}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
     build:
       context:  "./wordpress"
       dockerfile: Dockerfile
@@ -35,8 +42,6 @@ services:
     volume:
       - "wordpress_vol:/var/www/localhost"
       - "mariadb_vol:/var/lib/mysql"
-    depends_on:
-      - "mariadb"
     restart: unless-stopped
 # === MariaDB ===
   mariadb:
@@ -47,6 +52,11 @@ services:
     build:
       context:  "./mariadb"
       dockerfile: Dockerfile
+    environment:
+      MYSQL_ROOT_PASSWORD: mysql_root_pass #TODO: use env
+      MYSQL_DATABASE: db_name #TODO: use env
+      MYSQL_USER: user_name #TODO: use env
+      MYSQL_PASSWORD: user_pass #TODO: use env
     expose:
       - "3306"
     networks:
