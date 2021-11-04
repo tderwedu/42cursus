@@ -1,16 +1,17 @@
 # NGINX 
 
-## FastCGI
+## `FastCGI`
 *CGI	: Common Gateway Interface (earlier protocol)*  
 Typically used to run websites that make use of PHP on the local server itself.  
 FastCGI is generally used to translate client requests for an application server that does not not handle client requests directly. It is used to efficiently interface with a server that processes requests for dynamic content.
 
-As FastCGI cannot read http headers, pertinent information is passed to the backend through parameters defined using `fastcgi_param` directive.
-For the bare minimum configuration two parameters, REQUEST_METHOD and SCRIPT_FILENAME, are needed.
+As FastCGI cannot read http headers, pertinent information is passed to the backend through parameters defined using `fastcgi_param` directive. Nginx converts the headers in an `HTTP` request into environment variables prefixed with `HTTP_`. An application can then look up the value of request headers by inspecting its environment.
 
 Nginx can use either an Unix socket or a network socket. When the FastCGI processor lives on the same host, a Unix socket is recommended for security.
 
 ### FastCGI basic configuration
+
+For the bare minimum configuration two parameters, REQUEST_METHOD and SCRIPT_FILENAME, are needed.
 
 - `fastcgi_param REQUEST_METHOD $request_method` : the http method requested by the client.
 - `fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name` :
@@ -43,16 +44,18 @@ Nginx can use either an Unix socket or a network socket. When the FastCGI proces
 
 ### Common FastCGI Parameters
 
-- `QUERY_STRING`: This parameter should be set to any query string supplied by the client. This will typically be key-value pairs supplied after a “?” in the **URI**. Typically, this parameter is set to either the $query_string or $args variables, both of which should contain the same data.
-    REQUEST_METHOD: This parameter indicates to the FastCGI processor which type of action was requested by the client. This is one of the few parameters required to be set in order for the pass to function correctly.
-    CONTENT_TYPE: If the request method set above is “POST”, this parameter must be set. It indicates the type of content that the FastCGI processor should expect. This is almost always just set to the $content_type variable, which is set according to info in the original request.
-    CONTENT_LENGTH: If the request method is “POST”, this parameter must be set. This indicates the content length. This is almost always just set to $content_length, a variable that gets its value from information in the original client request.
-    SCRIPT_NAME: This parameter is used to indicate the name of the main script that will be run. This is an extremely important parameter that can be set in a variety of ways according to your needs. Often, this is set to $fastcgi_script_name, which should be the request **URI**, the request **URI** with the fastcgi_index appended if it ends with a slash, or the first captured group if using fastcgi_fix_path_info.
-    SCRIPT_FILENAME: This parameter specifies the actual location on disk of the script to run. Because of its relation to the SCRIPT_NAME parameter, some guides suggest that you use $document_root$fastcgi_script_name. Another alternative that has many advantages is to use $request_filename.
-    REQUEST_URI: This should contain the full, unmodified request **URI**, complete with the script to run, additional path info, and any arguments. Some applications prefer to parse this info themselves. This parameter gives them the information necessary to do that.
-    PATH_INFO: If cgi.fix_pathinfo is set to “1” in the PHP configuration file, this will contain any additional path information added after the script name. This is often used to define a file argument that the script should act upon. Setting cgi.fix_pathinfo to “1” can have security implications if the script requests are not sanitized through other means (we will discuss this later). Sometimes this is set to the $fastcgi_path_info variable, which contains the second captured group from the fastcgi_split_path_info directive. Other times, a temporary variable will need to be used as that value is sometimes clobbered by other processing.
-    PATH_TRANSLATED: This parameter maps the path information contained within PATH_INFO into an actual filesystem path. Usually, this will be set to something like $document_root$fastcgi_path_info, but sometimes the later variable must be replaced by the temporary saved variable as indicated above.
+- `QUERY_STRING`: This parameter should be set to any query string supplied by the client. This will typically be key-value pairs supplied after a “?” in the **URI**. Typically, this parameter is set to either the `$query_string` or `$args` variables, both of which should contain the same data.
+- `REQUEST_METHOD` : This parameter indicates to the FastCGI processor which type of action was requested by the client. This is one of the few parameters required to be set in order for the pass to function correctly.
+- `CONTENT_TYPE` : If the request method set above is *POST*, this parameter must be set. It indicates the type of content that the FastCGI processor should expect. This is almost always just set to the `$content_type` variable, which is set according to info in the original request.
+- `CONTENT_LENGTH` : If the request method is *POST*, this parameter must be set. This indicates the content length. This is almost always just set to *$content_length*, a variable that gets its value from information in the original client request.
+- `SCRIPT_NAME` : This parameter is used to indicate the name of the main script that will be run. This is an extremely important parameter that can be set in a variety of ways according to your needs. Often, this is set to `$fastcgi_script_name`, which should be the request **URI**, the request **URI** with the `fastcgi_index` appended if it ends with a slash, or the first captured group if using `fastcgi_fix_path_info`.
+- `SCRIPT_FILENAME` : This parameter specifies the actual location on disk of the script to run. Because of its relation to the `SCRIPT_NAME` parameter, some guides suggest that you use `$document_root` `$fastcgi_script_name`. Another alternative that has many advantages is to use `$request_filename`.
+- `REQUEST_URI` : This should contain the full, unmodified request **URI**, complete with the script to run, additional path info, and any arguments. Some applications prefer to parse this info themselves. This parameter gives them the information necessary to do that.
+- `PATH_INFO` : If `cgi.fix_pathinfo` is set to `1` in the PHP configuration file, this will contain any additional path information added after the script name. This is often used to define a file argument that the script should act upon. Setting `cgi.fix_pathinfo` to `1` can have security implications if the script requests are not sanitized through other means. Sometimes this is set to the `$fastcgi_path_info variable`, which contains the second captured group from the `fastcgi_split_path_info directive`. Other times, a temporary variable will need to be used as that value is sometimes clobbered by other processing.
+- `PATH_TRANSLATED` : This parameter maps the path information contained within `PATH_INFO` into an actual filesystem path. Usually, this will be set to something like `$document_root` `$fastcgi_path_info`, but sometimes the later variable must be replaced by the temporary saved variable as indicated above.
 
 ### proxy_pass
 Running in actual (reverse) proxy mode, forwarding incoming request to another server
 
+## PHP FPM (FastCGI Process Manager)
+This guide assume PHP FPM already installed and configured either using tcp port (127.0.0.1:9000) or unix socket (/var/run/php-fpm.sock).

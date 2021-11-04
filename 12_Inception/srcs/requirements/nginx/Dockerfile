@@ -14,12 +14,12 @@ RUN apt-get -yqq install openssl
 
 # Copy NGINX server block definition and create a symbolic link
 # to "enable" our website
-COPY srcs/requirements/nginx/localhost /etc/nginx/sites-available
+COPY ./localhost /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
 
 # Root directory of our website
-RUN mkdir -p /var/www/localhost/wordpress
-WORKDIR /var/www/localhost/wordpress
+RUN mkdir -p /var/www/localhost
+WORKDIR /var/www/localhost
 
 #================================ 3. SSL protocol ==============================
 
@@ -32,9 +32,12 @@ WORKDIR /var/www/localhost/wordpress
 # -keyout : specifies where to save the key
 # -out    : specifies where to save the certificate
 RUN openssl req -newkey rsa:2048 -x509 -days 31 -nodes \
-            	-subj "/C=BE/ST=Namur/L=Namur/O=42Network/OU=s19/CN=localhost"\
-            	-keyout /etc/ssl/private/nginx-selfsigned.key \
-            	-out /etc/ssl/certs/nginx-selfsigned.crt
+				-subj "/C=BE/ST=Namur/L=Namur/O=42Network/OU=s19/CN=localhost"\
+				-keyout /etc/ssl/private/nginx-selfsigned.key \
+				-out /etc/ssl/certs/nginx-selfsigned.crt
 
+# To allow a graceful NGINX shutdown
+STOPSIGNAL SIGQUIT
 
-ENTRYPOINT ["nginx", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
+
