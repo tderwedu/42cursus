@@ -10,7 +10,7 @@ RUN apt-get -yqq install procps
 RUN apt-get -yqq install wget
 
 # To install phpMyAdmin
-#	php-fpm   : stands for "PHP fastCGI process manager"
+#	php-fpm   : stands for "PHP FastCGI Process Manager"
 #	php-mysql : allows PHP to communicate with MySQL
 RUN apt install -yqq php-fpm php-mysql
 
@@ -24,9 +24,12 @@ RUN wget https://wordpress.org/latest.tar.gz && \
  	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
 COPY ./srcs/wp-config.php /var/www/localhost/wordpress
 
-RUN chown -R www-data:www-data *
-RUN chmod -R 755 /var/www/*
+RUN chown -R www-data:www-data .
+RUN chmod -R 755 .
 
 COPY srcs/start.sh ./
+
+EXPOSE 3306
+EXPOSE 9000
 
 ENTRYPOINT ["bash","start.sh"]
