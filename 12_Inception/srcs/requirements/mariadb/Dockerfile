@@ -18,7 +18,6 @@ ARG MYSQL_USER=${MYSQL_USER}
 ARG MYSQL_PASSWORD=${MYSQL_PASSWORD}
 ARG MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
-RUN env
 # 0. Launch MySQL
 # 1. Create a new database
 # 2. Create a new user
