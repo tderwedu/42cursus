@@ -15,8 +15,8 @@ RUN apt-get -yqq install openssl
 
 # Copy NGINX server block definition and create a symbolic link
 # to "enable" our website
-COPY ./localhost /etc/nginx/sites-available
-RUN ln -s /etc/nginx/sites-available/localhost /etc/nginx/sites-enabled
+COPY ./nginx.conf /etc/nginx/sites-available
+RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 
 # Root directory of our website
 RUN mkdir -p /var/www/localhost

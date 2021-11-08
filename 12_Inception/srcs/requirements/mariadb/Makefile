@@ -4,6 +4,6 @@ build:
 
 # To run the 'ft_server' container
 run:
-		docker run -d --name ft_maria ft_maria
+		docker run -d --rm --name ft_maria ft_maria
 
 .phony:	build run

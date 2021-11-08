@@ -6,13 +6,12 @@ FROM	debian:buster
 RUN apt-get -qq update && apt-get -yqq upgrade
 # To install ps
 RUN apt-get -yqq install procps
-# To install WordPress
-RUN apt-get -yqq install wget
 
 # To install phpMyAdmin
 #	php-fpm   : stands for "PHP FastCGI Process Manager"
 #	php-mysql : allows PHP to communicate with MySQL
-RUN apt install -yqq php-fpm php-mysql
+#	wget      : used to install wordpress
+RUN apt-get -yqq install wget php-fpm php-mysql
 
 # Root directory of our website
 RUN mkdir -p /var/www/localhost/wordpress
@@ -32,4 +31,4 @@ COPY srcs/start.sh ./
 EXPOSE 3306
 EXPOSE 9000
 
-ENTRYPOINT ["bash","start.sh"]
+ENTRYPOINT ["wordpressdb"]

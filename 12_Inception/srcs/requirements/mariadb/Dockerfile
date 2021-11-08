@@ -18,6 +18,7 @@ ARG MYSQL_USER=${MYSQL_USER}
 ARG MYSQL_PASSWORD=${MYSQL_PASSWORD}
 ARG MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 
+RUN env
 # 0. Launch MySQL
 # 1. Create a new database
 # 2. Create a new user
@@ -28,11 +29,12 @@ RUN service mysql start \
 	&& mysql -u root --skip-password -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" \
 	&& mysql -u root --skip-password -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%' WITH GRANT OPTION;" \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
+# SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${rootPasswordEscaped}') ;
 
 #=========================== 4. Container Launching ===========================
 
-# To allow a graceful MariaDB shutdown
-STOPSIGNAL SIGTERM
+# To allow a graceful MariaDB shutdown (not possible without a workaround)
+# STOPSIGNAL SIGTERM
 
 # EXPOSE 3306
 

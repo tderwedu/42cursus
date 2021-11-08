@@ -4,10 +4,8 @@ services:
   nginx:
     container_name: "nginx"
     hostname: "nginx"
-    # env_file: DOES NGINX NEED IT ? SECURITY 
-    #   - .env
     build:
-      context:  "./nginx"
+      context:  "./requirements/nginx"
       dockerfile: Dockerfile
     ports:
       - "443:443"
@@ -15,7 +13,7 @@ services:
       - "9000"
     networks:
       - inception_net
-    volume:
+    volumes:
       - "wordpress_vol:/var/www/localhost:ro"
     restart: unless-stopped
 # === WordPress ===
@@ -32,14 +30,14 @@ services:
       WORDPRESS_DB_USER: ${MYSQL_USER}
       WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
     build:
-      context:  "./wordpress"
+      context:  "./requirements/wordpress"
       dockerfile: Dockerfile
     expose:
       - "3306"
       - "9000"
     networks:
-      - inception_net
-    volume:
+       - inception_net
+    volumes:
       - "wordpress_vol:/var/www/localhost"
       - "mariadb_vol:/var/lib/mysql"
     restart: unless-stopped
@@ -50,18 +48,18 @@ services:
     env_file:
       - .env
     build:
-      context:  "./mariadb"
+      context:  "./requirements/mariadb"
       dockerfile: Dockerfile
-    environment:
-      MYSQL_ROOT_PASSWORD: mysql_root_pass #TODO: use env
-      MYSQL_DATABASE: db_name #TODO: use env
-      MYSQL_USER: user_name #TODO: use env
-      MYSQL_PASSWORD: user_pass #TODO: use env
+      args:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_USER=${MYSQL_USER}
     expose:
       - "3306"
     networks:
       - inception_net
-    volume:
+    volumes:
       - "mariadb_vol:/var/lib/mysql"
     restart: unless-stopped
 # === Volumes ===
@@ -69,13 +67,15 @@ volumes:
   wordpress_vol:
     driver: "local"
     driver_opts:
-        type: "bind"
-        src: "/home/tderwedu/data/wordpress"
+      type: 'none'
+      o: "bind"
+      device: "/home/tderwedu/data/wordpress"
   mariadb_vol:
     driver: "local"
     driver_opts:
-        type: "bind"
-        src: "/home/tderwedu/data/mariadb"
+      type: 'none'
+      o: "bind"
+      device: "/home/tderwedu/data/mariadb"
 # === Network ===
 networks:
   inception_net:
