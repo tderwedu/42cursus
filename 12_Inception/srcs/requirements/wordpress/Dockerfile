@@ -21,14 +21,14 @@ WORKDIR /var/www/localhost
 
 RUN wget https://wordpress.org/latest.tar.gz && \
  	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
-COPY ./srcs/wp-config.php /var/www/localhost/wordpress
+COPY ./wp-config.php /var/www/localhost/wordpress
 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
 
-COPY srcs/start.sh ./
+#=========================== 3. Launching Container ===========================
 
 EXPOSE 3306
 EXPOSE 9000
 
-ENTRYPOINT ["wordpressdb"]
+CMD ["php-fpm7.3"]

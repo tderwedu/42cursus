@@ -37,7 +37,7 @@ RUN openssl req -newkey rsa:2048 -x509 -days 31 -nodes \
 				-keyout /etc/ssl/private/nginx-selfsigned.key \
 				-out /etc/ssl/certs/nginx-selfsigned.crt
 
-#=========================== 4. Container Launching ===========================
+#=========================== 4. Launching Container ===========================
 
 # To allow a graceful NGINX shutdown
 STOPSIGNAL SIGQUIT

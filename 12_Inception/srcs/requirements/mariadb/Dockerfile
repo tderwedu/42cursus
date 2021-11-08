@@ -31,7 +31,7 @@ RUN service mysql start \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
 # SET PASSWORD FOR 'root'@'localhost'=PASSWORD('${rootPasswordEscaped}') ;
 
-#=========================== 4. Container Launching ===========================
+#=========================== 4. Launching Container ===========================
 
 # To allow a graceful MariaDB shutdown (not possible without a workaround)
 # STOPSIGNAL SIGTERM

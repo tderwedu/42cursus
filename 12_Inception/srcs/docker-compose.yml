@@ -25,10 +25,10 @@ services:
     env_file:
       - .env
     environment:
-      WORDPRESS_DB_HOST: mariadb:3306
-      WORDPRESS_DB_NAME: ${MYSQL_DATABASE}
-      WORDPRESS_DB_USER: ${MYSQL_USER}
-      WORDPRESS_DB_PASSWORD: ${MYSQL_PASSWORD}
+      WP_DB_HOST: mariadb:3306
+      WP_DB_NAME: ${MYSQL_DATABASE}
+      WP_DB_USER: ${MYSQL_USER}
+      WP_DB_PASSWORD: ${MYSQL_PASSWORD}
     build:
       context:  "./requirements/wordpress"
       dockerfile: Dockerfile
@@ -69,13 +69,13 @@ volumes:
     driver_opts:
       type: 'none'
       o: "bind"
-      device: "/home/tderwedu/data/wordpress"
+      device: "/home/tderwedu/data/wordpress_vol"
   mariadb_vol:
     driver: "local"
     driver_opts:
       type: 'none'
       o: "bind"
-      device: "/home/tderwedu/data/mariadb"
+      device: "/home/tderwedu/data/mariadb_vol"
 # === Network ===
 networks:
   inception_net:

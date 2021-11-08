@@ -6,21 +6,26 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 11:13:54 by tderwedu          #+#    #+#              #
-#    Updated: 2021/11/08 18:29:34 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/11/08 23:28:30 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 run:
+		sudo mkdir -p /home/tderwedu/data/mariadb_vol
+		sudo mkdir -p /home/tderwedu/data/wordpress_vol
 		docker-compose -f srcs/docker-compose.yml --env-file ./srcs/.env up -d
 		# docker-compose -f srcs/docker-compose.yml --env-file ./srcs/.env up
 
-list:
-		docker-compose ps
+ps:
+		docker-compose -f srcs/docker-compose.yml ps
 
 stop:
-		docker-compose stop
+		docker-compose -f srcs/docker-compose.yml stop
+
+down:
+		docker-compose -f srcs/docker-compose.yml down
 
 prune:
-		docker-compose down --volumes
+		docker-compose -f srcs/docker-compose.yml down --volumes
 
-.phony:	run list stop prune
+.phony:	run ps stop down prune
