@@ -59,3 +59,7 @@ Running in actual (reverse) proxy mode, forwarding incoming request to another s
 
 ## PHP FPM (FastCGI Process Manager)
 This guide assume PHP FPM already installed and configured either using tcp port (127.0.0.1:9000) or unix socket (/var/run/php-fpm.sock).
+
+Ah - that makes more sense. So we need to resolve etc/php-fpm.d/*.conf relative to /usr/local. Resulting in /usr/local/etc/php-fpm.d/*.conf (usually you'll at least find a www.conf file in there). The pool config determines amongst other things how php-fpm listens for connections (e.g. via Unix socket or via TCP IP:port).
+
+Note the fastcgi_pass docker-php-fpm:9000; line that tells nginx how to reach our php-fpm service.

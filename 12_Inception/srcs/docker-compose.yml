@@ -16,19 +16,35 @@ services:
     volumes:
       - "wordpress_vol:/var/www/localhost:ro"
     restart: unless-stopped
+# === MariaDB ===
+  mariadb:
+    container_name: "mariadb"
+    hostname: "mariadb"
+    env_file: .env
+    build:
+      context:  "./requirements/mariadb"
+      dockerfile: Dockerfile
+      args:
+        - MYSQL_DATABASE=${MYSQL_DATABASE}
+        - MYSQL_USER=${MYSQL_USER}
+        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+    expose:
+      - "3306"
+    networks:
+      - inception_net
+    volumes:
+      - "mariadb_vol:/var/lib/mysql"
+    restart: unless-stopped
 # === WordPress ===
   wordpress:
     depends_on:
       - "mariadb"
     container_name: "wordpress"
     hostname: "wordpress"
-    env_file:
-      - .env
+    env_file: .env
     environment:
       WP_DB_HOST: mariadb:3306
-      WP_DB_NAME: ${MYSQL_DATABASE}
-      WP_DB_USER: ${MYSQL_USER}
-      WP_DB_PASSWORD: ${MYSQL_PASSWORD}
     build:
       context:  "./requirements/wordpress"
       dockerfile: Dockerfile
@@ -39,27 +55,6 @@ services:
        - inception_net
     volumes:
       - "wordpress_vol:/var/www/localhost"
-      - "mariadb_vol:/var/lib/mysql"
-    restart: unless-stopped
-# === MariaDB ===
-  mariadb:
-    container_name: "mariadb"
-    hostname: "mariadb"
-    env_file:
-      - .env
-    build:
-      context:  "./requirements/mariadb"
-      dockerfile: Dockerfile
-      args:
-        - MYSQL_DATABASE=${MYSQL_DATABASE}
-        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-        - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-        - MYSQL_USER=${MYSQL_USER}
-    expose:
-      - "3306"
-    networks:
-      - inception_net
-    volumes:
       - "mariadb_vol:/var/lib/mysql"
     restart: unless-stopped
 # === Volumes ===
