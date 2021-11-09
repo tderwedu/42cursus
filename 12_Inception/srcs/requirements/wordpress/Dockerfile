@@ -22,7 +22,7 @@ WORKDIR /var/www/localhost
 RUN wget https://wordpress.org/latest.tar.gz && \
  	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
 # Used to info about wordpress_db
-COPY ./wp-config.php /var/www/localhost/wordpress/
+COPY ./wp-config.php ./wordpress/
 # Used to define the listening port (unix -> TCP/IP)
 COPY ./www.conf /etc/php/7.3/fpm/pool.d/
 # Disable PID file creation & deamonization
@@ -31,13 +31,6 @@ COPY ./php-fpm.conf /etc/php/7.3/fpm/
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
 
-# ADDED:
-# ENV MYSQL_DATABASE=wordpress_db
-# ENV MYSQL_USER=user
-# ENV MYSQL_PASSWORD=user
-# ENV MYSQL_ROOT_PASSWORD=root
-# ENV DB_NAME=mariadb:3306
-# END
 #=========================== 3. Launching Container ===========================
 
 STOPSIGNAL SIGUSR1

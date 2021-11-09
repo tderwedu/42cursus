@@ -14,7 +14,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - "wordpress_vol:/var/www/localhost:ro"
+      - "wordpress_vol:/var/www/localhost"
     restart: unless-stopped
 # === MariaDB ===
   mariadb:
@@ -43,8 +43,6 @@ services:
     container_name: "wordpress"
     hostname: "wordpress"
     env_file: .env
-    environment:
-      WP_DB_HOST: mariadb:3306
     build:
       context:  "./requirements/wordpress"
       dockerfile: Dockerfile
