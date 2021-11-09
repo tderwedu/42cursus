@@ -16,11 +16,6 @@ if (!function_exists('getenv_docker')) {
 	}
 }
 
-// ** To print all environment variables ** //
-while (list($var,$value) = each ($_ENV)) {
-	echo "$var => $value <br />";
-}
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define( 'DB_NAME', getenv_docker('MYSQL_DATABASE', 'bad_name') );
@@ -32,16 +27,14 @@ define( 'DB_USER', getenv_docker('MYSQL_USER', 'bad_user') );
 define( 'DB_PASSWORD', getenv_docker('MYSQL_PASSWORD', 'bad_password') );
 
 /** MySQL hostname */
-define( 'DB_HOST', getenv_docker('MYSQL_HOST', 'bad_host') );
+// define( 'DB_HOST', getenv_docker('MYSQL_HOST', 'bad_host') );
+define( 'DB_HOST', getenv('MYSQL_HOST') );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
 
 /** The Database Collate type. Don't change this if in doubt. */
 define( 'DB_COLLATE', '' );
-
-/** ADDED: To print all the DB credentials */
-var_dump(DB_NAME, DB_USER, DB_PASSWORD, DB_HOST);
 
 /**#@+
  * Authentication Unique Keys and Salts.
@@ -89,11 +82,9 @@ define( 'WP_DEBUG_DISPLAY', true );
 @ini_set( 'display_errors', 1 );
 
 /* That's all, stop editing! Happy publishing. */
-
 /** Absolute path to the WordPress directory. */
-if ( ! defined( 'ABSPATH' ) ) {
-	define( 'ABSPATH', dirname( __FILE__ ) . '/' );
-}
+if ( !defined('ABSPATH') )
+	define('ABSPATH', dirname(__FILE__) . '/');
 
 /** Sets up WordPress vars and included files. */
-require_once( ABSPATH . 'wp-settings.php' );
+require_once ABSPATH . 'wp-settings.php';
