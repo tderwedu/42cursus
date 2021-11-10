@@ -30,6 +30,8 @@ RUN service mysql start \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
 	# && mysql -u root --skip-password -e "SET PASSWORD FOR 'root'@'%' = PASSWORD('${MYSQL_ROOT_PASSWORD}') ;" \
 
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
+
 #=========================== 4. Launching Container ===========================
 
 # To allow a graceful MariaDB shutdown (not possible without a workaround)

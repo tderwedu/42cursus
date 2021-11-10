@@ -57,9 +57,55 @@ For the bare minimum configuration two parameters, REQUEST_METHOD and SCRIPT_FIL
 ### proxy_pass
 Running in actual (reverse) proxy mode, forwarding incoming request to another server
 
-## PHP FPM (FastCGI Process Manager)
+# PHP FPM (FastCGI Process Manager)
 This guide assume PHP FPM already installed and configured either using tcp port (127.0.0.1:9000) or unix socket (/var/run/php-fpm.sock).
 
 Ah - that makes more sense. So we need to resolve etc/php-fpm.d/*.conf relative to /usr/local. Resulting in /usr/local/etc/php-fpm.d/*.conf (usually you'll at least find a www.conf file in there). The pool config determines amongst other things how php-fpm listens for connections (e.g. via Unix socket or via TCP IP:port).
 
-Note the fastcgi_pass docker-php-fpm:9000; line that tells nginx how to reach our php-fpm service.
+Note the `fastcgi_pass docker-php-fpm:9000;` line that tells nginx how to reach our php-fpm service.
+
+Maintenant, si vous voulez configurer PHP, il faudra éditer la configuration dans le répertoire  /etc/php/7.2/fpm  . Voici le détail du contenu de ce répertoire :
+ - `php.ini` le fichier de configuration générale de PHP
+ - `conf.d` le répertoire de configuration des modules PHP
+ - `php-fpm.conf` le fichier de configuration du daemon php-fpm
+ - `pool.d` le répertoire contenant la configuration des pools php-fpm
+
+Php-fpm fonctionne par un système de pools, un pool étant un ensemble de processus php-fpm utilisant une même configuration.
+
+
+# MySQL - MariaDB
+
+```
+mysql -h localhost -u root -p
+```
+ - `mysql` le nom du client texte qui permet de se connecter à MySQL
+ - `-h` précise le nom de l’hôte auquel vous voulez vous connecter. localhost est l’hôte par défaut donc vous pouvez vous passer de cette option pour les connexions locales
+- `-u` indique le nom de l’utilisateur avec lequel vous voulez vous connecter
+- `-p` demande d’afficher un prompt pour entrer le mot de passe de manière interactive
+
+Dans MySQL, la manière dont les données sont gérées et accédées est définie au niveau de chaque table. Cette gestion est assurée par des moteurs de stockage, chacun ayant ses caractéristiques propres. Les deux types de moteurs principaux que vous devez connaître avec MySQL sont :
+
+    MyISAM : c’est le moteur le plus ancien et le plus “basique”. Il est très rapide pour effectuer des recherches ou des opérations en lecture mais ne gère pas les transactions (cf encadré) ni les clés étrangères.
+
+    InnoDB : c’est un moteur plus récent. Il est plus robuste dans le sens où il gère les transactions mais il est un peu plus lent pour les opérations de lecture. Il gère aussi les clés étrangères.
+
+Une transaction est une opération dite ACID pour atomique, cohérente, isolée et durable. En gros, ça veut dire qu’une opération est soit réalisée, soit non-réalisée mais n’est jamais quelque part entre les deux. C’est un critère important pour certaines opérations comme les opérations bancaires par exemple : si un transfert d’argent est réalisé, le compte de l’émetteur est prélevé ET l’argent est versé au bénéficiaire mais jamais l’un sans l’autre.
+
+Les fichiers de configuration utilisés par MySQL sont dans `/etc/mysql` . Vous y découvrirez :
+
+    les fichiers `my.cnf` et  mysql.cnf  : fichiers généraux par défaut, ils ne contiennent maintenant que des lignes pour inclure les fichiers dans  conf.d  et  mysql.conf.d  car la configuration a été découpée en différents fichiers dans ces répertoires
+
+    un fichier `debian.cnf` : sur les systèmes Debian (dont Ubuntu), un utilisateur  debian-sys-maint  ayant les droits administrateur est créé pour effectuer les opérations de maintenance de MySQL. Ce fichier contient les informations de connexion de cet utilisateur et ne doit pas être modifié.
+
+    un fichier `mysql.conf.d/mysqld.cnf` : il contient la plupart des options de configuration générale du serveur.
+
+Si vous ouvrez ce dernier fichier  /etc/mysql/mysql.conf.d/mysqld.cnf  , vous verrez que les fichiers de configuration de MySQL sont découpés en sections dont le titre est entre crochets. La configuration générale est dans la section  [mysqld]  . Vous y trouverez quelques variables notables :
+ - `user = mysql` Définit l’utilisateur système utilisé par MySQL.
+ - `port = 3306` Définit le port TCP sur lequel écoute MySQL
+ - `datadir = /var/lib/mysql` Définit le répertoire dans lequel MySQL stocke ses fichiers
+ - `bind-address = 127.0.0.1` Définit les IP sur lesquelles écoute MySQL. Sur Ubuntu, par défaut MySQL n’écoute qu’en local ce qui est une bonne chose en terme de sécurité. Comme votre serveur est sur la même machine que MySQL, vous pouvez laisser comme ça pour l’instant mais c’est à adapter si vous voulez vous connecter à MySQL depuis un autre serveur.
+ - `log_error = /var/log/mysql/error.log` Définit le log d’erreurs de MySQL
+
+ Dans le répertoire de stockage `/var/lib/mysql`, vous y trouverez un sous-répertoire pour chacune de vos bases de données. Dans ces répertoires de base de données, vous trouverez pour chaque table un fichier NOM_DE_MA_TABLE.frm  qui décrit la structure de la table en question. Les autres fichiers dépendent du moteur de stockage que vous utilisez pour vos tables.
+
+mysqld_safe is the recommended way to start a mysqld server on Unix and NetWare. mysqld_safe adds some safety features such as restarting the server when an error occurs and logging runtime information to an error log file. NetWare-specific behaviors are listed later in this section.

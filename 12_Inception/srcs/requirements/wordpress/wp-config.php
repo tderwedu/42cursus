@@ -18,17 +18,17 @@ if (!function_exists('getenv_docker')) {
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv_docker('MYSQL_DATABASE', 'bad_name') );
+define( 'DB_NAME', getenv('MYSQL_DATABASE', true) );
 
 /** MySQL database username */
-define( 'DB_USER', getenv_docker('MYSQL_USER', 'bad_user') );
+define( 'DB_USER', getenv('MYSQL_USER', true) );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', getenv_docker('MYSQL_PASSWORD', 'bad_password') );
+define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD', true) );
 
 /** MySQL hostname */
 // define( 'DB_HOST', getenv_docker('MYSQL_HOST', 'bad_host') );
-define( 'DB_HOST', getenv('MYSQL_HOST') );
+define( 'DB_HOST', getenv('MYSQL_HOST', true) );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -78,8 +78,6 @@ $table_prefix = 'wp_';
  */
 define( 'WP_DEBUG', true );
 define( 'WP_DEBUG_LOG', true );
-define( 'WP_DEBUG_DISPLAY', true );
-@ini_set( 'display_errors', 1 );
 
 /* That's all, stop editing! Happy publishing. */
 /** Absolute path to the WordPress directory. */
