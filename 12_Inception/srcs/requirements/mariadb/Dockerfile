@@ -16,27 +16,40 @@ RUN apt-get -yqq install mariadb-server
 ARG MYSQL_DATABASE=${MYSQL_DATABASE}
 ARG MYSQL_USER=${MYSQL_USER}
 ARG MYSQL_PASSWORD=${MYSQL_PASSWORD}
-ARG MYSQL_ADMIN=${MYSQL_ADMIN}
-ARG MYSQL_ADMIN_PASSWORD=${MYSQL_ADMIN_PASSWORD}
+ARG MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
 ARG WP_HOST=${WP_HOST}
 ARG NET_NAME=${NET_NAME}
 
 # 0. Launch MySQL
 # 1. Create a new database
 # 2. Create a new user
-# 3. Grant the user All privileges on the database.
-# 4. Create a new user (admin)
-# 5. Grant the admin All privileges on the database and 
-# 7. Reload privileges tables
-# 6. (='console' auth plugin = Default) Disable remote access to ROOT and use UNIX socket for authentification
+# 3. Grant the admin All privileges on the database and 
+# 4. Reload privileges tables
 RUN service mysql start \
 	&& mysql -u root --skip-password -e "CREATE DATABASE ${MYSQL_DATABASE};" \
 	&& mysql -u root --skip-password -e "CREATE USER '${MYSQL_USER}'@'${WP_HOST}.${NET_NAME}' IDENTIFIED BY '${MYSQL_PASSWORD}';" \
 	&& mysql -u root --skip-password -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'${WP_HOST}.${NET_NAME}';" \
-	&& mysql -u root --skip-password -e "CREATE USER '${MYSQL_ADMIN}'@'${WP_HOST}.${NET_NAME}' IDENTIFIED BY '${MYSQL_ADMIN_PASSWORD}';" \
-	&& mysql -u root --skip-password -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_ADMIN}'@'${WP_HOST}.${NET_NAME}' WITH GRANT OPTION;" \
-	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;" 
-# && mysql -u root --skip-password -e "UPDATE mysql.user SET plugin='' WHERE user='root' AND host = 'localhost';"
+	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
+
+# COPY ./wordpress_db.sql /wordpress_db.sql
+# # Launch MySQL and load pre-made Wordpress database
+# RUN service mysql start && mysql $MYSQL_DATABASE < wordpress_db.sql
+
+# # Automating 'mysql_secure_installation'
+# # 0. Launch MySQL
+# # 1. Make root user only accessible from localhost
+# # 2. Remove anonymous-user accounts. 
+# # 3. Remove the test database
+# # 4. Use a PASSWORD for root user instead of UNIX socket
+# # 5. Set root PASSWORD
+# # 6. Reload privileges tables
+# RUN service mysql start \
+# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')" \
+# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User=''" \
+# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'" \
+# 	&& mysql -u root --skip-password -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root'" \
+# 	&& mysql -u root --skip-password -e "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root'" \
+# 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES"
 
 COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
 

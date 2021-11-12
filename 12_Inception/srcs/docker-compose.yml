@@ -4,6 +4,7 @@ services:
   nginx:
     container_name: "nginx"
     hostname: "nginx"
+    image: "nginx"
     build:
       context:  "./requirements/nginx"
       dockerfile: Dockerfile
@@ -20,6 +21,7 @@ services:
   mariadb:
     container_name: "mariadb"
     hostname: "mariadb"
+    image: "mariadb"
     env_file: .env
     build:
       context:  "./requirements/mariadb"
@@ -28,8 +30,7 @@ services:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-        - MYSQL_ADMIN=${MYSQL_ADMIN}
-        - MYSQL_ADMIN_PASSWORD=${MYSQL_ADMIN_PASSWORD}
+        - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
         - WP_HOST=${WP_HOST}
         - NET_NAME=${NET_NAME}
     expose:
@@ -41,10 +42,11 @@ services:
     restart: unless-stopped
 # === WordPress ===
   wordpress:
-    depends_on:
-      - "mariadb"
     container_name: "wordpress"
     hostname: ${WP_HOST}
+    image: "wordpress"
+    depends_on:
+      - "mariadb"
     env_file: .env
     build:
       context:  "./requirements/wordpress"
