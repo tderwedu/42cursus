@@ -1,34 +1,18 @@
 <?php
 
-// a helper function to lookup "env_FILE", "env", then fallback
-if (!function_exists('getenv_docker')) {
-	// https://github.com/docker-library/wordpress/issues/588 (WP-CLI will load this file 2x)
-	function getenv_docker($env, $default) {
-		if ($fileEnv = getenv($env . '_FILE')) {
-			return rtrim(file_get_contents($fileEnv), "\r\n");
-		}
-		else if (($val = getenv($env)) !== false) {
-			return $val;
-		}
-		else {
-			return $default;
-		}
-	}
-}
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
-define( 'DB_NAME', getenv('MYSQL_DATABASE', true) );
+define( 'DB_NAME', getenv('MYSQL_DATABASE') );
 
 /** MySQL database username */
-define( 'DB_USER', getenv('MYSQL_USER', true) );
+define( 'DB_USER', getenv('MYSQL_USER') );
 
 /** MySQL database password */
-define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD', true) );
+define( 'DB_PASSWORD', getenv('MYSQL_PASSWORD') );
 
 /** MySQL hostname */
 // define( 'DB_HOST', getenv_docker('MYSQL_HOST', 'bad_host') );
-define( 'DB_HOST', getenv('MYSQL_HOST', true) );
+define( 'DB_HOST', getenv('MYSQL_HOST') );
 
 /** Database Charset to use in creating database tables. */
 define( 'DB_CHARSET', 'utf8' );
@@ -45,14 +29,15 @@ define( 'DB_COLLATE', '' );
  *
  * @since 2.6.0
  */
-define( 'AUTH_KEY',         'put your unique phrase here' );
-define( 'SECURE_AUTH_KEY',  'put your unique phrase here' );
-define( 'LOGGED_IN_KEY',    'put your unique phrase here' );
-define( 'NONCE_KEY',        'put your unique phrase here' );
-define( 'AUTH_SALT',        'put your unique phrase here' );
-define( 'SECURE_AUTH_SALT', 'put your unique phrase here' );
-define( 'LOGGED_IN_SALT',   'put your unique phrase here' );
-define( 'NONCE_SALT',       'put your unique phrase here' );
+
+define('AUTH_KEY',         'z67>MY{g> mp^D#|~$d; ^x >r9U$MJFwK0g:/;uW!BSaC<V~9V*BzWi1h&FbfZW');
+define('SECURE_AUTH_KEY',  'p$wJWcPLCFjJ?+%yoYOn,K.${In|$L-O[<Nm5Il;1-K!%`/K$<:(]YUE1`lt.H{m');
+define('LOGGED_IN_KEY',    '-*?Tu7W+GWn>q6=oO.-:(K@rz`I+QnjeF?p$w-2nqIe$P1|^.J+/W7|Dr:v$4YM$');
+define('NONCE_KEY',        'Frs5,2H`G~n]-6jz6cVM-B#vb0wK4<kIeH~cGH(*,IcN  Wr)F/4[fXz8XvfJ9-b');
+define('AUTH_SALT',        '?JffVD?)TfRa?Z)E~#`2-?Pe=r6FJ|R8Rn4JD)lJa)-~=z9]^N$d|s+T4|7=lS;%');
+define('SECURE_AUTH_SALT', '4sQJj1Q_Ca*opB>l1Bs~7~:t,-uFx+0cG _A(4eSZo~<POF|5|]y4`a@=pR.Ws-9');
+define('LOGGED_IN_SALT',   'CY5%cY(V+]-CI(IHu.PCnFbT+<``z(a>qI$}K<K}Ezv=u@^>u`uRdT7fBeSft-Nt');
+define('NONCE_SALT',       '=IBnuTbkqtcI#Z{]rfc?GEMxe.Y,R9%|8@MxA.|Yx?8TN9 yx}Vb^z=5~g4GXLOw');
 
 /**#@-*/
 
