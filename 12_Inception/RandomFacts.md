@@ -109,3 +109,7 @@ Si vous ouvrez ce dernier fichier  /etc/mysql/mysql.conf.d/mysqld.cnf  , vous ve
  Dans le répertoire de stockage `/var/lib/mysql`, vous y trouverez un sous-répertoire pour chacune de vos bases de données. Dans ces répertoires de base de données, vous trouverez pour chaque table un fichier NOM_DE_MA_TABLE.frm  qui décrit la structure de la table en question. Les autres fichiers dépendent du moteur de stockage que vous utilisez pour vos tables.
 
 mysqld_safe is the recommended way to start a mysqld server on Unix and NetWare. mysqld_safe adds some safety features such as restarting the server when an error occurs and logging runtime information to an error log file. NetWare-specific behaviors are listed later in this section.
+
+[Privileges explanation (FR)](https://openclassrooms.com/fr/courses/1959476-administrez-vos-bases-de-donnees-avec-mysql/1975880-gestion-des-utilisateurs)
+
+[Privileges explanation (Official Doc)](https://dev.mysql.com/doc/mysql-security-excerpt/8.0/en/creating-accounts.html)

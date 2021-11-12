@@ -8,8 +8,7 @@ RUN apt-get -qq update && apt-get -yqq upgrade
 RUN apt-get -yqq install procps
 
 # To install NGINX
-RUN apt-get -yqq install nginx
-RUN apt-get -yqq install openssl
+RUN apt-get -yqq install nginx openssl mariadb-client
 
 #======================== 2. Install & Configure Nginx =========================
 

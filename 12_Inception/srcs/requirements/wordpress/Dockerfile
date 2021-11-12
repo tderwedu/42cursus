@@ -11,7 +11,7 @@ RUN apt-get -yqq install procps
 #	php-fpm   : stands for "PHP FastCGI Process Manager"
 #	php-mysql : allows PHP to communicate with MySQL
 #	wget      : used to install wordpress
-RUN apt-get -yqq install wget php-fpm php-mysql
+RUN apt-get -yqq install wget php-fpm php-mysql mariadb-client
 
 # Root directory of our website
 RUN mkdir -p /var/www/localhost/wordpress
