@@ -113,3 +113,17 @@ mysqld_safe is the recommended way to start a mysqld server on Unix and NetWare.
 [Privileges explanation (FR)](https://openclassrooms.com/fr/courses/1959476-administrez-vos-bases-de-donnees-avec-mysql/1975880-gestion-des-utilisateurs)
 
 [Privileges explanation (Official Doc)](https://dev.mysql.com/doc/mysql-security-excerpt/8.0/en/creating-accounts.html)
+
+# WordPress
+
+There are two essential folders in the WordPress core;
+ - `The wp-admin` - directory consists of WordPress admin pages that allow you to update and manage your website easily. In addition, it gives you access to the WordPress admin dashboard. These admin tasks include adding and editing posts and pages, managing users, uploading media files, deleting content, managing themes, and plugins, etc.
+- `The wp-content` - It mainly consists of themes and plugin files. It also includes any media and data that upload to your page.
+
+Two of the most important WordPress files include:
+ - `The wpconfig.php` - this file controls all the basic settings and configuration details of your WordPress website. It includes MySQL database connection settings, WordPress salts and keys, database table prefix, WordPress Language, and ABSPATH. As well as other information required to run your WordPress website.
+- `The functions.php` - this file is one of the most important operating files of WordPress. WordPress themes also have a functions PHP file, and that’s the file you need to edit, not the core file contained in the base directory of your website.
+
+# Redis
+WordPress caches internal application objects, like breadcrumbs, menu items, and so on, in the MySQL database which also handles queries for page requests. Both combined may increase website load-times.
+Redis offers a caching mechanism that substitutes MySQL database. When a user visits a WordPress website, the MySQL queries necessary to generate the page come via Redis, which also caches the results. This helps to reduce loading time.

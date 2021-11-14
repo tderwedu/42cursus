@@ -14,7 +14,7 @@ RUN apt-get -yqq install nginx openssl mariadb-client
 
 # Copy NGINX server block definition and create a symbolic link
 # to "enable" our website
-COPY ./nginx.conf /etc/nginx/sites-available
+COPY ./conf/nginx.conf /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 
 # Root directory of our website

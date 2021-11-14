@@ -17,8 +17,6 @@ ARG MYSQL_DATABASE=${MYSQL_DATABASE}
 ARG MYSQL_USER=${MYSQL_USER}
 ARG MYSQL_PASSWORD=${MYSQL_PASSWORD}
 ARG MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-ARG WP_HOST=${WP_HOST}
-ARG NET_NAME=${NET_NAME}
 
 # 0. Launch MySQL
 # 1. Create a new database
@@ -28,14 +26,14 @@ ARG NET_NAME=${NET_NAME}
 # 4. Reload privileges tables
 RUN service mysql start \
 	&& mysql -u root --skip-password -e "CREATE DATABASE ${MYSQL_DATABASE};" \
-	&& mysql -u root --skip-password -e "CREATE USER '${MYSQL_USER}'@'${WP_HOST}.${NET_NAME}' IDENTIFIED BY '${MYSQL_PASSWORD}';" \
+	&& mysql -u root --skip-password -e "CREATE USER '${MYSQL_USER}'@'%' IDENTIFIED BY '${MYSQL_PASSWORD}';" \
 	&& mysql -u root --skip-password -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';" \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
 
 # 1. Copy the MySQL dump file
 # 	-> `mysqldump --databases wordpress_db > wordpress_db.sql`
 # 2. Launch MySQL and load pre-made Wordpress database
-COPY ./wordpress_db.sql /wordpress_db.sql
+COPY ./tools/wordpress_db.sql ./wordpress_db.sql
 RUN service mysql start && mysql ${MYSQL_DATABASE} < wordpress_db.sql
 
 # Automating 'mysql_secure_installation'
@@ -54,7 +52,7 @@ RUN service mysql start \
 	&& mysql -u root --skip-password -e "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root'" \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES"
 
-COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/
 
 #=========================== 4. Launching Container ===========================
 

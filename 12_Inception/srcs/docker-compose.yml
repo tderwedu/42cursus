@@ -31,8 +31,6 @@ services:
         - MYSQL_USER=${MYSQL_USER}
         - MYSQL_PASSWORD=${MYSQL_PASSWORD}
         - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-        - WP_HOST=${WP_HOST}
-        - NET_NAME=${NET_NAME}
     expose:
       - "3306"
     networks:
@@ -43,7 +41,7 @@ services:
 # === WordPress ===
   wordpress:
     container_name: "wordpress"
-    hostname: ${WP_HOST}
+    hostname: "wordpress"
     image: "wordpress"
     depends_on:
       - "mariadb"

@@ -22,17 +22,18 @@ WORKDIR /var/www/tderwedu.42.fr
 RUN wget https://wordpress.org/latest.tar.gz && \
  	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
 # Used to info about wordpress_db
-COPY ./wp-config.php ./wordpress/
+COPY ./conf/wp-config.php ./wordpress/
 # Used to define the listening port (unix -> TCP/IP)
-COPY ./www.conf /etc/php/7.3/fpm/pool.d/
+COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 # Disable PID file creation & deamonization
-COPY ./php-fpm.conf /etc/php/7.3/fpm/
+COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/
 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
 
 #=========================== 3. Launching Container ===========================
 
+# To allow a graceful PHP-PFM shutdown
 STOPSIGNAL SIGUSR1
 
 EXPOSE 3306
