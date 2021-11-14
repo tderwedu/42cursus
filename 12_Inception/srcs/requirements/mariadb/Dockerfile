@@ -31,29 +31,29 @@ RUN service mysql start \
 	&& mysql -u root --skip-password -e "GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'${WP_HOST}.${NET_NAME}';" \
 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES;"
 
-# # 1. Copy the MySQL dump file
-# # 	-> `mysqldump --databases wordpress_db > wordpress_db.sql`
-# # 2. Launch MySQL and load pre-made Wordpress database
-# COPY ./wordpress_db.sql /wordpress_db.sql
-# RUN service mysql start && mysql ${MYSQL_DATABASE} < wordpress_db.sql
+# 1. Copy the MySQL dump file
+# 	-> `mysqldump --databases wordpress_db > wordpress_db.sql`
+# 2. Launch MySQL and load pre-made Wordpress database
+COPY ./wordpress_db.sql /wordpress_db.sql
+RUN service mysql start && mysql ${MYSQL_DATABASE} < wordpress_db.sql
 
-# # Automating 'mysql_secure_installation'
-# # 0. Launch MySQL
-# # 1. Make root user only accessible from localhost
-# # 2. Remove anonymous-user accounts. 
-# # 3. Remove the test database
-# # 4. Use a PASSWORD for root user instead of UNIX socket
-# # 5. Set root PASSWORD
-# # 6. Reload privileges tables
-# RUN service mysql start \
-# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')" \
-# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User=''" \
-# 	&& mysql -u root --skip-password -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'" \
-# 	&& mysql -u root --skip-password -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root'" \
-# 	&& mysql -u root --skip-password -e "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root'" \
-# 	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES"
+# Automating 'mysql_secure_installation'
+# 0. Launch MySQL
+# 1. Make root user only accessible from localhost
+# 2. Remove anonymous-user accounts. 
+# 3. Remove the test database
+# 4. Use a PASSWORD for root user instead of UNIX socket
+# 5. Set root PASSWORD
+# 6. Reload privileges tables
+RUN service mysql start \
+	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1')" \
+	&& mysql -u root --skip-password -e "DELETE FROM mysql.user WHERE User=''" \
+	&& mysql -u root --skip-password -e "DELETE FROM mysql.db WHERE Db='test' OR Db='test\_%'" \
+	&& mysql -u root --skip-password -e "UPDATE mysql.user SET plugin='mysql_native_password' WHERE User='root'" \
+	&& mysql -u root --skip-password -e "UPDATE mysql.user SET Password=PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User='root'" \
+	&& mysql -u root --skip-password -e "FLUSH PRIVILEGES"
 
-# COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
+COPY ./50-server.cnf /etc/mysql/mariadb.conf.d/
 
 #=========================== 4. Launching Container ===========================
 
