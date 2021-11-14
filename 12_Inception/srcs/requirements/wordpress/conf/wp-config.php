@@ -39,6 +39,15 @@ define('SECURE_AUTH_SALT', '4sQJj1Q_Ca*opB>l1Bs~7~:t,-uFx+0cG _A(4eSZo~<POF|5|]y
 define('LOGGED_IN_SALT',   'CY5%cY(V+]-CI(IHu.PCnFbT+<``z(a>qI$}K<K}Ezv=u@^>u`uRdT7fBeSft-Nt');
 define('NONCE_SALT',       '=IBnuTbkqtcI#Z{]rfc?GEMxe.Y,R9%|8@MxA.|Yx?8TN9 yx}Vb^z=5~g4GXLOw');
 
+// ADDED: Redis
+define('WP_CACHE', true);
+define('WP_REDIS_HOST', 'redis');
+define('WP_REDIS_PORT', 6379);
+// change the database for each site to avoid cache collisions
+define( 'WP_REDIS_DATABASE', 0 );
+// define( 'WP_REDIS_PASSWORD', 'CVKg0i5l4KgLEuL/L6IaXPlUHTs7rtfh6UVjnY4evkhwDEgz9al8teiifYtkBMIp8jk+X4AtYSqJdl00' );
+define('WP_CACHE_KEY_SALT', 'wp_redis_');
+
 /**#@-*/
 
 /**

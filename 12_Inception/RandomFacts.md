@@ -127,3 +127,11 @@ Two of the most important WordPress files include:
 # Redis
 WordPress caches internal application objects, like breadcrumbs, menu items, and so on, in the MySQL database which also handles queries for page requests. Both combined may increase website load-times.
 Redis offers a caching mechanism that substitutes MySQL database. When a user visits a WordPress website, the MySQL queries necessary to generate the page come via Redis, which also caches the results. This helps to reduce loading time.
+
+Gains will be more or less significant depending on your use of "objects". A static site, such as a blog, will be much less optimizable than a commercial site, an information portal, etc. 
+
+Eviction policies:
+ - Use the `allkeys-lru` policy when you expect a power-law distribution in the popularity of your requests, that is, you expect that a subset of elements will be accessed far more often than the rest. This is a good pick if you are unsure
+ - Use the `allkeys-random` if you have a cyclic access where all the keys are scanned continuously, or when you expect the distribution to be uniform (all elements likely accessed with the same probability).
+ - Use the `volatile-ttl` if you want to be able to provide hints to Redis about what are good candidate for expiration by using different TTL values when you create your cache objects.
+- The `volatile-lru` and `volatile-random` policies are mainly useful when you want to use a single instance for both caching and to have a set of persistent keys. However it is usually a better idea to run two Redis instances to solve such a problem.

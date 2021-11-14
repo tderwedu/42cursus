@@ -33,7 +33,7 @@ RUN service mysql start \
 # 1. Copy the MySQL dump file
 # 	-> `mysqldump --databases wordpress_db > wordpress_db.sql`
 # 2. Launch MySQL and load pre-made Wordpress database
-COPY ./tools/wordpress_db.sql ./wordpress_db.sql
+COPY ./conf/wordpress_db.sql ./wordpress_db.sql
 RUN service mysql start && mysql ${MYSQL_DATABASE} < wordpress_db.sql
 
 # Automating 'mysql_secure_installation'

@@ -44,7 +44,8 @@ services:
     hostname: "wordpress"
     image: "wordpress"
     depends_on:
-      - "mariadb"
+      - mariadb
+      - redis
     env_file: .env
     build:
       context:  "./requirements/wordpress"
@@ -57,6 +58,19 @@ services:
     volumes:
       - "wordpress_vol:/var/www/tderwedu.42.fr"
     restart: unless-stopped
+# === Redis ===
+  redis:
+      image: redis
+      build:
+          context: ./requirements/bonus/redis
+      depends_on:
+          - mariadb
+      container_name: redis
+      expose:
+          - "6379"
+      networks:
+          - inception_net
+      restart: unless-stopped
 # === Volumes ===
 volumes:
   wordpress_vol:

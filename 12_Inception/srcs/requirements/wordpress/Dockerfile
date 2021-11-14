@@ -27,6 +27,12 @@ COPY ./conf/wp-config.php ./wordpress/
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 # Disable PID file creation & deamonization
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/
+# Copy a Redis object cache backend for WordPress
+COPY ./tools/redis-cache.tar.gz .
+RUN tar -xzvf ./redis-cache.tar.gz && \
+	rm ./redis-cache.tar.gz && \
+	mkdir -p ./wordpress/wp-content/plugins && \
+	mv ./redis-cache ./wordpress/wp-content/plugins/
 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .
