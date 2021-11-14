@@ -18,8 +18,8 @@ COPY ./nginx.conf /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 
 # Root directory of our website
-RUN mkdir -p /var/www/localhost
-WORKDIR /var/www/localhost
+RUN mkdir -p /var/www/tderwedu.42.fr
+WORKDIR /var/www/tderwedu.42.fr
 
 #================================ 3. SSL protocol ==============================
 
@@ -32,7 +32,7 @@ WORKDIR /var/www/localhost
 # -keyout : specifies where to save the key
 # -out    : specifies where to save the certificate
 RUN openssl req -newkey rsa:2048 -x509 -days 31 -nodes \
-				-subj "/C=BE/ST=Namur/L=Namur/O=42Network/OU=s19/CN=localhost"\
+				-subj "/C=BE/ST=Namur/L=Namur/O=42Network/OU=s19/CN=tderwedu.42.fr"\
 				-keyout /etc/ssl/private/nginx-selfsigned.key \
 				-out /etc/ssl/certs/nginx-selfsigned.crt
 

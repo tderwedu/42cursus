@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 11:13:54 by tderwedu          #+#    #+#              #
-#    Updated: 2021/11/12 19:57:01 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/11/14 12:00:30 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,13 +34,14 @@ clear:	prune
 		@docker image prune -f
 		@docker volume prune -f
 		@docker network prune -f
-		@if	[ "$(docker image ls -q nginx)" ]; then \
-			docker rmi $(docker image ls -q nginx); \
-		fi
-		@if	[ "$(docker image ls -q mariadb)" ]; then \
-			docker rmi $(docker image ls -q nginx); \
-		fi
-		@if	[ "$(docker image ls -q wordpress)" ]; then \
-			docker rmi $(docker image ls -q nginx); \
-		fi
+		# echo "Removing nginx"
+		# if	[ "$(shell exec docker image ls -q nginx)" ]; then \
+		# 	docker rmi $(shell docker image ls -q nginx); \
+		# fi
+		# if	[ "$(docker image ls -q mariadb)" ]; then \
+		# 	docker rmi $(shell docker image ls -q nginx); \
+		# fi
+		# if	[ "$(docker image ls -q wordpress)" ]; then \
+		# 	docker rmi $(shell docker image ls -q nginx); \
+		# fi
 .phony:	run ps stop down prune clear

@@ -15,7 +15,7 @@ services:
     networks:
       - inception_net
     volumes:
-      - "wordpress_vol:/var/www/localhost"
+      - "wordpress_vol:/var/www/tderwedu.42.fr"
     restart: unless-stopped
 # === MariaDB ===
   mariadb:
@@ -57,7 +57,7 @@ services:
     networks:
        - inception_net
     volumes:
-      - "wordpress_vol:/var/www/localhost"
+      - "wordpress_vol:/var/www/tderwedu.42.fr"
     restart: unless-stopped
 # === Volumes ===
 volumes:
