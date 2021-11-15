@@ -60,18 +60,32 @@ services:
     restart: unless-stopped
 # === Redis ===
   redis:
-      container_name: redis
-      hostname: redis
-      image: redis
-      build:
-          context: ./requirements/bonus/redis
-      depends_on:
-          - mariadb
-      expose:
-          - "6379"
-      networks:
-          - inception_net
-      restart: unless-stopped
+    container_name: redis
+    hostname: redis
+    image: redis
+    build:
+        context: ./requirements/bonus/redis
+    depends_on:
+        - mariadb
+    expose:
+        - "6379"
+    networks:
+        - inception_net
+    restart: unless-stopped
+# === ftp  ===
+  ftp :
+    container_name: ftp 
+    hostname: ftp 
+    image: ftp 
+    build:
+        context: ./requirements/bonus/ftp
+    networks:
+        - inception_net
+    ports:
+      - "20:20"
+    volumes:
+      - "wordpress_vol:/home/tderwedu/"
+    restart: unless-stopped
 # === Volumes ===
 volumes:
   wordpress_vol:

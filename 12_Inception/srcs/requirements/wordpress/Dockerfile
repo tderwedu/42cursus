@@ -37,7 +37,7 @@ RUN tar -xzvf ./redis-cache.tar.gz && \
 	rm ./redis-cache.tar.gz && \
 	mkdir -p ./wordpress/wp-content/plugins && \
 	mv ./redis-cache ./wordpress/wp-content/plugins/ && \
-	cp ./wordpress/wp-content/plugins/redis-cache/includes/object-cache.php ./wordpress/wp-content/object-cache.php 
+	cp ./wordpress/wp-content/plugins/redis-cache/includes/object-cache.php ./wordpress/wp-content/object-cache.php
 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .

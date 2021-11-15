@@ -16,12 +16,9 @@ COPY ./conf/redis.conf /etc/redis/redis.conf
 
 #=========================== 3. Launching Container ===========================
 
-# To allow a graceful NGINX shutdown
+# To allow a graceful Redis shutdown (SIGTERM)
 # STOPSIGNAL SIGQUIT
 
 EXPOSE 6379
 
 CMD ["redis-server", "--protected-mode no"]
-
-# docker run --rm -d --name redis redis
-# docker build -t redis .
