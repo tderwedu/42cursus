@@ -27,12 +27,17 @@ COPY ./conf/wp-config.php ./wordpress/
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
 # Disable PID file creation & deamonization
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/
-# Copy a Redis object cache backend for WordPress
+
+# To Enable Redis
+# 1. Copy the Redis Object Cache plugins
+# 2. Move the plugin in the plugins folder
+# 2. Copy redis-cache.php to the 'wp-content' folder to enable object caching
 COPY ./tools/redis-cache.tar.gz .
 RUN tar -xzvf ./redis-cache.tar.gz && \
 	rm ./redis-cache.tar.gz && \
 	mkdir -p ./wordpress/wp-content/plugins && \
-	mv ./redis-cache ./wordpress/wp-content/plugins/
+	mv ./redis-cache ./wordpress/wp-content/plugins/ && \
+	cp ./wordpress/wp-content/plugins/redis-cache/includes/object-cache.php ./wordpress/wp-content/object-cache.php 
 
 RUN chown -R www-data:www-data .
 RUN chmod -R 755 .

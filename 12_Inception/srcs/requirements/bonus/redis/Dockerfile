@@ -12,7 +12,7 @@ RUN apt-get -yqq install redis-server php-redis
 
 #======================== 2. Install & Configure Redis =========================
 
-
+COPY ./conf/redis.conf /etc/redis/redis.conf
 
 #=========================== 3. Launching Container ===========================
 
@@ -21,7 +21,7 @@ RUN apt-get -yqq install redis-server php-redis
 
 EXPOSE 6379
 
-CMD ["redis-server"]
+CMD ["redis-server", "--protected-mode no"]
 
 # docker run --rm -d --name redis redis
 # docker build -t redis .

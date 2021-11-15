@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 11:13:54 by tderwedu          #+#    #+#              #
-#    Updated: 2021/11/14 17:02:20 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/11/15 09:58:11 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,9 @@ run:
 		sudo mkdir -p /home/tderwedu/data/mariadb_vol
 		sudo mkdir -p /home/tderwedu/data/wordpress_vol
 		docker-compose -f srcs/docker-compose.yml --env-file ./srcs/.env up -d --build
+
+logs:
+		docker-compose -f srcs/docker-compose.yml logs
 
 ps:
 		docker-compose -f srcs/docker-compose.yml ps
@@ -50,4 +53,4 @@ clear:	prune
 		fi
 		@printf "\e[34m Deleting `data` directory \e[0m \n"
 		sudo rmdir /home/tderwedu/data
-.phony:	run ps stop down prune clear
+.phony:	run logs ps stop down prune clear
