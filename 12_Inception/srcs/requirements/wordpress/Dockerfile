@@ -21,11 +21,11 @@ WORKDIR /var/www/tderwedu.42.fr
 
 RUN wget https://wordpress.org/latest.tar.gz && \
  	tar -xzvf latest.tar.gz && rm -rf latest.tar.gz
-# Used to info about wordpress_db
+# Used to configure wordpress DB
 COPY ./conf/wp-config.php ./wordpress/
 # Used to define the listening port (unix -> TCP/IP)
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-# Disable PID file creation & deamonization
+# Disable PID file creation & daemonization
 COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/
 
 # To Enable Redis

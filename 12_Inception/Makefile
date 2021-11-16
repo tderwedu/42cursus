@@ -13,6 +13,7 @@
 DOMAIN_NAME	= tderwedu.42.fr
 
 run:
+		sudo mkdir -p /home/tderwedu/data/adminer_vol
 		sudo mkdir -p /home/tderwedu/data/mariadb_vol
 		sudo mkdir -p /home/tderwedu/data/wordpress_vol
 		docker-compose -f srcs/docker-compose.yml --env-file ./srcs/.env up -d --build

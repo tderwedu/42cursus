@@ -39,7 +39,8 @@ define('SECURE_AUTH_SALT', '4sQJj1Q_Ca*opB>l1Bs~7~:t,-uFx+0cG _A(4eSZo~<POF|5|]y
 define('LOGGED_IN_SALT',   'CY5%cY(V+]-CI(IHu.PCnFbT+<``z(a>qI$}K<K}Ezv=u@^>u`uRdT7fBeSft-Nt');
 define('NONCE_SALT',       '=IBnuTbkqtcI#Z{]rfc?GEMxe.Y,R9%|8@MxA.|Yx?8TN9 yx}Vb^z=5~g4GXLOw');
 
-// ADDED: Redis
+// ########## REDIS CONFIGURATION ##########
+
 define('WP_CACHE', true);
 define('WP_REDIS_HOST', 'redis');
 define('WP_REDIS_PORT', 6379);

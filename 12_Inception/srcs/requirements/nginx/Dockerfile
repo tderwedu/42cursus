@@ -21,6 +21,9 @@ RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 RUN mkdir -p /var/www/tderwedu.42.fr
 WORKDIR /var/www/tderwedu.42.fr
 
+# Adminer directory
+RUN mkdir -p /var/www/adminer
+
 #================================ 3. SSL protocol ==============================
 
 # -newkey : creates a new private key with the certificate

@@ -12,7 +12,7 @@ RUN apt-get -yqq install openssl vsftpd
 
 #======================== 2. Install & Configure vsftpd  =========================
 
-# Compying with 'secure_chroot_dir'
+# Complying with 'secure_chroot_dir'
 RUN mkdir -p  var/run/vsftpd/empty
 
 COPY ./conf/vsftpd.conf /etc/vsftpd.conf

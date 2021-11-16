@@ -1,10 +1,15 @@
 version: "3.8"
 services:
+
 # === NGINX ===
+
   nginx:
     container_name: nginx
     hostname: nginx
     image: nginx
+    depends_on:
+      - wordpress
+      - adminer
     build:
       context:  "./requirements/nginx"
       dockerfile: Dockerfile
@@ -16,8 +21,11 @@ services:
       - inception_net
     volumes:
       - "wordpress_vol:/var/www/tderwedu.42.fr"
+      # - "adminer_vol:/var/www/adminer"
     restart: unless-stopped
+
 # === MariaDB ===
+
   mariadb:
     container_name: mariadb
     hostname: mariadb
@@ -38,7 +46,9 @@ services:
     volumes:
       - "mariadb_vol:/var/lib/mysql"
     restart: unless-stopped
+
 # === WordPress ===
+
   wordpress:
     container_name: wordpress
     hostname: wordpress
@@ -58,7 +68,9 @@ services:
     volumes:
       - "wordpress_vol:/var/www/tderwedu.42.fr"
     restart: unless-stopped
+
 # === Redis ===
+
   redis:
     container_name: redis
     hostname: redis
@@ -72,8 +84,10 @@ services:
     networks:
         - inception_net
     restart: unless-stopped
-# === ftp  ===
-  ftp :
+
+# === FTP  ===
+
+  ftp:
     container_name: ftp 
     hostname: ftp 
     image: ftp 
@@ -88,7 +102,25 @@ services:
     volumes:
       - "wordpress_vol:/home/tderwedu/"
     restart: unless-stopped
+
+# === Adminer  ===
+
+  adminer:
+    container_name: adminer 
+    hostname: adminer 
+    image: adminer 
+    depends_on:
+      - mariadb
+    build:
+        context: ./requirements/bonus/adminer
+    networks:
+        - inception_net
+    volumes:
+     - "adminer_vol:/var/www/adminer"
+    restart: unless-stopped
+
 # === Volumes ===
+
 volumes:
   wordpress_vol:
     driver: "local"
@@ -102,7 +134,15 @@ volumes:
       type: 'none'
       o: "bind"
       device: "/home/tderwedu/data/mariadb_vol"
+  adminer_vol:
+    driver: "local"
+    driver_opts:
+      type: 'none'
+      o: "bind"
+      device: "/home/tderwedu/data/adminer_vol"
+
 # === Network ===
+
 networks:
   inception_net:
     name: ${NET_NAME}
