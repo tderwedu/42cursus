@@ -12,7 +12,6 @@ services:
       - adminer
     build:
       context:  "./requirements/nginx"
-      dockerfile: Dockerfile
     ports:
       - "443:443"
     expose:
@@ -21,7 +20,8 @@ services:
       - inception_net
     volumes:
       - "wordpress_vol:/var/www/tderwedu.42.fr"
-      # - "adminer_vol:/var/www/adminer"
+      - "adminer_vol:/var/www/adminer"
+      - "website_vol:/var/www/website"
     restart: unless-stopped
 
 # === MariaDB ===
@@ -33,7 +33,6 @@ services:
     env_file: .env
     build:
       context:  "./requirements/mariadb"
-      dockerfile: Dockerfile
       args:
         - MYSQL_DATABASE=${MYSQL_DATABASE}
         - MYSQL_USER=${MYSQL_USER}
@@ -59,7 +58,6 @@ services:
     env_file: .env
     build:
       context:  "./requirements/wordpress"
-      dockerfile: Dockerfile
     expose:
       - "3306"
       - "9000"
@@ -103,6 +101,24 @@ services:
       - "wordpress_vol:/home/tderwedu/"
     restart: unless-stopped
 
+# === Website ===
+
+  website:
+    container_name: website
+    hostname: website
+    image: website
+    depends_on:
+      - nginx
+    build:
+      context: ./requirements/bonus/website
+    expose:
+      - "80"
+    networks:
+      - inception_net
+    volumes:
+      - "website_vol:/var/www/website"
+    restart: unless-stopped
+
 # === Adminer  ===
 
   adminer:
@@ -140,6 +156,13 @@ volumes:
       type: 'none'
       o: "bind"
       device: "/home/tderwedu/data/adminer_vol"
+  website_vol:
+    driver: "local"
+    driver_opts:
+      type: 'none'
+      o: "bind"
+      device: "/home/tderwedu/data/website_vol"
+
 
 # === Network ===
 

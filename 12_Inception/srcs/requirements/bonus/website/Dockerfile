@@ -7,30 +7,28 @@ RUN apt-get -qq update && apt-get -yqq upgrade
 # To install ps
 RUN apt-get -yqq install procps
 
-# To install PHP
-# RUN apt-get -yqq install php-fpm php-mysql
+# To install NGINX
+RUN apt-get -yqq install nginx
 
-#======================= 2. Install & Configure Web Site =======================
+#======================== 2. Install & Configure Nginx =========================
 
-# # Used to define the listening port (unix -> TCP/IP)
-# COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d/
-# # Disable PID file creation & daemonization
-# COPY ./conf/php-fpm.conf /etc/php/7.3/fpm/
+# Copy NGINX server block definition and create a symbolic link
+# to "enable" our website
+COPY ./conf/nginx.conf /etc/nginx/sites-available/default
+RUN ln -s /etc/nginx/sites-available/default /etc/nginx/default
 
-# RUN mkdir -p /var/www/adminer
-# WORKDIR /var/www/adminer
+# Root directory of our website
+RUN mkdir -p /var/www/website
+WORKDIR /var/www/website
 
-# COPY ./conf/adminer-4.8.1-en.php ./adminer.php
-
-# RUN chown -R www-data:www-data .
-# RUN chmod -R 755 .
+COPY ./tools/ .
 
 #=========================== 3. Launching Container ===========================
 
-# To allow a graceful PHP shutdown
-# STOPSIGNAL SIGUSR1
+# To allow a graceful NGINX shutdown
+STOPSIGNAL SIGQUIT
 
-# EXPOSE 9000
+EXPOSE 80
 
-CMD ["php-fpm7.3", "-F"]
+CMD ["nginx", "-g", "daemon off;"]
 
