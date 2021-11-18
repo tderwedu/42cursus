@@ -9,7 +9,9 @@ services:
     image: nginx
     depends_on:
       - wordpress
+      - website
       - adminer
+      - phpredisadmin
     build:
       context:  "./requirements/nginx"
     ports:
@@ -22,6 +24,7 @@ services:
       - "wordpress_vol:/var/www/tderwedu.42.fr"
       - "adminer_vol:/var/www/adminer"
       - "website_vol:/var/www/website"
+      - "phpredisadmin_vol:/var/www/phpredisadmin"
     restart: unless-stopped
 
 # === MariaDB ===
@@ -107,8 +110,6 @@ services:
     container_name: website
     hostname: website
     image: website
-    depends_on:
-      - nginx
     build:
       context: ./requirements/bonus/website
     expose:
@@ -133,6 +134,25 @@ services:
         - inception_net
     volumes:
      - "adminer_vol:/var/www/adminer"
+    restart: unless-stopped
+
+# === phpRedisAdmin  ===
+
+  phpredisadmin:
+    container_name: phpredisadmin 
+    hostname: phpredisadmin 
+    image: phpredisadmin 
+    depends_on:
+      - redis
+    build:
+        context: ./requirements/bonus/phpredisadmin
+    environment:
+      - REDIS_1_HOST=redis
+      - REDIS_1_PORT=6379
+    networks:
+        - inception_net
+    volumes:
+     - "phpredisadmin_vol:/var/www/phpredisadmin"
     restart: unless-stopped
 
 # === Volumes ===
@@ -162,7 +182,12 @@ volumes:
       type: 'none'
       o: "bind"
       device: "/home/tderwedu/data/website_vol"
-
+  phpredisadmin_vol:
+    driver: "local"
+    driver_opts:
+      type: 'none'
+      o: "bind"
+      device: "/home/tderwedu/data/phpredisadmin_vol"
 
 # === Network ===
 

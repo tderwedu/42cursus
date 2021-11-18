@@ -6,17 +6,18 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 11:13:54 by tderwedu          #+#    #+#              #
-#    Updated: 2021/11/17 22:42:16 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/11/18 17:13:36 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 DOMAIN_NAME	= tderwedu.42.fr
 
 run:
-		sudo mkdir -p /home/tderwedu/data/website_vol
-		sudo mkdir -p /home/tderwedu/data/adminer_vol
 		sudo mkdir -p /home/tderwedu/data/mariadb_vol
 		sudo mkdir -p /home/tderwedu/data/wordpress_vol
+		sudo mkdir -p /home/tderwedu/data/website_vol
+		sudo mkdir -p /home/tderwedu/data/adminer_vol
+		sudo mkdir -p /home/tderwedu/data/phpredisadmin_vol
 		docker-compose -f srcs/docker-compose.yml --env-file ./srcs/.env up -d --build
 
 logs:

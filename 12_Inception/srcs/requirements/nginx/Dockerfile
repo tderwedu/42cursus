@@ -21,11 +21,10 @@ RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 RUN mkdir -p /var/www/tderwedu.42.fr
 WORKDIR /var/www/tderwedu.42.fr
 
-# Adminer directory
+# Bonus services directories
 RUN mkdir -p /var/www/adminer
-
-# Website directory
 RUN mkdir -p /var/www/website
+RUN mkdir -p /var/www/phpredisadmin
 
 #================================ 3. SSL protocol ==============================
 

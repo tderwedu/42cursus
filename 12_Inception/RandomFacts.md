@@ -135,3 +135,15 @@ Eviction policies:
  - Use the `allkeys-random` if you have a cyclic access where all the keys are scanned continuously, or when you expect the distribution to be uniform (all elements likely accessed with the same probability).
  - Use the `volatile-ttl` if you want to be able to provide hints to Redis about what are good candidate for expiration by using different TTL values when you create your cache objects.
 - The `volatile-lru` and `volatile-random` policies are mainly useful when you want to use a single instance for both caching and to have a set of persistent keys. However it is usually a better idea to run two Redis instances to solve such a problem.
+
+# Error Log PHP-FPM
+In `www.conf`
+```
+php_admin_value[error_log] = /var/log/fpm-php.www.log
+php_admin_flag[log_errors] = on
+```
+In `Dockerfile`
+```Dockerfile
+RUN touch /var/log/fpm-php.www.log
+RUN chown www-data:www-data /var/log/fpm-php.www.log
+```
