@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/11/02 11:13:54 by tderwedu          #+#    #+#              #
-#    Updated: 2021/11/18 17:13:36 by tderwedu         ###   ########.fr        #
+#    Updated: 2021/11/19 10:27:21 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,6 +53,26 @@ clear:	prune
 		@printf "\e[34m Removing WordPress image \e[0m \n"
 		@if	[ "$(shell docker image ls -q wordpress)" ]; then \
 			docker rmi $(shell docker image ls -q wordpress); \
+		fi
+		@printf "\e[34m Removing Redis image \e[0m \n"
+		@if	[ "$(shell docker image ls -q redis)" ]; then \
+			docker rmi $(shell docker image ls -q redis); \
+		fi
+		@printf "\e[34m Removing FTP image \e[0m \n"
+		@if	[ "$(shell docker image ls -q ftp)" ]; then \
+			docker rmi $(shell docker image ls -q ftp); \
+		fi
+		@printf "\e[34m Removing Website image \e[0m \n"
+		@if	[ "$(shell docker image ls -q website)" ]; then \
+			docker rmi $(shell docker image ls -q website); \
+		fi
+		@printf "\e[34m Removing Adminer image \e[0m \n"
+		@if	[ "$(shell docker image ls -q adminer)" ]; then \
+			docker rmi $(shell docker image ls -q adminer); \
+		fi
+		@printf "\e[34m Removing phpRedisAdmin image \e[0m \n"
+		@if	[ "$(shell docker image ls -q phpredisadmin)" ]; then \
+			docker rmi $(shell docker image ls -q phpredisadmin); \
 		fi
 		@printf "\e[34m Deleting `data` directory \e[0m \n"
 		sudo rmdir /home/tderwedu/data

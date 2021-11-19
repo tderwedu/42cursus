@@ -30,12 +30,15 @@ RUN openssl req -newkey rsa:2048 -x509 -days 31 -nodes \
 				-keyout /etc/ssl/private/vsftpd-selfsigned.key \
 				-out /etc/ssl/certs/vsftpd-selfsigned.crt
 
+ARG FTP_PASSWORD=${FTP_PASSWORD}
+ARG FTP_USER=${FTP_USER}
+
 # 1. Create a dedicated FTP user
 # 3. Set its password
 # 5. Add FTP user to /etc/vsftpd.chroot_list
-RUN adduser --disabled-password --shell /bin/bash --gecos "" tderwedu && \
-	echo "tderwedu:tderwedu" | chpasswd && \
-	echo "tderwedu" >> /etc/vsftpd.chroot_list
+RUN adduser --disabled-password --shell /bin/bash --gecos "" ${FTP_USER} && \
+	echo "${FTP_USER}:${FTP_PASSWORD}" | chpasswd && \
+	echo "${FTP_USER}" >> /etc/vsftpd.chroot_list
 
 #=========================== 3. Launching Container ===========================
 

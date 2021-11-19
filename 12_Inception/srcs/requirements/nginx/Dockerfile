@@ -18,8 +18,8 @@ COPY ./conf/nginx.conf /etc/nginx/sites-available
 RUN ln -s /etc/nginx/sites-available/nginx.conf /etc/nginx/sites-enabled
 
 # Root directory of our website
-RUN mkdir -p /var/www/tderwedu.42.fr
-WORKDIR /var/www/tderwedu.42.fr
+RUN mkdir -p /var/www/wordpress
+WORKDIR /var/www/wordpress
 
 # Bonus services directories
 RUN mkdir -p /var/www/adminer

@@ -18,10 +18,11 @@ services:
       - "443:443"
     expose:
       - "9000"
+      - "80"
     networks:
       - inception_net
     volumes:
-      - "wordpress_vol:/var/www/tderwedu.42.fr"
+      - "wordpress_vol:/var/www/wordpress"
       - "adminer_vol:/var/www/adminer"
       - "website_vol:/var/www/website"
       - "phpredisadmin_vol:/var/www/phpredisadmin"
@@ -33,7 +34,6 @@ services:
     container_name: mariadb
     hostname: mariadb
     image: mariadb
-    env_file: .env
     build:
       context:  "./requirements/mariadb"
       args:
@@ -67,7 +67,7 @@ services:
     networks:
        - inception_net
     volumes:
-      - "wordpress_vol:/var/www/tderwedu.42.fr"
+      - "wordpress_vol:/var/www/wordpress"
     restart: unless-stopped
 
 # === Redis ===
@@ -96,12 +96,15 @@ services:
       - wordpress
     build:
         context: ./requirements/bonus/ftp
+        args:
+          - FTP_PASSWORD=${FTP_PASSWORD}
+          - FTP_USER=${FTP_USER}
     networks:
         - inception_net
     ports:
       - "20:20"
     volumes:
-      - "wordpress_vol:/home/tderwedu/"
+      - "wordpress_vol:/home/${FTP_USER}/"
     restart: unless-stopped
 
 # === Website ===
@@ -123,9 +126,9 @@ services:
 # === Adminer  ===
 
   adminer:
-    container_name: adminer 
-    hostname: adminer 
-    image: adminer 
+    container_name: adminer
+    hostname: adminer
+    image: adminer
     depends_on:
       - mariadb
     build:
@@ -147,8 +150,8 @@ services:
     build:
         context: ./requirements/bonus/phpredisadmin
     environment:
-      - REDIS_1_HOST=redis
-      - REDIS_1_PORT=6379
+      - REDIS_1_HOST=${REDIS_HOST}
+      - REDIS_1_PORT=${REDIS_PORT}
     networks:
         - inception_net
     volumes:
@@ -193,5 +196,5 @@ volumes:
 
 networks:
   inception_net:
-    name: ${NET_NAME}
+    name: inception_net
     driver: bridge

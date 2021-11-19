@@ -42,8 +42,8 @@ define('NONCE_SALT',       '=IBnuTbkqtcI#Z{]rfc?GEMxe.Y,R9%|8@MxA.|Yx?8TN9 yx}Vb
 // ########## REDIS CONFIGURATION ##########
 
 define('WP_CACHE', true);
-define('WP_REDIS_HOST', 'redis');
-define('WP_REDIS_PORT', 6379);
+define('WP_REDIS_HOST', getenv('REDIS_HOST'));
+define('WP_REDIS_PORT', getenv('REDIS_PORT'));
 // change the database for each site to avoid cache collisions
 define( 'WP_REDIS_DATABASE', 0 );
 // define( 'WP_REDIS_PASSWORD', 'CVKg0i5l4KgLEuL/L6IaXPlUHTs7rtfh6UVjnY4evkhwDEgz9al8teiifYtkBMIp8jk+X4AtYSqJdl00' );

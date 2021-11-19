@@ -14,8 +14,8 @@ RUN apt-get -yqq install procps
 RUN apt-get -yqq install wget php-fpm php-mysql mariadb-client
 
 # Root directory of our website
-RUN mkdir -p /var/www/tderwedu.42.fr/wordpress
-WORKDIR /var/www/tderwedu.42.fr
+RUN mkdir -p /var/www/wordpress
+WORKDIR /var/www/
 
 #======================= 2. Install & Configure WordPress ======================
 
