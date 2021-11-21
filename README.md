@@ -7,6 +7,8 @@ This repository contains all the code I have written so far for school 19's proj
 Learn more about 19 [here](https://s19.be).  
 Learn more about 42 [here](https://www.42.fr/42-network/).
 
+![tderwedu's 42 stats](https://badge42.herokuapp.com/api/stats/tderwedu?privacyEmail=true)
+
 ## Projects
 
 1. [Libft](https://github.com/tderwedu/42cursus/tree/main/01_Libft)
@@ -20,6 +22,7 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 9. [Philosophers](https://github.com/tderwedu/42cursus/tree/main/09_Philosophers)
 10. [MiniShell](https://github.com/tderwedu/42cursus/tree/main/10_MiniShell)
 11. [C++](https://github.com/tderwedu/42cursus/tree/main/11_CPP)
+12. [Inception](https://github.com/tderwedu/42cursus/tree/main/12_Inception)
 
 ## How to use it
 > Note:  
@@ -29,7 +32,7 @@ Since most project come with a `makefile`, clone this repository and go into the
 ```
 make
 ```
-or (if any addings)
+or (if any)
 ```
 make bonus
 ```

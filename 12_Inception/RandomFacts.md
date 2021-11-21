@@ -147,3 +147,16 @@ In `Dockerfile`
 RUN touch /var/log/fpm-php.www.log
 RUN chown www-data:www-data /var/log/fpm-php.www.log
 ```
+
+
+# Containers vs Virtual Machines
+Virtual Machine: an abstraction of a machine (physical hardware).
+ - Each VM needs a full-blown OS
+ - Resource intensive, slow to start
+
+Container: an isolated environment for running an application.
+ - Allow running multiple apps in isolation
+ - Use OS of the host
+ - Are lightweight, start quickly, need less hardware resources
+ - Containers only live as long as the process inside it is alive.
+
