@@ -1,9 +1,7 @@
 # ```ft_containers```
 *a 19 Coding School project*
 
-The multiple available containers in C++ all have very different usage. To
-make sure you understand them, let’s re-implement them!
-
+Re-implementation of some containers present in C++.
 ## Roadmap
 
 - [x] read the subject :no_mouth:
@@ -12,8 +10,8 @@ make sure you understand them, let’s re-implement them!
 - [ ] enable_if
 - [ ] equal/lexicographical compare
 - [ ] equal
-- [ ] std::pair
-- [ ] std::make_pair
+- [x] std::pair
+- [x] std::make_pair
 - [ ] vector
 - [ ] map
 - [ ] stack
