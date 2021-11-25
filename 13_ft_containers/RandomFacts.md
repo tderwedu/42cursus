@@ -17,7 +17,9 @@ These three functions are special in C++: If you don't provide them yourself, C+
 
 - The delete operator in C++ automatically performs this null check for you, so it's okay to delete a null pointer. 
 - Access control in C++ is done on an class by class basis, not on an instance-by-instance basis.
-
+- `++iter` returns the value after being incremented!  
+`iter++` returns the previous value and then increments it. (wastes
+just a bit of time)
 
 # Memory Alignement
 

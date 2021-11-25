@@ -15,6 +15,8 @@ Re-implementation of some containers present in C++.
 - [ ] vector
 - [ ] map
 - [ ] stack
+- [ ] Tests
+- [ ] Speed tests
 
 
 ## Acknowledgements
