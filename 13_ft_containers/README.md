@@ -1,4 +1,4 @@
-# ```ft_containers```
+[# ```ft_containers```
 *a 19 Coding School project*
 
 Re-implementation of some containers present in C++.
@@ -7,7 +7,7 @@ Re-implementation of some containers present in C++.
 - [x] read the subject :no_mouth:
 - [ ] iterators_traits
 - [ ] reverse_iterator
-- [ ] enable_if
+- [x] enable_if
 - [ ] equal/lexicographical compare
 - [ ] equal
 - [x] std::pair
@@ -21,8 +21,9 @@ Re-implementation of some containers present in C++.
 
 ## Acknowledgements
 
-
+- h-deb's article [Comprendre enable_if](https://h-deb.clg.qc.ca/Sujets/TrucsScouts/Comprendre_enable_if.html)
 ## License
 
 Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).
 
+]

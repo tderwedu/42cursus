@@ -20,6 +20,10 @@ These three functions are special in C++: If you don't provide them yourself, C+
 - `++iter` returns the value after being incremented!  
 `iter++` returns the previous value and then increments it. (wastes
 just a bit of time)
+- Top-level cv-qualifier are ignored in function’s signature. NON-top-level cv-qualifiers are not ignored.  
+`T const *volatile q;`  
+	 - volatile = top-level
+	 - const = second-level
 
 # Memory Alignement
 
