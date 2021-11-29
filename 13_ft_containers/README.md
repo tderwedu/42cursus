@@ -8,6 +8,7 @@ Re-implementation of some containers present in C++.
 - [ ] iterators_traits
 - [ ] reverse_iterator
 - [x] enable_if
+- [x] is_integral
 - [ ] equal/lexicographical compare
 - [ ] equal
 - [x] std::pair
