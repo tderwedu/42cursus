@@ -5,12 +5,12 @@ Re-implementation of some containers present in C++.
 ## Roadmap
 
 - [x] read the subject :no_mouth:
-- [ ] iterators_traits
-- [ ] reverse_iterator
+- [x] iterators_traits
+- [x] reverse_iterator
 - [x] enable_if
 - [x] is_integral
-- [ ] equal/lexicographical compare
-- [ ] equal
+- [x] equal/lexicographical compare
+- [x] equal
 - [x] std::pair
 - [x] std::make_pair
 - [ ] vector
