@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/11/29 18:34:56 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/02 17:33:02 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,48 +45,33 @@ struct iterator {
 
 /* ############################ ITERATOR_TRAITS ############################ */
 
-// Marking input iterators.
-struct input_iterator_tag { };
-
-// Marking output iterators.
-struct output_iterator_tag { };
-
-// Forward iterators support a superset of input iterator operations.
-struct forward_iterator_tag : public input_iterator_tag { };
-
-// Bidirectional iterators support a superset of forward iterator operations.
-struct bidirectional_iterator_tag : public forward_iterator_tag { };
-
-// Random-access iterators support a superset of bidirectional iterator operations.
-struct random_access_iterator_tag : public bidirectional_iterator_tag { };
-
 template<class Iterator>
 struct iterator_traits {
-	typedef Iterator::T			value_type;
-	typedef Iterator::Distance	difference_type;
-	typedef Iterator::Pointer	pointer;
-	typedef Iterator::Reference	reference;
-	typedef Iterator::Category	iterator_category;
+	typedef typename Iterator::value_type	value_type;
+	typedef typename Iterator::Distance		difference_type;
+	typedef typename Iterator::Pointer		pointer;
+	typedef typename Iterator::Reference		reference;
+	typedef typename Iterator::Category		iterator_category;
 };
 
 // Partial specialization for pointer types.
 template<class T>
 struct iterator_traits<T*> {
-	typedef T							value_type;
-	typedef ptrdiff_t					difference_type;
-	typedef T*							pointer;
-	typedef T&							reference;
-	typedef random_access_iterator_tag	iterator_category;
+	typedef T								value_type;
+	typedef ptrdiff_t						difference_type;
+	typedef T*								pointer;
+	typedef T&								reference;
+	typedef std::random_access_iterator_tag	iterator_category;
 };
 
 // Partial specialization for const pointer types.
 template<class T>
 struct iterator_traits<const T*> {
-	typedef T							value_type;
-	typedef ptrdiff_t					difference_type;
-	typedef const T*					pointer;
-	typedef const T&					reference;
-	typedef random_access_iterator_tag	iterator_category;
+	typedef T								value_type;
+	typedef ptrdiff_t						difference_type;
+	typedef const T*						pointer;
+	typedef const T&						reference;
+	typedef std::random_access_iterator_tag	iterator_category;
 };
 
 /* ############################ REVERSE_ITERATOR ############################ */
@@ -98,23 +83,30 @@ class reverse_iterator {
 protected:
 	Iterator _current;
 public:
-	typedef Iterator										iterator_type;
-	typedef iterator_traits<Iterator>::value_type			value_type;
-	typedef iterator_traits<Iterator>::difference_type		difference_type;
-	typedef iterator_traits<Iterator>::pointer				pointer;
-	typedef iterator_traits<Iterator>::reference			reference;
-	typedef iterator_traits<Iterator>::iterator_category	iterator_categor;
+	typedef Iterator												iterator_type;
+	typedef typename iterator_traits<Iterator>::value_type			value_type;
+	typedef typename iterator_traits<Iterator>::difference_type		difference_type;
+	typedef typename iterator_traits<Iterator>::pointer				pointer;
+	typedef typename iterator_traits<Iterator>::reference			reference;
+	typedef typename iterator_traits<Iterator>::iterator_category	iterator_categor;
 
-// Constructors
+// The Big Three
 public:
-	reverse_iterator() : current() {}
-	explicit reverse_iterator(iterator_type it) : current(it) {}
+	reverse_iterator() : _current() {}
+	explicit reverse_iterator(iterator_type it) : _current(it) {}
 	template <class Iter>
-	reverse_iterator(const reverse_iterator<Iter>& rev_it) : current(rev_it.current) {}
+	reverse_iterator(const reverse_iterator<Iter>& rev_it) : _current(rev_it._current) {}
 
+	template<typename U>
+	reverse_iterator& operator=(const reverse_iterator<U>& rhs)
+	{
+		if (this != &rhs)
+			_current = other.base();
+		return *this;
+	}
 
 // Member Functions
-	iterator_type		base() const { return current; }
+	iterator_type		base() const { return _current; }
 	reference			operator*() const
 	{
 		Iterator tmp = _current;
@@ -128,7 +120,7 @@ public:
 	reverse_iterator	operator++(int)
 	{
 		reverse_iterator tmp = *this;
-		--current;
+		--_current;
 		return tmp;
 	}
 	reverse_iterator&	operator--()
@@ -155,7 +147,7 @@ public:
 		return *this;
 	}
 	pointer				operator->() const { return &(operator*()); }
-	reference			operator[](size_t i) { return *(current - i - 1); }
+	reference			operator[](size_t i) const { return *(_current - i - 1); }
 
 };
 // NON-Member Functions

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/26 14:39:59 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/02 12:25:28 by tderwedu         ###   ########.fr       */
+/*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
+/*   Updated: 2021/12/02 19:36:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,21 @@
 #include <vector>
 #include <iterator>
 
-std::vector<int> tst;
-
 namespace ft {
 
-/* ================================= VECTOR ================================= */
+/* 
+** ############################################################################
+** #                                  VECTOR                                  #
+** ############################################################################
+*/
 
 template <class T, class Allocator = std::allocator<T>>
 class vector
 {
+	/* 
+	** VECTOR
+	** ============================= MEMBER TYPES =============================
+	*/
 	public:
 		typedef T					value_type;
 		typedef std::size_t			size_type;
@@ -36,19 +42,29 @@ class vector
 		typedef const value_type*	const_pointer;
 		typedef value_type&			reference;
 		typedef const value_type&	const_reference;
-		typedef pointer 			iterator;
-		typedef const_pointer		const_iterator;
+	
+		class	iterator;
+		typedef const iterator							const_iterator;
+		typedef std::reverse_iterator<iterator>			reverse_iterator;
+		typedef const std::reverse_iterator<iterator>	const_reverse_iterator;
+
+	/*
+	** VECTOR
+	** =============================== ATTRIBUTES ==============================
+	*/
 	private:
-		pointer		_arr;
 		size_type	_capacity;
 		size_type	_size;
+
+	/*
+	** VECTOR
+	** =========================== MEMBER FUNCTIONS ===========================
+	*/
 	public:
 
-/* ============================ MEMBER FUNCTIONS ============================ */
-
-/* ======================= Constructors / Destructor ======================= */
-explicit vector (const allocator_type& alloc = allocator_type());
-explicit vector (size_type n, const value_type& val = value_type(),
+	/* === Constructors / Destructor === */
+		explicit vector (const allocator_type& alloc = allocator_type());
+		explicit vector (size_type n, const value_type& val = value_type(),
 					const allocator_type& alloc = allocator_type());
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
@@ -58,7 +74,8 @@ explicit vector (size_type n, const value_type& val = value_type(),
 		~vector();
 
 		vector&			operator= (const vector& x);
-/* ============================ Iterators ============================ */
+
+		/* === Iterators === */
 		iterator		begin() ;
 		const_iterator	begin() const ;
 		iterator		end();
@@ -67,14 +84,16 @@ explicit vector (size_type n, const value_type& val = value_type(),
 		const_iterator	rbegin() const ;
 		iterator		rend();
 		const_iterator	rend() const ;
-/* ============================ Capacity ============================ */
+
+		/* === Capacity === */
 		size_type		size() const { return _size; }
 		size_type		max_size() const;
 		void			resize(size_type n, value_type val = value_type());
-		size_type		capacity() const;
+		size_type		capacity() const { return _capacity; }
 		bool			empty() const { return !_size; }
 		void			reserve(size_type n);
-/* ============================ Element access ============================ */
+
+		/* === Element access === */
 		reference		operator[](size_type n);
 		const_reference	operator[](size_type n) const;
 		reference 		at(size_type n);
@@ -83,7 +102,8 @@ explicit vector (size_type n, const value_type& val = value_type(),
 		const_reference	front() const;
 		reference		back();
 		const_reference	back() const;
-/* ============================ Modifiers ============================ */
+
+		/* === Modifiers === */
 		template <class InputIterator>
 		void			assign(InputIterator first, InputIterator last);
 		void			assign(size_type n, const value_type& val);
@@ -97,12 +117,77 @@ explicit vector (size_type n, const value_type& val = value_type(),
 		iterator		erase(iterator first, iterator last);
 		void			swap (vector& x);
 		void			clear();
-/* ============================ Allocator ============================ */
+
+		/* === Allocator === */
 		allocator_type	get_allocator() const;
+
+	/* 
+	** ########################################################################
+	** #                           vector::ITERATOR                           #
+	** ########################################################################
+	*/
+	class iterator
+	{
+		/*
+		** vector:ITERATOR
+		** =========================== MEMBER TYPES ===========================
+		*/
+		public:
+			typedef T								value_type;
+			typedef std::ptrdiff_t					difference_type;
+			typedef T*								pointer;
+			typedef T&								reference;
+			typedef std::random_access_iterator_tag	iterator_category;
+		/*
+		** vector:ITERATOR
+		** ============================ ATTRIBUTES ============================
+		*/
+		private:
+			pointer	_ptr;
+		/*
+		** vector:ITERATOR
+		** ========================= MEMBER FUNCTIONS =========================
+		*/
+		public:
+			iterator(void) : _ptr() {}
+			explicit iterator(value_type ptr) : _ptr(ptr) {}
+			iterator(const iterator<T>& iter) : _ptr(iter._ptr) {}
+			~iterator(void) {}
+			iterator		operator=(const iterator rhs)			{ _ptr = rhs._ptr; return *this; }
+
+			reference		operator*() 							{ return *_ptr; }
+			const_reference	operator*() const						{ return *_ptr; }
+			pointer			operator->()							{ return _ptr); }
+			const_pointer	operator->() const						{ return _ptr); }
+			reference		operator[](size_t i)					{ return _ptr[i]; }
+			const_reference	operator[](size_t i) const				{ return _ptr[i]; }
+
+			iterator&		operator++()							{ ++_ptr; return *this; }
+			iterator		operator++(int)							{ iterator tmp(*this)); ++_ptr; return tmp; }
+			iterator&		operator--()							{ --_ptr; return *this; }
+			iterator		operator--(int)							{ iterator tmp(*this)); --_ptr; return tmp; }
+
+			iterator		operator+(difference_type n) const		{ return iterator(_ptr + n); }
+			iterator		operator-(difference_type n) const		{ return iterator(_ptr - n); }
+			iterator&		operator+=(difference_type n)			{ _ptr += n; return *this; }
+			iterator&		operator-=(difference_type n)			{ _ptr += n; return *this; }
+
+			bool			operator==(const iterator &rhs)	const	{ return _ptr == rhs._ptr; }
+			bool			operator!=(const iterator &rhs)	const	{ return _ptr != rhs._ptr; }
+			bool			operator< (const iterator &rhs) const	{ return _ptr <  rhs._ptr; }
+			bool			operator> (const iterator &rhs) const	{ return _ptr >  rhs._ptr; }
+			bool			operator<=(const iterator &rhs) const	{ return _ptr <= rhs._ptr; }
+			bool			operator>=(const iterator &rhs) const	{ return _ptr >= rhs._ptr; }
+	};
 
 };
 
-/* ========================== NON MEMBER FUNCTIONS ========================== */
+
+
+/* 
+** VECTOR
+** =========================== NON MEMBER FUNCTIONS ===========================
+*/
 
 template <class T, class Alloc>
 bool	operator==(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);

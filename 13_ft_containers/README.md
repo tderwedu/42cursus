@@ -23,6 +23,7 @@ Re-implementation of some containers present in C++.
 ## Acknowledgements
 
 - h-deb's article [Comprendre enable_if](https://h-deb.clg.qc.ca/Sujets/TrucsScouts/Comprendre_enable_if.html)
+- StavkOverflow's F.A.Q. [What are the basic rules and idioms for operator overloading?](https://stackoverflow.com/questions/4421706/what-are-the-basic-rules-and-idioms-for-operator-overloading/4421729)
 ## License
 
 Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).

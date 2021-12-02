@@ -24,6 +24,7 @@ just a bit of time)
 `T const *volatile q;`  
 	 - volatile = top-level
 	 - const = second-level
+- `explicit`:  Specifies that a constructor is explicit, that is, it cannot be used for implicit conversions and copy-initialization.
 
 # Memory Alignement
 
