@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/02 19:36:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/03 10:20:09 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,26 +35,29 @@ class vector
 	** ============================= MEMBER TYPES =============================
 	*/
 	public:
-		typedef T					value_type;
-		typedef std::size_t			size_type;
-		typedef Allocator			allocator_type;
-		typedef value_type*			pointer;
-		typedef const value_type*	const_pointer;
-		typedef value_type&			reference;
-		typedef const value_type&	const_reference;
-	
-		class	iterator;
-		typedef const iterator							const_iterator;
-		typedef std::reverse_iterator<iterator>			reverse_iterator;
-		typedef const std::reverse_iterator<iterator>	const_reverse_iterator;
+		class	Iterator;	// declaration, definition below
 
+		typedef T											value_type;
+		typedef Allocator									allocator_type;
+		typedef typename allocator_type::pointer			pointer;
+		typedef typename allocator_type::const_pointer		const_pointer;
+		typedef typename allocator_type::reference			reference;
+		typedef typename allocator_type::const_reference	const_reference;
+		typedef Iterator									iterator;
+		typedef const iterator								const_iterator;
+		typedef std::reverse_iterator<iterator>				reverse_iterator;
+		typedef const std::reverse_iterator<iterator>		const_reverse_iterator;
+		typedef std::size_t									size_type;
+		typedef typename iterator::difference_type			difference_type;
 	/*
 	** VECTOR
 	** =============================== ATTRIBUTES ==============================
 	*/
 	private:
-		size_type	_capacity;
-		size_type	_size;
+		value_type		*_array;
+		size_type		_capacity;
+		size_type		_size;
+		allocator_type	_alloc;
 
 	/*
 	** VECTOR
@@ -126,7 +129,7 @@ class vector
 	** #                           vector::ITERATOR                           #
 	** ########################################################################
 	*/
-	class iterator
+	class Iterator
 	{
 		/*
 		** vector:ITERATOR
@@ -149,35 +152,35 @@ class vector
 		** ========================= MEMBER FUNCTIONS =========================
 		*/
 		public:
-			iterator(void) : _ptr() {}
-			explicit iterator(value_type ptr) : _ptr(ptr) {}
-			iterator(const iterator<T>& iter) : _ptr(iter._ptr) {}
-			~iterator(void) {}
-			iterator		operator=(const iterator rhs)			{ _ptr = rhs._ptr; return *this; }
+			Iterator(void) : _ptr() {}
+			explicit Iterator(value_type ptr) : _ptr(ptr) {}
+			Iterator(const Iterator<T>& iter) : _ptr(iter._ptr) {}
+			~Iterator(void) {}
+			Iterator		operator=(const Iterator rhs)			{ _ptr = rhs._ptr; return *this; }
 
-			reference		operator*() 							{ return *_ptr; }
-			const_reference	operator*() const						{ return *_ptr; }
+			reference		operator* () 							{ return *_ptr; }
+			const_reference	operator* () const						{ return *_ptr; }
 			pointer			operator->()							{ return _ptr); }
 			const_pointer	operator->() const						{ return _ptr); }
 			reference		operator[](size_t i)					{ return _ptr[i]; }
 			const_reference	operator[](size_t i) const				{ return _ptr[i]; }
 
-			iterator&		operator++()							{ ++_ptr; return *this; }
-			iterator		operator++(int)							{ iterator tmp(*this)); ++_ptr; return tmp; }
-			iterator&		operator--()							{ --_ptr; return *this; }
-			iterator		operator--(int)							{ iterator tmp(*this)); --_ptr; return tmp; }
+			Iterator&		operator++()							{ ++_ptr; return *this; }
+			Iterator		operator++(int)							{ Iterator tmp(*this); ++_ptr; return tmp; }
+			Iterator&		operator--()							{ --_ptr; return *this; }
+			Iterator		operator--(int)							{ Iterator tmp(*this); --_ptr; return tmp; }
 
-			iterator		operator+(difference_type n) const		{ return iterator(_ptr + n); }
-			iterator		operator-(difference_type n) const		{ return iterator(_ptr - n); }
-			iterator&		operator+=(difference_type n)			{ _ptr += n; return *this; }
-			iterator&		operator-=(difference_type n)			{ _ptr += n; return *this; }
+			Iterator		operator+ (difference_type n) const		{ return Iterator(_ptr + n); }
+			Iterator		operator- (difference_type n) const		{ return Iterator(_ptr - n); }
+			Iterator&		operator+=(difference_type n)			{ _ptr += n; return *this; }
+			Iterator&		operator-=(difference_type n)			{ _ptr += n; return *this; }
 
-			bool			operator==(const iterator &rhs)	const	{ return _ptr == rhs._ptr; }
-			bool			operator!=(const iterator &rhs)	const	{ return _ptr != rhs._ptr; }
-			bool			operator< (const iterator &rhs) const	{ return _ptr <  rhs._ptr; }
-			bool			operator> (const iterator &rhs) const	{ return _ptr >  rhs._ptr; }
-			bool			operator<=(const iterator &rhs) const	{ return _ptr <= rhs._ptr; }
-			bool			operator>=(const iterator &rhs) const	{ return _ptr >= rhs._ptr; }
+			bool			operator==(const Iterator &rhs)	const	{ return _ptr == rhs._ptr; }
+			bool			operator!=(const Iterator &rhs)	const	{ return _ptr != rhs._ptr; }
+			bool			operator< (const Iterator &rhs) const	{ return _ptr <  rhs._ptr; }
+			bool			operator> (const Iterator &rhs) const	{ return _ptr >  rhs._ptr; }
+			bool			operator<=(const Iterator &rhs) const	{ return _ptr <= rhs._ptr; }
+			bool			operator>=(const Iterator &rhs) const	{ return _ptr >= rhs._ptr; }
 	};
 
 };
