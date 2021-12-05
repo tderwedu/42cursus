@@ -25,6 +25,21 @@ just a bit of time)
 	 - volatile = top-level
 	 - const = second-level
 - `explicit`:  Specifies that a constructor is explicit, that is, it cannot be used for implicit conversions and copy-initialization.
+- `name hiding` or `shadowing` : the same variable name is used within multiple nested scopes.  
+when a variable declared within a certain scope (decision block, method, or inner class) has the same name as a variable declared in an outer scope
+	- `gcc -Wshadow`: warns you about name hiding
+- `__PRETTY_FUCNTION__` is available in GCC and CLang. It gives us the name of the function in a pretty pretty format, including the template parameters, which we especially want.
+- `What is move semantics?` Move semantics in contrast to copy semantics is a programming technique in which the members of an object are initialized by 'taking over' instead of copying another object's members. Such 'take over' makes only sense with pointers and resource handles, which can be cheaply transferred by copying the pointer or integer handle rather than the underlying data.
+ - `What kind of classes and objects support move semantics?` It is up to you as a developer to implement move semantics in your own classes if these would benefit from transferring their members instead of copying them. Once you implement move semantics, you will directly benefit from work from many library programmers who have added support for handling classes with move semantics efficiently.
+ - `Why can't the compiler figure it out on its own?` The compiler cannot just call another overload of a function unless you say so. You must help the compiler choose whether the regular or move version of the function should be called.
+- `In which situations would I want to tell the compiler that it should treat a variable as an rvalue?` This will most likely happen in template or library functions, where you know that an intermediate result could be salvaged.
+
+### Advantage of using `std::allocator`
+
+ - allocator is the memory allocator for the STL containers. This container can separate the memory allocation and de-allocation from the initialization and destruction of their elements. Therefore, a call of vec.reserve(n) of a vector vec allocates only memory for at least n elements. The constructor for each element will not be executed.
+ - allocator can be adjusted according to the container of your need, for example, vector where you only want to allocate occasionally.
+ - On the contrary, new doesn’t allow to have control over which constructors are called and simply construct all objects at the same time. That’s an advantage of std:: allocator over new
+
 
 # Memory Alignement
 
