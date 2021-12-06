@@ -6,18 +6,18 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/03 10:20:09 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/06 16:34:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-#include <memory>
-#include <algorithm>
+# include <memory>
+# include <algorithm>
+# include <iterator>	// std::distance
 
-#include <vector>
-#include <iterator>
+# include <vector>
 
 namespace ft {
 
@@ -26,6 +26,9 @@ namespace ft {
 ** #                                  VECTOR                                  #
 ** ############################################################################
 */
+
+# define	BASE_SIZE	10
+# define	GROW_FACTOR	2
 
 template <class T, class Allocator = std::allocator<T>>
 class vector
@@ -54,10 +57,15 @@ class vector
 	** =============================== ATTRIBUTES ==============================
 	*/
 	private:
-		value_type		*_array;
+		allocator_type	_allocator;
 		size_type		_capacity;
 		size_type		_size;
-		allocator_type	_alloc;
+		value_type		*_array;
+
+	void			_newCapacity(size_t capacity)
+	{
+		return capacity > BASE_SIZE ? capacity * GROW_FACTOR : BASE_SIZE;
+	}
 
 	/*
 	** VECTOR
@@ -66,27 +74,68 @@ class vector
 	public:
 
 	/* === Constructors / Destructor === */
-		explicit vector (const allocator_type& alloc = allocator_type());
+		explicit vector (const allocator_type& alloc = allocator_type()) :
+			_allocator(alloc)
+			_capacity(_newCapacity(0)),
+			_size(0),
+			_array(_allocator.allocate(_capacity))
+		{}
+		
 		explicit vector (size_type n, const value_type& val = value_type(),
-					const allocator_type& alloc = allocator_type());
+							const allocator_type& alloc = allocator_type()) :
+			_allocator(alloc)
+			_capacity(_newCapacity(n)),
+			_size(n),
+			_array(_allocator.allocate(_capacity))
+		{
+			for (size_type i = 0; i < _size; ++i)
+				_allocator.construct(_array + i, val);
+		}
+
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
-					const allocator_type& alloc = allocator_type());
-		vector (const vector& x);
+					const allocator_type& alloc = allocator_type())
+			_allocator(alloc)
+			_capacity(_newCapacity(std::distance(first, last))),
+			_size(n),
+			_array(_allocator.allocate(_capacity))
+		{
+			for (; first != last; ++first)
+				_allocator.construct(_array + i, *first);
+		}
 
-		~vector();
+		vector (const vector& rhs)
+			_allocator(rhs._allocator)
+			_capacity(_newCapacity(rhs._capacity),
+			_size(rhs._size),
+			_array(_allocator.allocate(rhs._capacity))
+		{
+			for (first = rhs.begin(); first != rhs.end(); ++first)
+				_allocator.construct(_array + i, *first);
+		}
 
-		vector&			operator= (const vector& x);
+		~vector()
+		{
+			clear();
+			_allocator.deallocate(_array, _capacity);
+		}
+
+		vector&			operator= (const vector& rhs)
+		{
+			if (this != &rhs)
+				assign(rhs.begin(), rhs.end());
+			return *this;
+		}
 
 		/* === Iterators === */
-		iterator		begin() ;
-		const_iterator	begin() const ;
-		iterator		end();
-		const_iterator	end() const ;
-		iterator		rbegin() ;
-		const_iterator	rbegin() const ;
-		iterator		rend();
-		const_iterator	rend() const ;
+		iterator				begin() 		{ return iterator(_array); }
+		const_iterator			begin() const	{ return const_iterator(_array); }
+		iterator				end()			{ return iterator(_array + _size); }
+		const_iterator			end() const		{ return const_iterator(_array + _size); }
+		reverse_iterator		rbegin()		{ return reverse_iterator(end()); }
+		const_reverse_iterator	rbegin() const	{ return const_reverse_iterator(end()); }
+		reverse_iterator		rend()			{ return reverse_iterator(begin()); }
+		const_reverse_iterator	rend() const	{ return const_reverse_iterator(begin()); }
 
 		/* === Capacity === */
 		size_type		size() const { return _size; }
@@ -153,7 +202,7 @@ class vector
 		*/
 		public:
 			Iterator(void) : _ptr() {}
-			explicit Iterator(value_type ptr) : _ptr(ptr) {}
+			explicit Iterator(pointer ptr) : _ptr(ptr) {}
 			Iterator(const Iterator<T>& iter) : _ptr(iter._ptr) {}
 			~Iterator(void) {}
 			Iterator		operator=(const Iterator rhs)			{ _ptr = rhs._ptr; return *this; }
