@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/06 17:30:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/06 18:57:32 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ class vector
 
 		template <class InputIterator>
 		vector (InputIterator first, InputIterator last,
-					const allocator_type& alloc = allocator_type())
+					const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 			_allocator(alloc)
 			_capacity(_newCapacity(std::distance(first, last))),
 			_size(n),
@@ -151,8 +151,8 @@ class vector
 		{
 			if (n < _size)
 			{
-				for (first = rhs.begin() + n; first != rhs.end(); ++first)
-					_allocator.destroy(_array + i, *first);
+				for (first = begin() + n; first != end(); ++first)
+					_allocator.destroy(_array + i);
 			}
 			else if (n > _size)
 			{
@@ -196,12 +196,14 @@ class vector
 				throw std::out_of_range("index out of range");
 			return _array[n];
 		}
+
 		const_reference			at(size_type n) const
 		{
 			if (n >= _size)
 				throw std::out_of_range("index out of range");
 			return _array[n];
 		}
+
 		reference				front()				{ return _array[0]; }
 		const_reference			front() const		{ return _array[0]; }
 		reference				back()				{ return _array[_size - 1]; }
@@ -209,21 +211,54 @@ class vector
 
 		/* === Modifiers === */
 		template <class InputIterator>
-		void					assign(InputIterator first, InputIterator last);
-		void					assign(size_type n, const value_type& val);
+		void					assign(InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+		{
+			size_type	size = std::distance(first, last);
+
+			if (size > _capacity)
+				reserve(size);
+			else
+				clear();
+			for (size_type i = 0; i < size; ++i)
+				_allocator.construct(_array + i, first++);
+			_size = size;
+		}
+
+		void					assign(size_type size, const value_type& val)
+		{
+			if (size > _capacity)
+				reserve(size);
+			else
+				clear();
+			for (size_type i = 0; i < size; ++i)
+				_allocator.construct(_array + i, val);
+			_size = size;
+		}
+
 		void					push_back(const value_type& val);
 		void					pop_back();
 		iterator				insert(iterator position, const value_type& val);
 		void					insert(iterator position, size_type n, const value_type& val);
 		template <class InputIterator>
-		void					insert(iterator position, InputIterator first, InputIterator last);
+		void					insert(iterator position, InputIterator first, InputIterator last, typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0);
 		iterator				erase(iterator position);
 		iterator				erase(iterator first, iterator last);
-		void					swap (vector& x);
-		void					clear();
+		void					swap (vector& other)
+		{
+			std::swap(_array, other._array);
+			std::swap(_size, other._size);
+			std::swap(_capacity, other._capacity);
+			std::swap(_allocator, other._allocator);
+		}
+		void					clear()
+		{
+			for (first = begin() + n; first != end(); ++first)
+					_allocator.destroy(_array + i);
+			_size = 0;
+		}
 
 		/* === Allocator === */
-		allocator_type			get_allocator() const;
+		allocator_type			get_allocator() const	{ return _allocator; }
 
 	/* 
 	** ########################################################################
