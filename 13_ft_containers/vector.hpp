@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/06 16:34:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/06 17:30:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ namespace ft {
 ** ############################################################################
 */
 
-# define	BASE_SIZE	10
+# define	BASE_SIZE	8
 # define	GROW_FACTOR	2
 
 template <class T, class Allocator = std::allocator<T>>
@@ -62,9 +62,16 @@ class vector
 		size_type		_size;
 		value_type		*_array;
 
-	void			_newCapacity(size_t capacity)
+	void			_newCapacity(size_t size)
 	{
-		return capacity > BASE_SIZE ? capacity * GROW_FACTOR : BASE_SIZE;
+		size_type	capacity;
+
+		if (size < BASE_SIZE)
+			return BASE_SIZE;
+		capacity = BASE_SIZE;
+		while (capacity < size)
+			capacity * GROW_FACTOR;
+		return capacity;
 	}
 
 	/*
@@ -128,50 +135,95 @@ class vector
 		}
 
 		/* === Iterators === */
-		iterator				begin() 		{ return iterator(_array); }
-		const_iterator			begin() const	{ return const_iterator(_array); }
-		iterator				end()			{ return iterator(_array + _size); }
-		const_iterator			end() const		{ return const_iterator(_array + _size); }
-		reverse_iterator		rbegin()		{ return reverse_iterator(end()); }
-		const_reverse_iterator	rbegin() const	{ return const_reverse_iterator(end()); }
-		reverse_iterator		rend()			{ return reverse_iterator(begin()); }
-		const_reverse_iterator	rend() const	{ return const_reverse_iterator(begin()); }
+		iterator				begin() 			{ return iterator(_array); }
+		const_iterator			begin() const		{ return const_iterator(_array); }
+		iterator				end()				{ return iterator(_array + _size); }
+		const_iterator			end() const			{ return const_iterator(_array + _size); }
+		reverse_iterator		rbegin()			{ return reverse_iterator(end()); }
+		const_reverse_iterator	rbegin() const		{ return const_reverse_iterator(end()); }
+		reverse_iterator		rend()				{ return reverse_iterator(begin()); }
+		const_reverse_iterator	rend() const		{ return const_reverse_iterator(begin()); }
 
 		/* === Capacity === */
-		size_type		size() const { return _size; }
-		size_type		max_size() const;
-		void			resize(size_type n, value_type val = value_type());
-		size_type		capacity() const { return _capacity; }
-		bool			empty() const { return !_size; }
-		void			reserve(size_type n);
+		size_type				size() const		{ return _size; }
+		size_type				max_size() const	{ return _allocator.max_size(); }
+		void					resize(size_type n, value_type val = value_type())
+		{
+			if (n < _size)
+			{
+				for (first = rhs.begin() + n; first != rhs.end(); ++first)
+					_allocator.destroy(_array + i, *first);
+			}
+			else if (n > _size)
+			{
+				if (n > _capacity)
+					reserve(n);
+				for (size_type i = _size; i != n; ++i)
+					_allocator.construct(_array + i, val);
+			}
+			_size = n;
+		}
+		size_type				capacity() const	{ return _capacity; }
+		bool					empty() const		{ return _size == 0; }
+		void					reserve(size_type n)
+		{
+			size_type	new_capacity;
+
+			if (_capacity >= n)
+				return ;
+			new_capacity = _newCapacity(n)
+			if (new_capacity > max_size())
+				new_capacity = n;
+			if (new_capacity > max_size())
+				throw std::length_error("n is greater than max_size");
+			value_type	*new_array = _allocator.allocate(new_capacity);
+			for (size_type i = 0; i != size(); ++i)
+			{
+				allocator.construct(new_array + i, _array[i]);
+				_allocator.destroy(_array + i);
+			}
+			_allocator.deallocate(_array, _capacity);
+			_array = new_array;
+			_capacity = new_capacity;
+		}
 
 		/* === Element access === */
-		reference		operator[](size_type n);
-		const_reference	operator[](size_type n) const;
-		reference 		at(size_type n);
-		const_reference	at(size_type n) const;
-		reference		front();
-		const_reference	front() const;
-		reference		back();
-		const_reference	back() const;
+		reference				operator[](size_type n)			{ return _array[n]; }
+		const_reference			operator[](size_type n) const	{ return _array[n]; }
+		reference 				at(size_type n)
+		{
+			if (n >= _size)
+				throw std::out_of_range("index out of range");
+			return _array[n];
+		}
+		const_reference			at(size_type n) const
+		{
+			if (n >= _size)
+				throw std::out_of_range("index out of range");
+			return _array[n];
+		}
+		reference				front()				{ return _array[0]; }
+		const_reference			front() const		{ return _array[0]; }
+		reference				back()				{ return _array[_size - 1]; }
+		const_reference			back() const		{ return _array[_size - 1]; }
 
 		/* === Modifiers === */
 		template <class InputIterator>
-		void			assign(InputIterator first, InputIterator last);
-		void			assign(size_type n, const value_type& val);
-		void			push_back(const value_type& val);
-		void			pop_back();
-		iterator		insert(iterator position, const value_type& val);
-		void			insert(iterator position, size_type n, const value_type& val);
+		void					assign(InputIterator first, InputIterator last);
+		void					assign(size_type n, const value_type& val);
+		void					push_back(const value_type& val);
+		void					pop_back();
+		iterator				insert(iterator position, const value_type& val);
+		void					insert(iterator position, size_type n, const value_type& val);
 		template <class InputIterator>
-		void			insert(iterator position, InputIterator first, InputIterator last);
-		iterator		erase(iterator position);
-		iterator		erase(iterator first, iterator last);
-		void			swap (vector& x);
-		void			clear();
+		void					insert(iterator position, InputIterator first, InputIterator last);
+		iterator				erase(iterator position);
+		iterator				erase(iterator first, iterator last);
+		void					swap (vector& x);
+		void					clear();
 
 		/* === Allocator === */
-		allocator_type	get_allocator() const;
+		allocator_type			get_allocator() const;
 
 	/* 
 	** ########################################################################
