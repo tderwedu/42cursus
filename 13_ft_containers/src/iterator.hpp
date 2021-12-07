@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/02 17:33:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/07 10:57:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,7 +154,7 @@ public:
 
 template <class Iterator>
 bool	operator==(const reverse_iterator<Iterator>& lhs,
-				const reverse_iterator<Iterator>& rhs)
+					const reverse_iterator<Iterator>& rhs)
 {
 	return lhs.base() == rhs.base();
 }
