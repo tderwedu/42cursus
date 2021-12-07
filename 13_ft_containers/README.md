@@ -13,9 +13,9 @@ Re-implementation of some containers present in C++.
 - [x] equal
 - [x] std::pair
 - [x] std::make_pair
-- [ ] vector
+- [x] vector
 - [ ] map
-- [ ] stack
+- [x] stack
 - [ ] Tests
 - [ ] Speed tests
 

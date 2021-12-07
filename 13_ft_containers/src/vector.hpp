@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/07 11:49:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/07 14:19:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -505,7 +505,6 @@ void	swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
 {
 	lhs.swap(rhs);
 }
-
 
 }
 
