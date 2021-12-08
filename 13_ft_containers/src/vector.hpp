@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/07 14:19:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/08 10:38:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ public:
 	typedef typename allocator_type::const_reference	const_reference;
 	typedef Iterator									iterator;
 	typedef const iterator								const_iterator;
-	typedef std::reverse_iterator<iterator>				reverse_iterator;
-	typedef const std::reverse_iterator<iterator>		const_reverse_iterator;
+	typedef ft::reverse_iterator<iterator>				reverse_iterator;
+	typedef const ft::reverse_iterator<iterator>		const_reverse_iterator;
 	typedef std::size_t									size_type;
 	typedef typename iterator::difference_type			difference_type;
 	/*
@@ -69,7 +69,7 @@ private:
 	** =========================== MEMBER FUNCTIONS ===========================
 	*/
 
-	void			_newCapacity(size_t size)
+	void			_newCapacity(size_type size)
 	{
 		size_type	capacity;
 
