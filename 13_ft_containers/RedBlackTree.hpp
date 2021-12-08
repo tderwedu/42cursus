@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/08 17:01:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/08 18:03:48 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,14 +161,14 @@ private:
 			if (node->_parent == node->_parent->_parent->_leftChild)
 			{
 				uncle = node->_parent->_parent->_rightChild;
-				if (uncle->_color == RED)
+				if (uncle->_color == RED) // Subtree's root = RED -> continue balancing
 				{
 					uncle->_color = BLACK;
 					node->_parent->_color = BLACK;
 					node->_parent->_parent->_color = RED;
 					node = node->_parent->_parent;
 				}
-				else
+				else	// Subtree's root = BLack -> end of balancing
 				{
 					if (node == node->_parent->_rightChild)
 					{
@@ -183,14 +183,14 @@ private:
 			else
 			{
 				uncle = node->_parent->_parent->_leftChild;
-				if (uncle->_color == RED)
+				if (uncle->_color == RED)	// Subtree's root = RED -> continue balancing
 				{
 					uncle->_color = BLACK;
 					node->_parent->_color = BLACK;
 					node->_parent->_parent->_color = RED;
 					node = node->_parent->_parent;
 				}
-				else
+				else	// Subtree's root = BLack -> end of balancing
 				{
 					if (node == node->_parent->_leftChild)
 					{

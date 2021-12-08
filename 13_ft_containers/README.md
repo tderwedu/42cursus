@@ -28,6 +28,8 @@ Re-implementation of some containers present in C++.
 - StavkOverflow's question [How to use SFINAE to restrict overload to input iterators](https://stackoverflow.com/questions/25668966/how-to-use-sfinae-to-restrict-overload-to-input-iterators)
 - StavkOverflow's question [Priorities of constructors c++](https://stackoverflow.com/questions/16967797/priorities-of-constructors-c)
 - Vanand Gasparyan's article [What is an Allocator?](https://medium.com/@vgasparyan1995/what-is-an-allocator-c8df15a93ed)
+- Brilliant's wiki [Red-Black Tree](https://brilliant.org/wiki/red-black-tree/)
+- Cay Horstmann's article [Easy Red-Black Trees](https://horstmann.com/unblog/2011-05-12/blog.html)
 
 ## License
 
