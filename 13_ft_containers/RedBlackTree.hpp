@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/08 12:09:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/08 17:01:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ public:
 	typedef const ft::reverse_iterator<iterator>			const_reverse_iterator;
 	typedef std::size_t										size_type;
 
-	typedef typename Alloc::template rebind<Node>::other	nodeAlloc;
+	typedef typename Allocator::template rebind<Node>::other	nodeAlloc;
 	/*
 	** Red Black Tree
 	** =============================== ATTRIBUTES ==============================
@@ -67,14 +67,14 @@ private:
 	** =========================== MEMBER FUNCTIONS ===========================
 	*/
 private:
-	Node*						_newNode(const_reference val,
+	Node*	_newNode(const_reference val,
 					 Node* parent,
 					 Node* left = NULL,
 					 Node* right = NULL,
 					 Color color = RED) const
 	{
 		Node*	newNode = _alloc.allocate(1);
-		_alloc.construct(node, Node(val, parent, left, right, color));
+		_alloc.construct(newNode, Node(val, parent, left, right, color));
 		return newNode;
 	}
 
@@ -84,14 +84,14 @@ private:
 		_alloc.deallocate(byebye, 1);
 	}
 
-	Node*						_copyRecursively(Node* node)
+	Node*	_copyRecursively(Node* node)
 	{
 		if (!node)
 			return NULL;
-		Node* newNode = _newNode(node->value, node->parent, node->left,
-								 node->right, node->color);
-		newNode->leftChild = _copyRecursively(node->leftChild);
-		newNode->rightChild = _copyRecursively(node->leftChild);
+		Node* newNode = _newNode(node->_value, node->_parent, node->_leftChild,
+								 node->_rightChild, node->_color);
+		newNode->_leftChild = _copyRecursively(node->_leftChild);
+		newNode->_rightChild = _copyRecursively(node->_leftChild);
 		return newNode;
 	}
 
@@ -99,14 +99,14 @@ private:
 	** Node*	_search(Node* node, const_reference val) const
 	** => Return a node containing 'val' or 'NULL' if no match.
 	*/
-	Node*						_search(Node* node, const_reference val) const
+	Node*	_search(Node* node, const_reference val) const
 	{
 		while (node)
 		{
 			if (_compare(val, node->_value))
-				node =  root->leftChild;
+				node =  root->_leftChild;
 			else if (_compare(node->_value, val))
-				node = node->rightChild;
+				node = node->_rightChild;
 			else
 				return node;
 		}
@@ -129,27 +129,123 @@ private:
 		{
 			parent = current;
 			if (_compare(val, current->_value))
-				current = current->leftChild;
+				current = current->_leftChild;
 			else if (_compare(current->_value, val))
-				current = current->rightChild;
+				current = current->_rightChild;
 			else
 			{
 				current->_value = val;
-				_fixTree(current);
 				return ft::make_pair(iterator(current), false);
 			}
 		}
 		current = _newNode(val, parent);
 		if (_compare(val, parent->_value))
-			parent = current;
+			parent->_leftChild = current;
 		else
-			parent = current;
+			parent->_rightChild = current;
+		_fixTreeInsert(current);
+		++_size;
 		return ft::make_pair(iterator(current), true);
 	}
 
-	void	_fixTree(Node* newNode)
+	/*
+	** void	_fixTreeInsert(Node* node)
+	** => Keep the Red Black Tree balanced. Enforce the 'Black-Depth Invariant'
+	*/
+	void	_fixTreeInsert(Node* node)
 	{
+		Node*	uncle;
+	
+		while (node->_parent->_color == RED && node != _root)
+		{
+			if (node->_parent == node->_parent->_parent->_leftChild)
+			{
+				uncle = node->_parent->_parent->_rightChild;
+				if (uncle->_color == RED)
+				{
+					uncle->_color = BLACK;
+					node->_parent->_color = BLACK;
+					node->_parent->_parent->_color = RED;
+					node = node->_parent->_parent;
+				}
+				else
+				{
+					if (node == node->_parent->_rightChild)
+					{
+						node = node->_parent;
+						_rotateLeft(node);
+					}
+					node->_parent->_color = BLACK;
+					node->_parent->_parent->_color = RED;
+					_rotateRight(node->_parent->_parent);
+				}
+			}
+			else
+			{
+				uncle = node->_parent->_parent->_leftChild;
+				if (uncle->_color == RED)
+				{
+					uncle->_color = BLACK;
+					node->_parent->_color = BLACK;
+					node->_parent->_parent->_color = RED;
+					node = node->_parent->_parent;
+				}
+				else
+				{
+					if (node == node->_parent->_leftChild)
+					{
+						node = node->_parent;
+						_rotateRight(node);
+					}
+					node->_parent->_color = BLACK;
+					node->_parent->_parent->_color = RED;
+					_rotateLeft(node->_parent->_parent);
+				}
+			}
+		}
+		_root->_color = BLACK;
+	}
 
+	void	_rotateLeft(Node* node)
+	{
+		Node*	newParent = node->_rightChild;
+	
+		node->_rightChild = newParent->_leftChild;
+		if (newParent->_leftChild)
+			newParent->_leftChild->_parent = node;
+		newParent->_parent = node->_parent;
+		if (!newParent->_parent)
+			_root = newParent;
+		else
+		{
+			if (node == node->_parent->_leftChild)
+				node->_parent->_leftChild = newParent;
+			else
+				node->_parent->_rightChild = newParent;
+		}
+		newParent->_leftChild = node;
+		node->_parent = newParent;
+	}
+
+	void	_rotateRight(Node* node)
+	{
+		Node*	newParent = node->_leftChild;
+	
+		node->_leftChild = newParent->_rightChild;
+		if (newParent->_leftChild)
+			newParent->_leftChild->_parent = node;
+		newParent->_parent = node->_parent;
+		if (!newParent->_parent)
+			_root = newParent;
+		else
+		{
+			if (node == node->_parent->_leftChild)
+				node->_parent->_leftChild = newParent;
+			else
+				node->_parent->_rightChild = newParent;
+		}
+		newParent->_rightChild = node;
+		node->_parent = newParent;
 	}
 
 public:

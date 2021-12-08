@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/08 10:38:11 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/08 16:21:06 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,6 @@
 # include <iterator>	// std::distance
 # include "type_traits.hpp"
 # include "iterator.hpp"
-
-# include <vector>
 
 namespace ft {
 
