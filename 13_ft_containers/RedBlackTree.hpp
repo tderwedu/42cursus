@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/10 12:43:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/10 19:11:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ private:
 	}
 
 	/*
-	** Node*	_search(Node* node, const_reference val) const
+	** Node*    _search(Node* node, const_reference val) const
 	** => Return a node containing 'val' or 'NULL' if no match.
 	*/
 	Node*	_search(Node* node, const_reference val) const
@@ -115,7 +115,7 @@ private:
 	}
 
 	/*
-	** void	_insert(const_reference val)
+	** void    _insert(const_reference val)
 	** => Add or replace a new value
 	*/
 	ft::pair<iterator, bool>	_insert(const_reference val)
@@ -150,7 +150,7 @@ private:
 	}
 
 	/*
-	** void	_fixTreeInsert(Node* node)
+	** void    _fixTreeInsert(Node* node)
 	** => Keep the Red Black Tree balanced. Enforce the 'Black-Depth Invariant'
 	*/
 	void	_fixTreeInsert(Node* node)
@@ -259,7 +259,7 @@ private:
 		else if (type == ONE)
 			_deleteOneChild(node));
 		else
-			_deleteNode(_switchPredecessor(node));
+			_deleteNode(_findPredecessor(node));
 	}
 
 	Type	_getType(Node* node)
@@ -276,7 +276,7 @@ private:
 	}
 
 	/*
-	**	void	_deleteOneChild(Node* node)
+	**	void    _deleteOneChild(Node* node)
 	**	Due to RBT invariants the child has to be RED and can't have any child
 	**	Swap value with the child and then delete the child.
 	*/
@@ -285,15 +285,21 @@ private:
 		Node*	leaf;
 	
 		if (node->_leftChild)
+		{
 			leaf = node->_leftChild;
+			node->_leftChild = NULL;
+		}
 		else
+		{
 			leaf = node->_rightChild;
+			node->_rightChild = NULL;
+		}
 		std::swap(node->_value, leaf->_value);
 		_freeNode(leaf);
 	}
 
 	/*
-	**	Node*	_deleteOneChild(Node* node)
+	**	Node*    _deleteOneChild(Node* node)
 	**	Return the inorder predecessor. Can be a leaf or have only one child.
 	*/
 	Node*	_findPredecessor(Node* node)
@@ -306,9 +312,46 @@ private:
 		return pred;
 	}
 
-	void	_deleteLeaf(node)
+	/*
+	**	void    _deleteLeaf(Node* node)
+	**	Remove a leaf from the tree. 4 cases need to be considered
+	**	- Leaf is RED -> simply remove
+	**	- Leaf is BLACK -> Bubbling the rebalancing
+	*/
+	void	_deleteLeaf(Node* leaf)
 	{
-		
+		Node*	parent;
+		Node*	sibling;
+
+		parent = leaf->parent
+		if (leaf == parent->_leftChild);
+		{
+			parent->_leftChild = NULL;
+			sibling = parent->_rightChild;
+		}
+		else
+		{
+			parent->_rightChild = NULL;
+			sibling = parent->_leftChild;
+		}
+		if (leaf->_color == RED)
+		{
+			_freeNode(leaf);
+			return ;
+		}
+		_freeNode(leaf);
+		++parent->_color;
+		--sigbling->_color;
+		// https://matt.might.net/articles/red-black-delete/
+		// CASES : 
+		// 1 : solved -> done
+		// 2 : sibling NEG RED -> apply special trans
+		//		- may need trsnformation
+		// 3 : double RED -> apply transformation 
+		//		- new root can be REd or BLACK (NEG RED)
+		// 4 : Bubble up
+		if (sigbling->_color == NRED)
+			sigbling = _removeNegativeBlack(sigbling);
 	}
 
 public:
