@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/08 18:03:48 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/10 12:43:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@
 ** #############################################################################
 */
 
-enum Color { RED, BLACK };
+enum Color { NRED = -1, RED, BLACK, DBLACK };
+enum Type { LEAF, ONE, TWO };
 
 template<	typename T,
 			typename Compare,
@@ -78,7 +79,7 @@ private:
 		return newNode;
 	}
 
-	void	_deleteNode(Node* byebye)
+	void	_freeNode(Node* byebye)
 	{
 		_alloc.destroy(byebye);
 		_alloc.deallocate(byebye, 1);
@@ -246,6 +247,68 @@ private:
 		}
 		newParent->_rightChild = node;
 		node->_parent = newParent;
+	}
+
+	void	_deleteNode(Node* node)
+	{
+		Type	type;
+
+		type = _getType(node);
+		if (type == LEAF)
+			_deleteLeaf(node);
+		else if (type == ONE)
+			_deleteOneChild(node));
+		else
+			_deleteNode(_switchPredecessor(node));
+	}
+
+	Type	_getType(Node* node)
+	{
+		int	childs;
+	
+		childs = (node->_leftChild != NULL) + (node->_rightChild != NULL);
+		if (childs == 0)
+			return LEAF;
+		else if (childs == 1)
+			return ONE;
+		else
+			return TWO;
+	}
+
+	/*
+	**	void	_deleteOneChild(Node* node)
+	**	Due to RBT invariants the child has to be RED and can't have any child
+	**	Swap value with the child and then delete the child.
+	*/
+	void	_deleteOneChild(Node* node)
+	{
+		Node*	leaf;
+	
+		if (node->_leftChild)
+			leaf = node->_leftChild;
+		else
+			leaf = node->_rightChild;
+		std::swap(node->_value, leaf->_value);
+		_freeNode(leaf);
+	}
+
+	/*
+	**	Node*	_deleteOneChild(Node* node)
+	**	Return the inorder predecessor. Can be a leaf or have only one child.
+	*/
+	Node*	_findPredecessor(Node* node)
+	{
+		Node*	pred;
+	
+		pred = node->_leftChild;
+		while (pred->_rightChild)
+			pred = pred->_rightChild;
+		return pred;
+	}
+
+	void	_deleteLeaf(node)
+	{
+		
 	}
 
 public:
