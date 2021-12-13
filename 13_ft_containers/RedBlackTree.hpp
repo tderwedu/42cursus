@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/13 15:58:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/13 17:10:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,8 +91,8 @@ private:
 			else
 				parent->_rightChild = NULL;
 		}
-		_alloc.destroy(byebye);
-		_alloc.deallocate(byebye, 1);
+		_alloc.destroy(leaf);
+		_alloc.deallocate(leaf, 1);
 	}
 
 	Node*	_copyRecursively(Node* node)
@@ -107,8 +107,9 @@ private:
 	}
 
 	/*
-	** Node*    _search(Node* node, const_reference val) const
-	** => Return a node containing 'val' or 'NULL' if no match.
+	**	Node*    _search(Node* node, const_reference val) const
+	**
+	**	Return a node containing 'val' or 'NULL' if no match.
 	*/
 	Node*	_search(Node* node, const_reference val) const
 	{
@@ -150,43 +151,9 @@ private:
 	}
 
 	/*
-	** void    _insert(const_reference val)
-	** => Add or replace a new value
-	*/
-	ft::pair<iterator, bool>	_insert(const_reference val)
-	{
-		if (!_root)
-			_root = _newNode(val, NULL, NULL, NULL, BLACK);
-
-		Node*	current = _root;
-		Node*	parent;
-
-		while (current)
-		{
-			parent = current;
-			if (_compare(val, current->_value))
-				current = current->_leftChild;
-			else if (_compare(current->_value, val))
-				current = current->_rightChild;
-			else
-			{
-				current->_value = val;
-				return ft::make_pair(iterator(current), false);
-			}
-		}
-		current = _newNode(val, parent);
-		if (_compare(val, parent->_value))
-			parent->_leftChild = current;
-		else
-			parent->_rightChild = current;
-		_fixTreeInsert(current);
-		++_size;
-		return ft::make_pair(iterator(current), true);
-	}
-
-	/*
-	** void    _fixTreeInsert(Node* node)
-	** => Keep the Red Black Tree balanced. Enforce the 'Black-Depth Invariant'
+	**	void    _fixTreeInsert(Node* node)
+	**
+	**	Keep the Red Black Tree balanced. Enforce the 'Black-Depth Invariant'
 	*/
 	void	_fixTreeInsert(Node* node)
 	{
@@ -284,19 +251,11 @@ private:
 		node->_parent = newParent;
 	}
 
-	void	_deleteNode(Node* node)
-	{
-		Type	type;
-
-		type = _getType(node);
-		if (type == LEAF)
-			_deleteLeaf(node);
-		else if (type == ONE)
-			_deleteOneChild(node));
-		else
-			_deleteNode(_findPredecessor(node));
-	}
-
+	/*
+	**	Type    _getType(Node* node)
+	**
+	**	Return the number of childs.
+	*/
 	Type	_getType(Node* node)
 	{
 		int	childs;
@@ -312,6 +271,7 @@ private:
 
 	/*
 	**	void    _deleteOneChild(Node* node)
+	**
 	**	Due to RBT invariants the child has to be RED and can't have any child
 	**	Swap value with the child and then delete the child.
 	*/
@@ -335,6 +295,7 @@ private:
 
 	/*
 	**	Node*    _deleteOneChild(Node* node)
+	**
 	**	Return the inorder predecessor. Can be a leaf or have only one child.
 	*/
 	Node*	_findPredecessor(Node* node)
@@ -344,23 +305,29 @@ private:
 		pred = node->_leftChild;
 		while (pred->_rightChild)
 			pred = pred->_rightChild;
+		std::swap(node->_value, pred->_value);
 		return pred;
 	}
 
 	/*
 	**	void    _deleteLeaf(Node* node)
-	**	Should not be used for ROOT.
+	**
 	**	Remove a leaf from the tree. 4 cases need to be considered
 	**	- Leaf is RED -> simply remove
-	**	- Leaf is BLACK -> Bubbling then rebalancing or bubbling up
+	**	- Leaf is BLACK
+	**	    - If NEGATIVE RED -> Rebalancing
+	**	    - If 2 RED in a row -> Rebalancing
+	**	    - If no DOUBLE BLACK -> done
+	**	    - else bubble up
 	*/
 	void	_deleteLeaf(Node* leaf)
 	{
 		Node*	parent;
 		Node*	sibling;
+		Node*	tmp;
 
-		parent = leaf->parent
-		if (leaf == parent->_leftChild);
+		parent = leaf->parent;
+		if (leaf == parent->_leftChild)
 		{
 			parent->_leftChild = NULL;
 			sibling = parent->_rightChild;
@@ -375,25 +342,60 @@ private:
 			_freeNode(leaf);
 			return ;
 		}
-		// Leaf is BLACK
-		// There must be a sibling
+		// Leaf is BLACK and there must be a sibling
 		_freeNode(leaf);
 		++parent->_color;
 		--sibling->_color;
 		if (sibling->_color == NRED)
 			_rotateNegativeBlack(parent);
-		// https://matt.might.net/articles/red-black-delete/
-		// CASES : 
-		// 1 : solved -> done
-		// 2 : sibling NEG RED -> apply special trans
-		//		- may need trsnformation
-		// 3 : double RED -> apply transformation 
-		//		- new root can be REd or BLACK (NEG RED)
-		// 4 : Bubble up
-		if (sibling->_color == NRED)
-			sibling = _rotateDoubleRed(sibling);
+		else
+		{
+			tmp = _rotateDoubleRed(parent);
+			if (tmp == parent && parent->_color == DBLACK)
+				_bubbleUp(parent);
+		}
 	}
 
+	/*
+	**	void    _bubbleUp(Node* node)
+	**
+	**	Moves double-black from child to parent then try to balance the tree.
+	**	If balancing is not possible, call itself recursively until some
+	**	balancing is possible or the root is reached.
+	*/
+	void	_bubbleUp(Node* node)
+	{
+		Node*	parent;
+		Node*	sibling;
+		Node*	tmp;
+
+		parent = leaf->parent;
+		if (node == parent->_leftChild)
+			sibling = parent->_rightChild;
+		else
+			sibling = parent->_leftChild;
+		++parent->_color;
+		--sibling->_color;
+		--node->_color;
+		if (sibling->_color == NRED)
+			_rotateNegativeBlack(parent);
+		else
+		{
+			tmp = _rotateDoubleRed(parent);
+			if (tmp == parent && parent->_parent)
+				_bubbleUp(parent);
+			else
+				parent->_color = BLACK;
+		}
+	}
+
+	/*
+	**	void    _rotateNegativeBlack(Node* node)
+	**
+	**	Tree balancing is acheaved by transforming a DOUBLE BLACK and a NEGATIVE
+	**	RED by 2 BLACK NODE trough a rotation. May need to remove 2 REDs in a
+	**	after that.
+	*/
 	void	_rotateNegativeBlack(Node* z)
 	{
 		Node*	treeParent;
@@ -437,6 +439,12 @@ private:
 		_rotateDoubleRed(x);
 	}
 
+	/*
+	**	void    _rotateDoubleRed(Node* node)
+	**
+	**	Remove 2 REDs in a row if needed. Return the new root if it succeed or
+	**	the old root if no rotation is needed.
+	*/
 	Node*	_rotateDoubleRed(Node* node)
 	{
 		Node*	treeParent;
@@ -462,7 +470,7 @@ private:
 				_setLeftChild(z, y->_rightChild);
 			}
 			else
-				return ;
+				return node;
 			++x->_color;
 			++y->_color;
 			--z->_color;
@@ -484,7 +492,7 @@ private:
 				_setRightChild(z, y->_leftChild);
 			}
 			else
-				return ;
+				return node;
 			--x->_color;
 			++y->_color;
 			++z->_color;
@@ -498,9 +506,72 @@ private:
 	}
 
 public:
-/* === Red Black Tree: The Big Three === */
+/* 
+**	### Red Black Tree: The Big Three ###
+*/
 
+	/*
+	**	void    _insert(const_reference val)
+	**
+	**	Add or replace a new value
+	*/
+	ft::pair<iterator, bool>	insert(const_reference val)
+	{
+		if (!_root)
+			_root = _newNode(val, NULL, NULL, NULL, BLACK);
 
+		Node*	current = _root;
+		Node*	parent;
+
+		while (current)
+		{
+			parent = current;
+			if (_compare(val, current->_value))
+				current = current->_leftChild;
+			else if (_compare(current->_value, val))
+				current = current->_rightChild;
+			else
+			{
+				current->_value = val;
+				return ft::make_pair(iterator(current), false);
+			}
+		}
+		current = _newNode(val, parent);
+		if (_compare(val, parent->_value))
+			parent->_leftChild = current;
+		else
+			parent->_rightChild = current;
+		_fixTreeInsert(current);
+		++_size;
+		return ft::make_pair(iterator(current), true);
+	}
+
+	/*
+	**	void    _deleteNode(Node* node)
+	**
+	**	Remove the node pointed at and then fix the tree.
+	*/
+	void	erase(Node* node)
+	{
+		Type	type;
+
+		type = _getType(node);
+		if (type == LEAF)
+		{
+			if (node == _root)
+			{
+				_freeLeaf(node)
+				_root = NULL:
+			}
+			else
+				_deleteLeaf(node);
+		}
+		else if (type == ONE)
+			_deleteOneChild(node));
+		else
+			_deleteNode(_findPredecessor(node));
+		--_size;
+	}
 
 	/*
 	** #########################################################################
