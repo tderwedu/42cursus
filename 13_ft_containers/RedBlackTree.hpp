@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/10 19:11:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:58:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,18 @@ private:
 		return newNode;
 	}
 
-	void	_freeNode(Node* byebye)
+	void	_freeLeaf(Node* leaf)
 	{
+		Node*	parent;
+	
+		if (leaf->parent)
+		{
+			parent = leaf->_parent;
+			if (parent->_leftChild == leaf)
+				parent->_leftChild = NULL;
+			else
+				parent->_rightChild = NULL;
+		}
 		_alloc.destroy(byebye);
 		_alloc.deallocate(byebye, 1);
 	}
@@ -112,6 +122,31 @@ private:
 				return node;
 		}
 		return NULL;
+	}
+
+	void	_setRightChild(Node* node, Node* child)
+	{
+		node->_rightChild = child;
+		if (child)
+			child->_parent = node;
+	}
+
+	void	_setLeftChild(Node* node, Node* child)
+	{
+		node->_leftChild = child;
+		if (child)
+			child->_parent = node;
+	}
+
+	void	_setParent(Node* parent, Node* oldChild, Node* newChild)
+	{
+		if (parent)
+		{
+			if (parent->_leftChild == oldChild)
+				parent->_leftChild = newChild;
+			else
+				parent->_rightChild = newChild;
+		}
 	}
 
 	/*
@@ -314,9 +349,10 @@ private:
 
 	/*
 	**	void    _deleteLeaf(Node* node)
+	**	Should not be used for ROOT.
 	**	Remove a leaf from the tree. 4 cases need to be considered
 	**	- Leaf is RED -> simply remove
-	**	- Leaf is BLACK -> Bubbling the rebalancing
+	**	- Leaf is BLACK -> Bubbling then rebalancing or bubbling up
 	*/
 	void	_deleteLeaf(Node* leaf)
 	{
@@ -339,9 +375,13 @@ private:
 			_freeNode(leaf);
 			return ;
 		}
+		// Leaf is BLACK
+		// There must be a sibling
 		_freeNode(leaf);
 		++parent->_color;
-		--sigbling->_color;
+		--sibling->_color;
+		if (sibling->_color == NRED)
+			_rotateNegativeBlack(parent);
 		// https://matt.might.net/articles/red-black-delete/
 		// CASES : 
 		// 1 : solved -> done
@@ -350,8 +390,111 @@ private:
 		// 3 : double RED -> apply transformation 
 		//		- new root can be REd or BLACK (NEG RED)
 		// 4 : Bubble up
-		if (sigbling->_color == NRED)
-			sigbling = _removeNegativeBlack(sigbling);
+		if (sibling->_color == NRED)
+			sibling = _rotateDoubleRed(sibling);
+	}
+
+	void	_rotateNegativeBlack(Node* z)
+	{
+		Node*	treeParent;
+		Node*	w;
+		Node*	x;
+		Node*	y;
+	
+		treeParent = z->_parent;
+		if (z->_leftChild->_color == NRED)
+		{
+			x = z->_leftChild;
+			w = x->_leftChild;
+			y = x->_rightChild;
+			_setLeftChild(z, y->_rightChild);
+			_setRightChild(x, y->_leftChild);
+			y->_leftChild = x;
+			x->_parent = y;
+			y->_rightChild = z;
+			z->_parent = y;
+			x->_leftChild = w;
+		}
+		else
+		{
+			x = z->_rightChild;
+			w = x->_rightChild;
+			y = x->_leftChild;
+			_setRightChild(z, y->_leftChild);
+			_setLeftChild(x, y->_rightChild);
+			y->_leftChild = z;
+			z->_parent = y;
+			y->_rightChild = x;
+			x->_parent = y;
+			x->_rightChild = w;
+		}
+		x->_color = BLACK;
+		y->_color = BLACK;
+		z->_color = BLACK;
+		w->_color = RED;
+		_setParent(treeParent, z, y);
+		// Return a RED node with a BLACK parent = balancing stop here
+		_rotateDoubleRed(x);
+	}
+
+	Node*	_rotateDoubleRed(Node* node)
+	{
+		Node*	treeParent;
+		Node*	x;
+		Node*	y;
+		Node*	z;
+	
+		treeParent = node->_parent;
+		if (node->_leftChild->_color == RED)
+		{
+			z = node;
+			if (z->_leftChild->_rightChild && z->_leftChild->_rightChild->_color == RED)
+			{
+				x = z->_leftChild;
+				y = x->_rightChild;
+				_setRightChild(x, y->_leftChild);
+				_setLeftChild(z, y->_rightChild);
+			}
+			else if (z->_leftChild->_leftChild && z->_leftChild->_leftChild->_color == RED)
+			{
+				y = z->_leftChild;
+				x = y->_leftChild;
+				_setLeftChild(z, y->_rightChild);
+			}
+			else
+				return ;
+			++x->_color;
+			++y->_color;
+			--z->_color;
+		}
+		else
+		{
+			x = node;
+			if (x->_rightChild->_leftChild && z->_rightChild->_leftChild->_color == RED)
+			{
+				z = x->_rightChild;
+				y = z->_leftChild;
+				_setRightChild(x, y->_leftChild);
+				_setLeftChild(z, y->_rightChild);
+			}
+			else if (z->_rightChild->_rightChild && z->_rightChild->_rightChild->_color == RED)
+			{
+				y = x->_rightChild;
+				z = y->_rightChild;
+				_setRightChild(z, y->_leftChild);
+			}
+			else
+				return ;
+			--x->_color;
+			++y->_color;
+			++z->_color;
+		}
+		y->_leftChild = x;
+		y->_rightChild = z;
+		x->_parent = y;
+		z->_parent = y;
+		_setParent(treeParent, node, y);
+		return y;
 	}
 
 public:
