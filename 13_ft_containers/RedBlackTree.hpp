@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/13 17:10:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:44:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -615,6 +615,102 @@ private:
 			}
 			return *this;
 		}
+	};
+
+	/* 
+	** #########################################################################
+	** #                        RedBlackTree::ITERATOR                         #
+	** #########################################################################
+	*/
+	class Iterator
+	{
+		/*
+		** RedBlackTree:ITERATOR
+		** =========================== MEMBER TYPES ===========================
+		*/
+		public:
+			typedef T								value_type;
+			typedef T*								pointer;
+			typedef T&								reference;
+			typedef std::bidirectional_iterator_tag	iterator_category;
+		/*
+		** RedBlackTree:ITERATOR
+		** ============================ ATTRIBUTES ============================
+		*/
+		private:
+			Node*	_current;
+		/*
+		** RedBlackTree:ITERATOR
+		** ========================= MEMBER FUNCTIONS =========================
+		*/
+		public:
+			explicit Iterator(Node* node) : _current(node) {}
+			Iterator(const Iterator& iter) : _current(iter._current) {}
+			~Iterator(void) {}
+			Iterator		operator=(const Iterator rhs)
+			{ 
+				if (this != &rhs)
+				{
+					_current = rhs._current;
+					_lastValue = rhs._lastValue;
+				}
+				return *this;
+			}
+
+			reference		operator* () 							{ return _current->_value; }
+			const_reference	operator* () const						{ return _current->_value; }
+			pointer			operator->()							{ return &_current->_value; }
+			const_pointer	operator->() const						{ return &_current->_value; }
+
+			Iterator&		operator++()
+			{
+				Node	*tmp;
+
+				if (_current->_rightChild)
+				{
+					_current = _current->_rightChild;
+					while (_current->_leftChild)
+						_current = _current->_leftChild;
+				}
+				else
+				{
+					tmp = _current->_parent;
+					while (tmp && tmp->_rightChild == _current)
+					{
+						_current = tmp;
+						tmp = tmp->_parent;
+					}
+					_current = tmp;
+				}
+				return *this;
+			}
+			Iterator&		operator--()
+			{
+				Node	*tmp;
+
+				if (_current->_leftChild)
+				{
+					_current = _current->_leftChild;
+					while (_current->_rightChild)
+						_current = _current->_rightChild;
+				}
+				else
+				{
+					tmp = _current->_parent;
+					while (tmp && tmp->_leftChild == _current)
+					{
+						_current = tmp;
+						tmp = tmp->_parent;
+					}
+					_current = tmp;
+				}
+				return *this;
+			}
+			Iterator		operator++(int)							{ Iterator tmp(*this); operator++(); return tmp; }
+			Iterator		operator--(int)							{ Iterator tmp(*this); operator--(); return tmp; }
+
+			bool			operator==(const Iterator &rhs)	const	{ return _current == rhs._current; }
+			bool			operator!=(const Iterator &rhs)	const	{ return _current != rhs._current; }
 	};
 };
 

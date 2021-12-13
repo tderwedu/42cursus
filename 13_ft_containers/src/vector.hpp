@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/08 16:21:06 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/13 18:16:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -428,8 +428,8 @@ public:
 
 			reference		operator* () 							{ return *_ptr; }
 			const_reference	operator* () const						{ return *_ptr; }
-			pointer			operator->()							{ return _ptr); }
-			const_pointer	operator->() const						{ return _ptr); }
+			pointer			operator->()							{ return _ptr; }
+			const_pointer	operator->() const						{ return _ptr; }
 			reference		operator[](size_t i)					{ return _ptr[i]; }
 			const_reference	operator[](size_t i) const				{ return _ptr[i]; }
 
