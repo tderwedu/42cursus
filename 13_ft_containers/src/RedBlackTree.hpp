@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/16 13:39:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:13:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -556,6 +556,42 @@ private:
 		return y;
 	}
 
+	Node*	_lower_bound(const_reference val)
+	{
+		Node*	node = _root;
+		Node*	ret = NULL;
+	
+		while (node != 0)
+		{
+			if (!_compare(node->_value, val))
+			{
+				ret = node;
+				node = node->_leftChild;
+			}
+			else
+				node = node->_rightChild;
+		}
+		return ret;
+	}
+
+	Node*	_upper_bound(const_reference val)
+	{
+		Node*	node = _root;
+		Node*	ret = NULL;
+	
+		while (node != 0)
+		{
+			if (_compare(val, node->_value))
+			{
+				ret = node;
+				node = node->_leftChild;
+			}
+			else
+				node = node->_rightChild;
+		}
+		return ret;
+	}
+
 public:
 /* Red Black Tree ######### The Big Three ######## */
 	RBTree(void) : _root(NULL), _size(0), _compare(), _alloc() {}
@@ -709,16 +745,31 @@ public:
 		Node*	node = _search(_root, k);
 		return node ? 1 : 0;
 	}
-	iterator				lower_bound (const key_type& k);
-	const_iterator			lower_bound (const key_type& k) const;
-	iterator				upper_bound (const key_type& k);
-	const_iterator			upper_bound (const key_type& k) const;
-	pair<const_iterator,const_iterator>	equal_range (const key_type& k) const;
-	pair<iterator,iterator>				equal_range (const key_type& k);
-
-	Node*	_lower_bound(const_reference val)
+	iterator				lower_bound (const key_type& k)			{ return iterator(_lower_bound(k), this); }
+	const_iterator			lower_bound (const key_type& k) const	{ return const_iterator(_lower_bound(k), this); }
+	iterator				upper_bound (const key_type& k)			{ return iterator(_upper_bound(k), this); }
+	const_iterator			upper_bound (const key_type& k) const	{ return const_iterator(_upper_bound(k), this); }
+	pair<iterator,iterator>				equal_range (const key_type& k)
 	{
-		if (!_root)
+		Node*	lower;
+		Node*	upper;
+
+		lower = _lower_bound(k);
+		upper = _upper_bound(k);
+		if (lower != upper)
+			lower = upper;
+		return ft::make_pair(iterator(lower, this), iterator(upper, this));
+	}
+	pair<const_iterator,const_iterator>	equal_range (const key_type& k) const
+	{
+		Node*	lower;
+		Node*	upper;
+
+		lower = _lower_bound(k);
+		upper = _upper_bound(k);
+		if (lower != upper)
+			lower = upper;
+		return ft::make_pair(const_iterator(lower, this), const_iterator(upper, this));
 	}
 
 	/*
@@ -743,7 +794,6 @@ private:
 		** RedBlackTree: NODE
 		** ========================= MEMBER FUNCTIONS ==========================
 		*/
-/* RedBlackTree: NODE - The Big Three === */
 	public:
 		Node(const T& value, Node* parent, Node* left = NULL, Node* right = NULL, Color color = RED)
 			: _value(value), _parent(parent), _leftChild(left), _rightChild(right), _color(color)
@@ -868,6 +918,45 @@ public:
 			bool			operator==(const Iterator &rhs)	const	{ return _current == rhs._current; }
 			bool			operator!=(const Iterator &rhs)	const	{ return _current != rhs._current; }
 	};
+
 };
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator==(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	if (lhs.size() != rhs.size())
+		return false;
+	return ft::equal(lhs.begin(), lhs.end(), rhs.begin());
+}
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator!=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	return !operator==(lhs, rhs);
+}
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator<(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
+}
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator<=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	return operator<(lhs, rhs) || operator==(lhs, rhs);
+}
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator>(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	return !operator<(lhs, rhs) && !operator==(lhs, rhs);
+}
+
+template<typename T, typename Compare, typename Alloc>
+bool	operator>=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+{
+	return !operator<(lhs, rhs);
+}
 
 #endif

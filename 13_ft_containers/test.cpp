@@ -23,5 +23,4 @@ int main()
 	std::cout << (--it2)->second << std::endl;
 	// std::cout << (++it)->second << std::endl
 	std::cout << (test.begin())->second << std::endl;
-
 }
