@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/16 17:13:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/16 17:52:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -922,7 +922,8 @@ public:
 };
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator==(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator==(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return false;
@@ -930,31 +931,36 @@ bool	operator==(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, A
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator!=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator!=(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	return !operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator<(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator<(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator<=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator<=(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	return operator<(lhs, rhs) || operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator>(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator>(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	return !operator<(lhs, rhs) && !operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator>=(const RBTree<T, Compare, Alloc>& lhs, const RBTree<T, Compare, Alloc>& rhs)
+bool	operator>=(const RBTree<T, Compare, Alloc>& lhs,
+					const RBTree<T, Compare, Alloc>& rhs)
 {
 	return !operator<(lhs, rhs);
 }
