@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/13 18:44:22 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/16 11:39:49 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,21 @@ private:
 		_alloc.deallocate(leaf, 1);
 	}
 
+	void	_freeRecursively(Node* node)
+	{
+		Node*	left;
+		Node*	right;
+	
+		left = node->_leftChild;
+		right = node->_rightChild;
+		_alloc.destroy(leaf);
+		_alloc.deallocate(leaf, 1);
+		if (left)
+			_freeRecursively(left);
+		if (right)
+			_freeRecursively(right);
+	}
+
 	Node*	_copyRecursively(Node* node)
 	{
 		if (!node)
@@ -125,6 +140,15 @@ private:
 		return NULL;
 	}
 
+	// Node*	_getRoot(Node* node) const
+	// {
+	// 	if (!node)
+	// 		return NULL;
+	// 	while (node->_parent)
+	// 		node = node->_parent
+	// 	return node;
+	// }
+	
 	void	_setRightChild(Node* node, Node* child)
 	{
 		node->_rightChild = child;
@@ -252,11 +276,11 @@ private:
 	}
 
 	/*
-	**	Type    _getType(Node* node)
+	**	Type    _getNumberChildren(Node* node)
 	**
-	**	Return the number of childs.
+	**	Return the number of children.
 	*/
-	Type	_getType(Node* node)
+	Type	_getNumberChildren(Node* node)
 	{
 		int	childs;
 	
@@ -506,15 +530,62 @@ private:
 	}
 
 public:
-/* 
-**	### Red Black Tree: The Big Three ###
-*/
+/* Red Black Tree ######### The Big Three ######## */
+	RBTree(void) : _root(NULL), _size(0), _compare(), _alloc() {}
 
-	/*
-	**	void    _insert(const_reference val)
-	**
-	**	Add or replace a new value
-	*/
+	RBTree(RBTree const& rhs) :
+		_root(_copyRecursively(rhs._root)),
+		_size(rhs._size),
+		_compare(rhs._compare),
+		_alloc(rhs._alloc)
+		{}
+
+	~RBTree(void) { _freeRecursively(_root); }
+
+	RBTree&			operator=(RBTree const& rhs)
+	{
+		if (this != &rhs)
+		{
+			if (_root)
+				_freeRecursively(_root);
+			_root = _copyRecursively(rhs._root);
+			_size = rhs._size;
+			_compare = rhs._compare;
+			_alloc = rhs._alloc;
+		}
+		return *this;
+	}
+
+/* Red Black Tree ########## ITERATORS ########### */
+	iterator				begin(void)
+	{
+		Node*	first;
+	
+		first = _root;
+		while (first->_leftChild)
+			first = first->_leftChild;
+		return iterator(first, this);
+	}
+	const_iterator			begin() const
+	{
+		Node*	first;
+	
+		first = _root;
+		while (first->_leftChild)
+			first = first->_leftChild;
+		return const_iterator(first, this);
+	}
+	iterator				end()				{ return iterator(NULL, this); }
+	const_iterator			end() const			{ return const_iterator(NULL, this); }
+	reverse_iterator		rbegin()			{ return reverse_iterator(end()); }
+	const_reverse_iterator	rbegin() const		{ return const_reverse_iterator(end()); }
+	reverse_iterator		rend()				{ return reverse_iterator(begin()); }
+	const_reverse_iterator	rend() const		{ return const_reverse_iterator(begin()); }
+/* Red Black Tree ########### CAPACITY ########### */
+	bool					empty() const		{ return (_size == 0); }
+	size_type				size() const		{ return _size; }
+	size_type				max_size() const	{ return _alloc.max_size(); }
+/* Red Black Tree ######## ELEMENT ACCESS ######## */
 	ft::pair<iterator, bool>	insert(const_reference val)
 	{
 		if (!_root)
@@ -545,17 +616,44 @@ public:
 		++_size;
 		return ft::make_pair(iterator(current), true);
 	}
+	iterator				insert(iterator position, const value_type& val)
+	{
+		
+	}
+	template <class InputIterator>
+	void					insert(InputIterator first, InputIterator last);
+	void					erase(iterator position);
+	size_type				erase(const key_type& k);
+	void					erase(iterator first, iterator last);
+	void					swap(map& x)
+	{
+		if (this != &rhs)
+		{
+			std::swap(_root, rhs._root);
+			std::swap(_size, rhs._size);
+			std::swap(_compare, rhs._compare);
+			std::swap(_alloc, rhs._alloc);
+		}
+	}
+	void					clear()
+	{
+		_freeRecursively(_root);
+		_size = 0;
+	}
+/* Red Black Tree ########## MODIFIERS ########### */
 
-	/*
-	**	void    _deleteNode(Node* node)
-	**
-	**	Remove the node pointed at and then fix the tree.
-	*/
+/* Red Black Tree ########## OBSERVERS ########### */
+
+/* Red Black Tree ########## OPERATIONS ########## */
+
+/* Red Black Tree ########## ALLOCATOR ########### */
+
+
 	void	erase(Node* node)
 	{
 		Type	type;
 
-		type = _getType(node);
+		type = _getNumberChildren(node);
 		if (type == LEAF)
 		{
 			if (node == _root)
@@ -639,13 +737,14 @@ private:
 		*/
 		private:
 			Node*	_current;
+			RBTree*	_tree;
 		/*
 		** RedBlackTree:ITERATOR
 		** ========================= MEMBER FUNCTIONS =========================
 		*/
 		public:
-			explicit Iterator(Node* node) : _current(node) {}
-			Iterator(const Iterator& iter) : _current(iter._current) {}
+			explicit Iterator(Node* node, RBTree *tree) : _current(node), _tree(tree) {}
+			Iterator(const Iterator& iter) : _current(iter._current), _tree(rhs._tree) {}
 			~Iterator(void) {}
 			Iterator		operator=(const Iterator rhs)
 			{ 
@@ -688,6 +787,12 @@ private:
 			{
 				Node	*tmp;
 
+				if (!_current)
+				{
+					_current = _tree->_root;
+					while (_current->_rightChild)
+						_current = _current->_rightChild;
+				}
 				if (_current->_leftChild)
 				{
 					_current = _current->_leftChild;
