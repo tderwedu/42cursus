@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/16 11:39:49 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/16 13:39:25 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -273,6 +273,33 @@ private:
 		}
 		newParent->_rightChild = node;
 		node->_parent = newParent;
+	}
+
+	/*
+	**	void    _erase(Node* node)
+	**
+	**	remove a node from the tree.
+	*/
+	void	_erase(Node* node)
+	{
+		Type	type;
+
+		type = _getNumberChildren(node);
+		if (type == LEAF)
+		{
+			if (node == _root)
+			{
+				_freeLeaf(node)
+				_root = NULL:
+			}
+			else
+				_deleteLeaf(node);
+		}
+		else if (type == ONE)
+			_deleteOneChild(node));
+		else
+			_deleteNode(_findPredecessor(node));
+		--_size;
 	}
 
 	/*
@@ -586,6 +613,8 @@ public:
 	size_type				size() const		{ return _size; }
 	size_type				max_size() const	{ return _alloc.max_size(); }
 /* Red Black Tree ######## ELEMENT ACCESS ######## */
+
+/* Red Black Tree ########## MODIFIERS ########### */
 	ft::pair<iterator, bool>	insert(const_reference val)
 	{
 		if (!_root)
@@ -616,16 +645,40 @@ public:
 		++_size;
 		return ft::make_pair(iterator(current), true);
 	}
-	iterator				insert(iterator position, const value_type& val)
+	iterator				insert(iterator hint, const value_type& val)
 	{
-		
+		(void)hint;
+		return insert(val).first;
 	}
 	template <class InputIterator>
-	void					insert(InputIterator first, InputIterator last);
-	void					erase(iterator position);
-	size_type				erase(const key_type& k);
-	void					erase(iterator first, iterator last);
-	void					swap(map& x)
+	void					insert(InputIterator first, InputIterator last)
+	{
+		while (first != last)
+			insert(*first++);
+	}
+	void					erase(iterator pos)
+	{
+		erase(pos->first);
+	}
+	size_type				erase(const key_type& k)
+	{
+		Node*	node = _search(_root, k);
+		if (node)
+		{
+			_erase(node);
+			--_size;
+		}
+		return _size;
+	}
+	void					erase(iterator first, iterator last)
+	{
+		while (first != last)
+		{
+			erase(first->first);
+			++first;
+		}
+	}
+	void					swap(map& rhs)
 	{
 		if (this != &rhs)
 		{
@@ -635,40 +688,37 @@ public:
 			std::swap(_alloc, rhs._alloc);
 		}
 	}
-	void					clear()
+	void					clear(void)
 	{
 		_freeRecursively(_root);
 		_size = 0;
 	}
-/* Red Black Tree ########## MODIFIERS ########### */
-
-/* Red Black Tree ########## OBSERVERS ########### */
-
 /* Red Black Tree ########## OPERATIONS ########## */
-
-/* Red Black Tree ########## ALLOCATOR ########### */
-
-
-	void	erase(Node* node)
+	iterator				find (const key_type& k)
 	{
-		Type	type;
+		Node*	node = _search(_root, k);
+		return node ? iterator(node, this) : end();
+	}
+	const_iterator			find (const key_type& k) const
+	{
+		Node*	node = _search(_root, k);
+		return node ? const_iterator(node, this) : end();
+	}
+	size_type				count (const key_type& k) const
+	{
+		Node*	node = _search(_root, k);
+		return node ? 1 : 0;
+	}
+	iterator				lower_bound (const key_type& k);
+	const_iterator			lower_bound (const key_type& k) const;
+	iterator				upper_bound (const key_type& k);
+	const_iterator			upper_bound (const key_type& k) const;
+	pair<const_iterator,const_iterator>	equal_range (const key_type& k) const;
+	pair<iterator,iterator>				equal_range (const key_type& k);
 
-		type = _getNumberChildren(node);
-		if (type == LEAF)
-		{
-			if (node == _root)
-			{
-				_freeLeaf(node)
-				_root = NULL:
-			}
-			else
-				_deleteLeaf(node);
-		}
-		else if (type == ONE)
-			_deleteOneChild(node));
-		else
-			_deleteNode(_findPredecessor(node));
-		--_size;
+	Node*	_lower_bound(const_reference val)
+	{
+		if (!_root)
 	}
 
 	/*
@@ -720,6 +770,7 @@ private:
 	** #                        RedBlackTree::ITERATOR                         #
 	** #########################################################################
 	*/
+public:
 	class Iterator
 	{
 		/*
