@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 16:03:50 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 19:08:14 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,6 @@ private:
 
 	void	_freeLeaf(Node* leaf)
 	{
-		Node*	parent = leaf->_parent;
-
-		if (parent)
-		{
-			if (parent->_leftChild == leaf)
-				parent->_leftChild = NULL;
-			else
-				parent->_rightChild = NULL;
-		}
 		_alloc.destroy(leaf);
 		_alloc.deallocate(leaf, 1);
 	}
@@ -174,7 +165,6 @@ private:
 	{
 		if (parent)
 		{
-			std::cout << "_setParent : " << parent->_value.second << std::endl;	// TODO: remove
 			if (parent->_leftChild == oldChild)
 				parent->_leftChild = newChild;
 			else
@@ -202,8 +192,6 @@ private:
 
 		while (parent && parent->_color == RED)
 		{
-			// std::cout << "_fixTreeOkasaki : " <<  node->_value.second << std::endl;	// TODO: remove
-
 			grandParent = parent->_parent;
 			if (parent == grandParent->_leftChild)
 			{
@@ -235,8 +223,6 @@ private:
 		Node*	z = node;
 		Node*	y = node->_leftChild;
 		Node*	x = node->_leftChild->_leftChild;
-
-		std::cout << "_rotateLeftLeft" << std::endl;	// TODO: remove
 	
 		_setParent(node->_parent, z, y);
 		_setLeftChild(z, y->_rightChild);
@@ -256,8 +242,6 @@ private:
 		Node*	z = node;
 		Node*	x = node->_leftChild;
 		Node*	y = node->_leftChild->_rightChild;
-
-		std::cout << "_rotateLeftRight" << std::endl;	// TODO: remove
 	
 		_setParent(node->_parent, z, y);
 		_setRightChild(x, y->_leftChild);
@@ -278,8 +262,6 @@ private:
 		Node*	x = node;
 		Node*	z = node->_rightChild;
 		Node*	y = node->_rightChild->_leftChild;
-
-		std::cout << "_rotateRightLeft" << std::endl;	// TODO: remove
 	
 		_setParent(node->_parent, x, y);
 		_setRightChild(x, y->_leftChild);
@@ -300,8 +282,6 @@ private:
 		Node*	x = node;
 		Node*	y = node->_rightChild;
 		Node*	z = node->_rightChild->_rightChild;
-	
-		std::cout << "_rotateRightRight" << std::endl;	// TODO: remove
 
 		_setParent(node->_parent, x, y);
 		_setRightChild(x, y->_leftChild);
@@ -324,6 +304,8 @@ private:
 	{
 		Type	type;
 
+		std::cout << "\t \033[31m ERASE: '" << node->_value.second << "'\033[0m" << std::endl; // TODO: remove
+
 		type = _getNumberChildren(node);
 		if (type == LEAF)
 		{
@@ -333,7 +315,7 @@ private:
 				_root = NULL;
 			}
 			else
-				_deleteLeaf(node);
+				_eraseLeaf(node);
 		}
 		else if (type == ONE)
 			_deleteOneChild(node);
@@ -352,27 +334,6 @@ private:
 		int	childs;
 	
 		childs = (node->_leftChild != NULL) + (node->_rightChild != NULL);
-
-		std::cout << "\t \033[31m    VAL: " << node->_value.second << " | ";  // TODO: remove
-		if (node->_color == RED) // TODO: remove
-			std::cout << "RED"; // TODO: remove
-		else // TODO: remove
-			std::cout << "BLACK"; // TODO: remove
-		std::cout << " | "; // TODO: remove
-		if (childs == 0) // TODO: remove
-			std::cout << "LEAF \033[0m" << std::endl; // TODO: remove
-		else if (childs == 1) // TODO: remove
-			std::cout << "ONE \033[0m" << std::endl; // TODO: remove
-		else // TODO: remove
-			std::cout << "TWO \033[0m" << std::endl;  // TODO: remove
-		if (node->_parent) // TODO: remove
-		{
-			if (node->_parent->_color == RED) // TODO: remove
-				std::cout << "\t \033[31m PARENT: " << node->_parent->_value.second << " | " << "RED" << std::endl; // TODO: remove
-			else // TODO: remove
-				std::cout << "\t \033[0m PARENT: " << node->_parent->_value.second << " | "  << "BLACK" << std::endl; // TODO: remove
-		} // TODO: remove
-
 		if (childs == 0)
 			return LEAF;
 		else if (childs == 1)
@@ -422,7 +383,7 @@ private:
 	}
 
 	/*
-	**	void    _deleteLeaf(Node* node)
+	**	void    _eraseLeaf(Node* node)
 	**
 	**	Remove a leaf from the tree. 4 cases need to be considered
 	**	- Leaf is RED -> simply remove
@@ -432,7 +393,7 @@ private:
 	**	    - If no DOUBLE BLACK -> done
 	**	    - else bubble up
 	*/
-	void	_deleteLeaf(Node* leaf)
+	void	_eraseLeaf(Node* leaf)
 	{
 		Node*	parent;
 		Node*	sibling;
@@ -451,7 +412,6 @@ private:
 		}
 		if (leaf->_color == RED)
 		{
-			std::cout << "\033[36m \t FREE Red Leaf \033[0m" << std::endl; // TODO: remove
 			_freeLeaf(leaf);
 			return ;
 		}
@@ -482,6 +442,14 @@ private:
 		Node*	sibling;
 		Node*	tmp;
 
+		std::cout << "\033[32m \t _bubbleUp \033[0m" << std::endl;
+		// _printTree();
+		
+		if (node == _root)
+		{
+			_root->_color = BLACK;
+			return ;
+		}
 		parent = node->_parent;
 		if (node == parent->_leftChild)
 			sibling = parent->_rightChild;
@@ -490,13 +458,18 @@ private:
 		++parent->_color;
 		--sibling->_color;
 		--node->_color;
+		// std::cout << "\033[33m \t" << parent->_value.second << "\033[0m" << std::endl; // TODO: remove
+		// _printTree();
 		if (sibling->_color == NRED)
 			_rotateNegativeBlack(parent);
 		else
 		{
 			tmp = _rotateDoubleRed(parent);
-			if (tmp == parent && parent->_parent)
+			// std::cout << "\033[33m \t" << tmp->_value.second << "\033[0m" << std::endl; // TODO: remove
+			if (tmp == parent && parent->_parent && parent->_color == DBLACK)
+			{
 				_bubbleUp(parent);
+			}
 			else
 				parent->_color = BLACK;
 		}
@@ -515,9 +488,11 @@ private:
 		Node*	w;
 		Node*	x;
 		Node*	y;
+
+		std::cout << "\033[36m \t _rotateNegativeBlack \033[0m" << std::endl;
 	
 		treeParent = z->_parent;
-		if (z->_leftChild->_color == NRED)
+		if (z->_leftChild && z->_leftChild->_color == NRED)
 		{
 			x = z->_leftChild;
 			w = x->_leftChild;
@@ -564,9 +539,11 @@ private:
 		Node*	x;
 		Node*	y;
 		Node*	z;
+
+		std::cout << "\033[36m \t _rotateDoubleRed \033[0m" << std::endl; // TODO: remove
 	
 		treeParent = node->_parent;
-		if (node->_leftChild->_color == RED)
+		if (node->_leftChild && node->_leftChild->_color == RED)
 		{
 			z = node;
 			if (z->_leftChild->_rightChild && z->_leftChild->_rightChild->_color == RED)
@@ -584,11 +561,8 @@ private:
 			}
 			else
 				return node;
-			++x->_color;
-			++y->_color;
-			--z->_color;
 		}
-		else
+		else if (node->_rightChild && node->_rightChild->_color == RED)
 		{
 			x = node;
 			if (x->_rightChild->_leftChild && x->_rightChild->_leftChild->_color == RED)
@@ -602,14 +576,19 @@ private:
 			{
 				y = x->_rightChild;
 				z = y->_rightChild;
-				_setRightChild(z, y->_leftChild);
+				_setRightChild(x, y->_leftChild);
 			}
 			else
 				return node;
-			--x->_color;
-			++y->_color;
-			++z->_color;
 		}
+		else
+			return node;
+		if (node->_color == DBLACK)
+			y->_color = BLACK;
+		else
+			y->_color = RED;
+		x->_color = BLACK;
+		z->_color = BLACK;
 		y->_leftChild = x;
 		y->_rightChild = z;
 		x->_parent = y;
@@ -663,18 +642,22 @@ void	_printTree(void)
 	Node*			node = _root;
 	std::string		space;
 
-	std::cout << "#####" << std::endl;
+	std::cout << "\033[36m##### Red Black Tree #####\033[0m" << std::endl;
 	if (node)
 		_printTree(node, space);
-	std::cout << "#####" << std::endl;
+	std::cout << "\033[36m##### END #####\033[0m" << std::endl;
 }
 
 void	_printTree(Node* node, std::string& space)
 {
 	if (!node)
 		return ;
-	if (node->_color == RED)
+	if (node->_color == NRED)
+			std::cout << space << "\033[32m " << node->_value.second << " \033[0m " << std::endl;
+	else if (node->_color == RED)
 			std::cout << space << "\033[31m " << node->_value.second << " \033[0m " << std::endl;
+	else if (node->_color == DBLACK)
+			std::cout << space << "\033[34m " << node->_value.second << " \033[0m " << std::endl;
 	else
 			std::cout << space << "\033[0m " << node->_value.second << " \033[0m " << std::endl;
 	if (node->_leftChild)
@@ -695,7 +678,7 @@ void	_printTree(Node* node, std::string& space)
 
 
 /* Red Black Tree ######### The Big Three ######## */
-	RBTree(void) : _root(NULL), _size(0), _compare(), _alloc() { std::cout << "RBTree Default CONSTRUCTOR" << std::endl; } // TODO:remove
+	RBTree(void) : _root(NULL), _size(0), _compare(), _alloc() {}
 
 	RBTree(RBTree const& rhs) :
 		_root(_copyRecursively(rhs._root)),
@@ -704,7 +687,7 @@ void	_printTree(Node* node, std::string& space)
 		_alloc(rhs._alloc)
 		{}
 
-	~RBTree(void) { clear(); std::cout << "RBTree DeSTRUCTOR" << std::endl; } // TODO:remove
+	~RBTree(void) { clear(); }
 
 	RBTree&			operator=(RBTree const& rhs)
 	{
@@ -761,6 +744,7 @@ void	_printTree(Node* node, std::string& space)
 		if (!_root)
 		{
 			_root = _newNode(val, NULL, NULL, NULL, BLACK);
+			++_size;
 			return ft::make_pair(iterator(_root, this), true);
 		}
 
@@ -809,10 +793,7 @@ void	_printTree(Node* node, std::string& space)
 	{
 		Node*	node = _search(_root, k);
 		if (node)
-		{
 			_erase(node);
-			--_size;
-		}
 		return _size;
 	}
 	void					erase(iterator first, iterator last)

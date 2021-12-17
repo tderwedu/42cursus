@@ -30,6 +30,7 @@ Re-implementation of some containers present in C++.
 - Vanand Gasparyan's article [What is an Allocator?](https://medium.com/@vgasparyan1995/what-is-an-allocator-c8df15a93ed)
 - Brilliant's wiki [Red-Black Tree](https://brilliant.org/wiki/red-black-tree/)
 - Cay Horstmann's article [Easy Red-Black Trees](https://horstmann.com/unblog/2011-05-12/blog.html)
+- Matt Might's article [The missing method: Deleting ...](https://matt.might.net/articles/red-black-delete/)
 
 ## License
 
