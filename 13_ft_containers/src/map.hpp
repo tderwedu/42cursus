@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/16 17:56:13 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 10:05:15 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 # include <iterator>	// std::distance
 
 # include "type_traits.hpp"
-# include "iterator.hpp"
 # include "RedBlackTree.hpp"
+# include "pair.hpp"
 
 namespace ft {
 
@@ -39,9 +39,8 @@ class map
 	/* 
 	** ============================= MEMBER TYPES ==============================
 	*/
-	class	value_compare;	// declaration, definition below
-	
 public:
+	class	value_compare;	// declaration, definition below
 	typedef Key													key_type;
 	typedef T													mapped_type;
 	typedef ft::pair<Key, T>									value_type;
@@ -77,11 +76,12 @@ public:
 	explicit map(const key_compare& comp = key_compare(),
 				 const allocator_type& alloc = allocator_type())
 		: _data(), _compare(comp), _alloc(alloc)
-	{}
+	{std::cout << "map Default CONSTRUCTOR" << std::endl;} // TODO:remove
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
 		const key_compare& comp = key_compare(),
-		const allocator_type& alloc = allocator_type())
+		const allocator_type& alloc = allocator_type(),
+		typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 		: _data(), _compare(comp), _alloc(alloc)
 	{
 		_data.insert(first, last);
@@ -131,8 +131,8 @@ public:
 	iterator				insert(iterator pos, const value_type& val)			{ return _data.insert(pos, val); }
 	template <class InputIt>
 	void					insert(InputIt first, InputIt last)					{ _data.insert(first, last); }
-	void					erase(iterator pos)									{ return _data.erase(val); }
-	size_type				erase(const key_type& k)							{ return _data.erase(val); }
+	void					erase(iterator pos)									{ return _data.erase(pos); }
+	size_type				erase(const key_type& k)							{ return _data.erase(k); }
 	void					erase(iterator first, iterator last)				{ _data.erase(first, last); }
 	void					swap(map& rhs)
 	{

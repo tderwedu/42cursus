@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/07 10:57:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 09:34:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ public:
 	reverse_iterator& operator=(const reverse_iterator<U>& rhs)
 	{
 		if (this != &rhs)
-			_current = other.base();
+			_current = rhs.base();
 		return *this;
 	}
 
@@ -137,13 +137,13 @@ public:
 	reverse_iterator	operator+(difference_type n) const { return reverse_iterator(_current - n); }
 	reverse_iterator&	operator+=(difference_type n)
 	{
-		_current -= __n;
+		_current -= n;
 		return *this;
 	}
 	reverse_iterator	operator-(difference_type n) const { return reverse_iterator(_current + n); }
 	reverse_iterator&	operator-=(difference_type n)
 	{
-		_current += __n;
+		_current += n;
 		return *this;
 	}
 	pointer				operator->() const { return &(operator*()); }

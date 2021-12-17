@@ -15,8 +15,8 @@ Re-implementation of some containers present in C++.
 - [x] std::make_pair
 - [x] vector
 - [x] stack
-- [ ] Red Black Tree
-- [ ] map
+- [x] Red Black Tree
+- [x] map
 - [ ] Tests
 - [ ] Speed tests
 

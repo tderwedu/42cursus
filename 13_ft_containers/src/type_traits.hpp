@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 16:21:39 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/11/29 11:56:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 09:52:36 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ typedef integral_constant<bool, false>	false_type;
 /*
 ** Trait class that identifies whether T is an integral type.
 */
-template<>
+template<class T>
 struct is_integral : public false_type {};
 
 /*
@@ -73,10 +73,10 @@ template<>
 struct is_integral<bool> : public true_type {};
 template<>
 struct is_integral<char> : public true_type {};
-template<>
-struct is_integral<char16_t> : public true_type {};
-template<>
-struct is_integral<char32_t> : public true_type {};
+// template<>
+// struct is_integral<char16_t> : public true_type {};
+// template<>
+// struct is_integral<char32_t> : public true_type {};
 template<>
 struct is_integral<wchar_t> : public true_type {};
 template<>
