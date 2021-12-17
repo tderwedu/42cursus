@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 10:05:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 15:52:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,9 @@ private:
 	*/
 public:
 
+// DEBUG
+	void	_printTree(void) { _data._printTree(); }
+
 /* === The Big Three === */
 	explicit map(const key_compare& comp = key_compare(),
 				 const allocator_type& alloc = allocator_type())
@@ -132,7 +135,10 @@ public:
 	template <class InputIt>
 	void					insert(InputIt first, InputIt last)					{ _data.insert(first, last); }
 	void					erase(iterator pos)									{ return _data.erase(pos); }
-	size_type				erase(const key_type& k)							{ return _data.erase(k); }
+	size_type				erase(const key_type& k)
+	{
+		return _data.erase(ft::make_pair(k, typename value_type::second_type()));
+	}
 	void					erase(iterator first, iterator last)				{ _data.erase(first, last); }
 	void					swap(map& rhs)
 	{

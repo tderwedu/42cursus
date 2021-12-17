@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 12:18:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/17 16:03:50 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,21 @@
 */
 
 enum Color { NRED = -1, RED, BLACK, DBLACK };
+
+Color& operator++(Color& color)
+{
+	const int i = static_cast<int>(color) + 1;
+	color = static_cast<Color>(i);
+	return color;
+}
+Color& operator--(Color& color)
+{
+	const int i = static_cast<int>(color) - 1;
+	color = static_cast<Color>(i);
+	return color;
+}
+// Color const&	operator--(Color const& r){ return Color(r - 1); }
+
 enum Type { LEAF, ONE, TWO };
 
 template<	typename T,
@@ -83,11 +98,10 @@ private:
 
 	void	_freeLeaf(Node* leaf)
 	{
-		Node*	parent;
-	
-		if (leaf->parent)
+		Node*	parent = leaf->_parent;
+
+		if (parent)
 		{
-			parent = leaf->_parent;
 			if (parent->_leftChild == leaf)
 				parent->_leftChild = NULL;
 			else
@@ -226,11 +240,11 @@ private:
 	
 		_setParent(node->_parent, z, y);
 		_setLeftChild(z, y->_rightChild);
-		y->_color = BLACK;
+		y->_color = RED;
 		y->_leftChild = x;
 		y->_rightChild = z;
 		x->_parent = y;
-		x->_color = RED;
+		x->_color = BLACK;
 		z->_parent = y;
 		z->_color = BLACK;
 		return y;
@@ -248,11 +262,11 @@ private:
 		_setParent(node->_parent, z, y);
 		_setRightChild(x, y->_leftChild);
 		_setLeftChild(z, y->_rightChild);
-		y->_color = BLACK;
+		y->_color = RED;
 		y->_leftChild = x;
 		y->_rightChild = z;
 		x->_parent = y;
-		x->_color = RED;
+		x->_color = BLACK;
 		z->_parent = y;
 		z->_color = BLACK;
 		return y;
@@ -270,11 +284,11 @@ private:
 		_setParent(node->_parent, x, y);
 		_setRightChild(x, y->_leftChild);
 		_setLeftChild(z, y->_rightChild);
-		y->_color = BLACK;
+		y->_color = RED;
 		y->_leftChild = x;
 		y->_rightChild = z;
 		x->_parent = y;
-		x->_color = RED;
+		x->_color = BLACK;
 		z->_parent = y;
 		z->_color = BLACK;
 		return y;
@@ -291,11 +305,11 @@ private:
 
 		_setParent(node->_parent, x, y);
 		_setRightChild(x, y->_leftChild);
-		y->_color = BLACK;
+		y->_color = RED;
 		y->_leftChild = x;
 		y->_rightChild = z;
 		x->_parent = y;
-		x->_color = RED;
+		x->_color = BLACK;
 		z->_parent = y;
 		z->_color = BLACK;
 		return y;
@@ -324,20 +338,41 @@ private:
 		else if (type == ONE)
 			_deleteOneChild(node);
 		else
-			_deleteNode(_findPredecessor(node));
+			_erase(_findPredecessor(node));
 		--_size;
 	}
 
 	/*
 	**	Type    _getNumberChildren(Node* node)
 	**
-	**	Return the number of children.
+	**	Returns the number of children.
 	*/
 	Type	_getNumberChildren(Node* node)
 	{
 		int	childs;
 	
 		childs = (node->_leftChild != NULL) + (node->_rightChild != NULL);
+
+		std::cout << "\t \033[31m    VAL: " << node->_value.second << " | ";  // TODO: remove
+		if (node->_color == RED) // TODO: remove
+			std::cout << "RED"; // TODO: remove
+		else // TODO: remove
+			std::cout << "BLACK"; // TODO: remove
+		std::cout << " | "; // TODO: remove
+		if (childs == 0) // TODO: remove
+			std::cout << "LEAF \033[0m" << std::endl; // TODO: remove
+		else if (childs == 1) // TODO: remove
+			std::cout << "ONE \033[0m" << std::endl; // TODO: remove
+		else // TODO: remove
+			std::cout << "TWO \033[0m" << std::endl;  // TODO: remove
+		if (node->_parent) // TODO: remove
+		{
+			if (node->_parent->_color == RED) // TODO: remove
+				std::cout << "\t \033[31m PARENT: " << node->_parent->_value.second << " | " << "RED" << std::endl; // TODO: remove
+			else // TODO: remove
+				std::cout << "\t \033[0m PARENT: " << node->_parent->_value.second << " | "  << "BLACK" << std::endl; // TODO: remove
+		} // TODO: remove
+
 		if (childs == 0)
 			return LEAF;
 		else if (childs == 1)
@@ -367,7 +402,7 @@ private:
 			node->_rightChild = NULL;
 		}
 		std::swap(node->_value, leaf->_value);
-		_freeNode(leaf);
+		_freeLeaf(leaf);
 	}
 
 	/*
@@ -403,7 +438,7 @@ private:
 		Node*	sibling;
 		Node*	tmp;
 
-		parent = leaf->parent;
+		parent = leaf->_parent;
 		if (leaf == parent->_leftChild)
 		{
 			parent->_leftChild = NULL;
@@ -416,11 +451,12 @@ private:
 		}
 		if (leaf->_color == RED)
 		{
-			_freeNode(leaf);
+			std::cout << "\033[36m \t FREE Red Leaf \033[0m" << std::endl; // TODO: remove
+			_freeLeaf(leaf);
 			return ;
 		}
 		// Leaf is BLACK and there must be a sibling
-		_freeNode(leaf);
+		_freeLeaf(leaf);
 		++parent->_color;
 		--sibling->_color;
 		if (sibling->_color == NRED)
@@ -446,7 +482,7 @@ private:
 		Node*	sibling;
 		Node*	tmp;
 
-		parent = node->parent;
+		parent = node->_parent;
 		if (node == parent->_leftChild)
 			sibling = parent->_rightChild;
 		else
@@ -555,14 +591,14 @@ private:
 		else
 		{
 			x = node;
-			if (x->_rightChild->_leftChild && z->_rightChild->_leftChild->_color == RED)
+			if (x->_rightChild->_leftChild && x->_rightChild->_leftChild->_color == RED)
 			{
 				z = x->_rightChild;
 				y = z->_leftChild;
 				_setRightChild(x, y->_leftChild);
 				_setLeftChild(z, y->_rightChild);
 			}
-			else if (z->_rightChild->_rightChild && z->_rightChild->_rightChild->_color == RED)
+			else if (x->_rightChild->_rightChild && x->_rightChild->_rightChild->_color == RED)
 			{
 				y = x->_rightChild;
 				z = y->_rightChild;
@@ -619,6 +655,45 @@ private:
 	}
 
 public:
+
+// DEBUG
+
+void	_printTree(void)
+{
+	Node*			node = _root;
+	std::string		space;
+
+	std::cout << "#####" << std::endl;
+	if (node)
+		_printTree(node, space);
+	std::cout << "#####" << std::endl;
+}
+
+void	_printTree(Node* node, std::string& space)
+{
+	if (!node)
+		return ;
+	if (node->_color == RED)
+			std::cout << space << "\033[31m " << node->_value.second << " \033[0m " << std::endl;
+	else
+			std::cout << space << "\033[0m " << node->_value.second << " \033[0m " << std::endl;
+	if (node->_leftChild)
+	{
+		space.insert(space.size(), "\t");
+		_printTree(node->_leftChild, space);
+		space.erase(space.size() - 1, 1);
+	}
+	if (node->_rightChild)
+	{
+		space.insert(space.size(), "\t");
+		_printTree(node->_rightChild, space);
+		space.erase(space.size() - 1, 1);
+	}
+}
+
+// DEBUG
+
+
 /* Red Black Tree ######### The Big Three ######## */
 	RBTree(void) : _root(NULL), _size(0), _compare(), _alloc() { std::cout << "RBTree Default CONSTRUCTOR" << std::endl; } // TODO:remove
 
@@ -649,7 +724,9 @@ public:
 	iterator				begin(void)
 	{
 		Node*	first;
-	
+
+		if (!_root)
+			return iterator(NULL, this);
 		first = _root;
 		while (first->_leftChild)
 			first = first->_leftChild;
@@ -658,7 +735,9 @@ public:
 	const_iterator			begin() const
 	{
 		Node*	first;
-	
+
+		if (!_root)
+			return iterator(NULL, this);
 		first = _root;
 		while (first->_leftChild)
 			first = first->_leftChild;
@@ -724,7 +803,7 @@ public:
 	}
 	void					erase(iterator pos)
 	{
-		erase(pos->first);
+		erase(*pos);
 	}
 	size_type				erase(const value_type& k)
 	{
