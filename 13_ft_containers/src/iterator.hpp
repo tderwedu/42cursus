@@ -6,13 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 09:34:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/21 16:51:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
+# include <iostream> // TODO: remove
 # include <cstddef>
 # include <iterator>
 # include <vector>
@@ -43,15 +44,17 @@ struct iterator {
 };
 */
 
-/* ############################ ITERATOR_TRAITS ############################ */
+/*
+**	############################## ITERATOR_TRAITS #############################
+*/
 
 template<class Iterator>
 struct iterator_traits {
-	typedef typename Iterator::value_type	value_type;
-	typedef typename Iterator::Distance		difference_type;
-	typedef typename Iterator::Pointer		pointer;
-	typedef typename Iterator::Reference		reference;
-	typedef typename Iterator::Category		iterator_category;
+	typedef typename Iterator::value_type			value_type;
+	typedef typename Iterator::difference_type		difference_type;
+	typedef typename Iterator::pointer				pointer;
+	typedef typename Iterator::reference			reference;
+	typedef typename Iterator::iterator_category	iterator_category;
 };
 
 // Partial specialization for pointer types.
@@ -74,7 +77,9 @@ struct iterator_traits<const T*> {
 	typedef std::random_access_iterator_tag	iterator_category;
 };
 
-/* ############################ REVERSE_ITERATOR ############################ */
+/*
+**	############################# REVERSE_ITERATOR #############################
+*/
 
 template <class Iterator>
 class reverse_iterator {
@@ -101,16 +106,17 @@ public:
 	reverse_iterator& operator=(const reverse_iterator<U>& rhs)
 	{
 		if (this != &rhs)
-			_current = rhs.base();
+			_current = rhs._current;
 		return *this;
 	}
 
 // Member Functions
 	iterator_type		base() const { return _current; }
+	
 	reference			operator*() const
 	{
 		Iterator tmp = _current;
-		return *--tmp;
+		return *(--tmp);
 	}
 	reverse_iterator&	operator++()
 	{

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 19:08:14 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:50:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ private:
 					 Color color = RED)
 	{
 		Node*	newNode = _alloc.allocate(1);
+		std::cout << " newNode "<< newNode << std::endl; // TODO:remove
 		_alloc.construct(newNode, Node(val, parent, left, right, color));
 		return newNode;
 	}
@@ -121,10 +122,13 @@ private:
 	{
 		if (!node)
 			return NULL;
-		Node* newNode = _newNode(node->_value, node->_parent, node->_leftChild,
-								 node->_rightChild, node->_color);
+		Node* newNode = _newNode(node->_value, NULL, NULL, NULL, node->_color);
 		newNode->_leftChild = _copyRecursively(node->_leftChild);
-		newNode->_rightChild = _copyRecursively(node->_leftChild);
+		if (newNode->_leftChild)
+			newNode->_leftChild->_parent = newNode;
+		newNode->_rightChild = _copyRecursively(node->_rightChild);
+		if (newNode->_rightChild)
+			newNode->_rightChild->_parent = newNode;
 		return newNode;
 	}
 
@@ -208,11 +212,6 @@ private:
 					node = _rotateRightRight(grandParent);
 			}
 			parent = node->_parent;
-			// std::cout << "\t new root : " << node->_value.second << std::endl;	// TODO: remove
-			// if (parent)
-			// 	std::cout << "\t anchor : " << parent->_value.second << std::endl;	// TODO: remove
-			// else
-			// 	std::cout << "\t" << "ROOT" << std::endl;	// TODO: remove
 		}
 		_root->_color = BLACK;
 	}
@@ -303,8 +302,6 @@ private:
 	void	_erase(Node* node)
 	{
 		Type	type;
-
-		std::cout << "\t \033[31m ERASE: '" << node->_value.second << "'\033[0m" << std::endl; // TODO: remove
 
 		type = _getNumberChildren(node);
 		if (type == LEAF)
@@ -441,9 +438,6 @@ private:
 		Node*	parent;
 		Node*	sibling;
 		Node*	tmp;
-
-		std::cout << "\033[32m \t _bubbleUp \033[0m" << std::endl;
-		// _printTree();
 		
 		if (node == _root)
 		{
@@ -458,14 +452,11 @@ private:
 		++parent->_color;
 		--sibling->_color;
 		--node->_color;
-		// std::cout << "\033[33m \t" << parent->_value.second << "\033[0m" << std::endl; // TODO: remove
-		// _printTree();
 		if (sibling->_color == NRED)
 			_rotateNegativeBlack(parent);
 		else
 		{
 			tmp = _rotateDoubleRed(parent);
-			// std::cout << "\033[33m \t" << tmp->_value.second << "\033[0m" << std::endl; // TODO: remove
 			if (tmp == parent && parent->_parent && parent->_color == DBLACK)
 			{
 				_bubbleUp(parent);
@@ -488,8 +479,6 @@ private:
 		Node*	w;
 		Node*	x;
 		Node*	y;
-
-		std::cout << "\033[36m \t _rotateNegativeBlack \033[0m" << std::endl;
 	
 		treeParent = z->_parent;
 		if (z->_leftChild && z->_leftChild->_color == NRED)
@@ -539,8 +528,6 @@ private:
 		Node*	x;
 		Node*	y;
 		Node*	z;
-
-		std::cout << "\033[36m \t _rotateDoubleRed \033[0m" << std::endl; // TODO: remove
 	
 		treeParent = node->_parent;
 		if (node->_leftChild && node->_leftChild->_color == RED)
@@ -720,7 +707,7 @@ void	_printTree(Node* node, std::string& space)
 		Node*	first;
 
 		if (!_root)
-			return iterator(NULL, this);
+			return const_iterator(NULL, this);
 		first = _root;
 		while (first->_leftChild)
 			first = first->_leftChild;
@@ -922,23 +909,23 @@ public:
 			typedef T								value_type;
 			typedef T*								pointer;
 			typedef T&								reference;
+			typedef std::ptrdiff_t					difference_type;
 			typedef std::bidirectional_iterator_tag	iterator_category;
 		/*
 		** RedBlackTree:ITERATOR
 		** ============================ ATTRIBUTES ============================
 		*/
 		private:
-			Node*	_current;
-			RBTree*	_tree;
+			Node*			_current;
+			const RBTree*	_tree;
 		/*
 		** RedBlackTree:ITERATOR
 		** ========================= MEMBER FUNCTIONS =========================
 		*/
 		public:
-			explicit Iterator(Node* node, RBTree *tree) : _current(node), _tree(tree) {}
+			Iterator(Node* node, const RBTree *tree) : _current(node), _tree(tree) {}
 			Iterator(const Iterator& rhs) : _current(rhs._current), _tree(rhs._tree) {}
-			~Iterator(void) {}
-			Iterator		operator=(const Iterator rhs)
+			Iterator		operator=(Iterator rhs)
 			{ 
 				if (this != &rhs)
 				{
@@ -984,6 +971,7 @@ public:
 					_current = _tree->_root;
 					while (_current->_rightChild)
 						_current = _current->_rightChild;
+					return *this;
 				}
 				if (_current->_leftChild)
 				{

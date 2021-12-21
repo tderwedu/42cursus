@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/17 15:52:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/21 17:12:52 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -152,8 +152,8 @@ public:
 	value_compare			value_comp() const									{ return value_compare(_compare); }
 
 /* === Operations === */
-	iterator				find(const key_type& k)								{ return _data.find(k); }
-	const_iterator			find(const key_type& k) const						{ return _data.find(k); }
+	iterator				find(const key_type& k)								{ return _data.find(ft::make_pair(k, typename value_type::second_type())); }
+	const_iterator			find(const key_type& k) const						{ return _data.find(ft::make_pair(k, typename value_type::second_type())); }
 	size_type				count(const key_type& k) const						{ return _data.count(k); }
 	iterator				lower_bound(const key_type& k)						{ return _data.lower_bound(k); }
 	const_iterator			lower_bound(const key_type& k) const				{ return _data.lower_bound(k); }
