@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/21 17:12:52 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/21 18:42:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -143,7 +143,7 @@ public:
 	void					swap(map& rhs)
 	{
 		if (this != &rhs)
-		_data.swap(rhs);
+			_data.swap(rhs._data);
 	}
 	void					clear()			 { _data.clear(); }
 
@@ -154,13 +154,13 @@ public:
 /* === Operations === */
 	iterator				find(const key_type& k)								{ return _data.find(ft::make_pair(k, typename value_type::second_type())); }
 	const_iterator			find(const key_type& k) const						{ return _data.find(ft::make_pair(k, typename value_type::second_type())); }
-	size_type				count(const key_type& k) const						{ return _data.count(k); }
-	iterator				lower_bound(const key_type& k)						{ return _data.lower_bound(k); }
-	const_iterator			lower_bound(const key_type& k) const				{ return _data.lower_bound(k); }
-	iterator				upper_bound(const key_type& k)						{ return _data.upper_bound(k); }
-	const_iterator			upper_bound(const key_type& k) const				{ return _data.upper_bound(k); }
-	pair<const_iterator,const_iterator>	equal_range(const key_type& k) const	{ return _data.equal_range(k); }
-	pair<iterator,iterator>				equal_range(const key_type& k)			{ return _data.equal_range(k); }
+	size_type				count(const key_type& k) const						{ return _data.count(ft::make_pair(k, typename value_type::second_type())); }
+	iterator				lower_bound(const key_type& k)						{ return _data.lower_bound(ft::make_pair(k, typename value_type::second_type())); }
+	const_iterator			lower_bound(const key_type& k) const				{ return _data.lower_bound(ft::make_pair(k, typename value_type::second_type())); }
+	iterator				upper_bound(const key_type& k)						{ return _data.upper_bound(ft::make_pair(k, typename value_type::second_type())); }
+	const_iterator			upper_bound(const key_type& k) const				{ return _data.upper_bound(ft::make_pair(k, typename value_type::second_type())); }
+	pair<const_iterator,const_iterator>	equal_range(const key_type& k) const	{ return _data.equal_range(ft::make_pair(k, typename value_type::second_type())); }
+	pair<iterator,iterator>				equal_range(const key_type& k)			{ return _data.equal_range(ft::make_pair(k, typename value_type::second_type())); }
 
 /* === Allocator === */
 	allocator_type			get_allocator() const								{ return _alloc; }

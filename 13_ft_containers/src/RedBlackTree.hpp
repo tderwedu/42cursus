@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/21 17:50:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/21 18:35:43 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ private:
 					 Color color = RED)
 	{
 		Node*	newNode = _alloc.allocate(1);
-		std::cout << " newNode "<< newNode << std::endl; // TODO:remove
 		_alloc.construct(newNode, Node(val, parent, left, right, color));
 		return newNode;
 	}
@@ -318,7 +317,6 @@ private:
 			_deleteOneChild(node);
 		else
 			_erase(_findPredecessor(node));
-		--_size;
 	}
 
 	/*
@@ -780,7 +778,12 @@ void	_printTree(Node* node, std::string& space)
 	{
 		Node*	node = _search(_root, k);
 		if (node)
+		{
 			_erase(node);
+			--_size;
+			if (!_size)
+				_root = NULL;
+		}
 		return _size;
 	}
 	void					erase(iterator first, iterator last)
@@ -804,7 +807,10 @@ void	_printTree(Node* node, std::string& space)
 	void					clear(void)
 	{
 		if (_root)
+		{
 			_freeRecursively(_root);
+			_root = NULL;
+		}
 		_size = 0;
 	}
 /* Red Black Tree ########## OPERATIONS ########## */
@@ -834,7 +840,7 @@ void	_printTree(Node* node, std::string& space)
 
 		lower = _lower_bound(k);
 		upper = _upper_bound(k);
-		if (lower != upper)
+		if (!lower)
 			lower = upper;
 		return ft::make_pair(iterator(lower, this), iterator(upper, this));
 	}
@@ -845,7 +851,7 @@ void	_printTree(Node* node, std::string& space)
 
 		lower = _lower_bound(k);
 		upper = _upper_bound(k);
-		if (lower != upper)
+		if (!lower)
 			lower = upper;
 		return ft::make_pair(const_iterator(lower, this), const_iterator(upper, this));
 	}
