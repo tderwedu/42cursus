@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/21 16:51:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:44:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 
 # include <iostream> // TODO: remove
 # include <cstddef>
-# include <iterator>
-# include <vector>
+
+# include "vector.hpp"
 
 namespace ft
 {
 
 /*
-
 ########################
 # class :   ITERATOR   #
 ########################
@@ -43,6 +42,7 @@ struct iterator {
 	typedef Category	iterator_category;
 };
 */
+
 
 /*
 **	############################## ITERATOR_TRAITS #############################
@@ -76,6 +76,36 @@ struct iterator_traits<const T*> {
 	typedef const T&						reference;
 	typedef std::random_access_iterator_tag	iterator_category;
 };
+
+/*
+**	################################# DISTANCE #################################
+*/
+
+template<typename InputIterator>
+typename iterator_traits<InputIterator>::difference_type
+distance(InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
+{
+	typename iterator_traits<InputIterator>::difference_type n = 0;
+
+	// std::cout << " \t \033[34m DISTANCE IN\033[0m" << std::endl; // TODO:remove
+	while (first != last)
+	{
+		++n;
+		++first;
+	}
+	// std::cout << " \t \033[34m DISTANCE: \033[0m" << n << std::endl; // TODO:remove
+	return n;
+}
+
+// template<typename T>
+// typename ft::vector<T>::difference_type
+// distance(typename ft::vector<T>::iterator first, typename ft::vector<T>::iterator last)
+// {
+// 	typename ft::vector<T>::difference_type n = 0;
+
+// 	return last - first;
+// }
 
 /*
 **	############################# REVERSE_ITERATOR #############################

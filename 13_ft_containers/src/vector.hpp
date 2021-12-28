@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/28 12:57:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/28 16:44:12 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <memory>
 # include <algorithm>
-# include <iterator>	// std::distance
+// # include <iterator>	// ft::distance
 
 # include "type_traits.hpp"
 # include "algorithm.hpp"
@@ -83,7 +83,7 @@ private:
 
 public:
 
-/* === Constructors / Destructor === */
+	/* === Constructors / Destructor === */
 	explicit vector (const allocator_type& alloc = allocator_type()) :
 		_allocator(alloc),
 		_capacity(_newCapacity(0)),
@@ -107,8 +107,8 @@ public:
 				const allocator_type& alloc = allocator_type(),
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
 		_allocator(alloc),
-		_capacity(_newCapacity(std::distance(first, last))),
-		_size(std::distance(first, last)),
+		_capacity(_newCapacity(ft::distance(first, last))),
+		_size(ft::distance(first, last)),
 		_array(_allocator.allocate(_capacity))
 	{
 		for (size_type i = 0; i < _size; ++i, ++first)
@@ -138,7 +138,7 @@ public:
 		return *this;
 	}
 
-/* === Iterators === */
+	/* === Iterators === */
 	iterator				begin() 			{ return iterator(_array); }
 	const_iterator			begin() const		{ return const_iterator(_array); }
 	iterator				end()				{ return iterator(_array + _size); }
@@ -148,7 +148,7 @@ public:
 	reverse_iterator		rend()				{ return reverse_iterator(begin()); }
 	const_reverse_iterator	rend() const		{ return const_reverse_iterator(begin()); }
 
-/* === Capacity === */
+	/* === Capacity === */
 	size_type				size() const		{ return _size; }
 	size_type				max_size() const	{ return _allocator.max_size(); }
 	void					resize(size_type n, value_type val = value_type())
@@ -191,7 +191,7 @@ public:
 			_capacity = new_capacity;
 	}
 
-/* === Element access === */
+	/* === Element access === */
 	reference				operator[](size_type n)			{ return _array[n]; }
 	const_reference			operator[](size_type n) const	{ return _array[n]; }
 	reference 				at(size_type n)
@@ -213,12 +213,12 @@ public:
 	reference				back()				{ return _array[_size - 1]; }
 	const_reference			back() const		{ return _array[_size - 1]; }
 
-/* === Modifiers === */
+	/* === Modifiers === */
 	template <class InputIterator>
 	void					assign(InputIterator first, InputIterator last,
 									typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 	{
-		size_type	size = std::distance(first, last);
+		size_type	size = ft::distance(first, last);
 
 		clear();
 		if (size > _capacity)
@@ -249,10 +249,10 @@ public:
 
 	iterator				insert(iterator pos, const value_type& val)
 	{
-		iterator	rel_pos = pos - begin();
+		difference_type	rel_pos = ft::distance(begin(), pos);
 
 		insert(pos, 1, val);
-		return rel_pos + begin();
+		return begin() + rel_pos;
 	}
 	
 	void					insert(iterator pos, size_type n, const value_type& val)
@@ -261,9 +261,9 @@ public:
 		{
 			size_type	new_capacity = _newCapacity(_size + n);
 			value_type	*new_array = _allocator.allocate(new_capacity);
-			pointer		new_pos = new_array + std::distance(pos, begin());
-			pointer		old_ptr = _array + std::distance(pos, begin());
-			pointer		new_ptr = new_array + std::distance(pos, begin());
+			pointer		new_pos = new_array + ft::distance(begin(), pos);
+			pointer		old_ptr = _array + ft::distance(begin(), pos);
+			pointer		new_ptr = new_array + ft::distance(begin(), pos);
 
 			for (; new_ptr < (new_array + _size); ++new_ptr, ++old_ptr)
 			{
@@ -285,9 +285,11 @@ public:
 		}
 		else
 		{
-			pointer			_pos = _array + std::distance(pos, begin());
-			for (pointer	ptr = _pos; ptr < (_array + _size); ++ptr)
+			std::cout << "INSERT: OK" << std::endl;
+			pointer			_pos = _array + ft::distance(begin(), pos);
+			for (pointer ptr = (_array + _size - 1); ptr >= _pos; --ptr)
 			{
+				std::cout << "FOR (1): " << *ptr << std::endl;
 				_allocator.construct(ptr + n, *ptr);
 				_allocator.destroy(ptr);
 			}
@@ -301,15 +303,15 @@ public:
 	void					insert(iterator pos, InputIterator first, InputIterator last,
 									typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 	{
-		size_type	n = std::distance(first, last);
+		size_type	n = ft::distance(first, last);
 	
 		if ((_size + n) > _capacity)
 		{
 			size_type	new_capacity = _newCapacity(_size + n);
 			value_type	*new_array = _allocator.allocate(new_capacity);
-			pointer		new_pos = new_array + std::distance(pos, begin());
-			pointer		old_ptr = _array + std::distance(pos, begin());
-			pointer		new_ptr = new_array + std::distance(pos, begin());
+			pointer		new_pos = new_array + ft::distance(begin(), pos);
+			pointer		old_ptr = _array + ft::distance(begin(), pos);
+			pointer		new_ptr = new_array + ft::distance(begin(), pos);
 
 			for (; new_ptr < (new_array + _size); ++new_ptr, ++old_ptr)
 			{
@@ -331,8 +333,8 @@ public:
 		}
 		else
 		{
-			pointer			_pos = _array + std::distance(pos, begin());
-			for (pointer	ptr = _pos; ptr < (_array + _size); ++ptr)
+			pointer			_pos = _array + ft::distance(begin(), pos);
+			for (pointer ptr = (_array + _size - 1); ptr >= _pos; --ptr)
 			{
 				_allocator.construct(ptr + n, *ptr);
 				_allocator.destroy(ptr);
@@ -357,7 +359,7 @@ public:
 
 	iterator				erase(iterator first, iterator last)
 	{
-		size_type			n = std::distance(first, last);
+		size_type			n = ft::distance(first, last);
 	
 		for (iterator iter = first; iter < last; ++iter)
 			_allocator.destroy(&(*iter));
@@ -384,7 +386,7 @@ public:
 		_size = 0;
 	}
 
-/* === Allocator === */
+	/* === Allocator === */
 	allocator_type			get_allocator() const	{ return _allocator; }
 
 	/* 
