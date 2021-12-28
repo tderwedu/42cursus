@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/28 12:37:24 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:57:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,7 @@ public:
 
 		if (_capacity >= n)
 			return ;
-		new_capacity = _newCapacity(n)
+		new_capacity = _newCapacity(n);
 		if (new_capacity > max_size())
 			new_capacity = n;
 		if (new_capacity > max_size())
@@ -183,7 +183,7 @@ public:
 		value_type	*new_array = _allocator.allocate(new_capacity);
 		for (size_type i = 0; i != size(); ++i)
 			{
-				allocator.construct(new_array + i, _array[i]);
+				_allocator.construct(new_array + i, _array[i]);
 				_allocator.destroy(_array + i);
 			}
 			_allocator.deallocate(_array, _capacity);
@@ -257,27 +257,27 @@ public:
 	
 	void					insert(iterator pos, size_type n, const value_type& val)
 	{
-		reverse_iterator	pos_old = reverse_iterator(pos);
-	
 		if ((_size + n) > _capacity)
 		{
-			size_type			new_capacity = _newCapacity(_size + n);
-			value_type			*new_array = _allocator.allocate(new_capacity);
-			reverse_iterator	it_new = reverse_iterator(new_array + _size + n);
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
+			size_type	new_capacity = _newCapacity(_size + n);
+			value_type	*new_array = _allocator.allocate(new_capacity);
+			pointer		new_pos = new_array + std::distance(pos, begin());
+			pointer		old_ptr = _array + std::distance(pos, begin());
+			pointer		new_ptr = new_array + std::distance(pos, begin());
+
+			for (; new_ptr < (new_array + _size); ++new_ptr, ++old_ptr)
 			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
+				_allocator.construct(new_ptr + n, *old_ptr);
+				_allocator.destroy(old_ptr);
 			}
 			for (size_type i = 0; i < n; ++i)
+				_allocator.construct(new_pos + i, val);
+			old_ptr = _array;
+			new_ptr = new_array;
+			for (; new_ptr < new_pos; ++new_ptr, ++old_ptr)
 			{
-				_allocator.construct(&(*it_new), val);
-				it_new++;
-			}
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
-			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
+				_allocator.construct(new_ptr, *old_ptr);
+				_allocator.destroy(old_ptr);
 			}
 			_allocator.deallocate(_array, _capacity);
 			_array = new_array;
@@ -285,18 +285,14 @@ public:
 		}
 		else
 		{
-			reverse_iterator	it_new = rend() + n;
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
+			pointer			_pos = _array + std::distance(pos, begin());
+			for (pointer	ptr = _pos; ptr < (_array + _size); ++ptr)
 			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
-				it_new++;
+				_allocator.construct(ptr + n, *ptr);
+				_allocator.destroy(ptr);
 			}
 			for (size_type i = 0; i < n; ++i)
-			{
-				_allocator.construct(&(*it_new), val);
-				it_new++;
-			}
+				_allocator.construct(_pos + i, val);
 		}
 		_size += n;
 	}
@@ -350,10 +346,10 @@ public:
 	iterator				erase(iterator pos)
 	{
 		_allocator.destroy(&(*pos));
-		for (size_type i = &(*pos) - _array; i < _size; ++i)
+		for (size_type i = &(*pos) - _array + 1; i < _size; ++i)
 		{
-			_allocator.construct(_start + i, _start + i + 1);
-			_allocator.destroy(_start + i + 1);
+			_allocator.construct(_array + i - 1, _array + i);
+			_allocator.destroy(_array + i);
 		}
 		--_size;
 		return pos;
@@ -365,12 +361,12 @@ public:
 	
 		for (iterator iter = first; iter < last; ++iter)
 			_allocator.destroy(&(*iter));
-		for (size_type i = &(*pos) - _array; i < _size; ++i)
+		for (size_type i = &(*first) - _array + n; i < _size; ++i)
 		{
-			_allocator.construct(_start + i, _start + i + n);
-			_allocator.destroy(_start + i + n);
+			_allocator.construct(_array + i - n, _array + i);
+			_allocator.destroy(_array + i);
 		}
-		_size-= n;
+		_size -= n;
 		return first;
 	}
 
@@ -383,8 +379,8 @@ public:
 	}
 	void					clear()
 	{
-		for (first = begin() + n; first != end(); ++first)
-				_allocator.destroy(_array + i);
+		for (iterator first = begin(); first != end(); ++first)
+				_allocator.destroy(&(*first));
 		_size = 0;
 	}
 
@@ -421,8 +417,9 @@ public:
 		public:
 			Iterator(void) : _ptr() {}
 			explicit Iterator(pointer ptr) : _ptr(ptr) {}
-			Iterator(const Iterator<T>& iter) : _ptr(iter._ptr) {}
+			Iterator(const Iterator& iter) : _ptr(iter._ptr) {}
 			~Iterator(void) {}
+
 			Iterator		operator=(const Iterator rhs)			{ _ptr = rhs._ptr; return *this; }
 
 			reference		operator* () 							{ return *_ptr; }
