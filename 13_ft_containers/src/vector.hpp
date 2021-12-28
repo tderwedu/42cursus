@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/28 16:44:12 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/28 17:41:44 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -245,7 +245,11 @@ public:
 		_allocator.construct(_array + _size++, val);
 	}
 
-	void					pop_back()			{ _allocator.destroy(_array + --_size); }
+	void					pop_back()			
+	{
+		if (_size)
+			_allocator.destroy(_array + --_size);
+	}
 
 	iterator				insert(iterator pos, const value_type& val)
 	{
@@ -285,11 +289,9 @@ public:
 		}
 		else
 		{
-			std::cout << "INSERT: OK" << std::endl;
 			pointer			_pos = _array + ft::distance(begin(), pos);
 			for (pointer ptr = (_array + _size - 1); ptr >= _pos; --ptr)
 			{
-				std::cout << "FOR (1): " << *ptr << std::endl;
 				_allocator.construct(ptr + n, *ptr);
 				_allocator.destroy(ptr);
 			}
@@ -348,9 +350,9 @@ public:
 	iterator				erase(iterator pos)
 	{
 		_allocator.destroy(&(*pos));
-		for (size_type i = &(*pos) - _array + 1; i < _size; ++i)
+		for (size_type i = (&(*pos) - _array + 1); i < _size; ++i)
 		{
-			_allocator.construct(_array + i - 1, _array + i);
+			_allocator.construct(_array + i - 1, *(_array + i));
 			_allocator.destroy(_array + i);
 		}
 		--_size;
@@ -363,9 +365,9 @@ public:
 	
 		for (iterator iter = first; iter < last; ++iter)
 			_allocator.destroy(&(*iter));
-		for (size_type i = &(*first) - _array + n; i < _size; ++i)
+		for (size_type i = (&(*first) - _array + n); i < _size; ++i)
 		{
-			_allocator.construct(_array + i - n, _array + i);
+			_allocator.construct(_array + i - n, *(_array + i));
 			_allocator.destroy(_array + i);
 		}
 		_size -= n;
