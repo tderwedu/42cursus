@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/13 18:16:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/28 12:37:24 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,9 @@
 # include <memory>
 # include <algorithm>
 # include <iterator>	// std::distance
+
 # include "type_traits.hpp"
+# include "algorithm.hpp"
 # include "iterator.hpp"
 
 namespace ft {
@@ -30,7 +32,7 @@ namespace ft {
 # define	BASE_SIZE	8
 # define	GROW_FACTOR	2
 
-template <class T, class Allocator = std::allocator<T>>
+template <class T, class Allocator = std::allocator<T> >
 class vector
 {
 	/* 
@@ -67,7 +69,7 @@ private:
 	** =========================== MEMBER FUNCTIONS ===========================
 	*/
 
-	void			_newCapacity(size_type size)
+	size_type		_newCapacity(size_type size)
 	{
 		size_type	capacity;
 
@@ -75,7 +77,7 @@ private:
 			return BASE_SIZE;
 		capacity = BASE_SIZE;
 		while (capacity < size)
-			capacity * GROW_FACTOR;
+			capacity *= GROW_FACTOR;
 		return capacity;
 	}
 
@@ -83,7 +85,7 @@ public:
 
 /* === Constructors / Destructor === */
 	explicit vector (const allocator_type& alloc = allocator_type()) :
-		_allocator(alloc)
+		_allocator(alloc),
 		_capacity(_newCapacity(0)),
 		_size(0),
 		_array(_allocator.allocate(_capacity))
@@ -91,7 +93,7 @@ public:
 		
 	explicit vector (size_type n, const value_type& val = value_type(),
 						const allocator_type& alloc = allocator_type()) :
-		_allocator(alloc)
+		_allocator(alloc),
 		_capacity(_newCapacity(n)),
 		_size(n),
 		_array(_allocator.allocate(_capacity))
@@ -102,24 +104,25 @@ public:
 
 	template <class InputIterator>
 	vector (InputIterator first, InputIterator last,
-				const allocator_type& alloc = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
-		_allocator(alloc)
+				const allocator_type& alloc = allocator_type(),
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0) :
+		_allocator(alloc),
 		_capacity(_newCapacity(std::distance(first, last))),
-		_size(n),
+		_size(std::distance(first, last)),
 		_array(_allocator.allocate(_capacity))
 	{
-		for (; first != last; ++first)
+		for (size_type i = 0; i < _size; ++i, ++first)
 			_allocator.construct(_array + i, *first);
 	}
 
-	vector (const vector& rhs)
-		_allocator(rhs._allocator)
-		_capacity(_newCapacity(rhs._capacity),
+	vector (const vector& rhs) :
+		_allocator(rhs._allocator),
+		_capacity(_newCapacity(rhs._capacity)),
 		_size(rhs._size),
 		_array(_allocator.allocate(rhs._capacity))
 	{
-		for (first = rhs.begin(); first != rhs.end(); ++first)
-			_allocator.construct(_array + i, *first);
+		for (size_type i = 0; i < _size; ++i)
+			_allocator.construct(_array + i, rhs._array[i]);
 	}
 
 	~vector()
@@ -152,14 +155,14 @@ public:
 	{
 		if (n < _size)
 		{
-			for (first = begin() + n; first != end(); ++first)
+			for (size_type i = n; i < n; ++i)
 				_allocator.destroy(_array + i);
 		}
 		else if (n > _size)
 		{
 			if (n > _capacity)
 				reserve(n);
-			for (size_type i = _size; i != n; ++i)
+			for (size_type i = _size; i < n; ++i)
 				_allocator.construct(_array + i, val);
 		}
 		_size = n;
@@ -302,29 +305,29 @@ public:
 	void					insert(iterator pos, InputIterator first, InputIterator last,
 									typename ft::enable_if<!ft::is_integral<InputIterator>::value>::type* = 0)
 	{
-		size_type			n = std::distance(first, last);
-		reverse_iterator	pos_old = reverse_iterator(pos);
+		size_type	n = std::distance(first, last);
 	
 		if ((_size + n) > _capacity)
 		{
-			size_type			new_capacity = _newCapacity(_size + n);
-			value_type			*new_array = _allocator.allocate(new_capacity);
-			reverse_iterator	it_new = reverse_iterator(new_array + _size + n);
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
+			size_type	new_capacity = _newCapacity(_size + n);
+			value_type	*new_array = _allocator.allocate(new_capacity);
+			pointer		new_pos = new_array + std::distance(pos, begin());
+			pointer		old_ptr = _array + std::distance(pos, begin());
+			pointer		new_ptr = new_array + std::distance(pos, begin());
+
+			for (; new_ptr < (new_array + _size); ++new_ptr, ++old_ptr)
 			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
+				_allocator.construct(new_ptr + n, *old_ptr);
+				_allocator.destroy(old_ptr);
 			}
-			for (size_type i = 0; i < n; ++i)
+			for (size_type i = 0; i < n; ++i, ++first)
+				_allocator.construct(new_pos + i, *first);
+			old_ptr = _array;
+			new_ptr = new_array;
+			for (; new_ptr < new_pos; ++new_ptr, ++old_ptr)
 			{
-				_allocator.construct(&(*it_new), *first++);
-				it_new++;
-			}
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
-			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
-				it_new++;
+				_allocator.construct(new_ptr, *old_ptr);
+				_allocator.destroy(old_ptr);
 			}
 			_allocator.deallocate(_array, _capacity);
 			_array = new_array;
@@ -332,18 +335,14 @@ public:
 		}
 		else
 		{
-			reverse_iterator	it_new = rend() + n;
-			for (reverse_iterator it_old = rbegin(); it_old >= pos_old; ++it_old)
+			pointer			_pos = _array + std::distance(pos, begin());
+			for (pointer	ptr = _pos; ptr < (_array + _size); ++ptr)
 			{
-				_allocator.construct(&(*it_new), *it_old);
-				_allocator.destroy(&(*it_old));
-				it_new++;
+				_allocator.construct(ptr + n, *ptr);
+				_allocator.destroy(ptr);
 			}
-			for (size_type i = 0; i < n; ++i)
-			{
-				_allocator.construct(&(*it_new), val);
-				it_new++;
-			}
+			for (size_type i = 0; i < n; ++i, ++first)
+				_allocator.construct(_pos + i, *first);
 		}
 		_size += n;
 	}
@@ -499,7 +498,7 @@ bool	operator>=(const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-void	swap (vector<T,Alloc>& x, vector<T,Alloc>& y)
+void	swap (vector<T,Alloc>& lhs, vector<T,Alloc>& rhs)
 {
 	lhs.swap(rhs);
 }
