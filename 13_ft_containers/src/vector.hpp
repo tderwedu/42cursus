@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/28 17:41:44 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/29 19:21:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ class vector
 	** ============================= MEMBER TYPES =============================
 	*/
 public:
+	template <class U>
 	class	Iterator;	// declaration, definition below
 
 	typedef T											value_type;
@@ -48,10 +49,10 @@ public:
 	typedef typename allocator_type::const_pointer		const_pointer;
 	typedef typename allocator_type::reference			reference;
 	typedef typename allocator_type::const_reference	const_reference;
-	typedef Iterator									iterator;
-	typedef const iterator								const_iterator;
+	typedef Iterator<T>									iterator;
+	typedef Iterator<const T>							const_iterator;
 	typedef ft::reverse_iterator<iterator>				reverse_iterator;
-	typedef const ft::reverse_iterator<iterator>		const_reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator>		const_reverse_iterator;
 	typedef std::size_t									size_type;
 	typedef typename iterator::difference_type			difference_type;
 	/*
@@ -396,6 +397,7 @@ public:
 	** #                           vector::ITERATOR                           #
 	** ########################################################################
 	*/
+	template <class U>
 	class Iterator
 	{
 		/*
@@ -403,10 +405,10 @@ public:
 		** =========================== MEMBER TYPES ===========================
 		*/
 		public:
-			typedef T								value_type;
+			typedef U								value_type;
 			typedef std::ptrdiff_t					difference_type;
-			typedef T*								pointer;
-			typedef T&								reference;
+			typedef U*								pointer;
+			typedef U&								reference;
 			typedef std::random_access_iterator_tag	iterator_category;
 		/*
 		** vector:ITERATOR
@@ -420,11 +422,11 @@ public:
 		*/
 		public:
 			Iterator(void) : _ptr() {}
-			explicit Iterator(pointer ptr) : _ptr(ptr) {}
-			Iterator(const Iterator& iter) : _ptr(iter._ptr) {}
+			Iterator(pointer ptr) : _ptr(ptr) {}
+			Iterator(Iterator const& rhs) : _ptr(rhs._ptr) {}
 			~Iterator(void) {}
 
-			Iterator		operator=(const Iterator rhs)			{ _ptr = rhs._ptr; return *this; }
+			Iterator		operator=(Iterator const& rhs)			{ _ptr = rhs._ptr; return *this; }
 
 			reference		operator* () 							{ return *_ptr; }
 			const_reference	operator* () const						{ return *_ptr; }
@@ -440,15 +442,22 @@ public:
 
 			Iterator		operator+ (difference_type n) const		{ return Iterator(_ptr + n); }
 			Iterator		operator- (difference_type n) const		{ return Iterator(_ptr - n); }
-			Iterator&		operator+=(difference_type n)			{ _ptr += n; return *this; }
-			Iterator&		operator-=(difference_type n)			{ _ptr += n; return *this; }
+			
+			friend difference_type	operator- (Iterator const& lhs, Iterator const& rhs)	{ return &(*lhs) - &(*rhs); }
+			friend Iterator			operator+ (difference_type n, Iterator const& rhs)		{ return rhs + n; }
 
-			bool			operator==(const Iterator &rhs)	const	{ return _ptr == rhs._ptr; }
-			bool			operator!=(const Iterator &rhs)	const	{ return _ptr != rhs._ptr; }
-			bool			operator< (const Iterator &rhs) const	{ return _ptr <  rhs._ptr; }
-			bool			operator> (const Iterator &rhs) const	{ return _ptr >  rhs._ptr; }
-			bool			operator<=(const Iterator &rhs) const	{ return _ptr <= rhs._ptr; }
-			bool			operator>=(const Iterator &rhs) const	{ return _ptr >= rhs._ptr; }
+			Iterator&		operator+=(difference_type n)			{ _ptr += n; return *this; }
+			Iterator&		operator-=(difference_type n)			{ _ptr -= n; return *this; }
+
+			friend bool		operator==(Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr == rhs._ptr; }
+			friend bool		operator!=(Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr != rhs._ptr; }
+			friend bool		operator< (Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr <  rhs._ptr; }
+			friend bool		operator> (Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr >  rhs._ptr; }
+			friend bool		operator<=(Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr <= rhs._ptr; }
+			friend bool		operator>=(Iterator const& lhs, Iterator const& rhs)	{ return lhs._ptr >= rhs._ptr; }
+
+			// Needed for implicit conversion from iterator to const_iterator (T* _ptr -> const T* _ptr)
+			operator const_iterator () const						{ return const_iterator(_ptr); }
 	};
 
 };

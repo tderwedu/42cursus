@@ -17,7 +17,7 @@ Re-implementation of some containers present in C++.
 - [x] stack
 - [x] Red Black Tree
 - [x] map
-- [ ] Tests
+- [x] Tests
 - [ ] Speed tests
 
 
