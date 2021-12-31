@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/29 19:13:10 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/31 11:54:17 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,8 +135,7 @@ public:
 	template<typename U>
 	reverse_iterator& operator=(reverse_iterator<U> const& rhs)
 	{
-		if (this != &rhs)
-			_current = rhs.base();
+		_current = rhs.base();
 		return *this;
 	}
 
@@ -207,39 +206,43 @@ template <class Iter1, class Iter2>
 bool	operator<(ft::reverse_iterator<Iter1> const& lhs,
 					ft::reverse_iterator<Iter2> const& rhs)
 {
-	return lhs.base() < rhs.base();
+	return lhs.base() > rhs.base();
 }
 
 template <class Iter1, class Iter2>
 bool	operator<=(ft::reverse_iterator<Iter1> const& lhs,
 					ft::reverse_iterator<Iter2> const& rhs)
 {
-	return lhs.base() <= rhs.base();
+	return lhs.base() >= rhs.base();
 }
 
 template <class Iter1, class Iter2>
 bool	operator>(ft::reverse_iterator<Iter1> const& lhs,
 					ft::reverse_iterator<Iter2> const& rhs)
 {
-	return lhs.base() > rhs.base();
+	return lhs.base() < rhs.base();
 }
 
 template <class Iter1, class Iter2>
 bool	operator>=(ft::reverse_iterator<Iter1> const& lhs,
 					ft::reverse_iterator<Iter2> const& rhs)
 {
-	return lhs.base() >= rhs.base();
+	return lhs.base() <= rhs.base();
 }
 
 template <class Iter>
 ft::reverse_iterator<Iter>
 operator+(typename ft::reverse_iterator<Iter>::difference_type n, ft::reverse_iterator<Iter> const& rev_it)
-{ return rev_it + n; }
+{
+	return rev_it + n;
+}
 
 template <class Iter1, class Iter2>
 typename ft::reverse_iterator<Iter1>::difference_type
 operator-(ft::reverse_iterator<Iter1> const& lhs, ft::reverse_iterator<Iter2> const& rhs)
-{ return rhs.base() - lhs.base(); }
+{
+	return rhs.base() - lhs.base();
+}
 
 }
 
