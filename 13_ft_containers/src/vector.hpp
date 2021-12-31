@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/29 19:21:21 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:09:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <memory>
 # include <algorithm>
-// # include <iterator>	// ft::distance
 
 # include "type_traits.hpp"
 # include "algorithm.hpp"

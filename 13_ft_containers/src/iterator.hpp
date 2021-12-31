@@ -6,17 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/31 11:54:17 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:39:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ITERATOR_HPP
 # define ITERATOR_HPP
 
-# include <iostream> // TODO: remove
 # include <cstddef>
 
-# include "vector.hpp"
+// # include "vector.hpp"
 
 namespace ft
 {

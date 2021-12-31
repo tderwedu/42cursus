@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/21 18:42:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/31 12:40:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,11 @@
 
 # include <memory>
 # include <algorithm>
-# include <iterator>	// std::distance
 
 # include "type_traits.hpp"
-# include "RedBlackTree.hpp"
+# include "iterator.hpp"
 # include "pair.hpp"
+# include "RedBlackTree.hpp"
 
 namespace ft {
 
@@ -78,8 +78,7 @@ public:
 /* === The Big Three === */
 	explicit map(const key_compare& comp = key_compare(),
 				 const allocator_type& alloc = allocator_type())
-		: _data(), _compare(comp), _alloc(alloc)
-	{std::cout << "map Default CONSTRUCTOR" << std::endl;} // TODO:remove
+		: _data(), _compare(comp), _alloc(alloc) {}
 	template <class InputIterator>
 	map(InputIterator first, InputIterator last,
 		const key_compare& comp = key_compare(),

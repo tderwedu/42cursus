@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/21 18:35:43 by tderwedu         ###   ########.fr       */
+/*   Updated: 2021/12/31 13:45:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ class RBTree {
 	*/
 	struct	Node;		// declaration, definition below
 public:
+	template <class U>
 	class	Iterator;	// declaration, definition below
 
 	typedef T												value_type;
@@ -63,10 +64,10 @@ public:
 	typedef typename allocator_type::const_pointer			const_pointer;
 	typedef typename allocator_type::reference				reference;
 	typedef typename allocator_type::const_reference		const_reference;
-	typedef Iterator										iterator;
-	typedef const iterator									const_iterator;
+	typedef Iterator<T>										iterator;
+	typedef Iterator<const T>								const_iterator;
 	typedef ft::reverse_iterator<iterator>					reverse_iterator;
-	typedef const ft::reverse_iterator<iterator>			const_reverse_iterator;
+	typedef ft::reverse_iterator<const_iterator>			const_reverse_iterator;
 	typedef std::size_t										size_type;
 
 	typedef typename Allocator::template rebind<Node>::other	nodeAlloc;
@@ -582,7 +583,7 @@ private:
 		return y;
 	}
 
-	Node*	_lower_bound(const_reference val)
+	Node*	_lower_bound(const_reference val) const
 	{
 		Node*	node = _root;
 		Node*	ret = NULL;
@@ -600,7 +601,7 @@ private:
 		return ret;
 	}
 
-	Node*	_upper_bound(const_reference val)
+	Node*	_upper_bound(const_reference val) const
 	{
 		Node*	node = _root;
 		Node*	ret = NULL;
@@ -622,42 +623,42 @@ public:
 
 // DEBUG
 
-void	_printTree(void)
-{
-	Node*			node = _root;
-	std::string		space;
+// void	_printTree(void)
+// {
+// 	Node*			node = _root;
+// 	std::string		space;
 
-	std::cout << "\033[36m##### Red Black Tree #####\033[0m" << std::endl;
-	if (node)
-		_printTree(node, space);
-	std::cout << "\033[36m##### END #####\033[0m" << std::endl;
-}
+// 	std::cout << "\033[36m##### Red Black Tree #####\033[0m" << std::endl;
+// 	if (node)
+// 		_printTree(node, space);
+// 	std::cout << "\033[36m##### END #####\033[0m" << std::endl;
+// }
 
-void	_printTree(Node* node, std::string& space)
-{
-	if (!node)
-		return ;
-	if (node->_color == NRED)
-			std::cout << space << "\033[32m " << node->_value.second << " \033[0m " << std::endl;
-	else if (node->_color == RED)
-			std::cout << space << "\033[31m " << node->_value.second << " \033[0m " << std::endl;
-	else if (node->_color == DBLACK)
-			std::cout << space << "\033[34m " << node->_value.second << " \033[0m " << std::endl;
-	else
-			std::cout << space << "\033[0m " << node->_value.second << " \033[0m " << std::endl;
-	if (node->_leftChild)
-	{
-		space.insert(space.size(), "\t");
-		_printTree(node->_leftChild, space);
-		space.erase(space.size() - 1, 1);
-	}
-	if (node->_rightChild)
-	{
-		space.insert(space.size(), "\t");
-		_printTree(node->_rightChild, space);
-		space.erase(space.size() - 1, 1);
-	}
-}
+// void	_printTree(Node* node, std::string& space)
+// {
+// 	if (!node)
+// 		return ;
+// 	if (node->_color == NRED)
+// 			std::cout << space << "\033[32m " << node->_value.second << " \033[0m " << std::endl;
+// 	else if (node->_color == RED)
+// 			std::cout << space << "\033[31m " << node->_value.second << " \033[0m " << std::endl;
+// 	else if (node->_color == DBLACK)
+// 			std::cout << space << "\033[34m " << node->_value.second << " \033[0m " << std::endl;
+// 	else
+// 			std::cout << space << "\033[0m " << node->_value.second << " \033[0m " << std::endl;
+// 	if (node->_leftChild)
+// 	{
+// 		space.insert(space.size(), "\t");
+// 		_printTree(node->_leftChild, space);
+// 		space.erase(space.size() - 1, 1);
+// 	}
+// 	if (node->_rightChild)
+// 	{
+// 		space.insert(space.size(), "\t");
+// 		_printTree(node->_rightChild, space);
+// 		space.erase(space.size() - 1, 1);
+// 	}
+// }
 
 // DEBUG
 
@@ -744,10 +745,7 @@ void	_printTree(Node* node, std::string& space)
 			else if (_compare(current->_value, val))
 				current = current->_rightChild;
 			else
-			{
-				current->_value = val;
 				return ft::make_pair(iterator(current, this), false);
-			}
 		}
 		current = _newNode(val, parent);
 		if (_compare(val, parent->_value))
@@ -758,7 +756,7 @@ void	_printTree(Node* node, std::string& space)
 		++_size;
 		return ft::make_pair(iterator(current, this), true);
 	}
-	iterator				insert(iterator hint, const value_type& val)
+	iterator				insert(iterator hint, const_reference val)
 	{
 		(void)hint;
 		return insert(val).first;
@@ -774,7 +772,7 @@ void	_printTree(Node* node, std::string& space)
 	{
 		erase(*pos);
 	}
-	size_type				erase(const value_type& k)
+	size_type				erase(const_reference k)
 	{
 		Node*	node = _search(_root, k);
 		if (node)
@@ -783,16 +781,14 @@ void	_printTree(Node* node, std::string& space)
 			--_size;
 			if (!_size)
 				_root = NULL;
+			return 1;
 		}
-		return _size;
+		return 0;
 	}
 	void					erase(iterator first, iterator last)
 	{
 		while (first != last)
-		{
-			erase(first->first);
-			++first;
-		}
+			erase(*first++);
 	}
 	void					swap(RBTree& rhs)
 	{
@@ -814,26 +810,26 @@ void	_printTree(Node* node, std::string& space)
 		_size = 0;
 	}
 /* Red Black Tree ########## OPERATIONS ########## */
-	iterator				find (const value_type& k)
+	iterator				find (const_reference k)
 	{
 		Node*	node = _search(_root, k);
 		return node ? iterator(node, this) : end();
 	}
-	const_iterator			find (const value_type& k) const
+	const_iterator			find (const_reference k) const
 	{
 		Node*	node = _search(_root, k);
 		return node ? const_iterator(node, this) : end();
 	}
-	size_type				count (const value_type& k) const
+	size_type				count (const_reference k) const
 	{
 		Node*	node = _search(_root, k);
 		return node ? 1 : 0;
 	}
-	iterator				lower_bound (const value_type& k)		{ return iterator(_lower_bound(k), this); }
-	const_iterator			lower_bound (const value_type& k) const	{ return const_iterator(_lower_bound(k), this); }
-	iterator				upper_bound (const value_type& k)		{ return iterator(_upper_bound(k), this); }
-	const_iterator			upper_bound (const value_type& k) const	{ return const_iterator(_upper_bound(k), this); }
-	ft::pair<iterator,iterator>				equal_range (const value_type& k)
+	iterator				lower_bound (const_reference k)			{ return iterator(_lower_bound(k), this); }
+	const_iterator			lower_bound (const_reference k) const	{ return const_iterator(_lower_bound(k), this); }
+	iterator				upper_bound (const_reference k)			{ return iterator(_upper_bound(k), this); }
+	const_iterator			upper_bound (const_reference k) const	{ return const_iterator(_upper_bound(k), this); }
+	ft::pair<iterator,iterator>				equal_range (const_reference k)
 	{
 		Node*	lower;
 		Node*	upper;
@@ -844,7 +840,7 @@ void	_printTree(Node* node, std::string& space)
 			lower = upper;
 		return ft::make_pair(iterator(lower, this), iterator(upper, this));
 	}
-	ft::pair<const_iterator,const_iterator>	equal_range (const value_type& k) const
+	ft::pair<const_iterator,const_iterator>	equal_range (const_reference k) const
 	{
 		Node*	lower;
 		Node*	upper;
@@ -879,7 +875,7 @@ private:
 		** ========================= MEMBER FUNCTIONS ==========================
 		*/
 	public:
-		Node(const T& value, Node* parent, Node* left = NULL, Node* right = NULL, Color color = RED)
+		Node(T const& value, Node* parent, Node* left = NULL, Node* right = NULL, Color color = RED)
 			: _value(value), _parent(parent), _leftChild(left), _rightChild(right), _color(color)
 		{}
 		Node(Node const& rhs) { *this = rhs; }
@@ -905,6 +901,7 @@ private:
 	** #########################################################################
 	*/
 public:
+	template <class U>
 	class Iterator
 	{
 		/*
@@ -912,9 +909,9 @@ public:
 		** =========================== MEMBER TYPES ===========================
 		*/
 		public:
-			typedef T								value_type;
-			typedef T*								pointer;
-			typedef T&								reference;
+			typedef U								value_type;
+			typedef U*								pointer;
+			typedef U&								reference;
 			typedef std::ptrdiff_t					difference_type;
 			typedef std::bidirectional_iterator_tag	iterator_category;
 		/*
@@ -929,15 +926,13 @@ public:
 		** ========================= MEMBER FUNCTIONS =========================
 		*/
 		public:
+			Iterator(void) : _current(NULL), _tree(NULL) {}
 			Iterator(Node* node, const RBTree *tree) : _current(node), _tree(tree) {}
-			Iterator(const Iterator& rhs) : _current(rhs._current), _tree(rhs._tree) {}
+			Iterator(Iterator const& rhs) : _current(rhs._current), _tree(rhs._tree) {}
 			Iterator		operator=(Iterator rhs)
 			{ 
-				if (this != &rhs)
-				{
-					_current = rhs._current;
-					_tree = rhs._tree;
-				}
+				_current = rhs._current;
+				_tree = rhs._tree;
 				return *this;
 			}
 
@@ -950,6 +945,8 @@ public:
 			{
 				Node	*tmp;
 
+				if (!_current)
+					return *this;
 				if (_current->_rightChild)
 				{
 					_current = _current->_rightChild;
@@ -1000,15 +997,17 @@ public:
 			Iterator		operator++(int)							{ Iterator tmp(*this); operator++(); return tmp; }
 			Iterator		operator--(int)							{ Iterator tmp(*this); operator--(); return tmp; }
 
-			bool			operator==(const Iterator &rhs)	const	{ return _current == rhs._current; }
-			bool			operator!=(const Iterator &rhs)	const	{ return _current != rhs._current; }
+			bool			operator==(Iterator const& rhs)	const	{ return _current == rhs._current; }
+			bool			operator!=(Iterator const& rhs)	const	{ return _current != rhs._current; }
+			// Needed for implicit conversion from iterator to const_iterator (T* _ptr -> const T* _ptr)
+			operator const_iterator () const						{ return const_iterator(_current, _tree); }
 	};
 
 };
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator==(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator==(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return false;
@@ -1016,36 +1015,36 @@ bool	operator==(const RBTree<T, Compare, Alloc>& lhs,
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator!=(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator!=(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	return !operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator<(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator<(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	return ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end());
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator<=(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator<=(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	return operator<(lhs, rhs) || operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator>(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator>(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	return !operator<(lhs, rhs) && !operator==(lhs, rhs);
 }
 
 template<typename T, typename Compare, typename Alloc>
-bool	operator>=(const RBTree<T, Compare, Alloc>& lhs,
-					const RBTree<T, Compare, Alloc>& rhs)
+bool	operator>=(RBTree<T, Compare, Alloc> const& lhs,
+					RBTree<T, Compare, Alloc> const& rhs)
 {
 	return !operator<(lhs, rhs);
 }
