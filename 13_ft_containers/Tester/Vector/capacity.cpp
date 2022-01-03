@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/03 17:14:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/03 18:07:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ TEST(vector_size)
 TEST(vector_max_size)
 {
 	vector<int>	vec_1(19);
-	vector<int>	vec_2(42);
+	vector<int>	vec_2(424242);
 	vector<int>	vec_3(0);
 
 	if (vec_1.max_size() <= vec_1.size() || vec_2.max_size() <= vec_2.size())
@@ -83,5 +83,3 @@ TEST(vector_empty)
 		return 1;
 	return 0;
 }
-
-
