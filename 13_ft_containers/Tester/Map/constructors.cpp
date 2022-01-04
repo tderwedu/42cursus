@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 15:51:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/04 16:56:38 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,9 @@
 
 TEST(map_constructor_default)
 {
-	map<std::string, int>				map_less;
-	std::string							s1("ab");
-	std::string							s2("abc");
-	map<std::string, int>::value_type	p1(s1, 5);
-	map<std::string, int>::value_type	p2(s2, 8);
+	map<std::string, int>	m;
 
-	// Default compare
-	if (!(map_less.key_comp()(s1, s2)))
-		return 1;
-	if (map_less.key_comp()(s2, s1))
-		return 1;
-	if (map_less.value_comp()(p1, p2))
-		return 1;
-	if (!(map_less.value_comp()(p2, p1)))
-		return 1;
-	// Custom compare
-	map<std::string, int, std::greater<std::string> >	map_greater;
-	if (map_greater.key_comp()(s1, s2))
-		return 1;
-	if (!(map_greater.key_comp()(s2, s1)))
-		return 1;
-	if (!(map_greater.value_comp()(p1, p2)))
-		return 1;
-	if (map_greater.value_comp()(p2, p1))
+	if (!m.empty())
 		return 1;
 	return 0;
 }
