@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/03 18:52:57 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/04 13:56:26 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,16 @@ TEST(vector_pop_back)
 
 TEST(vector_insert)
 {
-	size_t				size = 100;
-	vector<string>		vec(100, "zero");
-	vector<string>		vec_2(100, "zero");
-	vector<string>		vec_3;
+	size_t						size = 100;
+	vector<string>				vec(100, "zero");
+	vector<string>				vec_2(100, "zero");
+	vector<string>				vec_3;
+	vector<string>::iterator	it;
 
 	// Insert Front
 	for (vector<string>::size_type i = 0; i < size; ++i)
-		vec.insert(vec.begin(), "insertFront");
-	if (vec[0] != "insertFront")
+		it = vec.insert(vec.begin(), "insertFront");
+	if (vec[0] != "insertFront" || *it != "insertFront")
 		return 1;
 	for (vector<string>::size_type i = 1; i < size; ++i)
 	{
@@ -109,8 +110,8 @@ TEST(vector_insert)
 	}
 	// Insert End
 	for (vector<string>::size_type i = 0; i < size; ++i)
-		vec.insert(vec.end(), string(i, '0'));
-	if (vec[0] != "insertFront")
+		it = vec.insert(vec.end(), string(i, '0'));
+	if (vec[0] != "insertFront" || *it != "insertFront")
 		return 1;
 	for (vector<string>::size_type i = 1; i < size; ++i)
 	{
@@ -155,5 +156,103 @@ TEST(vector_insert)
 
 TEST(vector_erase)
 {
-	
+	size_t						size = 42000;
+	vector<double>				vec;
+	vector<double>::iterator	it;
+	double						next_val;
+	double						prev_val;
+
+	for (size_t i = 0; i < size; ++i)
+		vec.push_back(static_cast<double>(i + 0.42));
+	// Erase FRONT value
+	it = vec.erase(vec.begin());
+	if (it != vec.begin() || vec.size() != (size - 1) || *it != static_cast<double>(1.42))
+		return 1;
+	// Erase LAST value
+	it = vec.erase(vec.end() - 1);
+	if (it != vec.end() || vec.size() != (size - 2))
+		return 1;
+	// Erase BULK values
+	prev_val = vec[0];
+	next_val = vec[2];
+	for (vector<string>::size_type i = 1; i < 100; ++i)
+	{
+		it = vec.erase(vec.begin() + i);
+		if (vec.size() != (size - (2 + i)) || *it != next_val || *(it - 1) != prev_val)
+			return 1;
+		prev_val = vec[i];
+		next_val = vec[i + 2];
+	}
+	// Erase RANGE except last one
+	next_val = vec[vec.size() - 1];
+	it = vec.erase(vec.begin(), vec.begin() - 1);
+	if (vec.size() != 1 || *it != next_val)
+		return 1;
+	// Erase RANGE only one
+	it = vec.erase(vec.begin(), vec.begin());
+	if (vec.size())
+		return 1;
+	return 0;
+}
+
+TEST(vector_swap)
+{
+	vector<int>	v1;
+	vector<int>	v2;
+
+	v1.push_back(19);
+	v2.push_back(42);
+	v2.push_back(21);
+	v2.push_back(19);
+
+	vector<int>::const_iterator first1(v1.begin());
+	vector<int>::const_iterator first2(v2.begin());
+	vector<int>::size_type		v1_old_cap = v1.capacity();
+	vector<int>::size_type		v2_old_cap = v2.capacity();
+	vector<int>::size_type		v1_old_size = v1.size();
+	vector<int>::size_type		v2_old_size = v2.size();
+
+	v1.swap(v2);
+	if (v1.size() != v2_old_size || v2.size() != v1_old_size)
+		return 1;
+	if (v1.capacity() != v2_old_cap || v2.capacity() != v1_old_cap)
+		return 1;
+	for (vector<int>::const_iterator cit = v1.begin(), old = first2; cit != v1.end(); ++cit, ++old)
+	{
+		if (*cit != *old)
+			return 1;
+	}
+	for (vector<int>::const_iterator cit = v2.begin(), old = first1; cit != v2.end(); ++cit, ++old)
+	{
+		if (*cit != *old)
+			return 1;
+	}
+	v1.swap(v2);
+	if (v1.size() != v1_old_size || v2.size() != v2_old_size)
+		return 1;
+	if (v1.capacity() != v1_old_cap || v2.capacity() != v2_old_cap)
+		return 1;
+	for (vector<int>::const_iterator cit = v1.begin(), old = first1; cit != v1.end(); ++cit, ++old)
+	{
+		if (*cit != *old)
+			return 1;
+	}
+	for (vector<int>::const_iterator cit = v2.begin(), old = first2; cit != v2.end(); ++cit, ++old)
+	{
+		if (*cit != *old)
+			return 1;
+	}
+	return 0;
+}
+
+TEST(vector_clear)
+{
+	vector<int>		vec(192142);
+
+	for (size_t i = 0; i < 192142; ++i)
+		vec.push_back(static_cast<int>(i));
+	vec.clear();
+	if (vec.size() || !vec.empty())
+		return 1;
+	return 0;
 }
