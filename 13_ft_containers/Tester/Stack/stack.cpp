@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:46:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 14:55:36 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/04 18:04:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ TEST(stack_constructor)
 	return 0;
 }
 
-TEST(test_stack_basic)
+TEST(stack_basic)
 {
 	stack<int>	stck;
 
