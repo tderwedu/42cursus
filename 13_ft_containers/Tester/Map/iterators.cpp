@@ -6,23 +6,23 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 15:59:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:59:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_testing.hpp"
+#include "tests.hpp"
 
 TEST(map_iterator)
 {
-	std::vector<FT_CONTAINER::pair<int, int> >	vec;
+	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 
 	int								i = 0;
-	map<int, int>					m(vec.begin(), vec.end());
-	map<int, int>::iterator			it1 = m.begin();
-	map<int, int>::iterator			it2 = m.begin();
-	map<int, int>::const_iterator	cite = m.end();
+	MAP<int, int>					m(vec.begin(), vec.end());
+	MAP<int, int>::iterator			it1 = m.begin();
+	MAP<int, int>::iterator			it2 = m.begin();
+	MAP<int, int>::iterator			ite = m.end();
 
 	if (!(it1 == it2))
 		return 1;
@@ -34,7 +34,7 @@ TEST(map_iterator)
 		return 1;
 	if (it1 != --it2)
 		return 1;
-	for (map<int, int>::iterator it = m.begin(); it != cite; ++i, ++it)
+	for (MAP<int, int>::iterator it = m.begin(); it != ite; ++i, ++it)
 	{
 		if (it->first != i || it->second != i)
 			return 1;
@@ -44,14 +44,14 @@ TEST(map_iterator)
 
 TEST(map_reverse_iterator)
 {
-	std::vector<FT_CONTAINER::pair<int, int> >	vec;
+	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 
-	map<int, int>						m(vec.begin(), vec.end());
+	MAP<int, int>						m(vec.begin(), vec.end());
 	int									i = 99;
-	map<int, int>::reverse_iterator		it;
-	map<int, int>::reverse_iterator		it2 = m.rbegin();
+	MAP<int, int>::reverse_iterator		it;
+	MAP<int, int>::reverse_iterator		it2 = m.rbegin();
 
 	if (!(it == it2))
 		return 1;
@@ -68,4 +68,40 @@ TEST(map_reverse_iterator)
 		if (it->first != i || it->second != i)
 			return 1;
 	}
+}
+
+
+TEST(map_const_iterator_comp)
+{
+	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	for (int i = 0; i != 100; ++i)
+		vec.push_back(FT_CONTAINER::make_pair(i, i));
+	std::vector<FT_CONTAINER::PAIR<int, int> >::iterator		it = vec.begin();
+	std::vector<FT_CONTAINER::PAIR<int, int> >::const_iterator	cit = vec.end();
+
+	if (it == cit)
+		return (1);
+	if (it <= cit)
+		return (1);
+	if (it >= cit)
+		return (1);
+	if (!(it < cit))
+		return (1);
+	if (!(it > cit))
+		return (1);
+	if (!(it != cit))
+		return (1);
+	if (cit == it)
+		return (1);
+	if (cit <= it)
+		return (1);
+	if (cit >= it)
+		return (1);
+	if (!(cit < it))
+		return (1);
+	if (!(cit > it))
+		return (1);
+	if (!(cit != it))
+		return (1);
+	return (0);
 }

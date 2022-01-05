@@ -25,16 +25,15 @@ void	_printSection(std::string msg)
 {
 	std::ios init(NULL);
 	init.copyfmt(std::cout);
-	int		pad;
 
-	if (msg.size() > 60)
-		msg.resize(60);
-	pad = (60 - msg.size()) / 2;
+	if (msg.size() > 30)
+		msg.resize(30);
+
 	std::transform(msg.begin(), msg.end(),msg.begin(), ::toupper);
 
 	// std::cout << std::setw(60) << " " << std::endl;
 	std::cout << std::endl;
-	std::cout << R_YLW << std::string(pad, ' ') << msg << NC << std::endl;
+	std::cout << R_YLW << std::string(30, ' ') << msg << " " << NC << std::endl;
 	std::cout << std::endl;
 
 	std::cout.copyfmt(init);
@@ -81,6 +80,7 @@ int main()
 {
 	_printSection("vector");
 	_printSubSection("Constructors");
+	_printSubSection("");
 	_printResult("default", 0, 0.005);
 	_printResult("copy", 1, 0.0022);
 	_printResult("operator=", 1, 0.0111);

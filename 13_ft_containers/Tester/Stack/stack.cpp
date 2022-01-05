@@ -6,16 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 14:46:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 18:04:37 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:59:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "stack_testing.hpp"
+#include "tests.hpp"
 
 TEST(stack_constructor)
 {
-	stack<int>					stck;
-	stack<int, std::deque<int>>	stdq;
+	STACK<int>					stck;
+	STACK<int, std::deque<int>>	stdq;
 
 	if(stck.size() || !stck.empty())
 		return 1;
@@ -26,7 +26,7 @@ TEST(stack_constructor)
 
 TEST(stack_basic)
 {
-	stack<int>	stck;
+	STACK<int>	stck;
 
 	stck.push(19);
 	if (stck.top() != 19 || stck.size() != 1 || stck.empty())

@@ -6,21 +6,21 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:54:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 14:17:28 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_testing.hpp"
+#include "tests.hpp"
 
 TEST(vector_const_iterator_basic)
 {
-	vector<const string>	range;
+	VECTOR<const STRING>	range;
 
 	for (size_t i = 1; i < 192142; ++i)
-		range[i] = range.push_back(string(i, '1'));
+		range[i] = range.push_back(STRING(i, '1'));
 
-	vector<string>					vec(range.begin(), range.end());
-	vector<string>::const_iterator	it = vec.begin();
+	VECTOR<STRING>					vec(range.begin(), range.end());
+	VECTOR<STRING>::const_iterator	it = vec.begin();
 	if (*it != "x")
 		return 1;
 	if (*it++ != "x")
@@ -46,12 +46,12 @@ TEST(vector_const_iterator_basic)
 
 TEST(vector_const_iterator_read)
 {
-	vector<size_t>		vec(192142);
+	VECTOR<size_t>		vec(192142);
 
 	for (size_t i = 0; i < vec.size(); ++i)
 		vec[i] = i;
 	size_t i = 0;
-	for (vector<size_t>::const_iterator it = vec.begin(); it < vec.end(); ++it)
+	for (VECTOR<size_t>::const_iterator it = vec.begin(); it < vec.end(); ++it)
 	{
 		if (*it != i++)
 			return 1;
@@ -61,15 +61,15 @@ TEST(vector_const_iterator_read)
 
 TEST(vector_const_iterator_arith)
 {
-	vector<const string>	range;
+	VECTOR<const STRING>	range;
 
 	for (size_t i = 1; i < 192142; ++i)
-		range[i] = range.push_back(string(i, '1'));
+		range[i] = range.push_back(STRING(i, '1'));
 
-	vector<string>					vec(range.begin(), range.end());
-	vector<string>::const_iterator	it = vec.begin();
-	vector<string>::const_iterator	it2 = vec.begin();
-	vector<string>::const_iterator	ite = vec.end();
+	VECTOR<STRING>					vec(range.begin(), range.end());
+	VECTOR<STRING>::const_iterator	it = vec.begin();
+	VECTOR<STRING>::const_iterator	it2 = vec.begin();
+	VECTOR<STRING>::const_iterator	ite = vec.end();
 	if (*(it + 5) != "xxxxxx")
 		return 1;
 	if (*(5 + it) != "xxxxxx")

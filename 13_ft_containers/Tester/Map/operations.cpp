@@ -6,23 +6,23 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 18:04:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/04 18:33:47 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:58:51 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map_testing.hpp"
+#include "tests.hpp"
 
 TEST(map_find)
 {
 	int				size = 4221;
-	map<int, int>	m;
+	MAP<int, int>	m;
 
 	for (int i = 0; i != size; ++i)
 		m.insert(make_pair(i, i));
 
 	for (int i = -1; i <= size; ++i)
 	{
-		map<int, int>::iterator it = m.find(i);
+		MAP<int, int>::iterator it = m.find(i);
 
 		if (i != -1 || i != size)
 		{
@@ -41,7 +41,7 @@ TEST(map_find)
 TEST(map_count)
 {
 	int				size = 4221;
-	map<int, int>	m;
+	MAP<int, int>	m;
 
 	for (int i = 0; i != size; ++i)
 		m.insert(make_pair(i, i));
@@ -65,7 +65,7 @@ TEST(map_count)
 TEST(map_lower_bound)
 {
 	int				size = 42000;
-	map<int, int>	m;
+	MAP<int, int>	m;
 
 	for (int i = 1; i != size; ++i)
 	{
@@ -92,7 +92,7 @@ TEST(map_lower_bound)
 TEST(map_upper_bound)
 {
 	int				size = 42000;
-	map<int, int>	m;
+	MAP<int, int>	m;
 
 	for (int i = 1; i != size; ++i)
 	{
@@ -119,7 +119,7 @@ TEST(map_upper_bound)
 TEST(map_equal_range)
 {
 	int				size = 42000;
-	map<int, int>	m;
+	MAP<int, int>	m;
 
 	for (int i = 1; i != size; ++i)
 	{

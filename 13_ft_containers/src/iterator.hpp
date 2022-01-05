@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 10:09:31 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/31 12:39:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/03 09:25:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,13 +87,11 @@ distance(InputIterator first, InputIterator last,
 {
 	typename iterator_traits<InputIterator>::difference_type n = 0;
 
-	// std::cout << " \t \033[34m DISTANCE IN\033[0m" << std::endl; // TODO:remove
 	while (first != last)
 	{
 		++n;
 		++first;
 	}
-	// std::cout << " \t \033[34m DISTANCE: \033[0m" << n << std::endl; // TODO:remove
 	return n;
 }
 

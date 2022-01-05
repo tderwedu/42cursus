@@ -6,18 +6,18 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/03 17:54:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_testing.hpp"
+#include "tests.hpp"
 
 TEST(vector_at)
 {
-	vector<long>		vec(192142);
-	const vector<int>	cvec(19, 19);
+	VECTOR<long>		vec(192142);
+	const VECTOR<int>	cvec(19, 19);
 
-	for (vector<long>::size_type i = 0; i != vec.size(); ++i)
+	for (VECTOR<long>::size_type i = 0; i != vec.size(); ++i)
 	{
 		vec.at(i) = i;
 		if (vec.at(i) != static_cast<long>(i))
@@ -56,7 +56,7 @@ TEST(vector_at)
 
 TEST(vector_front)
 {
-	vector<double> vec(424242, 42.21);
+	VECTOR<double> vec(424242, 42.21);
 
 	if (&vec.front() != &*vec.begin() || &vec.front() != &vec[0])
 		return 1;
@@ -65,7 +65,7 @@ TEST(vector_front)
 
 TEST(vector_back)
 {
-	vector<double> vec(424242, 42.21);
+	VECTOR<double> vec(424242, 42.21);
 
 	if (&vec.back() != &*(vec.end()) || &vec.back() != &vec[vec.size() - 1])
 		return 1;

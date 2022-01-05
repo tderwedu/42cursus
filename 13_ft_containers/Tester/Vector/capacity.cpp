@@ -6,17 +6,17 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/03 18:07:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "vector_testing.hpp"
+#include "tests.hpp"
 
 TEST(vector_size)
 {
-	vector<int>	vec_1(19);
-	vector<int>	vec_2(42);
-	vector<int>	vec_3(0);
+	VECTOR<int>	vec_1(19);
+	VECTOR<int>	vec_2(42);
+	VECTOR<int>	vec_3(0);
 
 	if (vec_1.size() != 19 || vec_2.size() != 42 || vec_3.size() != 0)
 		return 1;
@@ -25,9 +25,9 @@ TEST(vector_size)
 
 TEST(vector_max_size)
 {
-	vector<int>	vec_1(19);
-	vector<int>	vec_2(424242);
-	vector<int>	vec_3(0);
+	VECTOR<int>	vec_1(19);
+	VECTOR<int>	vec_2(424242);
+	VECTOR<int>	vec_3(0);
 
 	if (vec_1.max_size() <= vec_1.size() || vec_2.max_size() <= vec_2.size())
 		return 1;
@@ -38,7 +38,7 @@ TEST(vector_max_size)
 
 TEST(vector_resize)
 {
-	vector<int>		vec;
+	VECTOR<int>		vec;
 
 	for (size_t i = 0; i < 212121; ++i)
 		vec.push_back(static_cast<int>(i));
@@ -55,7 +55,7 @@ TEST(vector_resize)
 
 TEST(vector_capacity)
 {
-	vector<double> vec(42, 21.19);
+	VECTOR<double> vec(42, 21.19);
 
 	if (vec.size() <= vec.capacity());
 		return 1;
@@ -64,7 +64,7 @@ TEST(vector_capacity)
 
 TEST(vector_reserve)
 {
-	vector<double> vec(42, 21.19);
+	VECTOR<double> vec(42, 21.19);
 
 	vec.reserve(1984);
 
@@ -75,9 +75,9 @@ TEST(vector_reserve)
 
 TEST(vector_empty)
 {
-	vector<int>	vec_1(19);
-	vector<int>	vec_2(42);
-	vector<int>	vec_3(0);
+	VECTOR<int>	vec_1(19);
+	VECTOR<int>	vec_2(42);
+	VECTOR<int>	vec_3(0);
 
 	if (vec_1.empty() || vec_2.empty() || !vec_3.empty())
 		return 1;

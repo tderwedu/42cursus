@@ -6,17 +6,20 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:34:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 14:46:25 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/05 18:55:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef TESTER_HPP
 # define TESTER_HPP
 
+# include <algorithm>
 # include <iostream>
 # include <iomanip>
+# include <string>
 # include <vector>
-# include <map>
+
+# include "Timer.hpp"
 
 # ifndef MY_COLORS
 #  define MY_COLORS
@@ -38,32 +41,35 @@
 class Tester
 {
 public:
-	typedef int (*TestFn)(Tester&);
+	typedef int (*TestFn)(void);
 
 	struct Test
 	{
-		std::string		name;
-		TestFn			fn;
+		const std::string	_section;
+		const std::string	_subSection;
+		const std::string	_description;
+		TestFn				fn;
 
-		Test(std::string const& name, TestFn fn) : name(name), fn(fn){};
+		Test(std::string const& sec, std::string const& sub, std::string const& des, TestFn fn)
+		: _section(sec), _subSection(sub), _description(des), fn(fn){};
 	};
-
-	typedef std::map<std::string, std::vector<Test> >		TestSuiteMap;
-
-	std::ostringstream		error;
+	typedef std::vector<Test>	testVec;
 private:
-	TestSuiteMap			_testSuites;
+	testVec		_tests;
 
 
 public:
-	Tester(const std::string& progName);
+	Tester(void);
 	Tester(const Tester& rhs);
 
 	Tester&		operator=(const Tester& rhs);
+
+	void	addTest(std::string sec, std::string sub, std::string des, TestFn fn);
+	void	runAllTests(void) const;
 private:
-	void	_printSection(void) const;
-	void	_printSubSection(void) const;
-	void	_printResult(void) const;
+	void	_printSection(std::string msg) const;
+	void	_printSubSection(std::string msg) const;
+	void	_printResult(std::string des, int res, double time) const;
 };
 
 #endif
