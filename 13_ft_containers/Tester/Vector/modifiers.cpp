@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:53:45 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 TEST(vector_assign)
 {
-	VECTOR<STRING>	vec_1(212121);
-	VECTOR<STRING>	vec_2(212121);
+	VECTOR<std::string>	vec_1(212121);
+	VECTOR<std::string>	vec_2(212121);
 
 	vec_1.assign(191919, "19");
 	if (vec_1.size() != 191919)
@@ -62,7 +62,7 @@ TEST(vector_push_back)
 		return 1;
 	for (VECTOR<int>::size_type i = 0; i < vec.size(); ++i)
 	{
-		if (vec[i] != (i - 19))
+		if (static_cast<VECTOR<int>::size_type>(vec[i]) != (i - 19))
 			return 1;
 	}
 	return 0;
@@ -93,52 +93,52 @@ TEST(vector_pop_back)
 TEST(vector_insert)
 {
 	size_t						size = 100;
-	VECTOR<STRING>				vec(100, "zero");
-	VECTOR<STRING>				vec_2(100, "zero");
-	VECTOR<STRING>				vec_3;
-	VECTOR<STRING>::iterator	it;
+	VECTOR<std::string>				vec(100, "zero");
+	VECTOR<std::string>				vec_2(100, "zero");
+	VECTOR<std::string>				vec_3;
+	VECTOR<std::string>::iterator	it;
 
 	// Insert Front
-	for (VECTOR<STRING>::size_type i = 0; i < size; ++i)
+	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
 		it = vec.insert(vec.begin(), "insertFront");
 	if (vec[0] != "insertFront" || *it != "insertFront")
 		return 1;
-	for (VECTOR<STRING>::size_type i = 1; i < size; ++i)
+	for (VECTOR<std::string>::size_type i = 1; i < size; ++i)
 	{
 		if (vec[i] != "zero")
 			return 1;
 	}
 	// Insert End
-	for (VECTOR<STRING>::size_type i = 0; i < size; ++i)
-		it = vec.insert(vec.end(), STRING(i, '0'));
+	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
+		it = vec.insert(vec.end(), std::string(i, '0'));
 	if (vec[0] != "insertFront" || *it != "insertFront")
 		return 1;
-	for (VECTOR<STRING>::size_type i = 1; i < size; ++i)
+	for (VECTOR<std::string>::size_type i = 1; i < size; ++i)
 	{
 		if (vec[i] != "zero")
 			return 1;
 	}
-	for (VECTOR<STRING>::size_type i = size; i < vec.size(); ++i)
+	for (VECTOR<std::string>::size_type i = size; i < vec.size(); ++i)
 	{
-		if (vec[i] != STRING(i - size, '0'))
+		if (vec[i] != std::string(i - size, '0'))
 			return 1;
 	}
 	// Insert Anywhere
-	for (VECTOR<STRING>::size_type i = 0; i < vec.size(); ++i)
+	for (VECTOR<std::string>::size_type i = 0; i < vec.size(); ++i)
 	{
 		if (i % 2)
 			vec.insert(vec.begin() + i, "even");
 		else
 			vec.insert(vec.begin() + i, "odd");
 	}
-	for (VECTOR<STRING>::size_type i = 0; i < vec.size(); ++i)
+	for (VECTOR<std::string>::size_type i = 0; i < vec.size(); ++i)
 	{
 		if (vec[i] != ((i % 2) ? "even" : "odd"))
 			return 1;
 	}
 	// Insert Fill
 	vec_2.insert(vec_2.begin() + 100, 10, "MIDDLE");
-	for (VECTOR<STRING>::size_type i = 0; i < vec_2.size(); ++i)
+	for (VECTOR<std::string>::size_type i = 0; i < vec_2.size(); ++i)
 	{
 		if (vec_2[i] != ((i >= 100 && i < 110) ? "MIDDLE" : "zero"))
 			return 1;
@@ -147,11 +147,12 @@ TEST(vector_insert)
 	vec_3.insert(vec_3.begin(), vec.begin(), vec.end());
 	if (vec_3.size() != vec.size())
 		return 1;
-	for (VECTOR<STRING>::size_type i = 0; i < vec_3.size(); ++i)
+	for (VECTOR<std::string>::size_type i = 0; i < vec_3.size(); ++i)
 	{
 		if (vec_3[i] != vec[i])
 			return 1;
 	}
+	return 0;
 }
 
 TEST(vector_erase)
@@ -175,7 +176,7 @@ TEST(vector_erase)
 	// Erase BULK values
 	prev_val = vec[0];
 	next_val = vec[2];
-	for (VECTOR<STRING>::size_type i = 1; i < 100; ++i)
+	for (VECTOR<std::string>::size_type i = 1; i < 100; ++i)
 	{
 		it = vec.erase(vec.begin() + i);
 		if (vec.size() != (size - (2 + i)) || *it != next_val || *(it - 1) != prev_val)

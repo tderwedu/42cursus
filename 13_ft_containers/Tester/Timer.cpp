@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:22:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 12:05:20 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:18:46 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ Timer::Timer(void)
 }
 
 Timer::Timer(const Timer& rhs) : _start(rhs._start), _finish(rhs._finish) {}
+
+Timer::~Timer(void) {}
 
 Timer&		Timer::operator=(const Timer& rhs)
 {

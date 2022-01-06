@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 18:08:54 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:34:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@
 # define PAIR		FT_CONTAINER::pair
 # define MAKE_PAIR	FT_CONTAINER::make_pair
 # define STACK		FT_CONTAINER::stack
-# define STRING		std::STRING
 
 /* ================================= VECTOR ================================= */
 // Constructors

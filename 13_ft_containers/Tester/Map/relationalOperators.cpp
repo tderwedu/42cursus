@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 17:49:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:54:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 TEST(map_erator_eq)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if(!(m1 == m2) || !(m2 == m1))
 		return 1;
@@ -34,7 +34,7 @@ TEST(map_erator_eq)
 
 TEST(maperator_neq)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if (m1 != m2 || m2 != m1)
 		return 1;
@@ -52,7 +52,7 @@ TEST(maperator_neq)
 
 TEST(maperator_gt)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if (m1 > m2 || m1 > m2)
 		return 1;
@@ -70,7 +70,7 @@ TEST(maperator_gt)
 
 TEST(maperator_gte)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if (!(m1 >= m2) || !(m1 >= m2))
 		return 1;
@@ -88,7 +88,7 @@ TEST(maperator_gte)
 
 TEST(maperator_lt)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if (m1 < m2 || m1 < m2)
 		return 1;
@@ -106,7 +106,7 @@ TEST(maperator_lt)
 
 TEST(maperator_lte)
 {
-	MAP<int, std::STRING> m1, m2;
+	MAP<int, std::string> m1, m2;
 
 	if (!(m1 <= m2) || !(m1 <= m2))
 		return 1;

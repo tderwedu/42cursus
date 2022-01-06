@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:59:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:58:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ TEST(map_insert)
 
 	// Insert ONE
 	for (int i = 0; i != size; ++i)
-		m.insert(make_pair(i, i));
-	if (m.size() != size)
+		m.insert(MAKE_PAIR(i, i));
+	if (m.size() != static_cast<MAP<int, int>::size_type>(size))
 		return 1;
 	for (MAP<int, int>::const_iterator cit = m.begin(); cit != m.end(); ++i, ++cit)
 	{
@@ -29,7 +29,7 @@ TEST(map_insert)
 			return 1;
 	}
 	// Insert Range
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i * 100, 9000));
 	m.insert(++vec.begin(), --vec.end());
@@ -53,31 +53,31 @@ TEST(map_insert)
 
 TEST(map_erase)
 {
-	MAP<int, STRING>			map_1;
-	map_1.insert(make_pair(0, "zero"));
-	map_1.insert(make_pair(1, "un"));
-	map_1.insert(make_pair(3, "trois"));
-	map_1.insert(make_pair(2, "deux"));
-	map_1.insert(make_pair(4, "quatre"));
-	map_1.insert(make_pair(5, "cinq"));
-	map_1.insert(make_pair(6, "six"));
-	map_1.insert(make_pair(7, "sept"));
-	map_1.insert(make_pair(8, "huit"));
-	map_1.insert(make_pair(9, "neuf"));
-	map_1.insert(make_pair(10, "dix"));
-	map_1.insert(make_pair(11, "onze"));
-	map_1.insert(make_pair(12, "douze"));
-	map_1.insert(make_pair(13, "treize"));
-	map_1.insert(make_pair(14, "quatorze"));
-	map_1.insert(make_pair(15, "quinze"));
-	map_1.insert(make_pair(16, "seize"));
-	map_1.insert(make_pair(17, "dix-sept"));
-	map_1.insert(make_pair(18, "dix-huit"));
-	map_1.insert(make_pair(19, "dix-neuf"));
-	map_1.insert(make_pair(20, "vingt"));
-	MAP<int, STRING>			map_2(map_1);
-	MAP<int, STRING>			map_3(map_1);
-	MAP<int, STRING>			map_4(map_1);
+	MAP<int, std::string>			map_1;
+	map_1.insert(MAKE_PAIR(0, "zero"));
+	map_1.insert(MAKE_PAIR(1, "un"));
+	map_1.insert(MAKE_PAIR(3, "trois"));
+	map_1.insert(MAKE_PAIR(2, "deux"));
+	map_1.insert(MAKE_PAIR(4, "quatre"));
+	map_1.insert(MAKE_PAIR(5, "cinq"));
+	map_1.insert(MAKE_PAIR(6, "six"));
+	map_1.insert(MAKE_PAIR(7, "sept"));
+	map_1.insert(MAKE_PAIR(8, "huit"));
+	map_1.insert(MAKE_PAIR(9, "neuf"));
+	map_1.insert(MAKE_PAIR(10, "dix"));
+	map_1.insert(MAKE_PAIR(11, "onze"));
+	map_1.insert(MAKE_PAIR(12, "douze"));
+	map_1.insert(MAKE_PAIR(13, "treize"));
+	map_1.insert(MAKE_PAIR(14, "quatorze"));
+	map_1.insert(MAKE_PAIR(15, "quinze"));
+	map_1.insert(MAKE_PAIR(16, "seize"));
+	map_1.insert(MAKE_PAIR(17, "dix-sept"));
+	map_1.insert(MAKE_PAIR(18, "dix-huit"));
+	map_1.insert(MAKE_PAIR(19, "dix-neuf"));
+	map_1.insert(MAKE_PAIR(20, "vingt"));
+	MAP<int, std::string>			map_2(map_1);
+	MAP<int, std::string>			map_3(map_1);
+	MAP<int, std::string>			map_4(map_1);
 
 	// Erase ONE key
 	if (map_1.erase(-1) || map_1.size() != 21)
@@ -88,13 +88,13 @@ TEST(map_erase)
 		return 1;
 	for (int i = 0; i < 21; ++i)
 	{
-		if (!map_1.erase(i) || map_1.size() != (20 - i))
+		if (!map_1.erase(i) || map_1.size() != static_cast<MAP<int, int>::size_type>(20 - i))
 			return 1;
 	}
 	if (!map_1.empty() || map_1.size())
 		return 1;
 	// Erase ONE iterator
-	for (MAP<int, STRING>::iterator it = map_2.begin(); it != map_2.end();)
+	for (MAP<int, std::string>::iterator it = map_2.begin(); it != map_2.end();)
 		map_2.erase(it++);
 	if (!map_2.empty() || map_2.size())
 		return 1;
@@ -108,50 +108,51 @@ TEST(map_erase)
 	map_4.erase(map_4.begin(), map_3.end());
 	if (!map_4.empty() || map_4.size())
 		return 1;
+	return 0;
 }
 
 TEST(map_swap)
 {
-	MAP<int, STRING>			map_1;
-	MAP<int, STRING>			map_2;
-	map_1.insert(make_pair(0, "zero"));
-	map_1.insert(make_pair(1, "un"));
-	map_1.insert(make_pair(3, "trois"));
-	map_1.insert(make_pair(2, "deux"));
-	map_1.insert(make_pair(4, "quatre"));
-	map_1.insert(make_pair(5, "cinq"));
-	map_1.insert(make_pair(6, "six"));
-	map_1.insert(make_pair(7, "sept"));
-	map_1.insert(make_pair(8, "huit"));
-	map_1.insert(make_pair(9, "neuf"));
-	map_1.insert(make_pair(10, "dix"));
-	map_1.insert(make_pair(11, "onze"));
-	map_1.insert(make_pair(12, "douze"));
-	map_1.insert(make_pair(13, "treize"));
-	map_1.insert(make_pair(14, "quatorze"));
-	map_1.insert(make_pair(15, "quinze"));
-	map_1.insert(make_pair(16, "seize"));
-	map_1.insert(make_pair(17, "dix-sept"));
-	map_1.insert(make_pair(18, "dix-huit"));
-	map_1.insert(make_pair(19, "dix-neuf"));
-	map_1.insert(make_pair(20, "vingt"));
+	MAP<int, std::string>			map_1;
+	MAP<int, std::string>			map_2;
+	map_1.insert(MAKE_PAIR(0, "zero"));
+	map_1.insert(MAKE_PAIR(1, "un"));
+	map_1.insert(MAKE_PAIR(3, "trois"));
+	map_1.insert(MAKE_PAIR(2, "deux"));
+	map_1.insert(MAKE_PAIR(4, "quatre"));
+	map_1.insert(MAKE_PAIR(5, "cinq"));
+	map_1.insert(MAKE_PAIR(6, "six"));
+	map_1.insert(MAKE_PAIR(7, "sept"));
+	map_1.insert(MAKE_PAIR(8, "huit"));
+	map_1.insert(MAKE_PAIR(9, "neuf"));
+	map_1.insert(MAKE_PAIR(10, "dix"));
+	map_1.insert(MAKE_PAIR(11, "onze"));
+	map_1.insert(MAKE_PAIR(12, "douze"));
+	map_1.insert(MAKE_PAIR(13, "treize"));
+	map_1.insert(MAKE_PAIR(14, "quatorze"));
+	map_1.insert(MAKE_PAIR(15, "quinze"));
+	map_1.insert(MAKE_PAIR(16, "seize"));
+	map_1.insert(MAKE_PAIR(17, "dix-sept"));
+	map_1.insert(MAKE_PAIR(18, "dix-huit"));
+	map_1.insert(MAKE_PAIR(19, "dix-neuf"));
+	map_1.insert(MAKE_PAIR(20, "vingt"));
 	for (int i = 0; i < 15; ++i)
-		map_2.insert(make_pair(i, "NULL"));
+		map_2.insert(MAKE_PAIR(i, "NULL"));
 
-	MAP<int, STRING>::const_iterator	first1(map_1.begin());
-	MAP<int, STRING>::const_iterator	first2(map_2.begin());
-	MAP<int, STRING>::size_type			map_1_old_size = map_1.size();
-	MAP<int, STRING>::size_type			map_2_old_size = map_2.size();
+	MAP<int, std::string>::const_iterator	first1(map_1.begin());
+	MAP<int, std::string>::const_iterator	first2(map_2.begin());
+	MAP<int, std::string>::size_type			map_1_old_size = map_1.size();
+	MAP<int, std::string>::size_type			map_2_old_size = map_2.size();
 
 	map_1.swap(map_2);
 	if (map_1.size() != map_2_old_size || map_2.size() != map_1_old_size)
 		return 1;
-	for (MAP<int, STRING>::const_iterator cit = map_1.begin(), old = first2; cit != map_1.end(); ++cit, ++old)
+	for (MAP<int, std::string>::const_iterator cit = map_1.begin(), old = first2; cit != map_1.end(); ++cit, ++old)
 	{
 		if (*cit != *old)
 			return 1;
 	}
-	for (MAP<int, STRING>::const_iterator cit = map_2.begin(), old = first1; cit != map_2.end(); ++cit, ++old)
+	for (MAP<int, std::string>::const_iterator cit = map_2.begin(), old = first1; cit != map_2.end(); ++cit, ++old)
 	{
 		if (*cit != *old)
 			return 1;
@@ -159,12 +160,12 @@ TEST(map_swap)
 	map_1.swap(map_2);
 	if (map_1.size() != map_1_old_size || map_2.size() != map_2_old_size)
 		return 1;
-	for (MAP<int, STRING>::const_iterator cit = map_1.begin(), old = first1; cit != map_1.end(); ++cit, ++old)
+	for (MAP<int, std::string>::const_iterator cit = map_1.begin(), old = first1; cit != map_1.end(); ++cit, ++old)
 	{
 		if (*cit != *old)
 			return 1;
 	}
-	for (MAP<int, STRING>::const_iterator cit = map_2.begin(), old = first2; cit != map_2.end(); ++cit, ++old)
+	for (MAP<int, std::string>::const_iterator cit = map_2.begin(), old = first2; cit != map_2.end(); ++cit, ++old)
 	{
 		if (*cit != *old)
 			return 1;
@@ -178,7 +179,7 @@ TEST(map_clear)
 	MAP<int, int>	m;
 
 	for (int i = 0; i != size; ++i)
-		m.insert(make_pair(i, i));
+		m.insert(MAKE_PAIR(i, i));
 	m.clear();
 	if (m.size() || !m.empty())
 		return 1;

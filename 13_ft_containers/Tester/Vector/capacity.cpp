@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:20 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:49:10 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ TEST(vector_capacity)
 {
 	VECTOR<double> vec(42, 21.19);
 
-	if (vec.size() <= vec.capacity());
+	if (vec.size() <= vec.capacity())
 		return 1;
 	return 0;
 }
@@ -68,7 +68,7 @@ TEST(vector_reserve)
 
 	vec.reserve(1984);
 
-	if (vec.capacity() <= 1984);
+	if (vec.capacity() <= 1984)
 		return 1;
 	return 0;
 }

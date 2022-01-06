@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:35:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 18:58:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:30:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	Tester::_printSection(std::string msg) const
 		msg.resize(30);
 	std::transform(msg.begin(), msg.end(),msg.begin(), ::toupper);
 	std::cout << std::endl;
-	std::cout << R_YLW << std::string(30, ' ') << msg << " " << NC << std::endl;
+	std::cout << B_YLW << std::string(30, ' ') << msg << " " << NC << std::endl;
 	std::cout << std::endl;
 
 	std::cout.copyfmt(init);
@@ -87,13 +87,12 @@ void	Tester::_printSubSection(std::string msg) const
 	init.copyfmt(std::cout);
 
 	std::transform(msg.begin(), msg.end(),msg.begin(), ::toupper);
-	std::cout << R_CYN << std::setw(30) << msg << NC << std::endl;
+	std::cout << B_CYN << std::setw(30) << msg << NC << std::endl;
 
 	std::cout.copyfmt(init);
 }
 
 void	Tester::_printResult(std::string des, int res, double time) const
-{
 {
 	std::ios init(NULL);
 	init.copyfmt(std::cout);
@@ -107,11 +106,11 @@ void	Tester::_printResult(std::string des, int res, double time) const
 	std::cout << NC << std::setw(30) << std::setfill(' ') << std::left << des;
 	std::cout << "       ";
 	if (res == 1)
-		std::cout << YLW << "  KO ";
+		std::cout << F_YLW << "  KO ";
 	else if (!res)
-		std::cout << GRN << "  OK ";
+		std::cout << F_GRN << "  OK ";
 	else
-		std::cout << RED << "ERROR";
+		std::cout << F_RED << "ERROR";
 	if (time >= 0)
 	{
 		std::cout << "       ";

@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/10/25 10:26:02 by tderwedu          #+#    #+#              #
-#    Updated: 2021/10/25 16:54:05 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 10:28:21 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,19 +17,19 @@ NAME	= run
 SRC		=	main.cpp
 
 CC		= clang++
-CFALGS	= -Wall -Wextra -Werror
+CFLAGS	= -Wall -Wextra -Werror
 
 OBJ		= ${SRC:.cpp=.o}
 
 # ================================== RULES =================================== #
 
 %.o:		%.cpp
-			${CC} ${CFALGS} -c $< -o $@
+			${CC} ${CFLAGS} -c $< -o $@
 
 all:		$(NAME)
 
 $(NAME):	$(OBJ)
-			${CC} ${CFALGS} ${OBJ} -o ${NAME}
+			${CC} ${CFLAGS} ${OBJ} -o ${NAME}
 
 clean:
 			rm -rf ${OBJ}

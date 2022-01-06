@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:59:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:55:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 TEST(map_iterator)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 
@@ -44,7 +44,7 @@ TEST(map_iterator)
 
 TEST(map_reverse_iterator)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 
@@ -68,16 +68,17 @@ TEST(map_reverse_iterator)
 		if (it->first != i || it->second != i)
 			return 1;
 	}
+	return 0;
 }
 
 
 TEST(map_const_iterator_comp)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
-	std::vector<FT_CONTAINER::PAIR<int, int> >::iterator		it = vec.begin();
-	std::vector<FT_CONTAINER::PAIR<int, int> >::const_iterator	cit = vec.end();
+	std::vector<PAIR<int, int> >::iterator		it = vec.begin();
+	std::vector<PAIR<int, int> >::const_iterator	cit = vec.end();
 
 	if (it == cit)
 		return (1);

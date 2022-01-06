@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:54:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:50:18 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 TEST(vector_const_iterator_basic)
 {
-	VECTOR<const STRING>	range;
+	VECTOR<std::string>	range;
 
 	for (size_t i = 1; i < 192142; ++i)
-		range[i] = range.push_back(STRING(i, '1'));
+		range.push_back(std::string(i, '1'));
 
-	VECTOR<STRING>					vec(range.begin(), range.end());
-	VECTOR<STRING>::const_iterator	it = vec.begin();
+	VECTOR<std::string>					vec(range.begin(), range.end());
+	VECTOR<std::string>::const_iterator	it = vec.begin();
 	if (*it != "x")
 		return 1;
 	if (*it++ != "x")
@@ -61,15 +61,15 @@ TEST(vector_const_iterator_read)
 
 TEST(vector_const_iterator_arith)
 {
-	VECTOR<const STRING>	range;
+	VECTOR<std::string>	range;
 
 	for (size_t i = 1; i < 192142; ++i)
-		range[i] = range.push_back(STRING(i, '1'));
+		range.push_back(std::string(i, '1'));
 
-	VECTOR<STRING>					vec(range.begin(), range.end());
-	VECTOR<STRING>::const_iterator	it = vec.begin();
-	VECTOR<STRING>::const_iterator	it2 = vec.begin();
-	VECTOR<STRING>::const_iterator	ite = vec.end();
+	VECTOR<std::string>					vec(range.begin(), range.end());
+	VECTOR<std::string>::const_iterator	it = vec.begin();
+	VECTOR<std::string>::const_iterator	it2 = vec.begin();
+	VECTOR<std::string>::const_iterator	ite = vec.end();
 	if (*(it + 5) != "xxxxxx")
 		return 1;
 	if (*(5 + it) != "xxxxxx")
@@ -82,7 +82,7 @@ TEST(vector_const_iterator_arith)
 	it2 -= 5;
 	if (it2 != it)
 		return 1;
-	if ((ite - it) != vec.size())
+	if (static_cast<VECTOR<std::string>::size_type>(ite - it) != vec.size())
 		return 1;
 	if (*(ite - vec.size()) != *it )
 		return 1;

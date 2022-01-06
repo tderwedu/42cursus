@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/31 13:45:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:15:16 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ Color& operator--(Color& color)
 	color = static_cast<Color>(i);
 	return color;
 }
-// Color const&	operator--(Color const& r){ return Color(r - 1); }
 
 enum Type { LEAF, ONE, TWO };
 

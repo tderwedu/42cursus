@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:59:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:55:01 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 TEST(map_constructor_default)
 {
-	MAP<std::STRING, int>	m;
+	MAP<std::string, int>	m;
 
 	if (!m.empty())
 		return 1;
@@ -23,7 +23,7 @@ TEST(map_constructor_default)
 
 TEST(map_constructor_range)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());
@@ -38,7 +38,7 @@ TEST(map_constructor_range)
 
 TEST(map_constructor_copy)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());
@@ -64,7 +64,7 @@ TEST(map_constructor_copy)
 
 TEST(map_operator_copy)
 {
-	std::vector<FT_CONTAINER::PAIR<int, int> >	vec;
+	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());

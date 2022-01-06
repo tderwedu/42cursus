@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 18:04:12 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:51 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 10:57:20 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ TEST(map_find)
 	MAP<int, int>	m;
 
 	for (int i = 0; i != size; ++i)
-		m.insert(make_pair(i, i));
+		m.insert(MAKE_PAIR(i, i));
 
 	for (int i = -1; i <= size; ++i)
 	{
@@ -44,7 +44,7 @@ TEST(map_count)
 	MAP<int, int>	m;
 
 	for (int i = 0; i != size; ++i)
-		m.insert(make_pair(i, i));
+		m.insert(MAKE_PAIR(i, i));
 
 	for (int i = -1; i <= size; ++i)
 	{
@@ -70,7 +70,7 @@ TEST(map_lower_bound)
 	for (int i = 1; i != size; ++i)
 	{
 		if (i % 2)
-			m.insert(make_pair(i, i));
+			m.insert(MAKE_PAIR(i, i));
 	}
 	if (m.lower_bound(0) != m.begin())
 		return 1;
@@ -97,7 +97,7 @@ TEST(map_upper_bound)
 	for (int i = 1; i != size; ++i)
 	{
 		if (i % 2)
-			m.insert(make_pair(i, i));
+			m.insert(MAKE_PAIR(i, i));
 	}
 	if (m.upper_bound(0) != m.begin())
 		return 1;
@@ -124,7 +124,7 @@ TEST(map_equal_range)
 	for (int i = 1; i != size; ++i)
 	{
 		if (i % 2)
-			m.insert(make_pair(i, i));
+			m.insert(MAKE_PAIR(i, i));
 	}
 	if (m.equal_range(0).first != m.begin() || m.equal_range(0).second != m.begin())
 		return 1;
