@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/06 09:36:32 by tderwedu          #+#    #+#              #
-#    Updated: 2022/01/06 11:26:51 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 13:10:45 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ INCLUDES	:= -I ${SRC_DIR} -I ${TESTER_DIR}
 
 SRC			:=	./Tester/Timer.cpp \
 				./Tester/Tester.cpp \
+				./src/RedBlackTree.cpp \
 				./Tester/Vector/constructors.cpp \
 				./Tester/Vector/capacity.cpp \
 				./Tester/Vector/iterators.cpp \
@@ -41,7 +42,13 @@ SRC			:=	./Tester/Timer.cpp \
 				./Tester/Stack/stack.cpp \
 				./Tester/tests.cpp
 
-OBJ			:= ${SRC:.cpp=.o}
+BIN_FT		:= ./bin_std
+BIN_STD		:= ./bin_std
+
+OBJ_FT		:= $(subst ${SRC_DIR}, ${BIN_FT}, ${SRC:.cpp=.o})
+OBJ_STD		:= $(subst ${SRC_DIR}, ${BIN_STD}, ${SRC:.cpp=.o})
+# OBJ_STD		:= ${SRC:.cpp=.o}
+# OBJ_FT		:= ${SRC:.cpp=.o}
 
 CC			:= clang++
 
@@ -50,18 +57,22 @@ CFLAGS		:= -Wall -Wextra -Werror -std=c++98
 
 # ================================== RULES =================================== #
 
-%.o:		%.cpp
-			${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
+${BIN_FT}%.o:	${SRC_DIR}%.cpp
+				${CC} ${CFLAGS} -D FT_CONTAINER=ft ${INCLUDES} -c $< -o $@
 
-all:		${OBJ}
-			${CC} ${C_FLAGS} -D FT_CONTAINERS=std ${INCLUDES} ${OBJ} -o ${NAME_STD}
+${BIN_STD}%.o:	${SRC_DIR}%.cpp
+				${CC} ${CFLAGS} -D FT_CONTAINER=std ${INCLUDES} -c $< -o $@
+
+all:			${OBJ_STD} ${OBJ_FT}
+				# ${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_STD} -o ${NAME_STD}
+				${CC} ${C_FLAGS} -D FT_CONTAINER=ft ${INCLUDES} ${OBJ_FT} -o ${NAME_FT}
 
 clean:
-			rm -rf ${OBJ}
+				rm -rf ${OBJ}
 
-fclean:		clean
-			rm -rf ${NAME_FT} ${NAME_STD}
+fclean:			clean
+				rm -rf ${NAME_FT} ${NAME_STD}
 
-re:			fclean all
+re:				fclean all
 
-.phony:		all clean fclean re
+.phony:			all clean fclean re

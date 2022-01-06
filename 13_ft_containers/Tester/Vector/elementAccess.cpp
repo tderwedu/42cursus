@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:37 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 17:58:42 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:44:00 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ TEST(vector_back)
 {
 	VECTOR<double> vec(424242, 42.21);
 
-	if (&vec.back() != &*(vec.end()) || &vec.back() != &vec[vec.size() - 1])
+	if (&vec.back() != &*(vec.end() - 1) || &vec.back() != &vec[vec.size() - 1])
 		return 1;
 	return 0;
 }

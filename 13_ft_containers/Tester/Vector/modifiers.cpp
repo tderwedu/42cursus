@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:53:45 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 13:04:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ TEST(vector_pop_back)
 			return 1;
 	}
 	vec.pop_back();
+	vec.pop_back();
 	if (!vec.empty())
 		return 1;
 	return 0;
@@ -100,30 +101,45 @@ TEST(vector_insert)
 
 	// Insert Front
 	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
+	{
 		it = vec.insert(vec.begin(), "insertFront");
-	if (vec[0] != "insertFront" || *it != "insertFront")
-		return 1;
-	for (VECTOR<std::string>::size_type i = 1; i < size; ++i)
+		if (*it != "insertFront")
+			return 1;
+	}
+	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
+	{
+		if (vec[i] != "insertFront")
+			return 1;
+	}
+	for (VECTOR<std::string>::size_type i = size; i < 2 * size; ++i)
 	{
 		if (vec[i] != "zero")
 			return 1;
 	}
 	// Insert End
 	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
-		it = vec.insert(vec.end(), std::string(i, '0'));
-	if (vec[0] != "insertFront" || *it != "insertFront")
-		return 1;
-	for (VECTOR<std::string>::size_type i = 1; i < size; ++i)
+	{
+		it = vec.insert(vec.end(), "insertBack");
+		if (*it != "insertBack")
+			return 1;
+	}
+	for (VECTOR<std::string>::size_type i = 0; i < size; ++i)
+	{
+		if (vec[i] != "insertFront")
+			return 1;
+	}
+	for (VECTOR<std::string>::size_type i = size; i < 2 * size; ++i)
 	{
 		if (vec[i] != "zero")
 			return 1;
 	}
-	for (VECTOR<std::string>::size_type i = size; i < vec.size(); ++i)
+	for (VECTOR<std::string>::size_type i = 2 * size; i < 3 * size; ++i)
 	{
-		if (vec[i] != std::string(i - size, '0'))
+		if (vec[i] != "insertBack")
 			return 1;
 	}
 	// Insert Anywhere
+	vec.clear();
 	for (VECTOR<std::string>::size_type i = 0; i < vec.size(); ++i)
 	{
 		if (i % 2)
@@ -185,12 +201,14 @@ TEST(vector_erase)
 		next_val = vec[i + 2];
 	}
 	// Erase RANGE except last one
+	std::cout << "=== 4 ===" <<std::endl;
 	next_val = vec[vec.size() - 1];
-	it = vec.erase(vec.begin(), vec.begin() - 1);
-	if (vec.size() != 1 || *it != next_val)
+	 vec.erase(vec.begin(), vec.end() - 1);
+	if (vec.size() != 1 || vec[0] != next_val)
 		return 1;
 	// Erase RANGE only one
-	it = vec.erase(vec.begin(), vec.begin());
+	std::cout << "=== 5 ===" <<std::endl;
+	it = vec.erase(vec.begin(), vec.end());
 	if (vec.size())
 		return 1;
 	return 0;

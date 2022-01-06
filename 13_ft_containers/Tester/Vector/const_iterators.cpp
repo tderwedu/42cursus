@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:54:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:50:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:28:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ TEST(vector_const_iterator_basic)
 {
 	VECTOR<std::string>	range;
 
-	for (size_t i = 1; i < 192142; ++i)
-		range.push_back(std::string(i, '1'));
+	for (size_t i = 1; i < 15000; ++i)
+		range.push_back(std::string(i, 'x'));
 
 	VECTOR<std::string>					vec(range.begin(), range.end());
 	VECTOR<std::string>::const_iterator	it = vec.begin();
@@ -63,8 +63,8 @@ TEST(vector_const_iterator_arith)
 {
 	VECTOR<std::string>	range;
 
-	for (size_t i = 1; i < 192142; ++i)
-		range.push_back(std::string(i, '1'));
+	for (size_t i = 1; i < 15000; ++i)
+		range.push_back(std::string(i, 'x'));
 
 	VECTOR<std::string>					vec(range.begin(), range.end());
 	VECTOR<std::string>::const_iterator	it = vec.begin();
@@ -86,7 +86,7 @@ TEST(vector_const_iterator_arith)
 		return 1;
 	if (*(ite - vec.size()) != *it )
 		return 1;
-	if ((it + vec.size()) != (ite - 1))
+	if ((it + vec.size()) != ite)
 		return 1;
 	return 0;
 }

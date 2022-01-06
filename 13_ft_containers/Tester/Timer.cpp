@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:22:54 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 11:18:46 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:21:59 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ double		Timer::elapsedTime(void)
 {
 	double elapsed;
 
-	elapsed = (_finish.tv_sec - _start.tv_sec);
-	elapsed += (_finish.tv_nsec - _start.tv_nsec) / 1e+9;
+	elapsed = (_finish.tv_sec - _start.tv_sec) * 1e+3;
+	elapsed += (_finish.tv_nsec - _start.tv_nsec) / 1e+6 ;
 	return elapsed;
 }

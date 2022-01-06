@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:17:23 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:48:38 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:15:23 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ TEST(vector_constructor_fill)
 
 TEST(vector_constructor_range)
 {
-	size_t					size = 42;
+	size_t					size = 15000;
 	VECTOR<std::string>	range;
 
 	for (size_t i = 0; i < size; ++i)
@@ -61,7 +61,7 @@ TEST(vector_constructor_range)
 
 TEST(vector_constructor_copy)
 {
-	size_t					size = 42;
+	size_t					size = 15000;
 	VECTOR<std::string>	range;
 
 	for (size_t i = 0; i < size; ++i)
@@ -82,7 +82,7 @@ TEST(vector_constructor_copy)
 
 TEST(vector_operator_copy)
 {
-	size_t					size = 42;
+	size_t					size = 15000;
 	VECTOR<std::string>	range;
 
 	for (size_t i = 0; i < size; ++i)

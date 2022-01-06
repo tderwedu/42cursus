@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:34:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:56:33 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,9 @@
 # ifndef FT_CONTAINER
 #  define FT_CONTAINER ft
 # endif
+
+#define STRINGIFY(x) #x
+#define TOSTRING(x) STRINGIFY(x)
 
 # define TEST(test_name) int test_name(void)
 

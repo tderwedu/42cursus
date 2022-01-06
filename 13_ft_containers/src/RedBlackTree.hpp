@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 11:15:16 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 11:38:35 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@
 
 enum Color { NRED = -1, RED, BLACK, DBLACK };
 
-Color& operator++(Color& color)
-{
-	const int i = static_cast<int>(color) + 1;
-	color = static_cast<Color>(i);
-	return color;
-}
-Color& operator--(Color& color)
-{
-	const int i = static_cast<int>(color) - 1;
-	color = static_cast<Color>(i);
-	return color;
-}
+Color& operator++(Color& color);
+// {
+// 	const int i = static_cast<int>(color) + 1;
+// 	color = static_cast<Color>(i);
+// 	return color;
+// }
+Color& operator--(Color& color);
+// {
+// 	const int i = static_cast<int>(color) - 1;
+// 	color = static_cast<Color>(i);
+// 	return color;
+// }
 
 enum Type { LEAF, ONE, TWO };
 

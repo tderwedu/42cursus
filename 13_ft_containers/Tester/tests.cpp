@@ -6,14 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/05 18:33:00 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 12:36:22 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include <iostream>
 #include "tests.hpp"
 
 int	main(void)
-{	
+{
+	std::cout << "\n\e[41;30m NAMESPACE: \e[31;47m " << TOSTRING(FT_CONTAINER) << " \e[m" << std::endl;
 	Tester				tester;
 	
 	const std::string	_vector("Vector");
@@ -81,43 +83,43 @@ int	main(void)
 	tester.addTest(_vector, _rel, "operator<=", vector_operator_lte);
 	
 	/* ================================ MAP ================================= */
-	// Constructors
-	tester.addTest(_map, _ctor, "Default", map_constructor_default);
-	tester.addTest(_map, _ctor, "Range", map_constructor_range);
-	tester.addTest(_map, _ctor, "Copy", map_constructor_copy);
-	tester.addTest(_map, _ctor, "Operator=", map_operator_copy);
-	// Iterators
-	tester.addTest(_map, _it, "Iterators", map_iterator);
-	tester.addTest(_map, _it, "Reverse Iterators", map_reverse_iterator);
-	tester.addTest(_map, _it, "Comparison with const_iterator", map_const_iterator_comp);
-	// Capacity
-	tester.addTest(_map, _cap, "Size", map_size);
-	tester.addTest(_map, _cap, "Empty", map_empty);
-	// Element Access
-	tester.addTest(_map, _access, "operator[]", map_operator_subscript);
-	// Modifiers
-	tester.addTest(_map, _mod, "Insert", map_insert);
-	tester.addTest(_map, _mod, "Erase", map_erase);
-	tester.addTest(_map, _mod, "Swap", map_swap);
-	tester.addTest(_map, _mod, "Clear", map_clear);
-	// Observers
-	tester.addTest(_map, _obs, "Key_comp", map_key_comp);
-	tester.addTest(_map, _obs, "Value_comp", map_value_comp);
-	// Operations
-	tester.addTest(_map, _ope, "Find", map_find);
-	tester.addTest(_map, _ope, "Count", map_count);
-	tester.addTest(_map, _ope, "Lower Bound", map_lower_bound);
-	tester.addTest(_map, _ope, "Upper Bound", map_upper_bound);
-	tester.addTest(_map, _ope, "Equal Range", map_equal_range);
-	// Relational Operators
-	tester.addTest(_map, _mod, "operator==", map_erator_eq);
-	tester.addTest(_map, _mod, "operator!=", maperator_neq);
-	tester.addTest(_map, _mod, "operator>", maperator_gt);
-	tester.addTest(_map, _mod, "operator>=", maperator_gte);
-	tester.addTest(_map, _mod, "operator<", maperator_lt);
-	tester.addTest(_map, _mod, "operator<=", maperator_lte);
-	/* ================================ MAP ================================= */
-	tester.addTest(_stack, _ctor, "Default", stack_constructor);
-	tester.addTest(_stack, "Other", "Basic", stack_basic);
+	// // Constructors
+	// tester.addTest(_map, _ctor, "Default", map_constructor_default);
+	// tester.addTest(_map, _ctor, "Range", map_constructor_range);
+	// tester.addTest(_map, _ctor, "Copy", map_constructor_copy);
+	// tester.addTest(_map, _ctor, "Operator=", map_operator_copy);
+	// // Iterators
+	// tester.addTest(_map, _it, "Iterators", map_iterator);
+	// tester.addTest(_map, _it, "Reverse Iterators", map_reverse_iterator);
+	// tester.addTest(_map, _it, "Comparison with const_iterator", map_const_iterator_comp);
+	// // Capacity
+	// tester.addTest(_map, _cap, "Size", map_size);
+	// tester.addTest(_map, _cap, "Empty", map_empty);
+	// // Element Access
+	// tester.addTest(_map, _access, "operator[]", map_operator_subscript);
+	// // Modifiers
+	// tester.addTest(_map, _mod, "Insert", map_insert);
+	// tester.addTest(_map, _mod, "Erase", map_erase);
+	// tester.addTest(_map, _mod, "Swap", map_swap);
+	// tester.addTest(_map, _mod, "Clear", map_clear);
+	// // Observers
+	// tester.addTest(_map, _obs, "Key_comp", map_key_comp);
+	// tester.addTest(_map, _obs, "Value_comp", map_value_comp);
+	// // Operations
+	// tester.addTest(_map, _ope, "Find", map_find);
+	// tester.addTest(_map, _ope, "Count", map_count);
+	// tester.addTest(_map, _ope, "Lower Bound", map_lower_bound);
+	// tester.addTest(_map, _ope, "Upper Bound", map_upper_bound);
+	// tester.addTest(_map, _ope, "Equal Range", map_equal_range);
+	// // Relational Operators
+	// tester.addTest(_map, _mod, "operator==", map_erator_eq);
+	// tester.addTest(_map, _mod, "operator!=", maperator_neq);
+	// tester.addTest(_map, _mod, "operator>", maperator_gt);
+	// tester.addTest(_map, _mod, "operator>=", maperator_gte);
+	// tester.addTest(_map, _mod, "operator<", maperator_lt);
+	// tester.addTest(_map, _mod, "operator<=", maperator_lte);
+	// /* ================================ MAP ================================= */
+	// tester.addTest(_stack, _ctor, "Default", stack_constructor);
+	// tester.addTest(_stack, "Other", "Basic", stack_basic);
 	tester.runAllTests();
 }
