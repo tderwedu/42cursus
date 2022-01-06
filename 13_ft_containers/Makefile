@@ -6,49 +6,48 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/06 09:36:32 by tderwedu          #+#    #+#              #
-#    Updated: 2022/01/06 13:10:45 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 15:10:23 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME_FT		:= ft
 NAME_STD	:= std
 
-SRC_DIR		:= ./src
-TESTER_DIR	:= ./Tester
-
 # ================================ VARIABLES ================================= #
+SRC_DIR		:= src/
+TEST_DIR	:= tester/
 
-INCLUDES	:= -I ${SRC_DIR} -I ${TESTER_DIR}
+INCLUDES	:= -I ./${SRC_DIR} -I ./${TEST_DIR}
 
-SRC			:=	./Tester/Timer.cpp \
-				./Tester/Tester.cpp \
-				./src/RedBlackTree.cpp \
-				./Tester/Vector/constructors.cpp \
-				./Tester/Vector/capacity.cpp \
-				./Tester/Vector/iterators.cpp \
-				./Tester/Vector/const_iterators.cpp \
-				./Tester/Vector/reverse_iterators.cpp \
-				./Tester/Vector/elementAccess.cpp \
-				./Tester/Vector/modifiers.cpp \
-				./Tester/Vector/relationalOperators.cpp \
-				./Tester/Map/constructors.cpp \
-				./Tester/Map/capacity.cpp \
-				./Tester/Map/iterators.cpp \
-				./Tester/Map/elementAccess.cpp \
-				./Tester/Map/modifiers.cpp \
-				./Tester/Map/observers.cpp \
-				./Tester/Map/operations.cpp \
-				./Tester/Map/relationalOperators.cpp \
-				./Tester/Stack/stack.cpp \
-				./Tester/tests.cpp
+SRC			:=	./src/RedBlackTree.cpp
+SRC_TESTER	:=	./tester/Timer.cpp \
+				./tester/Tester.cpp \
+				./tester/Vector/constructors.cpp \
+				./tester/Vector/capacity.cpp \
+				./tester/Vector/iterators.cpp \
+				./tester/Vector/const_iterators.cpp \
+				./tester/Vector/reverse_iterators.cpp \
+				./tester/Vector/elementAccess.cpp \
+				./tester/Vector/modifiers.cpp \
+				./tester/Vector/relationalOperators.cpp \
+				./tester/Map/constructors.cpp \
+				./tester/Map/capacity.cpp \
+				./tester/Map/iterators.cpp \
+				./tester/Map/elementAccess.cpp \
+				./tester/Map/modifiers.cpp \
+				./tester/Map/observers.cpp \
+				./tester/Map/operations.cpp \
+				./tester/Map/relationalOperators.cpp \
+				./tester/Stack/stack.cpp \
+				./tester/tests.cpp
 
-BIN_FT		:= ./bin_std
-BIN_STD		:= ./bin_std
+BIN_SRC		:= .bin_src/
+BIN_FT		:= .bin_ft/
+BIN_STD		:= .bin_std/
 
-OBJ_FT		:= $(subst ${SRC_DIR}, ${BIN_FT}, ${SRC:.cpp=.o})
-OBJ_STD		:= $(subst ${SRC_DIR}, ${BIN_STD}, ${SRC:.cpp=.o})
-# OBJ_STD		:= ${SRC:.cpp=.o}
-# OBJ_FT		:= ${SRC:.cpp=.o}
+OBJ_SRC		:= $(subst ${SRC_DIR},${BIN_SRC}, ${SRC:.cpp=.o})
+OBJ_FT		:= $(subst ${TEST_DIR},${BIN_FT}, ${SRC_TESTER:.cpp=.o})
+OBJ_STD		:= $(subst ${TEST_DIR},${BIN_STD}, ${SRC_TESTER:.cpp=.o})
 
 CC			:= clang++
 
@@ -57,21 +56,34 @@ CFLAGS		:= -Wall -Wextra -Werror -std=c++98
 
 # ================================== RULES =================================== #
 
-${BIN_FT}%.o:	${SRC_DIR}%.cpp
+${BIN_SRC}%.o:	${SRC_DIR}%.cpp
+				@mkdir -p $(dir $@)
+				${CC} ${CFLAGS} ${INCLUDES} -c $< -o $@
+
+${BIN_FT}%.o:	${TEST_DIR}%.cpp
+				@mkdir -p $(dir $@)
 				${CC} ${CFLAGS} -D FT_CONTAINER=ft ${INCLUDES} -c $< -o $@
 
-${BIN_STD}%.o:	${SRC_DIR}%.cpp
+${BIN_STD}%.o:	${TEST_DIR}%.cpp
+				@mkdir -p $(dir $@)
 				${CC} ${CFLAGS} -D FT_CONTAINER=std ${INCLUDES} -c $< -o $@
 
-all:			${OBJ_STD} ${OBJ_FT}
-				# ${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_STD} -o ${NAME_STD}
-				${CC} ${C_FLAGS} -D FT_CONTAINER=ft ${INCLUDES} ${OBJ_FT} -o ${NAME_FT}
+# all:			
+# 				echo ${OBJ_SRC}
+all:			${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}
+				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_FT} -o ${NAME_FT}
+				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_STD} -o ${NAME_STD}
+				@./${NAME_STD}
+				@./${NAME_FT}
+			
+# ${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_STD} -o ${NAME_STD}
+# ${CC} ${C_FLAGS} -D FT_CONTAINER=ft ${INCLUDES} ${OBJ_FT} -o ${NAME_FT}
 
 clean:
 				rm -rf ${OBJ}
 
 fclean:			clean
-				rm -rf ${NAME_FT} ${NAME_STD}
+				rm -rf ${NAME_FT} ${NAME_STD} ${BIN_SRC} ${BIN_FT}  ${BIN_STD}
 
 re:				fclean all
 

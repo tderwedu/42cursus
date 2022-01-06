@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/03/26 17:04:23 by tderwedu          #+#    #+#              #
-#    Updated: 2021/05/19 11:28:44 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 14:22:04 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -119,7 +119,7 @@ clean:
 				@rm -f ${OBJ} ${OBJ_B} save.bmp bonus
 
 fclean:			clean
-				@printf "Removing cubD and binary directories\n"
+				@printf "Removing cub3D and binary directories\n"
 				@rm -f ${NAME}
 				@rm -rf ${OBJ_DIR} ${OBJ_DIR_B}
 
