@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 18:35:10 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:30:18 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 19:10:03 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,42 @@ void	Tester::runAllTests(void) const
 			elapsed = -1.0;
 		}
 		_printResult(cit->_description, ret, elapsed);
+	}
+}
+
+void	Tester::runAllTests(std::string const& file) const
+{
+	int				ret;
+	double			elapsed;
+	Timer			timer;
+	std::string		prev_sec;
+	std::string		prev_sub;
+	std::ofstream	ofs;
+
+	ofs.open(file.c_str());
+	if (!ofs.is_open())
+	{
+		std::cerr << F_RED << "Error opening file : " << file << NC << std::endl;
+		return ;
+	}
+	for (testVec::const_iterator cit = _tests.begin(); cit != _tests.end(); ++cit)
+	{
+		ofs << cit->_section << ";" << cit->_subSection << ";" << cit->_description << ";";
+
+		try
+		{
+			timer.start();
+			ret = cit->fn();
+			timer.finish();
+			elapsed = timer.elapsedTime();
+		}
+		catch(const std::exception& e)
+		{
+			(void)e;
+			ret = -1;
+			elapsed = -1.0;
+		}
+		ofs << ret << ";" << elapsed << std::endl;
 	}
 }
 

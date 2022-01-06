@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/06 09:36:32 by tderwedu          #+#    #+#              #
-#    Updated: 2022/01/06 15:57:03 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 19:27:41 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -53,7 +53,6 @@ CC			:= clang++
 
 CFLAGS		:= -Wall -Wextra -Werror -std=c++98
 
-
 # ================================== RULES =================================== #
 
 ${BIN_SRC}%.o:	${SRC_DIR}%.cpp
@@ -68,19 +67,20 @@ ${BIN_STD}%.o:	${TEST_DIR}%.cpp
 				@mkdir -p $(dir $@)
 				${CC} ${CFLAGS} -D FT_CONTAINER=std ${INCLUDES} -c $< -o $@
 
-# all:			
-# 				echo ${OBJ_SRC}
 all:			${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}
 				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_FT} -o ${NAME_FT}
 				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_STD} -o ${NAME_STD}
-				@./${NAME_STD} > res_std
-				@./${NAME_FT} > res_ft
+				${CC} ${C_FLAGS} ./tester/compare_time.cpp -o compare_time
+				@./${NAME_STD} ./std.res
+				@./${NAME_FT} ./ft.res
+				@./compare_time ./ft.res ./std.res
 
 clean:
-				rm -rf ${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}}
+				rm -rf ${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}
 
 fclean:			clean
 				rm -rf ${NAME_FT} ${NAME_STD} ${BIN_SRC} ${BIN_FT}  ${BIN_STD}
+				rm -rf compare_time ./std.res ./ft.res
 
 re:				fclean all
 

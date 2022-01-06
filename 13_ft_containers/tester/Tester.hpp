@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 10:34:34 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:29:53 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 19:09:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # include <algorithm>
 # include <iostream>
 # include <iomanip>
+# include <fstream>
 # include <string>
 # include <vector>
 
@@ -68,6 +69,7 @@ public:
 
 	void	addTest(std::string sec, std::string sub, std::string des, TestFn fn);
 	void	runAllTests(void) const;
+	void	runAllTests(std::string const& file) const;
 private:
 	void	_printSection(std::string msg) const;
 	void	_printSubSection(std::string msg) const;

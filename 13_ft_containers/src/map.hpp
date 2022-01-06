@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/16 17:48:03 by tderwedu          #+#    #+#             */
-/*   Updated: 2021/12/31 12:40:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 16:03:42 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,6 @@ public:
 public:
 	class value_compare
 	{
-		friend class Map;
 	protected:
 		Compare comp;
 	public:

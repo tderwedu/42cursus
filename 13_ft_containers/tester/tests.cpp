@@ -6,16 +6,16 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 15:45:15 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 19:51:08 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <iostream>
 #include "tests.hpp"
 
-int	main(void)
+int	main(int argc, char **argv)
 {
-	std::cout << "\n\e[41;30m NAMESPACE: \e[31;47m " << TOSTRING(FT_CONTAINER) << " \e[m" << std::endl;
+	std::cout << "\n\e[41;30m NAMESPACE: \e[31;47m " << TOSTRING(FT_CONTAINER) << " \e[m" << std::flush;
 	Tester				tester;
 	
 	const std::string	_vector("Vector");
@@ -121,5 +121,12 @@ int	main(void)
 	/* ================================ MAP ================================= */
 	tester.addTest(_stack, _ctor, "Default", stack_constructor);
 	tester.addTest(_stack, "Other", "Basic", stack_basic);
-	tester.runAllTests();
+
+	if (argc == 1)
+		tester.runAllTests();
+	else
+	{
+		std::cout << "\e[32m" << " SUCCESS " << "\e[m" << std::endl;
+		tester.runAllTests(argv[1]);
+	}
 }
