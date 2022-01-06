@@ -6,7 +6,7 @@
 #    By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/06 09:36:32 by tderwedu          #+#    #+#              #
-#    Updated: 2022/01/06 15:10:23 by tderwedu         ###   ########.fr        #
+#    Updated: 2022/01/06 15:57:03 by tderwedu         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,14 +73,11 @@ ${BIN_STD}%.o:	${TEST_DIR}%.cpp
 all:			${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}
 				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_FT} -o ${NAME_FT}
 				${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_SRC} ${OBJ_STD} -o ${NAME_STD}
-				@./${NAME_STD}
-				@./${NAME_FT}
-			
-# ${CC} ${C_FLAGS} -D FT_CONTAINER=std ${INCLUDES} ${OBJ_STD} -o ${NAME_STD}
-# ${CC} ${C_FLAGS} -D FT_CONTAINER=ft ${INCLUDES} ${OBJ_FT} -o ${NAME_FT}
+				@./${NAME_STD} > res_std
+				@./${NAME_FT} > res_ft
 
 clean:
-				rm -rf ${OBJ}
+				rm -rf ${OBJ_SRC} ${OBJ_FT} ${OBJ_STD}}
 
 fclean:			clean
 				rm -rf ${NAME_FT} ${NAME_STD} ${BIN_SRC} ${BIN_FT}  ${BIN_STD}

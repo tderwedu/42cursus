@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/03 15:15:43 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 13:04:23 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:46:04 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,13 +201,11 @@ TEST(vector_erase)
 		next_val = vec[i + 2];
 	}
 	// Erase RANGE except last one
-	std::cout << "=== 4 ===" <<std::endl;
 	next_val = vec[vec.size() - 1];
 	 vec.erase(vec.begin(), vec.end() - 1);
 	if (vec.size() != 1 || vec[0] != next_val)
 		return 1;
 	// Erase RANGE only one
-	std::cout << "=== 5 ===" <<std::endl;
 	it = vec.erase(vec.begin(), vec.end());
 	if (vec.size())
 		return 1;

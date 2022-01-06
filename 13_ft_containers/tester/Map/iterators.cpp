@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:11 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:55:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:21:47 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ TEST(map_reverse_iterator)
 
 	MAP<int, int>						m(vec.begin(), vec.end());
 	int									i = 99;
-	MAP<int, int>::reverse_iterator		it;
+	MAP<int, int>::reverse_iterator		it = m.rbegin();
 	MAP<int, int>::reverse_iterator		it2 = m.rbegin();
 
 	if (!(it == it2))
@@ -77,18 +77,18 @@ TEST(map_const_iterator_comp)
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
 		vec.push_back(FT_CONTAINER::make_pair(i, i));
-	std::vector<PAIR<int, int> >::iterator		it = vec.begin();
+	std::vector<PAIR<int, int> >::iterator			it = vec.begin();
 	std::vector<PAIR<int, int> >::const_iterator	cit = vec.end();
 
 	if (it == cit)
 		return (1);
-	if (it <= cit)
+	if (!(it <= cit))
 		return (1);
 	if (it >= cit)
 		return (1);
 	if (!(it < cit))
 		return (1);
-	if (!(it > cit))
+	if (it > cit)
 		return (1);
 	if (!(it != cit))
 		return (1);
@@ -96,9 +96,9 @@ TEST(map_const_iterator_comp)
 		return (1);
 	if (cit <= it)
 		return (1);
-	if (cit >= it)
+	if (!(cit >= it))
 		return (1);
-	if (!(cit < it))
+	if (cit < it)
 		return (1);
 	if (!(cit > it))
 		return (1);

@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:58:59 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/06 15:32:55 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 TEST(map_insert)
 {
 	int				i = 0;
-	int				size = 2000;
+	int				size = 42000;
 	MAP<int, int>	m;
 
 	// Insert ONE
@@ -31,9 +31,9 @@ TEST(map_insert)
 	// Insert Range
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i * 100, 9000));
+		vec.push_back(FT_CONTAINER::make_pair(i * 1000, 9000));
 	m.insert(++vec.begin(), --vec.end());
-	if (m.size() != (vec.size() - 2 + size - size / 100))
+	if (m.size() != 42057)
 		return 1;
 	for (MAP<int, int>::const_iterator cit = m.begin(); cit != m.end(); ++cit)
 	{
@@ -105,7 +105,7 @@ TEST(map_erase)
 	if (map_3[0] != "zero" || map_3[20] != "vingt")
 		return 1;
 	// Erase RANGE
-	map_4.erase(map_4.begin(), map_3.end());
+	map_4.erase(map_4.begin(), map_4.end());
 	if (!map_4.empty() || map_4.size())
 		return 1;
 	return 0;
