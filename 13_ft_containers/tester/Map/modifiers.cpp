@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:14 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 15:32:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:48:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ TEST(map_insert)
 	// Insert Range
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i * 1000, 9000));
+		vec.push_back(NAMESPACE_::make_pair(i * 1000, 9000));
 	m.insert(++vec.begin(), --vec.end());
 	if (m.size() != 42057)
 		return 1;

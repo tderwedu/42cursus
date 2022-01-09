@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/09 13:16:40 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:48:37 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,16 @@
 
 enum Color { NRED = -1, RED, BLACK, DBLACK };
 
-Color& operator++(Color& color);
+#define	COLOR_INC(x)	x = static_cast<Color>(static_cast<int>(x) + 1)
+#define	COLOR_DEC(x)	x = static_cast<Color>(static_cast<int>(x) - 1)
+
+// Color& operator++(Color& color)
 // {
 // 	const int i = static_cast<int>(color) + 1;
 // 	color = static_cast<Color>(i);
 // 	return color;
 // }
-Color& operator--(Color& color);
+// Color& operator--(Color& color)
 // {
 // 	const int i = static_cast<int>(color) - 1;
 // 	color = static_cast<Color>(i);
@@ -412,8 +415,8 @@ private:
 		}
 		// Leaf is BLACK and there must be a sibling
 		_freeLeaf(leaf);
-		++parent->_color;
-		--sibling->_color;
+		COLOR_INC(parent->_color);
+		COLOR_DEC(sibling->_color);
 		if (sibling->_color == NRED)
 			_rotateNegativeBlack(parent);
 		else
@@ -447,9 +450,9 @@ private:
 			sibling = parent->_rightChild;
 		else
 			sibling = parent->_leftChild;
-		++parent->_color;
-		--sibling->_color;
-		--node->_color;
+		COLOR_INC(parent->_color);
+		COLOR_DEC(sibling->_color);
+		COLOR_DEC(node->_color);
 		if (sibling->_color == NRED)
 			_rotateNegativeBlack(parent);
 		else

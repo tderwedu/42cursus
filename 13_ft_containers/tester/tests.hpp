@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:46 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 11:56:33 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:49:13 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "map.hpp"
 # include "stack.hpp"
 
-# ifndef FT_CONTAINER
-#  define FT_CONTAINER ft
+# ifndef NAMESPACE_
+#  define NAMESPACE_ ft
 # endif
 
 #define STRINGIFY(x) #x
@@ -32,11 +32,11 @@
 
 # define TEST(test_name) int test_name(void)
 
-# define VECTOR		FT_CONTAINER::vector
-# define MAP		FT_CONTAINER::map
-# define PAIR		FT_CONTAINER::pair
-# define MAKE_PAIR	FT_CONTAINER::make_pair
-# define STACK		FT_CONTAINER::stack
+# define VECTOR		NAMESPACE_::vector
+# define MAP		NAMESPACE_::map
+# define PAIR		NAMESPACE_::pair
+# define MAKE_PAIR	NAMESPACE_::make_pair
+# define STACK		NAMESPACE_::stack
 
 /* ================================= VECTOR ================================= */
 // Constructors

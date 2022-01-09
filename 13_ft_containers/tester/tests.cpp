@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/05 17:29:42 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/09 12:15:04 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:48:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 int	main(int argc, char **argv)
 {
-	std::cout << "\n\e[41;30m NAMESPACE: \e[31;47m " << TOSTRING(FT_CONTAINER) << " \e[m" << std::flush;
+	std::cout << "\n\e[41;30m NAMESPACE: \e[31;47m " << TOSTRING(NAMESPACE_) << " \e[m" << std::flush;
 	Tester				tester;
 	
 	const std::string	_vector("Vector");

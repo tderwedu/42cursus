@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:03:02 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 15:19:02 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:48:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ TEST(map_constructor_range)
 {
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 100; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i, i));
+		vec.push_back(NAMESPACE_::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());
 	int i = 0;
 	for (MAP<int, int>::const_iterator cit = map_range.begin(); cit != map_range.end(); ++i, ++cit)
@@ -40,7 +40,7 @@ TEST(map_constructor_copy)
 {
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 42000; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i, i));
+		vec.push_back(NAMESPACE_::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());
 	int i = 0;
 	for (MAP<int, int>::const_iterator cit = map_range.begin(); cit != map_range.end(); ++i, ++cit)
@@ -67,7 +67,7 @@ TEST(map_operator_copy)
 {
 	std::vector<PAIR<int, int> >	vec;
 	for (int i = 0; i != 42000; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i, i));
+		vec.push_back(NAMESPACE_::make_pair(i, i));
 	MAP<int, int>	map_range(vec.begin(), vec.end());
 	int i = 0;
 	for (MAP<int, int>::const_iterator cit = map_range.begin(); cit != map_range.end(); ++i, ++cit)

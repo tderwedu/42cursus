@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:02:53 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 10:55:01 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:48:54 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ TEST(map_empty)
 
 	if (!m.empty())
 		return 1;
-	m.insert(FT_CONTAINER::make_pair("zero", 0.0));
+	m.insert(NAMESPACE_::make_pair("zero", 0.0));
 	if (m.empty())
 		return 1;
 	m.erase("zero");
@@ -31,7 +31,7 @@ TEST(map_size)
 {
 	std::vector<PAIR<int, double> >	vec;
 	for (int i = 0; i != 100; ++i)
-		vec.push_back(FT_CONTAINER::make_pair(i, static_cast<double>(i + 0.21)));
+		vec.push_back(NAMESPACE_::make_pair(i, static_cast<double>(i + 0.21)));
 
 	MAP<int, double>	m(vec.begin(), vec.end());
 	MAP<int, double>	m_empty;
