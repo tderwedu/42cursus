@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 17:29:21 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 19:29:55 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 12:13:11 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -350,13 +350,15 @@ public:
 
 	iterator				erase(iterator pos)
 	{
-		_allocator.destroy(&(*pos));
-		for (size_type i = (&(*pos) - _array + 1); i < _size; ++i)
-		{
-			_allocator.construct(_array + i - 1, *(_array + i));
-			_allocator.destroy(_array + i);
-		}
+		size_type		i = &*pos - _array;
+
 		--_size;
+		while (i < _size)
+		{
+			_array[i] = _array[i + 1];
+			++i;	
+		}
+		_allocator.destroy(_array + i);
 		return pos;
 	}
 
@@ -364,15 +366,18 @@ public:
 	{
 		size_type			n = ft::distance(first, last);
 	
-		for (iterator iter = first; iter < last; ++iter)
-			_allocator.destroy(&(*iter));
-		for (size_type i = (&(*first) - _array + n); i < _size; ++i)
+		while (first != (end() - n))
 		{
-			_allocator.construct(_array + i - n, *(_array + i));
-			_allocator.destroy(_array + i);
+			*first = first[n];
+			++first;	
+		}
+		while (first != end())
+		{
+			_allocator.destroy(&(*first));
+			++first;
 		}
 		_size -= n;
-		return first;
+		return last - n;
 	}
 
 	void					swap (vector& other)

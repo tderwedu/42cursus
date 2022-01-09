@@ -6,14 +6,14 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 16:34:06 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 11:38:35 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 13:16:40 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef REDBLACKTREE_HPP
 # define REDBLACKTREE_HPP
 
-# include <iostream>	// DEBUG
+// # include <iostream>	// DEBUG - PRINT_TREE
 # include <iterator>	// std::distance
 
 # include "type_traits.hpp"

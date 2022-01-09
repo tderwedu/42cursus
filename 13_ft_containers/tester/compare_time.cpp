@@ -6,7 +6,7 @@
 /*   By: tderwedu <tderwedu@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/06 16:55:50 by tderwedu          #+#    #+#             */
-/*   Updated: 2022/01/06 19:27:34 by tderwedu         ###   ########.fr       */
+/*   Updated: 2022/01/09 12:26:21 by tderwedu         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	printSection(std::string msg)
 	std::cout << std::endl;
 
 	std::cout.copyfmt(init);
-}
+} 
 
 void	printSubSection(std::string msg)
 {
@@ -56,7 +56,8 @@ void	printSubSection(std::string msg)
 
 	std::transform(msg.begin(), msg.end(),msg.begin(), ::toupper);
 	std::cout << B_CYN << std::setw(30) << msg << NC << std::setw(31);
-	std::cout << F_CYN << "FT" << std::setw(14) << "STD" << NC << std::endl;
+	std::cout << F_CYN << "FT" << std::setw(14) << "STD" << NC;
+	std::cout << F_CYN << std::setw(11) << "FT/STD" << NC << std::endl;
 	
 	std::cout.copyfmt(init);
 }
@@ -85,21 +86,25 @@ void	printResult(std::string des, int res, double time_std, double time_ft)
 	// Elapsed time from STD namespace
 	std::cout << "       ";
 	std::cout << NC << std::setw(7) << std::setprecision(3) << std::fixed << std::right ;
-	std::cout << time_std << "  ms";
+	std::cout << time_ft << "  ms";
 	// Elapsed time from STD namespace
 	std::cout << "   ";
 	std::cout << NC << std::setw(7) << std::setprecision(3) << std::fixed << std::right ;
-	std::cout << time_ft << "  ms";
+	std::cout << time_std << "  ms";
 	// Elapsed time ratio
 	ratio = time_ft / time_std;
 	std::cout << "   ";
-	std::cout << std::setw(5) << std::setprecision(2) << std::fixed << ratio << "x";
+	std::cout << std::setw(5) << std::setprecision(2) << std::fixed << ratio;
 	if (ratio <= 1.0)
-		std::cout << F_GRN << "  FASTER";
-	else if (ratio <= 10.0)
-		std::cout << F_YLW << "  SLOWER";
+		std::cout << F_GRN << "   FASTER";
+	else if (ratio < 10.0)
+		std::cout << F_YLW << "   SLOWER";
+	else if (ratio <= 15.0)
+		std::cout << F_MGN << "   SLOWER";
+	else if (ratio < 20.0)
+		std::cout << F_RED << "   SLOWER";
 	else
-		std::cout << F_RED << "  SLOWER";
+		std::cout << F_RED << "   SLOWER !!";
 	std::cout << NC << std::endl;
 
 	std::cout.copyfmt(init);
@@ -185,12 +190,5 @@ int		main(int argc, char **argv)
 			prev_sub = sub;
 		}
 		printResult(des, res, time_std, time_ft);
-		// std::cout << sec << std::endl;
-		// std::cout << sub << std::endl;
-		// std::cout << des << std::endl;
-		// std::cout << res << std::endl;
-		// std::cout << "time_ft : " << time_ft << std::endl;
-		// std::cout << "time_std: " << time_std << std::endl;
-		// std::cout << "\n\n" << std::endl;
 	}
 }
