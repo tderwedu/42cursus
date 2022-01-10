@@ -1,25 +1,36 @@
 [# ```ft_containers```
 *a 19 Coding School project*
 
-Re-implementation of some containers present in C++.
-## Roadmap
+Re-implementation of some containers present in C++
+- `vector`
+- `map`
+- `stack`  
+and the following functionnalities
+- `iterators_traits`
+- `reverse_iterator`
+- `enable_if`
+- `is_integral`
+- `equal/lexicographical compare`
+- `std::pair`
+- `std::make_pair`
 
-- [x] read the subject :no_mouth:
-- [x] iterators_traits
-- [x] reverse_iterator
-- [x] enable_if
-- [x] is_integral
-- [x] equal/lexicographical compare
-- [x] equal
-- [x] std::pair
-- [x] std::make_pair
-- [x] vector
-- [x] stack
-- [x] Red Black Tree
-- [x] map
-- [x] Tests
-- [ ] Speed tests
+# Testing
 
+![Time comparison between my (ft) and offical conatiners (std)](misc/Compare_Time.PNG)
+
+This project can be tested by performing a `make` command at the root of the repository.
+This command will generate 3 binaries and run them:
+ - `ft` : to run the tests using this project containers.
+ - `std` : to run the tests using the stl/std containers
+ - `compare_time` : can be used to compare timings
+```shell
+./compare_time "ft.res" "std.res"
+```
+with `"ft.res"` and `"std.res"` the output from the `ft` and the `std` binaries
+```shell
+./ft "ft.res"
+./std "std.res"
+```
 
 ## Acknowledgements
 
@@ -35,5 +46,3 @@ Re-implementation of some containers present in C++.
 ## License
 
 Everything in this repository is released under the [Unlicense](https://github.com/tderwedu/42cursus/blob/main/LICENSE).
-
-]
