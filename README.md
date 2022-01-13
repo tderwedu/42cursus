@@ -24,7 +24,7 @@ Learn more about 42 [here](https://www.42.fr/42-network/).
 11. [C++](https://github.com/tderwedu/42cursus/tree/main/11_CPP)
 12. [Inception](https://github.com/tderwedu/42cursus/tree/main/12_Inception)
 13. [ft_containers](https://github.com/tderwedu/42cursus/tree/main/13_ft_containers)
-14. [Webserver](https://github.com/tderwedu/42cursus/tree/main/14_Webserver)
+14. [Webserv](https://github.com/tderwedu/42cursus/tree/main/14_Webserv)
 
 ## How to use it
 > Note:  
