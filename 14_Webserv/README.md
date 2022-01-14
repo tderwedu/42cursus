@@ -21,12 +21,12 @@ to be tested with a real browser.
 
 ### HTTP 1.1
 
- - [ RFC 7230 : Message Syntax and Routing](https://www.rfc-editor.org/rfc/rfc7230.html)
- - [ RFC 7231 : Semantics and Content](https://www.rfc-editor.org/rfc/rfc7231.html)
- - [ RFC 7232 : Conditional Requests](https://www.rfc-editor.org/rfc/rfc7232.html)
- - [ RFC 7233 : Range Requests](https://www.rfc-editor.org/rfc/rfc7233.html)
- - [ RFC 7234 : Caching](https://www.rfc-editor.org/rfc/rfc7234.html)
- - [ RFC 7235 : Authentication](https://www.rfc-editor.org/rfc/rfc7235.html)
+ - [RFC 7230 : Message Syntax and Routing](https://www.rfc-editor.org/rfc/rfc7230.html)
+ - [RFC 7231 : Semantics and Content](https://www.rfc-editor.org/rfc/rfc7231.html)
+ - [RFC 7232 : Conditional Requests](https://www.rfc-editor.org/rfc/rfc7232.html)
+ - [RFC 7233 : Range Requests](https://www.rfc-editor.org/rfc/rfc7233.html)
+ - [RFC 7234 : Caching](https://www.rfc-editor.org/rfc/rfc7234.html)
+ - [RFC 7235 : Authentication](https://www.rfc-editor.org/rfc/rfc7235.html)
 
 ### CGI
 
