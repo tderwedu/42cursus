@@ -10,7 +10,7 @@ to be tested with a real browser.
 
 - [ ] Chapter 14 Advanced Programming in UNIX Environment: Advanced IO
 - [x] Chapter 16 Advanced Programming in UNIX Environment: Network IPC: Sockets
-- [ ] RFC 7230 : Message Syntax and Routing (30%)
+- [x] RFC 7230 : Message Syntax and Routing
 - [ ] RFC 7231 : Semantics and Content
 - [ ] RFC 7232 : Conditional Requests
 - [ ] RFC 7233 : Range Requests
