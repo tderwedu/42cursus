@@ -8,14 +8,16 @@ to be tested with a real browser.
 
 ### Documentation
 
-- [ ] Chapter 14 Advanced Programming in UNIX Environment: Advanced IO
+- [x] Chapter 14 Advanced Programming in UNIX Environment: Advanced IO
 - [x] Chapter 16 Advanced Programming in UNIX Environment: Network IPC: Sockets
 - [x] RFC 7230 : Message Syntax and Routing
-- [ ] RFC 7231 : Semantics and Content
+- [ ] RFC 7231 : Semantics and Content (30%)
+<!-- 
 - [ ] RFC 7232 : Conditional Requests
 - [ ] RFC 7233 : Range Requests
 - [ ] RFC 7234 : Caching
 - [ ] RFC 7235 : Authentication
+-->
 
 ## Ressources
 
