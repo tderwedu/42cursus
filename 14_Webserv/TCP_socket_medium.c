@@ -9,7 +9,7 @@
 #include <netinet/in.h>
 #include <string.h>
 
-#define PORT 8080
+#define PORT 80
 int main(int argc, char const *argv[])
 {
 	(void)argc;
@@ -61,7 +61,7 @@ int main(int argc, char const *argv[])
 		printf("%s\n",buffer );
 		write(new_socket , hello , strlen(hello));
 		printf("------------------Hello message sent-------------------\n");
-		close(new_socket);
+		// close(new_socket);
 	}
 	return 0;
 }
