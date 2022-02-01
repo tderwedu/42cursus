@@ -42,25 +42,25 @@ The implementation is based on a recursive parsing technique. After getting the 
 The implemented shell language grammar is defined as follows in [Backus–Naur form](https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form):
 
 ```c
-<pipe seq>	::	<command>  '|'  <pipe seq>
-			|	<command>
+<pipe seq>	::= <command>  '|'  <pipe seq>
+             |  <command>
 
-<command>	::=	   WORD		<cmd lst>
-			|	<io redir>	<cmd lst>
+<command>	::=    WORD     <cmd lst>
+            |   <io redir>  <cmd lst>
 
-<cmd lst>	::=	   WORD		<cmd lst>
-		 	|	<io redir>	<cmd lst>
+<cmd lst>	::=    WORD     <cmd lst>
+             |  <io redir>  <cmd lst>
 
-<io redir>	::=	 IO_NBR		<io file>
-		 	|	 IO_NBR		<io here>
-			|	<io file>
-		 	|	<io here>
+<io redir>	::=  IO_NBR     <io file>
+             |   IO_NBR     <io here>
+             |  <io file>
+             |  <io here>
 
-<io file>	::=	   '<' 		WORD
-		 	|	   '>' 		WORD
-		 	|	   '>>'		WORD
+<io file>	::=    '<'      WORD
+             |     '>'      WORD
+             |     '>>'     WORD
 
-<io here>	::=	   '<<' 	WORD
+<io here>	::=    '<<'     WORD
 ```
 
 For each production, there is one function which validates its corresponding rule. The purpose is to recursively check if the order of tokens belongs to a particular grammar. This reduces down to check for terminal symbols and non-terminals.
