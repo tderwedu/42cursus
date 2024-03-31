@@ -55,7 +55,7 @@ These applications create processes which listen on a particular port number. Tr
 
 ### `Application`
 Describes how applications use the network.
-### `Transport`**`
+### `Transport`
 TCP or UDP creates and maintains sessions between application processes on different hosts. They use port numbers to track sessions.
 ### `Network`
 Converts data segment or datagram into packets by adding a header with the source and destination IPs.
